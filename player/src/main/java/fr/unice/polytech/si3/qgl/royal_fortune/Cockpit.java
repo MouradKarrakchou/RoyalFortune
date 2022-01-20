@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.teamid;
+package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import java.util.ArrayList;
 import java.util.List;
