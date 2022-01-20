@@ -1,13 +1,13 @@
 ![](/flag.png)
 
-# Team member
-* [LE BIHAN Léo](https://github.com/LeBihanLeo)
+# Crew members
 * [BONNET Kilian](https://github.com/KilianBonnet)
-* [KARRAKCHOU Mourad](https://github.com/MouradKarrakchou)
 * [IMAMI Ayoub](https://github.com/AyoubIMAMI)
+* [LE BIHAN Léo](https://github.com/LeBihanLeo)
+* [KARRAKCHOU Mourad](https://github.com/MouradKarrakchou)
 
-# Team name
+# Crew name
 Royal Fortune's crew
 
-# Boat Name
+# Ship Name
 Royal Fortune
