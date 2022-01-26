@@ -40,7 +40,7 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.databind.version}</version>
-			<scope>provided</scope>
+			<scope>compiles</scope>
 		</dependency>
 
 		<!-- Testing -->
