@@ -9,6 +9,7 @@ public class Position {
 	private double y;
 	private double orientation;
 	
+	public Position() {}
 	public Position(double x, double y, double orientation) {
 		this.x = x;
 		this.y = y;
@@ -24,5 +25,10 @@ public class Position {
 	public double getOrientation() {
 		return orientation;
 	}
+	@Override
+	public String toString() {
+		return "Position [x=" + x + ", y=" + y + ", orientation=" + orientation + "]";
+	}
+	
 	
 }

@@ -1,8 +1,8 @@
 {
   "type" : "ship",
-  "life" : 150,
+  "life" : 100,
   "position" : null,
-  "name" : "HelloWolrd",
+  "name" : "ougougoug",
   "deck" : null,
   "entities" : null,
   "shape" : null
