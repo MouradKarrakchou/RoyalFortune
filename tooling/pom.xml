@@ -12,6 +12,8 @@
 		<java.version>17</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<jackson.databind.version>2.13.1</jackson.databind.version>
+		
 	</properties>
 
 	<dependencies>
@@ -19,6 +21,14 @@
 			<groupId>fr.unice.polytech.si3.qgl</groupId>
 			<artifactId>royal_fortune</artifactId> <!-- CHANGE ME -->
 			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Serialization -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.databind.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

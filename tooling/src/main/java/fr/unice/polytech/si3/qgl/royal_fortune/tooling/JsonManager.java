@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune;
+package fr.unice.polytech.si3.qgl.royal_fortune.tooling;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class JsonManager {
         System.out.println(postJson);
 
         // Save JSON string to file
-        FileOutputStream fileOutputStream = new FileOutputStream("post.json");
+        FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir")+"/src/ressources/data.json");
         mapper.writeValue(fileOutputStream, ship);
         fileOutputStream.close();
 	}

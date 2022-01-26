@@ -1,0 +1,13 @@
+{
+  "type" : "ship",
+  "life" : 100,
+  "position" : {
+    "x" : 1.0,
+    "y" : 2.0,
+    "orientation" : 3.0
+  },
+  "name" : "ougougoug",
+  "deck" : null,
+  "entities" : null,
+  "shape" : null
+}
