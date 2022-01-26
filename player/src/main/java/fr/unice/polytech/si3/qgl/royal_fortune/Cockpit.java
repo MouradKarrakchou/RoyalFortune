@@ -5,6 +5,10 @@ import java.util.List;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
 
+/**
+ * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Cockpit implements ICockpit {
 
 	public void initGame(String game) {
