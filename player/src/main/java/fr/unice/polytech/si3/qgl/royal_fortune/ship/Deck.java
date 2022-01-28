@@ -9,6 +9,7 @@ public class Deck {
 	private int length;
 	
 	public Deck() {}
+
 	public Deck(int width, int length) {
 		this.width = width;
 		this.length = length;

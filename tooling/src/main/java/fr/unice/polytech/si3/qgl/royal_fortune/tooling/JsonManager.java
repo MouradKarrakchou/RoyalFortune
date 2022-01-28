@@ -16,7 +16,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 public class JsonManager {
 
-	public static Ship readJson(String json) throws JsonMappingException, JsonProcessingException {
+	public static Ship readJson(String json) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
@@ -30,7 +30,6 @@ public class JsonManager {
 		return new String(Files.readAllBytes(Paths.get(file)));
 	}
 
-	
 	public static void convertToJson(Ship ship) throws IOException {
 		 ObjectMapper mapper = new ObjectMapper();
 	     mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -39,7 +38,7 @@ public class JsonManager {
         System.out.println(postJson);
 
         // Save JSON string to file
-        FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir")+"/src/ressources/data.json");
+        FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir")+"/tooling/src/ressources/data.json");
         mapper.writeValue(fileOutputStream, ship);
         fileOutputStream.close();
 	}
