@@ -1,4 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling;
+import fr.unice.polytech.si3.qgl.royal_fortune.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 public class Main {
@@ -12,6 +13,9 @@ public class Main {
 		Ship ship = JsonManager.readJson(shipJson);
 		System.out.println(ship.toString());
 		System.out.println("--------end--------");
+		
+		String actionJson = JsonManager.writeJsonAction();
+		System.out.println(actionJson);
 	}
 
 }
