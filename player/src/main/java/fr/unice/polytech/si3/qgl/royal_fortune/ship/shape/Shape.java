@@ -7,6 +7,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.ship.shape;
 public class Shape {
 	private String type;
 
+	public Shape() {}
 	public Shape(String type) {
 		this.type = type;
 	}
@@ -14,4 +15,10 @@ public class Shape {
 	public String getType() {
 		return type;
 	}
+	@Override
+	public String toString() {
+		return "Shape [type=" + type + "]";
+	}
+	
+	
 }

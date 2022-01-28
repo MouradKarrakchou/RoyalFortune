@@ -8,6 +8,7 @@ public class Deck {
 	private int width;
 	private int length;
 	
+	public Deck() {}
 	public Deck(int width, int length) {
 		this.width = width;
 		this.length = length;
@@ -20,5 +21,9 @@ public class Deck {
 	public int getLength() {
 		return length;
 	}
-		
+	
+	@Override
+	public String toString() {
+		return "Deck [width=" + width + ", length=" + length + "]";
+	}		
 }

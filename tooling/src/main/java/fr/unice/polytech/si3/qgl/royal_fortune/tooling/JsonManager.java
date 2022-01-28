@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -17,6 +18,7 @@ public class JsonManager {
 
 	public static Ship readJson(String json) throws JsonMappingException, JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
 		Ship readValue = mapper.readValue(json, Ship.class);
 		return readValue;
@@ -40,5 +42,12 @@ public class JsonManager {
         FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir")+"/src/ressources/data.json");
         mapper.writeValue(fileOutputStream, ship);
         fileOutputStream.close();
+	}
+	
+	public static String getNode(String json, String searchNode) throws JsonMappingException, JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	    JsonNode actualObj = mapper.readTree(json);
+	    JsonNode shipJson = actualObj.get(searchNode);
+	    return shipJson.toString();
 	}
 }

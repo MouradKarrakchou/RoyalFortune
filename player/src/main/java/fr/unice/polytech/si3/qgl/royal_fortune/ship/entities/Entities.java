@@ -10,6 +10,7 @@ public class Entities {
 	private int x;
 	private int y;
 	
+	public Entities() {}
 	public Entities(String type, int x, int y) {
 		this.type = type;
 		this.x = x;
@@ -25,5 +26,11 @@ public class Entities {
 	public int getY() {
 		return y;
 	}
+	@Override
+	public String toString() {
+		return "Entities [type=" + type + ", x=" + x + ", y=" + y + "]";
+	}
+	
+	
 	
 }

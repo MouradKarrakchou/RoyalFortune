@@ -6,6 +6,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.ship.entities;
  */
 public class Oar extends Entities{
 
+	public Oar() {}
 	public Oar(String type, int x, int y) {
 		super(type, x, y);
 	}
