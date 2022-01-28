@@ -5,7 +5,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 public class Main {
 
 	public static void main(String[] args) throws Exception {	
-		String file = System.getProperty("user.dir")+"/src/ressources/data.json";
+		String file = System.getProperty("user.dir")+"/tooling/src/ressources/data.json";
 		String json = JsonManager.readFileAsString(file);
         	
 		System.out.println("-------start-------");

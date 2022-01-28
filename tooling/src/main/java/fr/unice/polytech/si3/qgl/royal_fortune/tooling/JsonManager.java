@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -15,11 +14,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 public class JsonManager {
 
-	public static Ship readJson(String json) throws JsonMappingException, JsonProcessingException {
+	public static Ship readJson(String json) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-		Ship readValue = mapper.readValue(json, Ship.class);
-		return readValue;
+		return mapper.readValue(json, Ship.class);
 	}
 
 	public static void writeJson(String json) {}
@@ -28,7 +25,6 @@ public class JsonManager {
 		return new String(Files.readAllBytes(Paths.get(file)));
 	}
 
-	
 	public static void convertToJson(Ship ship) throws IOException {
 		 ObjectMapper mapper = new ObjectMapper();
 	     mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -37,7 +33,7 @@ public class JsonManager {
         System.out.println(postJson);
 
         // Save JSON string to file
-        FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir")+"/src/ressources/data.json");
+        FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir")+"/tooling/src/ressources/data.json");
         mapper.writeValue(fileOutputStream, ship);
         fileOutputStream.close();
 	}

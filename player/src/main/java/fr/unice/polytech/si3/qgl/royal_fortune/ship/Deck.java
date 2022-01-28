@@ -7,11 +7,13 @@ package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 public class Deck {
 	private int width;
 	private int length;
-	
+
 	public Deck(int width, int length) {
 		this.width = width;
 		this.length = length;
 	}
+
+	public Deck(){}
 
 	public int getWidth() {
 		return width;
@@ -20,5 +22,5 @@ public class Deck {
 	public int getLength() {
 		return length;
 	}
-		
+
 }

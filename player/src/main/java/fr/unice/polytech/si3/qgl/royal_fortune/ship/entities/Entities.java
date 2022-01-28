@@ -15,6 +15,8 @@ public class Entities {
 		this.x = x;
 		this.y = y;
 	}
+
+	public Entities(){}
 	
 	public String getType() {
 		return type;

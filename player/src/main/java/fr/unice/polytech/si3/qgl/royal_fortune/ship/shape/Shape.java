@@ -11,6 +11,8 @@ public class Shape {
 		this.type = type;
 	}
 
+	public Shape(){}
+
 	public String getType() {
 		return type;
 	}
