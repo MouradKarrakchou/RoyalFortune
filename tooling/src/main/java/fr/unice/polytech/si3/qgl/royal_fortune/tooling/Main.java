@@ -14,7 +14,7 @@ public class Main {
 		System.out.println(ship.toString());
 		System.out.println("--------end--------");
 		
-		String actionJson = JsonManager.writeJsonAction();
+		String actionJson = JsonManager.writeJsonAction(null);
 		System.out.println(actionJson);
 	}
 

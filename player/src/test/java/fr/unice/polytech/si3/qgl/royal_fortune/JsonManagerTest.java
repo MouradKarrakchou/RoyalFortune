@@ -7,9 +7,14 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonManagerTest {
+    JsonManager jsonManager = new JsonManager();
 
     @BeforeEach
     void init(){
@@ -39,10 +44,17 @@ public class JsonManagerTest {
 
     @Test
     void writeJsonActionTest() throws JsonProcessingException {
-        JsonManager jsonManager = new JsonManager();
+        List<Integer> list = new ArrayList<>();
+        list.add(0);
+        list.add(1);
+
         String actionDone = "[{\"sailorId\":0,\"type\":\"OAR\"},{\"sailorId\":1,\"type\":\"OAR\"}]";
 
-        //assertEquals(actionDone,jsonManager.writeJsonAction());
+        assertEquals(actionDone,jsonManager.writeJsonAction(list));
+    }
+
+    void getNodeTest() throws JsonProcessingException {
+
     }
 
 
