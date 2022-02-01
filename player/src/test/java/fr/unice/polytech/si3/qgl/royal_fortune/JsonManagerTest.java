@@ -53,8 +53,31 @@ public class JsonManagerTest {
         assertEquals(actionDone,jsonManager.writeJsonAction(list));
     }
 
-    void getNodeTest() throws JsonProcessingException {
+    @Test
+    void getNodeTest() throws Exception {
+        String json = "\"ship\": {\n" +
+                "    \"type\": \"ship\",\n" +
+                "    \"life\": 100,\n" +
+                "    \"position\": {\n" +
+                "      \"x\": 0,\n" +
+                "      \"y\": 0,\n" +
+                "      \"orientation\": 0\n" +
+                "    },\n" +
+                "    \"name\": \"Les copaings d'abord!\",\n" +
+                "    \"deck\": {\n" +
+                "      \"width\": 3,\n" +
+                "      \"length\": 6\n" +
+                "    }";
 
+//        String result = "{\n" +
+//        "      \"x\": 0,\n" +
+//                "      \"y\": 0,\n" +
+//                "      \"orientation\": 0\n" +
+//                "    }";
+
+        String result = "100";
+
+        assertEquals(result,jsonManager.getNode(json, "life"));
     }
 
 
