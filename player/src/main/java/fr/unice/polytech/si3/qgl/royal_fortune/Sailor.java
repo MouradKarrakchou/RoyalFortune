@@ -1,17 +1,20 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.ship.entities;
+package fr.unice.polytech.si3.qgl.royal_fortune;
 
 /**
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
-public class Sailor extends Entities{
-	Integer id;
+public class Sailor{
+	private int id;
+	private int x;
+	private int y;
 	private String name;
 	
 	public Sailor() {}
-	public Sailor(String type, int x, int y,int id,String name) {
-		super(type, x, y);
+	public Sailor(int id, int x, int y, String name) {
 		this.id=id;
+		this.x=x;
+		this.y=y;
 		this.name = name;
 	}
 	

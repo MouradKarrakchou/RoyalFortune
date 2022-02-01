@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
 import java.util.ArrayList;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
@@ -29,7 +30,7 @@ public class Ship {
 		this.entities = entities;
 		this.shape = shape;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
