@@ -23,8 +23,7 @@ public class JsonManager {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
-		Ship readValue = mapper.readValue(json, Ship.class);
-		return readValue;
+		return mapper.readValue(json, Ship.class);
 	}
 
 	public static String writeJsonAction() throws JsonProcessingException {
@@ -34,8 +33,7 @@ public class JsonManager {
 		listOfActions.add(new Action(0, "OAR"));
 		listOfActions.add(new Action(1, "OAR"));
 
-		String postJson = mapper.writeValueAsString(listOfActions);
-		return postJson;
+		return mapper.writeValueAsString(listOfActions);
 	}
 
 	public static String readFileAsString(String file) throws Exception {
