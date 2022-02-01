@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -27,13 +28,13 @@ public class JsonManager {
 		return readValue;
 	}
 
-	public static String writeJsonAction() throws JsonProcessingException {
+	public static String writeJsonAction(List<Integer> id) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayNode arrayOfActions = mapper.createArrayNode();
 		ArrayList<Action> listOfActions = new ArrayList<>();
-		listOfActions.add(new Action(0, "OAR"));
-		listOfActions.add(new Action(1, "OAR"));
-
+		for (Integer integer : id) {
+			listOfActions.add (new Action(integer,"OAR"));
+		}
 		String postJson = mapper.writeValueAsString(listOfActions);
 		return postJson;
 	}
