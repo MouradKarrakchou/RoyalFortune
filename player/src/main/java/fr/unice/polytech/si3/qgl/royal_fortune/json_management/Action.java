@@ -29,4 +29,11 @@ public class Action  {
 	public String getType() {
 		return type;
 	}
+
+	@Override
+	public String toString() {
+		return "Action [sailorId=" + sailorId + ", type=" + type + "]";
+	}
+	
+	
 }
