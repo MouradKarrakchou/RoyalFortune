@@ -24,8 +24,7 @@ public class JsonManager {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
-		Ship readValue = mapper.readValue(json, Ship.class);
-		return readValue;
+		return mapper.readValue(json, Ship.class);
 	}
 
 	public static String writeJsonAction(List<Integer> id) throws JsonProcessingException {
