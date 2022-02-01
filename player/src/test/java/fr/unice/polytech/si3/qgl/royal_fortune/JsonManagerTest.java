@@ -26,5 +26,5 @@ public class JsonManagerTest {
         assertEquals(actionDone,jsonManager.writeJsonAction());
     }
 
-    
+
 }

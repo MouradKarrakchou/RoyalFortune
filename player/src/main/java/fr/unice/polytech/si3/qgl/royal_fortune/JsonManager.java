@@ -28,7 +28,6 @@ public class JsonManager {
 
 	public static String writeJsonAction() throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
-		ArrayNode arrayOfActions = mapper.createArrayNode();
 		ArrayList<Action> listOfActions = new ArrayList<>();
 		listOfActions.add(new Action(0, "OAR"));
 		listOfActions.add(new Action(1, "OAR"));
@@ -54,7 +53,7 @@ public class JsonManager {
 		fileOutputStream.close();
 	}
 
-	public static String getNode(String json, String searchNode) throws JsonMappingException, JsonProcessingException {
+	public static String getNode(String json, String searchNode) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		JsonNode actualObj = mapper.readTree(json);
 		JsonNode shipJson = actualObj.get(searchNode);
