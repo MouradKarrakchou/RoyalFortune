@@ -1,0 +1,122 @@
+{
+    "goal": {
+        "mode": "REGATTA",
+        "checkpoints": [{
+            "position": {
+                "x": 10000.0,
+                "y": 0.0
+            },
+            "shape": {
+                "type": "circle",
+                "radius": 50.0
+            }
+        }]
+    },
+    "ship": {
+        "name": "Les copaings d'abord!",
+        "life": 100,
+        "deck": {
+            "length": 1,
+            "width": 2
+        },
+        "entities": [
+            {
+                "type": "oar",
+                "x": 0,
+                "y": 0
+            },
+            {
+                "type": "oar",
+                "x": 0,
+                "y": 1
+            }
+        ]
+    },
+    "startingPositions": [
+        {
+            "x": -1000.0,
+            "y": 0.0,
+            "orientation": 0.0
+        }
+    ],
+    "wind": {
+        "direction": 0,
+        "strenght": 0
+    },
+    "seaEntities": [
+        {
+            "position": {
+                "x": 100,
+                "y": 0,
+                "orientation": 0
+            },
+            "type": "reef",
+            "shape": {
+                "type": "rectangle",
+                "width": 500,
+                "height": 1000
+            }
+        },
+        {
+            "position": {
+                "x": 2000,
+                "y": 0,
+                "orientation": 0
+            },
+            "type": "reef",
+            "shape": {
+                "type": "polygon",
+                "vertices": [
+                    {
+                        "x": -500,
+                        "y": -500
+                    },
+                    {
+                        "x": 500,
+                        "y": -500
+                    },
+                    {
+                        "x": 0,
+                        "y": 200
+                    }
+                ]
+            }
+        },
+        {
+            "position": {
+                "x": 4000,
+                "y": 0,
+                "orientation": 0
+            },
+            "type": "reef",
+            "shape": {
+                "type": "polygon",
+                "vertices": [
+                    {
+                        "x": -136,
+                        "y": -596
+                    },
+                    {
+                        "x": 164,
+                        "y": -336
+                    },
+                    {
+                        "x": 324,
+                        "y": 64
+                    },
+                    {
+                        "x": 284,
+                        "y": 704
+                    },
+                    {
+                        "x": -636,
+                        "y": 164
+                    }
+                ]
+            }
+        }
+    ],
+    "maxRound": 50,
+    "minumumCrewSize": 2,
+    "maximumCrewSize": 2
+}
