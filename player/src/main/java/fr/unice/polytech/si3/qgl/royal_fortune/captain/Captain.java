@@ -39,7 +39,7 @@ public class Captain {
         }
     }
 
-    public void askSailorToMove(){
+    public void askSailorsToMove(){
         roundActions.addAll(sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)
                 .filter(sailor -> !sailor.isOnTheTargetEntity())
