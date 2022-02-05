@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -16,16 +17,21 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 public class Cockpit implements ICockpit {
 	private Ship ship;
 	private ArrayList<Sailor> sailors;
+	private Goal goal;
 	private Captain captain;
 
 	public void initGame(String game) {
 		System.out.println("Init game input: " + game);
 
+		// Initialize the ship
 		String shipJson = JsonManager.getNode(game, "ship");
-		ship = (Ship) JsonManager.readJson(shipJson, "ship");
+		ship = JsonManager.readShipJson(shipJson);
 		
 		String sailorsJson = JsonManager.getNode(game, "sailors");
-		sailors = (ArrayList<Sailor>) JsonManager.readJson(sailorsJson, "sailors");
+		sailors = JsonManager.readSailorsJson(sailorsJson);
+
+		String checkpointsJson = JsonManager.getNode(game,"goal");
+		goal = JsonManager.readGoalJson(checkpointsJson);
 
 		captain = new Captain(ship, sailors);
 	}

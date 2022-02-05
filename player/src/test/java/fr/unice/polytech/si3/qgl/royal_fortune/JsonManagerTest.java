@@ -34,7 +34,7 @@ public class JsonManagerTest {
                 },
                 "name": "Boat test"
             }""";
-        Ship ship = (Ship) JsonManager.readJson(json, "ship");
+        Ship ship = JsonManager.readShipJson(json);
 
         assertEquals("ship", ship.getType());
         assertEquals(100, ship.getLife());
