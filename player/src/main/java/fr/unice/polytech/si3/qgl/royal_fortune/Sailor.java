@@ -60,6 +60,18 @@ public class Sailor{
 
 		// If there is a target entity and the sailor can not go to in one turn (> 5 cases).
 		// CODE HERE ...
+		else{
+			int i = 0 ;
+			int posX = 0;
+			int posY = 0;
+			int vect = (targetEntity.getX()-this.x)<0 ? -1 : 1;
+			for(; i<5 || this.x+posX == targetEntity.getX(); i++)
+				posX+=i*vect;
+			if(i != 4)
+				for(; i<5 || this.x+posY == targetEntity.getY(); i++)
+					posY+=i*vect;
+			movingAction = new MovingAction(this, posX - x, posY - y);
+		}
 
 		return movingAction;
 	}
