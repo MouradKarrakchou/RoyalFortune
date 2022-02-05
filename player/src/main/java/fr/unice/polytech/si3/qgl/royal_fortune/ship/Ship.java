@@ -1,9 +1,11 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 /**
@@ -52,14 +54,18 @@ public class Ship {
 	public Shape getShape() {
 		return shape;
 	}
-	
-	
+
+	public ArrayList<Oar> getOarList(String orientation) {
+		 return (ArrayList<Oar>) entities.stream()
+				 .filter(entity -> entity instanceof Oar)
+				 .map(Oar.class::cast)
+				 .filter(oar -> oar.isLeft() == orientation.equals("left"))
+				 .collect(Collectors.toList());
+	}
+
 	@Override
 	public String toString() {
 		return "Ship [life=" + life + ", position=" + position + ", name=" + name + ", deck=" + deck + ", entities="
 				+ entities + ", shape=" + shape + "]";
 	}
-
-	
-	
 }

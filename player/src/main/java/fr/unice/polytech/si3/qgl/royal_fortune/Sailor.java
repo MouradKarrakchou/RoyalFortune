@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 /**
@@ -21,6 +22,14 @@ public class Sailor{
 		this.y = y;
 		this.name = name;
 	}
+
+	public void setTargetEntity(Entities targetEntity) {
+		this.targetEntity = targetEntity;
+	}
+
+	public Entities getTargetEntity(){
+		return targetEntity;
+	}
 	
 	public String getName() {
 		return name;
@@ -30,7 +39,26 @@ public class Sailor{
 		return (id);
 	}
 
-	public void moveToTarget(){
+	/**
+	 * Called by the Captain, call a sailor to move to its targetEntity.
+	 * @return A MovingAction that will be added to the action list.
+	 */
+	public MovingAction moveToTarget(){
+		// If sailor don't have a target entity, sailor can't go to this target.
+		if (targetEntity == null)
+			return null;
 
+		// If there is a target entity and the sailor can go to in one turn (>= 5 cases).
+		MovingAction movingAction = null;
+		if(Math.abs(targetEntity.getX() - x) + Math.abs(targetEntity.getY() - y) <= 5){
+			this.x = targetEntity.getX();
+			this.y = targetEntity.getY();
+			movingAction = new MovingAction(this, targetEntity.getX() - x, targetEntity.getY() - y);
+		}
+
+		// If there is a target entity and the sailor can not go to in one turn (> 5 cases).
+		// CODE HERE ...
+
+		return movingAction;
 	}
 }

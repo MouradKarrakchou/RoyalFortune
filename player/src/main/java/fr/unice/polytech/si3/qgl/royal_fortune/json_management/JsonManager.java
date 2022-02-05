@@ -49,166 +49,132 @@ public class JsonManager {
 		return null;
 	}
 
-	public static String writeJsonAction(List<Integer> id) {
-		ObjectMapper mapper = new ObjectMapper();
-		ArrayList<Action> listOfActions = new ArrayList<>();
-		for (Integer integer : id) {
-			listOfActions.add (new Action(integer,"OAR"));
-		}
-		String postJson = "";
-		try {
-			postJson = mapper.writeValueAsString(listOfActions);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(postJson);
-		return postJson;
-	}
-
-	public static String readFileAsString(String file) throws Exception {
-		return new String(Files.readAllBytes(Paths.get(file)));
-	}
-
-	public static void convertToJson(Ship ship) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		// Convert object to JSON string
-		String postJson = mapper.writeValueAsString(ship);
-		System.out.println(postJson);
-
-		// Save JSON string to file
-		FileOutputStream fileOutputStream = new FileOutputStream(
-				System.getProperty("user.dir") + "/tooling/src/ressources/data.json");
-		mapper.writeValue(fileOutputStream, ship);
-		fileOutputStream.close();
-	}
 
 	public static String getNode(String json, String searchNode){
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		JsonNode actualObj = new JsonNode() {
-			
+
 			@Override
 			public void serializeWithType(JsonGenerator gen, SerializerProvider serializers, TypeSerializer typeSer)
 					throws IOException {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void serialize(JsonGenerator gen, SerializerProvider serializers) throws IOException {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public JsonParser traverse(ObjectCodec codec) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public JsonParser traverse() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public NumberType numberType() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public JsonToken asToken() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public String toString() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public JsonNode path(int index) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public JsonNode path(String fieldName) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public JsonNodeType getNodeType() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public JsonNode get(int index) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public List<String> findValuesAsText(String fieldName, List<String> foundSoFar) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public List<JsonNode> findValues(String fieldName, List<JsonNode> foundSoFar) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public JsonNode findValue(String fieldName) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public JsonNode findPath(String fieldName) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public List<JsonNode> findParents(String fieldName, List<JsonNode> foundSoFar) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public JsonNode findParent(String fieldName) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public boolean equals(Object o) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public <T extends JsonNode> T deepCopy() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public String asText() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			protected JsonNode _at(JsonPointer ptr) {
 				// TODO Auto-generated method stub
