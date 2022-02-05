@@ -1,46 +1,44 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.Goal;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
+import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 /**
- * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
 public class Cockpit implements ICockpit {
 	private Ship ship;
 	private ArrayList<Sailor> sailors;
+	private Goal goal;
+	private Captain captain;
 
 	public void initGame(String game) {
 		System.out.println("Init game input: " + game);
-		
+
+		// Initialize the ship
 		String shipJson = JsonManager.getNode(game, "ship");
-		ship = (Ship) JsonManager.readJson(shipJson, "ship");
+		ship = JsonManager.readShipJson(shipJson);
 		
 		String sailorsJson = JsonManager.getNode(game, "sailors");
-		sailors = (ArrayList<Sailor>) JsonManager.readJson(sailorsJson, "sailors");
-		
-		System.out.println(ship);
+		sailors = JsonManager.readSailorsJson(sailorsJson);
+
+		String checkpointsJson = JsonManager.getNode(game,"goal");
+		goal = JsonManager.readGoalJson(checkpointsJson);
+
+		captain = new Captain(ship, sailors);
 	}
 
 	public String nextRound(String round) {
 		System.out.println("Next round input: " + round);
-		return JsonManager.writeJsonAction(idOfSailors());
-
-		/*
-		 * return " [{" + "    \"sailorId\": 0," + "    \"type\": \"OAR\"" + "  }," +
-		 * "  {" + "    \"sailorId\": 1," + "    \"type\": \"OAR\"" + "  }]";
-		 */
-	}
-
-	public List<Integer> idOfSailors() {
-		return sailors.stream().map(entities -> ((Sailor) entities).getId()).collect(Collectors.toList());
+		return "";
 	}
 
 	@Override
