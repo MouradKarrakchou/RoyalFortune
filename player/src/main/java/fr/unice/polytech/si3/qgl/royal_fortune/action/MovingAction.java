@@ -31,4 +31,14 @@ public class MovingAction extends Action {
         }
         return "";
     }
+
+	public int getxDistance() {
+		return xDistance;
+	}
+
+	public int getyDistance() {
+		return yDistance;
+	}
+    
+    
 }
