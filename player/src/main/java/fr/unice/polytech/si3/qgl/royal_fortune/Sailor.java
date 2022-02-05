@@ -39,6 +39,10 @@ public class Sailor{
 		return (id);
 	}
 
+	public boolean isOnTheTargetEntity(){
+		return (x == targetEntity.getX() && y == targetEntity.getY());
+	}
+
 	/**
 	 * Called by the Captain, call a sailor to move to its targetEntity.
 	 * @return A MovingAction that will be added to the action list.
@@ -51,8 +55,6 @@ public class Sailor{
 		// If there is a target entity and the sailor can go to in one turn (>= 5 cases).
 		MovingAction movingAction = null;
 		if(Math.abs(targetEntity.getX() - x) + Math.abs(targetEntity.getY() - y) <= 5){
-			this.x = targetEntity.getX();
-			this.y = targetEntity.getY();
 			movingAction = new MovingAction(this, targetEntity.getX() - x, targetEntity.getY() - y);
 		}
 

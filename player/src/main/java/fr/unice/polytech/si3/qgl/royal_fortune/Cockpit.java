@@ -32,7 +32,7 @@ public class Cockpit implements ICockpit {
 
 	public String nextRound(String round) {
 		System.out.println("Next round input: " + round);
-
+		return "";
 	}
 
 	@Override

@@ -5,8 +5,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Captain {
     private final Ship ship;
@@ -40,6 +40,14 @@ public class Captain {
     }
 
     public void askSailorToMove(){
+        roundActions.addAll(sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() != null)
+                .filter(sailor -> !sailor.isOnTheTargetEntity())
+                .map(Sailor::moveToTarget)
+                .collect(Collectors.toList()));
+    }
 
+    public ArrayList<Action> getRoundActions(){
+        return roundActions;
     }
 }
