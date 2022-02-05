@@ -1,16 +1,15 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
+import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 /**
- * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
 public class Cockpit implements ICockpit {
@@ -32,11 +31,6 @@ public class Cockpit implements ICockpit {
 	public String nextRound(String round) {
 		System.out.println("Next round input: " + round);
 		return JsonManager.writeJsonAction(idOfSailors());
-
-		/*
-		 * return " [{" + "    \"sailorId\": 0," + "    \"type\": \"OAR\"" + "  }," +
-		 * "  {" + "    \"sailorId\": 1," + "    \"type\": \"OAR\"" + "  }]";
-		 */
 	}
 
 	public List<Integer> idOfSailors() {
