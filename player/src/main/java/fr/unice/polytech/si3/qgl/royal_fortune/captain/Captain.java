@@ -25,20 +25,41 @@ public class Captain {
      */
     public void associateSailorToOar(String orientation){
         ArrayList<Oar> oarList = ship.getOarList(orientation);
-        int sailorsIndex = 0;
-        int oarListIndex = 0;
+        int i = 0;
 
         // We continue associating until we run out of sailors or oars
-        while(oarListIndex < oarList.size() && sailorsIndex < sailors.size()){
-            if (sailors.get(sailorsIndex).getTargetEntity() == null){
-                Oar oar = oarList.get(oarListIndex);
-                oarListIndex++;
-                sailors.get(sailorsIndex).setTargetEntity(oar);
-            }
-            sailorsIndex++;
+        while(i < oarList.size() && i < sailors.size()){
+            Oar oar = oarList.get(i);
+            sailors.get(i).setTargetEntity(oar);
+            i++;
         }
     }
 
+    /**
+     * Associate the same amount of sailors to the left oars and the right oars of the ship.
+     */
+    public void associateSailorToOarEvenly(){
+        ArrayList<Oar> leftOarList = ship.getOarList("left");
+        ArrayList<Oar> rightOarList = ship.getOarList("right");
+        int oarIndex = 0;
+        int sailorIndex = 0;
+
+        // We continue associating until we run out of sailors or oars
+        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < sailors.size()){
+            Oar leftOar = leftOarList.get(oarIndex);
+            Oar rightOar = rightOarList.get(oarIndex);
+            sailors.get(sailorIndex).setTargetEntity(leftOar);
+            sailors.get(++sailorIndex).setTargetEntity(rightOar);
+            sailorIndex++;
+            oarIndex++;
+        }
+    }
+
+    /**
+     * Ask all sailors associated to an Entity to move to
+     * If the sailor is already on the Entity, sailor will not move
+     * This method update list of Action (roundActions)
+     */
     public void askSailorsToMove(){
         roundActions.addAll(sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)

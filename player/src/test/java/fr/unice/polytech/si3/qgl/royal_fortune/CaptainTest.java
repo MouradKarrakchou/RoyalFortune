@@ -96,5 +96,35 @@ public class CaptainTest {
         assertEquals(2, captain.getRoundActions().size());
     }
 
+    @Test
+    public void associateSailorToOarEvenlyTest(){
+        sailors.add(new Sailor(0, 0, 0, "sailor0"));
+        sailors.add(new Sailor(1, 0, 1, "sailor1"));
+        sailors.add(new Sailor(2, 1, 0, "sailor2"));
+        sailors.add(new Sailor(3, 1, 1, "sailor3"));
+        sailors.add(new Sailor(4, 1, 2, "sailor4"));
+        sailors.add(new Sailor(5, 2, 2, "sailor5"));
 
+        entities.add(new Oar("oar", 0, 0));
+        entities.add(new Oar("oar", 1, 0));
+        entities.add(new Oar("oar", 2, 0));
+
+        entities.add(new Oar("oar", 0, 3));
+        entities.add(new Oar("oar", 1, 3));
+
+        ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle("rectangle", 3, 4, 0));
+
+        captain = new Captain(ship, sailors);
+        captain.associateSailorToOarEvenly();
+
+        assertEquals(6, sailors.size());
+        assertEquals(4, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
+    }
 }
