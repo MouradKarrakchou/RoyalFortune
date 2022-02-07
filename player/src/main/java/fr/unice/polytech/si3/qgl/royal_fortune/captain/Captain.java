@@ -20,15 +20,16 @@ public class Captain {
     }
 
     /**
-     * Associate the maximum of sailors to a specific oar orientation.
-     * @param orientation The orientation to target ("left" or "right")
+     * Captain will associate the best number of sailors to proceed a rotation of the given angle.
+     * @param orientation The rotation of the given angle.
      */
-    public void associateSailorToOar(String orientation){
-        ArrayList<Oar> oarList = ship.getOarList(orientation);
+    public void associateSailorToOar(double orientation){
+        int maxSailors = Math.abs((int) Math.round(orientation/(Math.PI / 4)));
+        ArrayList<Oar> oarList = ship.getOarList(orientation > 0 ? "right" : "left");
         int i = 0;
 
         // We continue associating until we run out of sailors or oars
-        while(i < oarList.size() && i < sailors.size()){
+        while(i < oarList.size() && i < sailors.size() && i < maxSailors){
             Oar oar = oarList.get(i);
             sailors.get(i).setTargetEntity(oar);
             i++;
