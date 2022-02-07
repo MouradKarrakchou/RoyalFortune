@@ -26,7 +26,19 @@ public class Captain {
 
     String roundDecisions() {
         if(isInCone()) {
-            
+            if(sailorsAreInplace())
+                askSailorsToOar();
+            else
+                associateSailorToOarEvenly();
+        }
+
+        else {
+            double angleMove = getAngleMove();
+            if(sailorsAreInplace(angleMove)) {
+                askSailorsToOar();
+            }
+            else
+                associateSailorToOar(angleMove);
         }
     }
 
