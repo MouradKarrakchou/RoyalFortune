@@ -36,7 +36,7 @@ public class Cockpit implements ICockpit {
 
 	public String nextRound(String round) {
 		System.out.println("Next round input: " + round);
-		return "";
+		return captain.roundDecisions();
 	}
 
 	public Ship getShip() {

@@ -24,7 +24,7 @@ public class Captain {
         roundActions = new ArrayList<>();
     }
 
-    String roundDecisions() {
+    public String roundDecisions() {
         if(isInCone()) {
             if(sailorsAreInplace())
                 askSailorsToOar();
@@ -40,6 +40,11 @@ public class Captain {
             else
                 associateSailorToOar(angleMove);
         }
+
+        String actionsToDo = "";
+        for(Action action : roundActions)
+            actionsToDo += action.toString();
+        return actionsToDo;
     }
 
     /**
