@@ -52,7 +52,7 @@ public class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors);
+        captain = new Captain(ship, sailors, null);
         captain.associateSailorToOar("left");
 
         assertEquals(4, sailors.size());
@@ -84,7 +84,7 @@ public class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors);
+        captain = new Captain(ship, sailors, null);
         captain.associateSailorToOar("left");
 
         assertEquals(4, sailors.size());
@@ -121,7 +121,7 @@ public class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors);
+        captain = new Captain(ship, sailors, null);
         captain.associateSailorToOarEvenly();
 
         assertEquals(6, sailors.size());
