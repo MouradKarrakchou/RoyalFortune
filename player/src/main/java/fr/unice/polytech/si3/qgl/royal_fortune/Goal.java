@@ -1,6 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.action;
-
-import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
+package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import java.util.ArrayList;
 
@@ -25,4 +23,6 @@ public class Goal {
     public void setCheckpoints(ArrayList<Checkpoint> checkpoints){
         this.checkpoints = checkpoints;
     }
+
+    public ArrayList<Checkpoint> getCheckPoints() { return checkpoints; }
 }

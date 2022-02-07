@@ -2,10 +2,8 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -33,7 +31,7 @@ public class Cockpit implements ICockpit {
 		String checkpointsJson = JsonManager.getNode(game,"goal");
 		goal = JsonManager.readGoalJson(checkpointsJson);
 
-		captain = new Captain(ship, sailors);
+		captain = new Captain(ship, sailors, goal);
 	}
 
 	public String nextRound(String round) {

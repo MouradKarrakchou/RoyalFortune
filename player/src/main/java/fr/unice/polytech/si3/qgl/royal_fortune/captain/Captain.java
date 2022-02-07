@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -14,7 +15,7 @@ public class Captain {
     private final ArrayList<Sailor> sailors;
     private final ArrayList<Action> roundActions;
 
-    public Captain(Ship ship, ArrayList<Sailor> sailors){
+    public Captain(Ship ship, ArrayList<Sailor> sailors, Goal goal){
         this.ship = ship;
         this.sailors = sailors;
         roundActions = new ArrayList<>();
@@ -95,6 +96,10 @@ public class Captain {
                 .filter(sailor -> !sailor.isOnTheTargetEntity())
                 .map(Sailor::moveToTarget)
                 .collect(Collectors.toList()));
+    }
+
+    void angleCalculator() {
+
     }
 
     /**
