@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Captain {
     private final Ship ship;
@@ -57,6 +58,33 @@ public class Captain {
     }
 
     /**
+     * Check if every sailor are in place to rotate the boat.
+     * @return true/false
+     */
+    public boolean sailorsAreInPlace(){
+        Stream<Sailor> oarList =  sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() != null)
+                .filter(sailor -> sailor.getTargetEntity() instanceof Oar);
+        return oarList.filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft()) == oarList.filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft());
+    }
+
+    /**
+     * Check if every sailor are in place to make the ship move straight forward.
+     * @return true/false
+     */
+    public boolean sailorsAreInPlace(double orientation){
+        Stream<Sailor> oarList =  sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() != null)
+                .filter(sailor -> sailor.getTargetEntity() instanceof Oar);
+
+        long nbSailorsInLeftOar = oarList.filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft()).count();
+        long nbSailorsInRightOar = oarList.filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft()).count();
+
+        return (nbSailorsInLeftOar > nbSailorsInRightOar) == orientation < 0;
+    }
+
+
+    /**
      * Ask all sailors associated to an Entity to move to
      * If the sailor is already on the Entity, sailor will not move
      * This method update list of Action (roundActions)
@@ -68,6 +96,19 @@ public class Captain {
                 .map(Sailor::moveToTarget)
                 .collect(Collectors.toList()));
     }
+
+    /**
+     * Ask all sailors associated to an Oar to oar
+     * This method update list of Action (roundActions)
+     */
+    public void askSailorsTeOar(){
+        roundActions.addAll(sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() != null)
+                .filter(Sailor::isOnTheTargetEntity)
+                .map(Sailor::oar)
+                .collect(Collectors.toList()));
+    }
+
 
     public ArrayList<Action> getRoundActions(){
         return roundActions;

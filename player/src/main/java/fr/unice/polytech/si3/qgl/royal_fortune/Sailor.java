@@ -1,7 +1,9 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
@@ -89,5 +91,13 @@ public class Sailor{
 		}
 
 		return movingAction;
+	}
+
+	public OarAction oar(){
+		// If sailor don't have a target entity, sailor can't go to this target.
+		if (targetEntity == null)
+			return null;
+
+		return new OarAction(this);
 	}
 }
