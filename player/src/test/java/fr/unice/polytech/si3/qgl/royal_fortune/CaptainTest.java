@@ -53,6 +53,8 @@ public class CaptainTest {
                 new Rectangle("rectangle", 3, 4, 0));
 
         captain = new Captain(ship, sailors, null);
+        captain = new Captain(ship, sailors, null);
+        captain.associateSailorToOar("left");
 
         // For a rotation of pi, we need 4 sailors on the left side, but there is only 3 oars available
         captain.associateSailorToOar(- Math.PI);
@@ -111,6 +113,8 @@ public class CaptainTest {
 
         captain = new Captain(ship, sailors, null);
         captain.associateSailorToOar(- Math.PI);
+        captain = new Captain(ship, sailors, null);
+        captain.associateSailorToOar("left");
 
         assertEquals(4, sailors.size());
         assertEquals(3, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
