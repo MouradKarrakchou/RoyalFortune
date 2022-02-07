@@ -101,7 +101,7 @@ public class Captain {
                 .collect(Collectors.toList()));
     }
 
-    double angleCalculator() {
+    double[] angleCalculator() {
         double radius = ((Circle) goal.getCheckPoints().get(0).getShape()).getRadius();
 
         double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
@@ -111,10 +111,13 @@ public class Captain {
         double angleCone = Math.atan(radius / distanceSC);
 
 
-        
-        double angleMove =
+        double num = distanceSCY*Math.cos(ship.getPosition().getOrientation()) + distanceSCX*Math.sin(ship.getPosition().getOrientation());
 
-        return 1.2;
+        double angleMove = Math.acos(num / distanceSC);
+
+        double angles[] = {angleCone, angleMove};
+
+        return angles;
     }
 
     /**
