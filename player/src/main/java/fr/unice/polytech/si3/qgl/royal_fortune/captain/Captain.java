@@ -115,18 +115,26 @@ public class Captain {
 
         double angleMove = Math.acos(num / distanceSC);
 
-        while(angleMove >= Math.PI){
+        while(angleMove > Math.PI){
             angleMove -= 2*Math.PI;
         }
 
-        while(angleMove <= Math.PI){
+        while(angleMove < Math.PI){
             angleMove += 2*Math.PI;
         }
 
-        double angles[] = {angleCone, angleMove};
+        double angles[] = {angleMove, angleCone};
 
         return angles;
     }
+
+    boolean isInCone(double angleMove, double angleCone) {
+        return (Math.abs(angleMove) <= angleCone);
+    }
+
+    double getAngleMove() { return angleCalculator()[0]; }
+
+    double getAngleCone() { return angleCalculator()[1]; }
 
     /**
      * Ask all sailors associated to an Oar to oar
