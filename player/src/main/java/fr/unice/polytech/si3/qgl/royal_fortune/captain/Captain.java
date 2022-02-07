@@ -26,7 +26,7 @@ public class Captain {
 
     public String roundDecisions() {
         if(isInCone()) {
-            if(sailorsAreInplace())
+            if(sailorsAreInPlace())
                 askSailorsToOar();
             else
                 associateSailorToOarEvenly();
@@ -34,7 +34,7 @@ public class Captain {
 
         else {
             double angleMove = getAngleMove();
-            if(sailorsAreInplace(angleMove)) {
+            if(sailorsAreInPlace(angleMove)) {
                 askSailorsToOar();
             }
             else
@@ -163,49 +163,13 @@ public class Captain {
      * Ask all sailors associated to an Oar to oar
      * This method update list of Action (roundActions)
      */
-    public void askSailorsTeOar(){
+    public void askSailorsToOar(){
         roundActions.addAll(sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)
                 .filter(Sailor::isOnTheTargetEntity)
                 .map(Sailor::oar)
                 .collect(Collectors.toList()));
     }
-
-
-    double[] angleCalculator() {
-        double radius = ((Circle) goal.getCheckPoints().get(0).getShape()).getRadius();
-
-        double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
-        double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
-        double distanceSC = Math.sqrt(Math.pow(distanceSCY,2) + Math.pow(distanceSCX,2));
-
-        double angleCone = Math.atan(radius / distanceSC);
-
-
-        double num = distanceSCY*Math.cos(ship.getPosition().getOrientation()) + distanceSCX*Math.sin(ship.getPosition().getOrientation());
-
-        double angleMove = Math.acos(num / distanceSC);
-
-        while(angleMove > Math.PI){
-            angleMove -= 2*Math.PI;
-        }
-
-        while(angleMove < Math.PI){
-            angleMove += 2*Math.PI;
-        }
-
-        double angles[] = {angleMove, angleCone};
-
-        return angles;
-    }
-
-    boolean isInCone(double angleMove, double angleCone) {
-        return (Math.abs(angleMove) <= angleCone);
-    }
-
-    double getAngleMove() { return angleCalculator()[0]; }
-
-    double getAngleCone() { return angleCalculator()[1]; }
 
     public ArrayList<Action> getRoundActions(){
         return roundActions;
