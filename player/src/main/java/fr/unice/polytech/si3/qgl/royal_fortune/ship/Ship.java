@@ -55,6 +55,7 @@ public class Ship {
 		return shape;
 	}
 
+
 	public ArrayList<Oar> getOarList(String orientation) {
 		 return (ArrayList<Oar>) entities.stream()
 				 .filter(entity -> entity instanceof Oar)
