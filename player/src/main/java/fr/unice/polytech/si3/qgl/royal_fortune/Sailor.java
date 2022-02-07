@@ -43,6 +43,14 @@ public class Sailor{
 		return (x == targetEntity.getX() && y == targetEntity.getY());
 	}
 
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	/**
 	 * Called by the Captain, call a sailor to move to its targetEntity.
 	 * @return A MovingAction that will be added to the action list.
@@ -65,11 +73,18 @@ public class Sailor{
 			int posX = 0;
 			int posY = 0;
 			int vect = (targetEntity.getX()-this.x)<0 ? -1 : 1;
-			for(; i<5 || this.x+posX == targetEntity.getX(); i++)
-				posX+=i*vect;
-			if(i != 4)
-				for(; i<5 || this.x+posY == targetEntity.getY(); i++)
-					posY+=i*vect;
+			
+			//tant que this.x+Deplacement < target.x || i < 5
+			while(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()) && posX < 5) {
+				System.out.println(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()));
+				posX+=vect;
+			}
+			if(posX<5)
+				while(Math.abs(this.y+posX) < Math.abs(targetEntity.getY()) && posY+posX < 5) {
+					posY+=vect;
+				}
+			
+			
 			movingAction = new MovingAction(this, posX - x, posY - y);
 		}
 
