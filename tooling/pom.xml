@@ -6,8 +6,20 @@
 	<groupId>fr.unice.polytech.si3.qgl</groupId>
 	<artifactId>royal_fortune.tooling</artifactId> <!-- CHANGE ME -->
 	<version>0.1-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-	<properties>
+    <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other : ISO-8859-1 -->
 		<java.version>17</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>

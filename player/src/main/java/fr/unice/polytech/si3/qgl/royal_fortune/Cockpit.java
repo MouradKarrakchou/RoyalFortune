@@ -41,6 +41,14 @@ public class Cockpit implements ICockpit {
 		return "";
 	}
 
+	public Ship getShip() {
+		return ship;
+	}
+
+	public ArrayList<Sailor> getSailors() {
+		return sailors;
+	}
+
 	@Override
 	public List<String> getLogs() {
 		return new ArrayList<>();
