@@ -1,9 +1,11 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -11,13 +13,38 @@ import java.util.stream.Stream;
 
 public class Captain {
     private final Ship ship;
+    private final Goal goal;
     private final ArrayList<Sailor> sailors;
     private final ArrayList<Action> roundActions;
 
-    public Captain(Ship ship, ArrayList<Sailor> sailors){
+    public Captain(Ship ship, ArrayList<Sailor> sailors, Goal goal){
         this.ship = ship;
         this.sailors = sailors;
+        this.goal = goal;
         roundActions = new ArrayList<>();
+    }
+
+    public String roundDecisions() {
+        if(isInCone()) {
+            if(sailorsAreInPlace())
+                askSailorsToOar();
+            else
+                associateSailorToOarEvenly();
+        }
+
+        else {
+            double angleMove = getAngleMove();
+            if(sailorsAreInPlace(angleMove)) {
+                askSailorsToOar();
+            }
+            else
+                associateSailorToOar(angleMove);
+        }
+
+        String actionsToDo = "";
+        for(Action action : roundActions)
+            actionsToDo += action.toString();
+        return actionsToDo;
     }
 
     /**
@@ -97,18 +124,52 @@ public class Captain {
                 .collect(Collectors.toList()));
     }
 
+    double[] angleCalculator() {
+        double radius = ((Circle) goal.getCheckPoints().get(0).getShape()).getRadius();
+
+        double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
+        double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
+        double distanceSC = Math.sqrt(Math.pow(distanceSCY,2) + Math.pow(distanceSCX,2));
+
+        double angleCone = Math.atan(radius / distanceSC);
+
+
+        double num = distanceSCY*Math.cos(ship.getPosition().getOrientation()) + distanceSCX*Math.sin(ship.getPosition().getOrientation());
+
+        double angleMove = Math.acos(num / distanceSC);
+
+        while(angleMove > Math.PI){
+            angleMove -= 2*Math.PI;
+        }
+
+        while(angleMove < Math.PI){
+            angleMove += 2*Math.PI;
+        }
+
+        double angles[] = {angleMove, angleCone};
+
+        return angles;
+    }
+
+    boolean isInCone() {
+        return (Math.abs(getAngleMove()) <= getAngleCone());
+    }
+
+    double getAngleMove() { return angleCalculator()[0]; }
+
+    double getAngleCone() { return angleCalculator()[1]; }
+
     /**
      * Ask all sailors associated to an Oar to oar
      * This method update list of Action (roundActions)
      */
-    public void askSailorsTeOar(){
+    public void askSailorsToOar(){
         roundActions.addAll(sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)
                 .filter(Sailor::isOnTheTargetEntity)
                 .map(Sailor::oar)
                 .collect(Collectors.toList()));
     }
-
 
     public ArrayList<Action> getRoundActions(){
         return roundActions;

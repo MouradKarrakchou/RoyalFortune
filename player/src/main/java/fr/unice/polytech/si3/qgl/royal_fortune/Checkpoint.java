@@ -25,4 +25,6 @@ public class Checkpoint {
     public void setShape(Shape shape) {
         this.shape = shape;
     }
+
+    public Position getPosition() { return position; }
 }
