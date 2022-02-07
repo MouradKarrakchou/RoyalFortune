@@ -24,6 +24,12 @@ public class Captain {
         roundActions = new ArrayList<>();
     }
 
+    String roundDecisions() {
+        if(isInCone()) {
+            
+        }
+    }
+
     /**
      * Captain will associate the best number of sailors to proceed a rotation of the given angle.
      * @param orientation The rotation of the given angle.
@@ -128,8 +134,8 @@ public class Captain {
         return angles;
     }
 
-    boolean isInCone(double angleMove, double angleCone) {
-        return (Math.abs(angleMove) <= angleCone);
+    boolean isInCone() {
+        return (Math.abs(getAngleMove()) <= getAngleCone());
     }
 
     double getAngleMove() { return angleCalculator()[0]; }

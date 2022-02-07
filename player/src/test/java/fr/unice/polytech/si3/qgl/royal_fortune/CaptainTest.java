@@ -52,9 +52,7 @@ public class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors);
         captain = new Captain(ship, sailors, null);
-        captain.associateSailorToOar("left");
 
         // For a rotation of pi, we need 4 sailors on the left side, but there is only 3 oars available
         captain.associateSailorToOar(- Math.PI);
@@ -63,7 +61,7 @@ public class CaptainTest {
         sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertEquals(0, sailor.getTargetEntity().getY()));
 
         sailors = new ArrayList<>();
-        captain = new Captain(ship, sailors);
+        captain = new Captain(ship, sailors, null);
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
         sailors.add(new Sailor(2, 1, 0, "sailor2"));
@@ -75,7 +73,7 @@ public class CaptainTest {
         assertEquals(2, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
 
         sailors = new ArrayList<>();
-        captain = new Captain(ship, sailors);
+        captain = new Captain(ship, sailors, null);
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
         sailors.add(new Sailor(2, 1, 0, "sailor2"));
@@ -111,10 +109,8 @@ public class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors);
-        captain.associateSailorToOar(- Math.PI);
         captain = new Captain(ship, sailors, null);
-        captain.associateSailorToOar("left");
+        captain.associateSailorToOar(- Math.PI);
 
         assertEquals(4, sailors.size());
         assertEquals(3, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
