@@ -5,18 +5,21 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class Captain {
     private final Ship ship;
+    private final Goal goal;
     private final ArrayList<Sailor> sailors;
     private final ArrayList<Action> roundActions;
 
     public Captain(Ship ship, ArrayList<Sailor> sailors, Goal goal){
         this.ship = ship;
         this.sailors = sailors;
+        this.goal = goal;
         roundActions = new ArrayList<>();
     }
 
@@ -69,8 +72,20 @@ public class Captain {
                 .collect(Collectors.toList()));
     }
 
-    void angleCalculator() {
+    double angleCalculator() {
+        double radius = ((Circle) goal.getCheckPoints().get(0).getShape()).getRadius();
 
+        double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
+        double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
+        double distanceSC = Math.sqrt(Math.pow(distanceSCY,2) + Math.pow(distanceSCX,2));
+
+        double angleCone = Math.atan(radius / distanceSC);
+
+
+        
+        double angleMove =
+
+        return 1.2;
     }
 
     public ArrayList<Action> getRoundActions(){
