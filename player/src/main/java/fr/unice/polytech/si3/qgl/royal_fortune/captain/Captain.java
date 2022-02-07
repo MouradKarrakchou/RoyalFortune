@@ -115,6 +115,14 @@ public class Captain {
 
         double angleMove = Math.acos(num / distanceSC);
 
+        while(angleMove >= Math.PI){
+            angleMove -= 2*Math.PI;
+        }
+
+        while(angleMove <= Math.PI){
+            angleMove += 2*Math.PI;
+        }
+
         double angles[] = {angleCone, angleMove};
 
         return angles;
