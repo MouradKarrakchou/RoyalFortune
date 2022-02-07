@@ -29,6 +29,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 public class JsonManager {
 
@@ -76,6 +77,28 @@ public class JsonManager {
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		try {
 			return mapper.readValue(json, Goal.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static ArrayList<Entities> readEntitiesJson(String json) {
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		JavaType javaType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Entities.class);
+		try {
+			return mapper.readValue(json, javaType);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static ArrayList<Action> readActionJson(String json) {
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		JavaType javaType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Action.class);
+		try {
+			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -222,4 +245,5 @@ public class JsonManager {
 		JsonNode shipJson = actualObj.get(searchNode);
 		return shipJson.toString();
 	}
+
 }

@@ -18,6 +18,10 @@ public class Goal {
         this.mode = mode;
     }
 
+    public Checkpoint getCheckpointone() {
+        return checkpoints.get(0);
+    }
+
     public void setCheckpoints(ArrayList<Checkpoint> checkpoints){
         this.checkpoints = checkpoints;
     }

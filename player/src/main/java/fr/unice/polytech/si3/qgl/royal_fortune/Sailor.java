@@ -90,4 +90,8 @@ public class Sailor{
 
 		return movingAction;
 	}
+
+	public int getX() {
+		return x;
+	}
 }
