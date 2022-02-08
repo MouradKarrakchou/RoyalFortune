@@ -13,10 +13,6 @@ public class Action  {
 	protected int sailorId;
 	protected String type;
 
-	public Action(Sailor sailor, String type) {
-		this.sailorId = sailor.getId();
-		this.type = type;
-	}
 	public Action(int sailorId, String type) {
 		this.sailorId = sailorId;
 		this.type = type;

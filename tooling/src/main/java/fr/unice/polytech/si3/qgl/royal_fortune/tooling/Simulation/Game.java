@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
@@ -44,7 +45,11 @@ public class Game {
     void nextRound(){
         String jsonNextRound=createJson();
         String jsonverif=cockpit.nextRound(jsonNextRound);
+        
+        OarAction oarA = new OarAction(100);
+
         ArrayList<Action> actions=JsonManager.readActionJson(jsonverif);
+        System.out.println(actions);
         referee.makeAdvance(cockpit,actions);
 
     }

@@ -64,7 +64,7 @@ public class Sailor{
 		// If there is a target entity and the sailor can go to in one turn (>= 5 cases).
 		MovingAction movingAction = null;
 		if(Math.abs(targetEntity.getX() - x) + Math.abs(targetEntity.getY() - y) <= 5){
-			movingAction = new MovingAction(this, targetEntity.getX() - x, targetEntity.getY() - y);
+			movingAction = new MovingAction(this.getId(), targetEntity.getX() - x, targetEntity.getY() - y);
 		}
 
 		// If there is a target entity and the sailor can not go to in one turn (> 5 cases).
@@ -86,11 +86,11 @@ public class Sailor{
 				}
 			
 			
-			movingAction = new MovingAction(this, posX - x, posY - y);
+			movingAction = new MovingAction(this.getId(), posX - x, posY - y);
 		}
 
 		this.x += movingAction.getXdistance();
-		this.y += movingAction.getyDistance();
+		this.y += movingAction.getXdistance();
 		return movingAction;
 	}
 
@@ -99,6 +99,6 @@ public class Sailor{
 		if (targetEntity == null)
 			return null;
 
-		return new OarAction(this);
+		return new OarAction(this.getId());
 	}
 }
