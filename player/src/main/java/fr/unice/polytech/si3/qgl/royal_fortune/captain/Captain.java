@@ -26,13 +26,24 @@ public class Captain {
     }
 
     public String roundDecisions() {
-        if(isInCone()) {
+        if(isConeTooSmall()) {
             if(sailorsAreInPlace())
                 askSailorsToOar();
-            else
-            {associateSailorToOarEvenly();
+            else {
+                associateSailorToOarEvenly();
                 askSailorsToMove();
-                askSailorsToOar();}
+                askSailorsToOar();
+            }
+        }
+
+        else if(isInCone()) {
+            if(sailorsAreInPlace())
+                askSailorsToOar();
+            else {
+                associateSailorToOarEvenly();
+                askSailorsToMove();
+                askSailorsToOar();
+            }
         }
 
         else {
@@ -166,6 +177,10 @@ public class Captain {
 
     boolean isInCone() {
         return (Math.abs(getAngleMove()) <= getAngleCone());
+    }
+
+    boolean isConeTooSmall() {
+        return (getAngleMove() + getAngleCone() < Math.PI/4);
     }
 
     double getAngleMove() { return angleCalculator()[0]; }
