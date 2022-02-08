@@ -161,17 +161,18 @@ public class Captain {
         Shape shape=goal.getCheckPoints().get(0).getShape();
         double radius =((Circle) shape).getRadius();
 
-        double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
+
         double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
-        double distanceSC = Math.sqrt(Math.pow(distanceSCY,2) + Math.pow(distanceSCX,2));
+        double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
+        double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
 
         double angleCone = Math.atan(radius / distanceSC);
 
 
-        double num = distanceSCY*Math.cos(angleShip) + distanceSCX*Math.sin(angleShip);
+        double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
 
-        //double angleMove = Math.acos(num / distanceSC);
-        double angleMove = Math.PI-Math.atan(distanceSCX / distanceSCY)-angleShip;
+        double angleMove = Math.acos(num / distanceSC);
+        //double angleMove = Math.PI-Math.atan(distanceSCX / distanceSCY)-angleShip;
 
 
         while(angleMove > Math.PI){
@@ -182,7 +183,7 @@ public class Captain {
             angleMove += 2*Math.PI;
         }
 
-        double angles[] = {-angleMove, angleCone};
+        double angles[] = {angleMove, angleCone};
 
         return angles;
     }
