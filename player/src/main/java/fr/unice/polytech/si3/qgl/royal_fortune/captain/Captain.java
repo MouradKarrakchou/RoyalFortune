@@ -106,10 +106,17 @@ public class Captain {
      * @return true/false
      */
     public boolean sailorsAreInPlace(){
-        Stream<Sailor> oarList =  sailors.stream()
+        long nbLeftSailors = sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar);
-        return oarList.filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft()) == oarList.filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft());
+                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
+                .filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft())
+                .count();
+        long nbRightSailors = sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() != null)
+                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
+                .filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft())
+                .count();
+        return nbLeftSailors == nbRightSailors;
     }
 
     /**
@@ -128,7 +135,7 @@ public class Captain {
                 .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
                 .filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft())
                 .count();
-        if (nbSailorsInRightOar == nbSailorsInRightOar)
+        if (nbSailorsInLeftOar == nbSailorsInRightOar)
             return false;
         return (nbSailorsInLeftOar > nbSailorsInRightOar) == orientation < 0;
     }
