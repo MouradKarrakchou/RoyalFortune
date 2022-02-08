@@ -26,6 +26,7 @@ public class Captain {
     }
 
     public String roundDecisions() {
+        desasosiate();
         roundActions.clear();
         if(isConeTooSmall()||isInCone()) {
                 associateSailorToOarEvenly();
@@ -44,6 +45,10 @@ public class Captain {
             actionsToDo.append(action.toString()).append(",");
         String out = actionsToDo.substring(0, actionsToDo.length() - 1);
         return "[" + out + "]";
+    }
+
+    private void desasosiate() {
+        sailors.stream().forEach(sailor -> sailor.setTargetEntity(null));
     }
 
     /**
