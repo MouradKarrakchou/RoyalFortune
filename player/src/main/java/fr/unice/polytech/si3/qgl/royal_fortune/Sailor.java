@@ -90,7 +90,7 @@ public class Sailor{
 		}
 
 		this.x += movingAction.getXdistance();
-		this.y += movingAction.getXdistance();
+		this.y += movingAction.getYdistance();
 		return movingAction;
 	}
 
