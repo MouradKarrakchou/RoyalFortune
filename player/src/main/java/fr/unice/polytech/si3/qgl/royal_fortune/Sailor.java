@@ -91,10 +91,6 @@ public class Sailor{
 
 		this.x += movingAction.getXdistance();
 		this.y += movingAction.getYdistance();
-		if (x>5)
-			System.out.println("AAAAAAAAAAAH");
-		if (y>5)
-			System.out.println("AAAAAAAAAAAOOOOO");
 		return movingAction;
 	}
 

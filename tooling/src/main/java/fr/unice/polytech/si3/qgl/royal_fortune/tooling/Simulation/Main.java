@@ -6,6 +6,15 @@ public class Main {
         Game game=new Game(json);
         game.nextRound();
         System.out.println(game);
+        game.nextRound();
+        System.out.println(game);
+        game.nextRound();
+        System.out.println(game);
+        game.nextRound();
+        System.out.println(game);
+        game.nextRound();
+        System.out.println(game);
+
 
 
     }
