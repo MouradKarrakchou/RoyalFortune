@@ -58,7 +58,7 @@ public class Captain {
      */
     public void associateSailorToOar(double orientation){
         int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / 4)));
-        ArrayList<Oar> oarList = ship.getOarList(orientation > 0 ? "right" : "left");
+        ArrayList<Oar> oarList = ship.getOarList(orientation < 0 ? "right" : "left");
         int i = 0;
 
         // We continue associating until we run out of sailors or oars
