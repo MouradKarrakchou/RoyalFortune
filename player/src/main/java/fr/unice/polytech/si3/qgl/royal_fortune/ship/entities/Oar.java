@@ -7,7 +7,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
  *
  */
 public class Oar extends Entities{
-	private boolean left;
 	private Sailor sailor;
 
 	public Oar() {}
@@ -17,7 +16,7 @@ public class Oar extends Entities{
 	}
 
 	public boolean isLeft() {
-		return y == 0;
+		return y != 0;
 	}
 
 	public Sailor getSailor() {
