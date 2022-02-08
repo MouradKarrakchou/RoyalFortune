@@ -36,7 +36,9 @@ public class Cockpit implements ICockpit {
 
 	public String nextRound(String round) {
 		String shipJson = JsonManager.getNode(round, "ship");
-		ship = JsonManager.readShipJson(shipJson);
+		Ship newShip = JsonManager.readShipJson(shipJson);
+		ship.setPosition(newShip.getPosition());
+		ship.setEntities(newShip.getEntities());
 		System.out.println("Next round input: " + round);
 		return captain.roundDecisions();
 	}

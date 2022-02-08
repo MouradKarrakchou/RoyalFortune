@@ -69,6 +69,10 @@ public class Ship {
 		this.position = position;
 	}
 
+	public void setEntities(ArrayList<Entities> entities) {
+		this.entities = entities;
+	}
+
 	@Override
 	public String toString() {
 		return "Ship [life=" + life + ", position=" + position + ", name=" + name + ", deck=" + deck + ", entities="
