@@ -6,6 +6,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -29,7 +30,9 @@ public class Captain {
             if(sailorsAreInPlace())
                 askSailorsToOar();
             else
-                associateSailorToOarEvenly();
+            {associateSailorToOarEvenly();
+                askSailorsToMove();
+                askSailorsToOar();}
         }
 
         else {
@@ -38,7 +41,8 @@ public class Captain {
                 askSailorsToOar();
             }
             else
-                associateSailorToOar(angleMove);
+            {associateSailorToOar(angleMove);
+                askSailorsToOar();}
         }
 
         String actionsToDo = "";
@@ -100,13 +104,19 @@ public class Captain {
      * @return true/false
      */
     public boolean sailorsAreInPlace(double orientation){
-        Stream<Sailor> oarList =  sailors.stream()
+        long nbSailorsInLeftOar = sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar);
+                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
+                .filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft())
+                .count();
 
-        long nbSailorsInLeftOar = oarList.filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft()).count();
-        long nbSailorsInRightOar = oarList.filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft()).count();
-
+        long nbSailorsInRightOar = sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() != null)
+                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
+                .filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft())
+                .count();
+        if (nbSailorsInRightOar == nbSailorsInRightOar)
+            return false;
         return (nbSailorsInLeftOar > nbSailorsInRightOar) == orientation < 0;
     }
 
@@ -125,7 +135,9 @@ public class Captain {
     }
 
     double[] angleCalculator() {
-        double radius = ((Circle) goal.getCheckPoints().get(0).getShape()).getRadius();
+        Shape shape=goal.getCheckPoints().get(0).getShape();
+        if (shape.getType().equals("circle"))
+        {double radius =shape.getRadius();
 
         double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
         double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
@@ -148,7 +160,8 @@ public class Captain {
 
         double angles[] = {angleMove, angleCone};
 
-        return angles;
+        return angles;}
+        else return(null);
     }
 
     boolean isInCone() {

@@ -11,10 +11,9 @@ public class Oar extends Entities{
 
 	public Oar(String type, int x, int y) {
 		super(type, x, y);
-		left = y == 0;
 	}
 
 	public boolean isLeft() {
-		return left;
+		return y == 0;
 	}
 }

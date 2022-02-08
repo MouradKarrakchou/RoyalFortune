@@ -8,7 +8,7 @@ public class Entities {
 	
 	private String type;
 	private int x;
-	private int y;
+	protected int y;
 	
 	public Entities() {}
 	public Entities(String type, int x, int y) {
