@@ -27,36 +27,17 @@ public class Captain {
 
     public String roundDecisions() {
         roundActions.clear();
-        if(isConeTooSmall()) {
-            if(sailorsAreInPlace())
-                askSailorsToOar();
-            else {
+        if(isConeTooSmall()||isInCone()) {
                 associateSailorToOarEvenly();
                 askSailorsToMove();
                 askSailorsToOar();
-            }
         }
-
-        else if(isInCone()) {
-            if(sailorsAreInPlace())
-                askSailorsToOar();
-            else {
-                associateSailorToOarEvenly();
-                askSailorsToMove();
-                askSailorsToOar();
-            }
-        }
-
         else {
             double angleMove = getAngleMove();
-            if(sailorsAreInPlace(angleMove)) {
-                askSailorsToOar();
-            }
-            else
-            {associateSailorToOar(angleMove);
+                associateSailorToOar(angleMove);
                 askSailorsToMove();
                 askSailorsToOar();}
-        }
+
 
         StringBuilder actionsToDo = new StringBuilder();
         for(Action action : roundActions)
