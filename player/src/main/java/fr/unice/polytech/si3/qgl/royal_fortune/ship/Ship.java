@@ -64,6 +64,10 @@ public class Ship {
 				 .collect(Collectors.toList());
 	}
 
+	public void setPosition(Position position){
+		this.position = position;
+	}
+
 	@Override
 	public String toString() {
 		return "Ship [life=" + life + ", position=" + position + ", name=" + name + ", deck=" + deck + ", entities="
