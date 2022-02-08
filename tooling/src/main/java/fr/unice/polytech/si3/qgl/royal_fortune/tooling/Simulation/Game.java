@@ -22,6 +22,7 @@ public class Game {
     Goal goal;
     Referee referee;
     public Game(String initialiser){
+        referee=new Referee(cockpit);
         ship= JsonManager.readShipJson(initialiser);
         //A remplir
         //
@@ -43,8 +44,7 @@ public class Game {
     void nextRound(){
         String jsonNextRound=createJson();
         String jsonverif=cockpit.nextRound(jsonNextRound);
-        String actionJson = JsonManager.getNode(jsonverif, "action");
-        ArrayList<Action> actions=JsonManager.readActionJson(actionJson);
+        ArrayList<Action> actions=JsonManager.readActionJson(jsonverif);
         referee.makeAdvance(cockpit,actions);
 
     }

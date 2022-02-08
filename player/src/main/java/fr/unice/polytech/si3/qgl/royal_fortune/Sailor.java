@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
@@ -90,6 +89,8 @@ public class Sailor{
 			movingAction = new MovingAction(this, posX - x, posY - y);
 		}
 
+		this.x += movingAction.getXdistance();
+		this.y += movingAction.getyDistance();
 		return movingAction;
 	}
 

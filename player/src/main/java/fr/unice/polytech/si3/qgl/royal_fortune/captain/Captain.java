@@ -42,13 +42,15 @@ public class Captain {
             }
             else
             {associateSailorToOar(angleMove);
+                askSailorsToMove();
                 askSailorsToOar();}
         }
 
-        String actionsToDo = "";
+        StringBuilder actionsToDo = new StringBuilder();
         for(Action action : roundActions)
-            actionsToDo += action.toString();
-        return actionsToDo;
+            actionsToDo.append(action.toString()).append(",");
+        String out = actionsToDo.substring(0, actionsToDo.length() - 1);
+        return "[" + out + "]";
     }
 
     /**
@@ -56,7 +58,7 @@ public class Captain {
      * @param orientation The rotation of the given angle.
      */
     public void associateSailorToOar(double orientation){
-        int maxSailors = Math.abs((int) Math.round(orientation/(Math.PI / 4)));
+        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / 4)));
         ArrayList<Oar> oarList = ship.getOarList(orientation > 0 ? "right" : "left");
         int i = 0;
 
@@ -136,8 +138,7 @@ public class Captain {
 
     double[] angleCalculator() {
         Shape shape=goal.getCheckPoints().get(0).getShape();
-        if (shape.getType().equals("circle"))
-        {double radius =shape.getRadius();
+        double radius =((Circle) shape).getRadius();
 
         double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
         double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
@@ -160,8 +161,7 @@ public class Captain {
 
         double angles[] = {angleMove, angleCone};
 
-        return angles;}
-        else return(null);
+        return angles;
     }
 
     boolean isInCone() {

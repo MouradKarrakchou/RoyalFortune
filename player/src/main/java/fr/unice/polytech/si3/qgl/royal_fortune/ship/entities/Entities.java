@@ -1,9 +1,18 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship.entities;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
+
 /**
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", include = JsonTypeInfo.As.EXTERNAL_PROPERTY)
+@JsonSubTypes(value = {
+		@JsonSubTypes.Type(value = Oar.class, name = "oar"),
+})
 public class Entities {
 	
 	private String type;

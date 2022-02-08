@@ -15,7 +15,7 @@ public class OarAction extends Action {
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode oarActionJSON = mapper.createObjectNode();
-        oarActionJSON.put("id", sailorId);
+        oarActionJSON.put("sailorId", sailorId);
         oarActionJSON.put("type", "OAR");
 
         try {

@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 
 public class MovingAction extends Action {
-    private final int xDistance;
+    private final int xdistance;
     private final int yDistance;
 
     public MovingAction(Sailor sailor, int xDistance, int yDistance) {
         super(sailor, "MOVING");
-        this.xDistance = xDistance;
+        this.xdistance = xDistance;
         this.yDistance = yDistance;
     }
 
@@ -19,9 +19,9 @@ public class MovingAction extends Action {
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode oarActionJSON = mapper.createObjectNode();
-        oarActionJSON.put("id", sailorId);
+        oarActionJSON.put("sailorId", sailorId);
         oarActionJSON.put("type", "MOVING");
-        oarActionJSON.put("xdistance", xDistance);
+        oarActionJSON.put("xdistance", xdistance);
         oarActionJSON.put("ydistance", yDistance);
 
         try {
@@ -32,8 +32,8 @@ public class MovingAction extends Action {
         return "";
     }
 
-	public int getxDistance() {
-		return xDistance;
+	public int getXdistance() {
+		return xdistance;
 	}
 
 	public int getyDistance() {

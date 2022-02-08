@@ -12,11 +12,9 @@ public class Referee {
     Cockpit cockpit;
     int rightPush;
     int leftPush;
-    Entities entities;
 
-    public Referee (Cockpit cockpit,Entities entities){
+    public Referee (Cockpit cockpit){
         this.cockpit=cockpit;
-        this.entities=entities;
     }
     public void verif(String jsonverif) {
     }

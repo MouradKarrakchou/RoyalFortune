@@ -30,7 +30,7 @@ public class SailorTest {
 		sailor.setTargetEntity(targetEntitiesInRange);
 		MovingAction movingActionResult = sailor.moveToTarget();
 		
-		assertEquals(targetEntitiesInRange.getX(), movingActionResult.getxDistance());
+		assertEquals(targetEntitiesInRange.getX(), movingActionResult.getXdistance());
 		assertEquals(targetEntitiesInRange.getY(), movingActionResult.getyDistance());
 	}
 	
@@ -42,7 +42,7 @@ public class SailorTest {
 		sailor.setTargetEntity(targetEntitiesOutOfRange);
 		MovingAction movingActionResult = sailor.moveToTarget();
 		
-		assertEquals(targetEntitiesOutOfRange.getX(), movingActionResult.getxDistance());
+		assertEquals(targetEntitiesOutOfRange.getX(), movingActionResult.getXdistance());
 		assertEquals(2, movingActionResult.getyDistance());
 	}
 
