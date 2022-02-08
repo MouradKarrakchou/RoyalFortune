@@ -36,6 +36,7 @@ public class Captain {
         else {
             double angleMove = getAngleMove();
                 associateSailorToOar(angleMove);
+                associateSailorToOarEvenly();
                 askSailorsToMove();
                 askSailorsToOar();}
 
@@ -65,6 +66,7 @@ public class Captain {
             Oar oar = oarList.get(i);
             System.out.println(oar);
             sailors.get(i).setTargetEntity(oar);
+            oar.setSailor(sailors.get(i));
             i++;
         }
     }
@@ -83,7 +85,9 @@ public class Captain {
             Oar leftOar = leftOarList.get(oarIndex);
             Oar rightOar = rightOarList.get(oarIndex);
             sailors.get(sailorIndex).setTargetEntity(leftOar);
+            leftOar.setSailor(sailors.get(sailorIndex));
             sailors.get(++sailorIndex).setTargetEntity(rightOar);
+            rightOar.setSailor(sailors.get(sailorIndex));
             sailorIndex++;
             oarIndex++;
         }

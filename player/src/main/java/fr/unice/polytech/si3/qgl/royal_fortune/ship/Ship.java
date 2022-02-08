@@ -60,6 +60,7 @@ public class Ship {
 		 return (ArrayList<Oar>) entities.stream()
 				 .filter(entity -> entity instanceof Oar)
 				 .map(Oar.class::cast)
+				 .filter(oar -> oar.getSailor()==null)
 				 .filter(oar -> oar.isLeft() == orientation.equals("left"))
 				 .collect(Collectors.toList());
 	}
