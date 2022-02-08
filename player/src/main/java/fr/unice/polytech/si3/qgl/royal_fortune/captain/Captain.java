@@ -162,8 +162,12 @@ public class Captain {
 
         double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
 
-        double angleMove = Math.acos(num / distanceSC);
         //double angleMove = Math.PI-Math.atan(distanceSCX / distanceSCY)-angleShip;
+        double angleMove = Math.atan(distanceSCX / distanceSCY);
+        if (angleMove>0)
+            angleMove=Math.PI-angleMove-angleShip;
+        else
+            angleMove=angleMove-Math.PI+angleShip;
 
         angleMove=angleInterval(angleMove);
 
