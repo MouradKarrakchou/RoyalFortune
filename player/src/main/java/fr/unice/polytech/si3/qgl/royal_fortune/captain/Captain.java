@@ -26,6 +26,7 @@ public class Captain {
     }
 
     public String roundDecisions() {
+        roundActions.clear();
         if(isConeTooSmall()) {
             if(sailorsAreInPlace())
                 askSailorsToOar();
