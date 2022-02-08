@@ -79,15 +79,16 @@ public class Captain {
         ArrayList<Oar> rightOarList = ship.getOarList("right");
         int oarIndex = 0;
         int sailorIndex = 0;
+        ArrayList<Sailor> listOfUnassignedSailors=(ArrayList<Sailor>) sailors.stream().filter(sailor-> sailor.getTargetEntity()==null).collect(Collectors.toList());
 
         // We continue associating until we run out of sailors or oars
-        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < sailors.size()){
+        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size()){
             Oar leftOar = leftOarList.get(oarIndex);
             Oar rightOar = rightOarList.get(oarIndex);
-            sailors.get(sailorIndex).setTargetEntity(leftOar);
-            leftOar.setSailor(sailors.get(sailorIndex));
-            sailors.get(++sailorIndex).setTargetEntity(rightOar);
-            rightOar.setSailor(sailors.get(sailorIndex));
+            listOfUnassignedSailors.get(sailorIndex).setTargetEntity(leftOar);
+            leftOar.setSailor(listOfUnassignedSailors.get(sailorIndex));
+            listOfUnassignedSailors.get(++sailorIndex).setTargetEntity(rightOar);
+            rightOar.setSailor(listOfUnassignedSailors.get(sailorIndex));
             sailorIndex++;
             oarIndex++;
         }
