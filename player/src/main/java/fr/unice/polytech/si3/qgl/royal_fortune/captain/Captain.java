@@ -148,7 +148,7 @@ public class Captain {
     }
 
     double[] angleCalculator() {
-        double angleShip=ship.getPosition().getOrientation();
+        double angleShip=angleInterval(ship.getPosition().getOrientation());
         Shape shape=goal.getCheckPoints().get(0).getShape();
         double radius =((Circle) shape).getRadius();
 
@@ -165,7 +165,14 @@ public class Captain {
         double angleMove = Math.acos(num / distanceSC);
         //double angleMove = Math.PI-Math.atan(distanceSCX / distanceSCY)-angleShip;
 
+        angleMove=angleInterval(angleMove);
 
+        double angles[] = {angleMove, angleCone};
+
+        return angles;
+    }
+
+    private double angleInterval(double angleMove) {
         while(angleMove > Math.PI){
             angleMove -= 2*Math.PI;
         }
@@ -173,10 +180,7 @@ public class Captain {
         while(angleMove < -Math.PI){
             angleMove += 2*Math.PI;
         }
-
-        double angles[] = {angleMove, angleCone};
-
-        return angles;
+        return angleMove;
     }
 
     boolean isInCone() {
