@@ -148,7 +148,7 @@ public class Captain {
     }
 
     double[] angleCalculator() {
-        double angleShip=angleInterval(ship.getPosition().getOrientation());
+        double angleShip=ship.getPosition().getOrientation();
         Shape shape=goal.getCheckPoints().get(0).getShape();
         double radius =((Circle) shape).getRadius();
 
@@ -162,19 +162,23 @@ public class Captain {
 
         double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
 
+        double angleMove = Math.acos(num / distanceSC);
         //double angleMove = Math.PI-Math.atan(distanceSCX / distanceSCY)-angleShip;
-        double angleMove = Math.atan(distanceSCX / distanceSCY);
-        if (angleMove>0)
-            angleMove=Math.PI-angleMove-angleShip;
-        else
-            angleMove=angleMove-Math.PI+angleShip;
 
-        angleMove=angleInterval(angleMove);
+
+        while(angleMove > Math.PI){
+            angleMove -= 2*Math.PI;
+        }
+
+        while(angleMove < -Math.PI){
+            angleMove += 2*Math.PI;
+        }
 
         double angles[] = {angleMove, angleCone};
 
         return angles;
     }
+
 
     private double angleInterval(double angleMove) {
         while(angleMove > Math.PI){
