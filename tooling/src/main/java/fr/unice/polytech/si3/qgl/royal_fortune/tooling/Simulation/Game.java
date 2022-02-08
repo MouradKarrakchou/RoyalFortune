@@ -23,12 +23,6 @@ public class Game {
     Goal goal;
     Referee referee;
     public Game(String initialiser){
-        referee=new Referee(cockpit);
-        ship= JsonManager.readShipJson(initialiser);
-        //A remplir
-        //
-        String shipJson = JsonManager.getNode(initialiser, "ship");
-        ship = JsonManager.readShipJson(shipJson);
 
         String sailorsJson = JsonManager.getNode(initialiser, "sailors");
         sailors = JsonManager.readSailorsJson(sailorsJson);
@@ -40,14 +34,13 @@ public class Game {
         //entities=JsonManager.readEntitiesJson(entitiesJson);
         cockpit=new Cockpit();
         cockpit.initGame(initialiser);
+        ship=cockpit.getShip();
+        referee=new Referee(cockpit);
     }
 
     void nextRound(){
         String jsonNextRound=createJson();
         String jsonverif=cockpit.nextRound(jsonNextRound);
-        
-        OarAction oarA = new OarAction(100);
-
         ArrayList<Action> actions=JsonManager.readActionJson(jsonverif);
         System.out.println(actions);
         referee.makeAdvance(cockpit,actions);

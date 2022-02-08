@@ -15,6 +15,7 @@ public class MovingAction extends Action {
         super(sailorId, "MOVING");
         this.xdistance = xdistance;
         this.ydistance = ydistance;
+        this.type="MOVING";
     }
     public MovingAction(){}
 

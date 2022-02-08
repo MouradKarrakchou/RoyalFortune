@@ -9,6 +9,7 @@ public class OarAction extends Action {
 	
     public OarAction(int sailorId) {
         super(sailorId, "OAR");
+        this.type="OAR";
     }
 
     public OarAction(){}

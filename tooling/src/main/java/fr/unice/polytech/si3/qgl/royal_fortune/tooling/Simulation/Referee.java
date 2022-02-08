@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.tooling.Simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
@@ -31,16 +32,23 @@ public class Referee {
         double angle=shipPosition.getOrientation();
         int norme=165*calculnorme();
         double orientaton=calculorientation()*Math.PI/4;
-        double newX=norme*Math.cos(angle);
+        double newX=norme*Math.sin(angle);
         double newY=norme*Math.cos(angle);
-        shipPosition.setOrientation(orientaton+angle);
+        double angleShip=orientaton+angle;
+        while(angleShip > Math.PI){
+            angleShip -= 2*Math.PI;
+        }
+        while(angleShip < -Math.PI){
+            angleShip += 2*Math.PI;
+        }
+        shipPosition.setOrientation(angleShip);
         shipPosition.setX(shipPosition.getX()+newX);
         shipPosition.setY(shipPosition.getY()+newY);
     }
 
     private double calculorientation() {
-        if (rightPush>leftPush) return leftPush;
-        else if (rightPush<leftPush) return rightPush;
+        if (rightPush>leftPush) return rightPush;
+        else if (rightPush<leftPush) return leftPush;
         else return 0;
     }
 
@@ -52,11 +60,11 @@ public class Referee {
 
 
     private void doAction(Action action) {
-        action.getType().equals("oar");
+        if(action instanceof OarAction){
         cockpit.getSailors().stream()
                 .filter(sailor -> sailor.getId()==action.getSailorId())
                 .forEach(sailor -> {if(sailor.getX()>0) rightPush+=1;
-                else leftPush+=1;});
+                else leftPush+=1;});}
     }
 
 }
