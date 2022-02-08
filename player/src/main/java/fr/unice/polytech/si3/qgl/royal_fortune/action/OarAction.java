@@ -6,11 +6,16 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 
 public class OarAction extends Action {
-
     public OarAction(Sailor sailor) {
         super(sailor, "OAR");
     }
 
+    public OarAction(int sailorId,String type) {
+        super.sailorId=sailorId;
+        super.type=type;
+    }
+    public OarAction(){
+    }
     @Override
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();

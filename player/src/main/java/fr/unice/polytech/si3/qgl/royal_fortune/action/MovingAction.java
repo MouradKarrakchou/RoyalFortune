@@ -6,14 +6,21 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 
 public class MovingAction extends Action {
-    private final int xdistance;
-    private final int yDistance;
+    private int xdistance;
+    private int yDistance;
 
     public MovingAction(Sailor sailor, int xDistance, int yDistance) {
         super(sailor, "MOVING");
         this.xdistance = xDistance;
         this.yDistance = yDistance;
     }
+    public MovingAction(int sailorId,String type,int xdistance, int ydistance) {
+        super.sailorId=sailorId;
+        super.type=type;
+        this.xdistance = xdistance;
+        this.yDistance = ydistance;
+    }
+    public MovingAction(){}
 
     @Override
     public String toString() {

@@ -116,7 +116,7 @@ public class JsonManager {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return(null);
 	}
 
 	public static String getNode(String json, String searchNode){
