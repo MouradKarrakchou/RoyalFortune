@@ -77,6 +77,7 @@ public class Captain {
         // We continue associating until we run out of sailors or oars
         while(i < oarList.size() && i < sailors.size() && i < maxSailors){
             Oar oar = oarList.get(i);
+            System.out.println(oar);
             sailors.get(i).setTargetEntity(oar);
             i++;
         }
