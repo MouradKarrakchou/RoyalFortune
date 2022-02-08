@@ -24,6 +24,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
+
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 public class JsonManager {
 
@@ -55,6 +59,22 @@ public class JsonManager {
 		JavaType javaType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Sailor.class);
 		try {
 			return mapper.readValue(json, javaType);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static Shape readShapeJson(String json, String type){
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+			switch(type) {
+			case "circle": return mapper.readValue(json, Circle.class);
+			case "rectangle": return mapper.readValue(json, Rectangle.class);
+			default: return null;
+			}
+				
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}

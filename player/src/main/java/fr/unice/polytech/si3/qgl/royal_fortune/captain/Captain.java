@@ -154,7 +154,7 @@ public class Captain {
             angleMove -= 2*Math.PI;
         }
 
-        while(angleMove < Math.PI){
+        while(angleMove < -Math.PI){
             angleMove += 2*Math.PI;
         }
 

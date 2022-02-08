@@ -10,6 +10,8 @@ public class Rectangle extends Shape{
 	private double height;
 	private double orientation;
 	
+	public Rectangle() {}
+	
 	public Rectangle(String type, double width, double height, double orientation) {
 		super(type);
 		this.width = width;
