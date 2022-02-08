@@ -181,7 +181,7 @@ public class Captain {
             angleMove += 2*Math.PI;
         }
 
-        double angles[] = {angleMove, angleCone};
+        double angles[] = {-angleMove, angleCone};
 
         return angles;
     }
