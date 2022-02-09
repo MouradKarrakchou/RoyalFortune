@@ -2,6 +2,9 @@ package fr.unice.polytech.si3.qgl.royal_fortune.ship.entities;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
 
@@ -37,7 +40,18 @@ public class Entities {
 	}
 	@Override
 	public String toString() {
-		return "Entities [type=" + type + ", x=" + x + ", y=" + y + "]";
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode oarActionJSON = mapper.createObjectNode();
+		oarActionJSON.put("life", type);
+		oarActionJSON.put("position", x);
+		oarActionJSON.put("name", y);
+
+		try {
+			return mapper.writeValueAsString(oarActionJSON);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	

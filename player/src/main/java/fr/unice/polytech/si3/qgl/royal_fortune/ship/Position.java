@@ -1,5 +1,9 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
@@ -38,10 +42,6 @@ public class Position {
 		this.orientation = orientation;
 	}
 
-	@Override
-	public String toString() {
-		return "Position [x=" + x + ", y=" + y + ", orientation=" + orientation + "]";
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -53,5 +53,20 @@ public class Position {
 		if (Double.compare(position.x, x) != 0) return false;
 		if (Double.compare(position.y, y) != 0) return false;
 		return Double.compare(position.orientation, orientation) == 0;
+	}
+	@Override
+	public String toString() {
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode oarActionJSON = mapper.createObjectNode();
+		oarActionJSON.put("x", x);
+		oarActionJSON.put("y", y);
+		oarActionJSON.put("orientation", orientation);
+
+		try {
+			return mapper.writeValueAsString(oarActionJSON);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 }

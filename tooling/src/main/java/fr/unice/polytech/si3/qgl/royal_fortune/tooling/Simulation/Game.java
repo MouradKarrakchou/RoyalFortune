@@ -36,6 +36,7 @@ public class Game {
         cockpit.initGame(initialiser);
         ship=cockpit.getShip();
         referee=new Referee(cockpit);
+        cockpit.initGame(initialiser);
     }
 
     void nextRound(){

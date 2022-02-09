@@ -3,6 +3,9 @@ package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
@@ -75,7 +78,21 @@ public class Ship {
 
 	@Override
 	public String toString() {
-		return "Ship [life=" + life + ", position=" + position + ", name=" + name + ", deck=" + deck + ", entities="
-				+ entities + ", shape=" + shape + "]";
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode oarActionJSON = mapper.createObjectNode();
+		oarActionJSON.put("type", type);
+		oarActionJSON.put("life", life);
+		oarActionJSON.put("position", String.valueOf(position));
+		oarActionJSON.put("name", name);
+		oarActionJSON.put("deck", String.valueOf(deck));
+		oarActionJSON.put("entities", String.valueOf(entities));
+		oarActionJSON.put("shape", String.valueOf(shape));
+
+		try {
+			return mapper.writeValueAsString(oarActionJSON);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 }

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
@@ -28,7 +31,16 @@ public class Shape {
 	}
 	@Override
 	public String toString() {
-		return "Shape [type=" + type + "]";
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode oarActionJSON = mapper.createObjectNode();
+		oarActionJSON.put("life", type);
+
+		try {
+			return mapper.writeValueAsString(oarActionJSON);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	
