@@ -73,16 +73,17 @@ public class Sailor{
 			int i = 0 ;
 			int posX = 0;
 			int posY = 0;
-			int vect = (targetEntity.getX()-this.x)<0 ? -1 : 1;
+			int vectX = (targetEntity.getX()-this.x)<0 ? -1 : 1;
+			int vectY = (targetEntity.getY()-this.y)<0 ? -1 : 1;
 			
 			//tant que this.x+Deplacement < target.x || i < 5
 			while(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()) && posX < 5) {
 				System.out.println(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()));
-				posX+=vect;
+				posX+=vectX;
 			}
 			if(posX<5)
 				while(Math.abs(this.y+posX) < Math.abs(targetEntity.getY()) && posY+posX < 5) {
-					posY+=vect;
+					posY+=vectY;
 				}
 			
 			
