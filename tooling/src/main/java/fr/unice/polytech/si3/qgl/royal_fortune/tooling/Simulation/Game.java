@@ -63,7 +63,7 @@ public class Game {
     @Override
     public String toString() {
         //"Orientation: "+ship.getPosition().getOrientation()+'\n';
-        String string=cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+'\n';
+        String string=cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
         return(string);
     }
 
