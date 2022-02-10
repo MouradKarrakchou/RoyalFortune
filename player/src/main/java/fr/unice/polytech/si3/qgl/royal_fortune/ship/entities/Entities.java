@@ -41,13 +41,8 @@ public class Entities {
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();
-		ObjectNode oarActionJSON = mapper.createObjectNode();
-		oarActionJSON.put("life", type);
-		oarActionJSON.put("position", x);
-		oarActionJSON.put("name", y);
-
 		try {
-			return mapper.writeValueAsString(oarActionJSON);
+			return mapper.writeValueAsString(this);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
