@@ -33,37 +33,34 @@ public class Game {
         //String entitiesJson = JsonManager.getNode(initialiser, "entities");
         //entities=JsonManager.readEntitiesJson(entitiesJson);
         cockpit=new Cockpit();
-        cockpit.initGame(initialiser);
-        ship=cockpit.getShip();
         referee=new Referee(cockpit);
+        ship = cockpit.getShip();
         cockpit.initGame(initialiser);
+
     }
 
     void nextRound(){
         String jsonNextRound=createJson();
+        System.out.println("-----------------------");
+        System.out.println("jsonNextRound="+jsonNextRound);
         String jsonverif=cockpit.nextRound(jsonNextRound);
+        System.out.println("jsonverif="+jsonverif);
+        System.out.println("-----------------------");
+
         ArrayList<Action> actions=JsonManager.readActionJson(jsonverif);
         System.out.println(actions);
-        referee.makeAdvance(cockpit,actions);
+        this.ship = referee.makeAdvance(cockpit,actions);
 
     }
 
     private String createJson() {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode oarActionJSON = mapper.createObjectNode();
-        oarActionJSON.put("ship", String.valueOf(ship));
-        try {
-            return mapper.writeValueAsString(oarActionJSON);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "";
+       return cockpit.getShip().toString();
     }
 
     @Override
     public String toString() {
-        String string="Orientation: "+ship.getPosition().getOrientation()+'\n';
-        string+="x,y: "+ship.getPosition().getX()+","+ship.getPosition().getY()+'\n';
+        //"Orientation: "+ship.getPosition().getOrientation()+'\n';
+        String string=cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+'\n';
         return(string);
     }
 }

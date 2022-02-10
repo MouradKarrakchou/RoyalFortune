@@ -121,143 +121,17 @@ public class JsonManager {
 
 	public static String getNode(String json, String searchNode){
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		JsonNode actualObj = new JsonNode() {
-
-			@Override
-			public void serializeWithType(JsonGenerator gen, SerializerProvider serializers, TypeSerializer typeSer)
-					throws IOException {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void serialize(JsonGenerator gen, SerializerProvider serializers) throws IOException {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public JsonParser traverse(ObjectCodec codec) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public JsonParser traverse() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public NumberType numberType() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public JsonToken asToken() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public String toString() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public JsonNode path(int index) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public JsonNode path(String fieldName) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public JsonNodeType getNodeType() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public JsonNode get(int index) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public List<String> findValuesAsText(String fieldName, List<String> foundSoFar) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public List<JsonNode> findValues(String fieldName, List<JsonNode> foundSoFar) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public JsonNode findValue(String fieldName) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public JsonNode findPath(String fieldName) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public List<JsonNode> findParents(String fieldName, List<JsonNode> foundSoFar) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public JsonNode findParent(String fieldName) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public boolean equals(Object o) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public <T extends JsonNode> T deepCopy() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public String asText() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			protected JsonNode _at(JsonPointer ptr) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
+		JsonNode actualObj=null;
 		try {
 			actualObj = mapper.readTree(json);
+			JsonNode shipJson = actualObj.get(searchNode);
+			return shipJson.toString();
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JsonNode shipJson = actualObj.get(searchNode);
-		return shipJson.toString();
+		return null;
+	
 	}
 
 }

@@ -20,14 +20,14 @@ public class Referee {
     public void verif(String jsonverif) {
     }
 
-    public void makeAdvance(Cockpit cockpit, ArrayList<Action> actions) {
+    public Ship makeAdvance(Cockpit cockpit, ArrayList<Action> actions) {
         rightPush=0;
         leftPush=0;
         actions.stream().forEach(action -> doAction(action));
-        makeMooveShip(cockpit.getShip());
+        return makeMooveShip(cockpit.getShip());
     }
 
-    private void makeMooveShip(Ship ship) {
+    private Ship makeMooveShip(Ship ship) {
         Position shipPosition=ship.getPosition();
         double angle=shipPosition.getOrientation();
         int norme=165*calculnorme();
@@ -44,6 +44,7 @@ public class Referee {
         shipPosition.setOrientation(angleShip);
         shipPosition.setX(shipPosition.getX()+newX);
         shipPosition.setY(shipPosition.getY()+newY);
+        return ship;
     }
 
     private double calculorientation() {

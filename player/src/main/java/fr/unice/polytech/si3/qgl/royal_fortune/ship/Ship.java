@@ -78,21 +78,11 @@ public class Ship {
 
 	@Override
 	public String toString() {
-		ObjectMapper mapper = new ObjectMapper();
-		ObjectNode oarActionJSON = mapper.createObjectNode();
-		oarActionJSON.put("type", type);
-		oarActionJSON.put("life", life);
-		oarActionJSON.put("position", String.valueOf(position));
-		oarActionJSON.put("name", name);
-		oarActionJSON.put("deck", String.valueOf(deck));
-		oarActionJSON.put("entities", String.valueOf(entities));
-		oarActionJSON.put("shape", String.valueOf(shape));
-
 		try {
-			return mapper.writeValueAsString(oarActionJSON);
+			 return new ObjectMapper().writeValueAsString(this);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		return "";
+		return null;
 	}
 }
