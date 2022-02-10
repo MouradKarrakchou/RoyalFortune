@@ -55,7 +55,7 @@ public class Game {
     }
 
     private String createJson() {
-       return cockpit.getShip().toString();
+        return "{ship:"+ cockpit.getShip().toString()+"}";
     }
 
     @Override
