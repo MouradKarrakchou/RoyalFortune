@@ -33,9 +33,10 @@ public class Game {
         //String entitiesJson = JsonManager.getNode(initialiser, "entities");
         //entities=JsonManager.readEntitiesJson(entitiesJson);
         cockpit=new Cockpit();
+
         referee=new Referee(cockpit);
-        ship = cockpit.getShip();
         cockpit.initGame(initialiser);
+        ship = cockpit.getShip();
 
     }
 
