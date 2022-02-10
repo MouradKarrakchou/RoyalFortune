@@ -9,7 +9,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
  *
  */
 @JsonIgnoreProperties(value = {
-	    "sailor"
+	    "sailor",
+		"type",
+		"left"
 	})
 public class Oar extends Entities{
 	private Sailor sailor;

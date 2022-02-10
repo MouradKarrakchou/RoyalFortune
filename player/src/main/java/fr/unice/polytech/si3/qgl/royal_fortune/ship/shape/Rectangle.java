@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship.shape;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -8,6 +9,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
+@JsonIgnoreProperties(value = {
+		"type"
+})
 public class Rectangle extends Shape{
 
 	private double width;

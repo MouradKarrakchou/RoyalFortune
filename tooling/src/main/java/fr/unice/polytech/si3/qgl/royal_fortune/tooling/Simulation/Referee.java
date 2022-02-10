@@ -29,35 +29,22 @@ public class Referee {
 
     private Ship makeMooveShip(Ship ship) {
         Position shipPosition=ship.getPosition();
-        double angle=shipPosition.getOrientation();
-        int norme=165*calculnorme();
-        double orientaton=calculorientation()*Math.PI/4;
+        double angle=shipPosition.getOrientation()+calculorientation()*Math.PI/4;
+        int norme=165*(rightPush+leftPush)/cockpit.getShip().getEntities().size();
         double newX=norme*Math.sin(angle);
         double newY=norme*Math.cos(angle);
-        double angleShip=orientaton+angle;
-        while(angleShip > Math.PI){
-            angleShip -= 2*Math.PI;
-        }
-        while(angleShip < -Math.PI){
-            angleShip += 2*Math.PI;
-        }
-        shipPosition.setOrientation(angleShip);
+        shipPosition.setOrientation(angle);
         shipPosition.setX(shipPosition.getX()+newX);
         shipPosition.setY(shipPosition.getY()+newY);
         return ship;
     }
 
     private double calculorientation() {
-        if (rightPush>leftPush) return rightPush;
-        else if (rightPush<leftPush) return leftPush;
-        else return 0;
-    }
-
-    private int calculnorme() {
         if (rightPush>leftPush) return rightPush-leftPush;
         else if (rightPush<leftPush) return leftPush-rightPush;
         else return 0;
     }
+
 
 
     private void doAction(Action action) {
