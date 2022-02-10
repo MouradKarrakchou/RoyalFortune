@@ -10,8 +10,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -63,5 +65,17 @@ public class Game {
         //"Orientation: "+ship.getPosition().getOrientation()+'\n';
         String string=cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+'\n';
         return(string);
+    }
+
+    public boolean isFinished() {
+        double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
+        double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
+        double radius=((Circle)goal.getCheckPoints().get(0).getShape()).getRadius();
+        System.out.println("Distance to the checkpoint: "+distanceSC);
+        if (distanceSC<=radius)
+            return true;
+        else
+            return false;
     }
 }

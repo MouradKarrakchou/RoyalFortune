@@ -29,13 +29,23 @@ public class Referee {
 
     private Ship makeMooveShip(Ship ship) {
         Position shipPosition=ship.getPosition();
-        double angle=shipPosition.getOrientation()+calculorientation()*Math.PI/4;
+        double angleInitial=shipPosition.getOrientation();
+        double anglerot=calculorientation()*Math.PI/4;
+        int k=0;
         int norme=165*(rightPush+leftPush)/cockpit.getShip().getEntities().size();
-        double newX=norme*Math.sin(angle);
-        double newY=norme*Math.cos(angle);
-        shipPosition.setOrientation(angle);
-        shipPosition.setX(shipPosition.getX()+newX);
-        shipPosition.setY(shipPosition.getY()+newY);
+        double newX=shipPosition.getX();
+        double newY= shipPosition.getY();
+        double angleCalcul=angleInitial;
+
+        while (k<1000){
+        newX+=norme*Math.cos(angleCalcul)/1000;
+        newY+=norme*Math.sin(angleCalcul)/1000;
+        angleCalcul+=anglerot/1000;
+        k++;}
+
+        shipPosition.setOrientation(angleCalcul);
+        shipPosition.setX(newX);
+        shipPosition.setY(newY);
         return ship;
     }
 
@@ -51,7 +61,7 @@ public class Referee {
         if(action instanceof OarAction){
         cockpit.getSailors().stream()
                 .filter(sailor -> sailor.getId()==action.getSailorId())
-                .forEach(sailor -> {if(sailor.getX()>0) rightPush+=1;
+                .forEach(sailor -> {if(sailor.getY()>0) rightPush+=1;
                 else leftPush+=1;});}
     }
 
