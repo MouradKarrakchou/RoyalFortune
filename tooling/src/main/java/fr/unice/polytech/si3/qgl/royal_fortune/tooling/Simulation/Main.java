@@ -12,40 +12,76 @@ public class Main {
 
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        		
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
         game.nextRound();
         System.out.println(game);
+        textForOutput+=game.toString();
+        
 
 
 
