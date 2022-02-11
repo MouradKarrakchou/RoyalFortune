@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CaptainTest {
     private Ship ship;
     private Captain captain;
+    private Checkpoint checkpoint;
     private ArrayList<Sailor> sailors;
     private ArrayList<Entities> entities;
 
@@ -95,5 +97,55 @@ public class CaptainTest {
 
         assertEquals(6, sailors.size());
         assertEquals(4, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
+    }
+
+    @Test
+    //Positive angle
+    void angleCalculatorTest() {
+        ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle("rectangle", 3, 4, 0));
+
+        checkpoint = new Checkpoint(new Position(0,50,0), new Circle("Circle", 50));
+
+        ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
+        checkpointArrayList.add(checkpoint);
+
+        Goal goal = new Goal("REGATTA", checkpointArrayList);
+
+        captain = new Captain(ship, null, goal);
+
+        double angle = captain.angleCalculator()[0];
+        assertEquals(Math.PI/2, angle);
+    }
+
+    @Test
+        //Negative angle
+    void angleCalculator2Test() {
+        ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle("rectangle", 3, 4, 0));
+
+        checkpoint = new Checkpoint(new Position(0,-50,0), new Circle("Circle", 50));
+
+        ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
+        checkpointArrayList.add(checkpoint);
+
+        Goal goal = new Goal("REGATTA", checkpointArrayList);
+
+        captain = new Captain(ship, null, goal);
+
+        double angle = captain.angleCalculator()[0];
+        assertEquals(-Math.PI/2, angle);
     }
 }

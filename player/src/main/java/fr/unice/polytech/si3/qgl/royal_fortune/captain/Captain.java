@@ -147,7 +147,7 @@ public class Captain {
                 .collect(Collectors.toList()));
     }
 
-    double[] angleCalculator() {
+    public double[] angleCalculator() {
         double angleShip=ship.getPosition().getOrientation();
         Shape shape=goal.getCheckPoints().get(0).getShape();
         double radius =((Circle) shape).getRadius();

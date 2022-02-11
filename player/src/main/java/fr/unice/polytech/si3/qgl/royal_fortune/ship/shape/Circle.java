@@ -13,9 +13,9 @@ public class Circle extends Shape{
     private double radius;
 
     public Circle() {}
-    public Circle(String type, double diameter) {
+    public Circle(String type, double radius) {
         super(type);
-        this.radius = diameter;
+        this.radius = radius;
     }
 
     public double getRadius() { return radius; }
