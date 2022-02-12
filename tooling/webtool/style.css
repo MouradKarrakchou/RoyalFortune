@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(151, 203, 248);
+}
+
+#app {
+    display: flex;
+    flex-direction: row;
+}
+
+#input {
+    display: flex;
+    flex-direction: column;
+}
+
+#draw {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}
+
+#sea {
+    height: 100vh;
+    width: 100vw;
+}
+
+#boat {
+    margin: 0;
+    background-image: url("./boat.png");
+    position: relative;
+    height: 156px;
+    width: 358px;
+}
+
+.checkpoint {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: brown;
+}

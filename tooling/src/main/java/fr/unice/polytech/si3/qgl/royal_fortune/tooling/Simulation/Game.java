@@ -78,4 +78,16 @@ public class Game {
         else
             return false;
     }
+    
+    public String getAllCheckpointsForOutput() {
+    	String out = "";
+    	ArrayList<Checkpoint> checks = goal.getCheckPoints();
+    	for(Checkpoint checkpoint : checks) {
+    		Position pos = checkpoint.getPosition();
+    		double x = pos.getX();
+    		double y = pos.getY();
+    		out+=x+";"+y+"\n";
+    	}
+    	return out;
+    }
 }
