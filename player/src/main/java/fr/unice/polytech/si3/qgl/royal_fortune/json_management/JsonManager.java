@@ -121,7 +121,8 @@ public class JsonManager {
 
 	public static String getNode(String json, String searchNode){
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		JsonNode actualObj=null;
+
+		JsonNode actualObj = null;
 		try {
 			actualObj = mapper.readTree(json);
 			JsonNode shipJson = actualObj.get(searchNode);
@@ -131,7 +132,6 @@ public class JsonManager {
 			e.printStackTrace();
 		}
 		return null;
-	
 	}
 
 }
