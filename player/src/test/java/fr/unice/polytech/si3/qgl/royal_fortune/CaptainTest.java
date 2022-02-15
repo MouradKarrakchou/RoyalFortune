@@ -165,4 +165,70 @@ public class CaptainTest {
         assertFalse(captain.isConeTooSmall(0.5,0.3));
     }
 
+    @Test
+    //Moving straight
+    void roundDecisionsTest() {
+        ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 1.5),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle("rectangle", 3, 4, 0));
+
+        sailors.add(new Sailor(0, 0, 0, "sailor0"));
+        sailors.add(new Sailor(1, 0, 1, "sailor1"));
+        sailors.add(new Sailor(2, 1, 0, "sailor2"));
+        sailors.add(new Sailor(3, 1, 1, "sailor3"));
+
+        entities.add(new Oar("oar", 0, 0));
+        entities.add(new Oar("oar", 0, 1));
+        entities.add(new Oar("oar", 1, 0));
+        entities.add(new Oar("oar", 1, 1));
+
+        checkpoint = new Checkpoint(new Position(0,50,0), new Circle("Circle", 50));
+        ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
+        checkpointArrayList.add(checkpoint);
+        Goal goal = new Goal("REGATTA", checkpointArrayList);
+
+        captain = new Captain(ship, sailors, goal);
+        captain.roundDecisions();
+
+        assertEquals(8, captain.getRoundActions().size());
+    }
+
+    @Test
+    //Turning
+    void roundDecisions2Test() {
+        ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle("rectangle", 3, 4, 0));
+
+        sailors.add(new Sailor(0, 0, 0, "sailor0"));
+        sailors.add(new Sailor(1, 0, 1, "sailor1"));
+        sailors.add(new Sailor(2, 1, 0, "sailor2"));
+        sailors.add(new Sailor(3, 1, 1, "sailor3"));
+
+        entities.add(new Oar("oar", 0, 0));
+        entities.add(new Oar("oar", 0, 1));
+        entities.add(new Oar("oar", 1, 0));
+        entities.add(new Oar("oar", 1, 1));
+
+        checkpoint = new Checkpoint(new Position(0,50,0), new Circle("Circle", 50));
+        ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
+        checkpointArrayList.add(checkpoint);
+        Goal goal = new Goal("REGATTA", checkpointArrayList);
+
+        captain = new Captain(ship, sailors, goal);
+        captain.roundDecisions();
+
+        assertEquals(4, captain.getRoundActions().size());
+    }
+
 }

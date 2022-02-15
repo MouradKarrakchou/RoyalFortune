@@ -10,7 +10,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Captain {
     private final Ship ship;
