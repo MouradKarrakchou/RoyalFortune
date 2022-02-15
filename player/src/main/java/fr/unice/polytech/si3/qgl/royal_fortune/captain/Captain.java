@@ -96,45 +96,6 @@ public class Captain {
         }
     }
 
-    /**
-     * Check if every sailor are in place to rotate the boat.
-     * @return true/false
-     */
-    public boolean sailorsAreInPlace(){
-        long nbLeftSailors = sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
-                .filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft())
-                .count();
-        long nbRightSailors = sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
-                .filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft())
-                .count();
-        return nbLeftSailors == nbRightSailors;
-    }
-
-    /**
-     * Check if every sailor are in place to make the ship move straight forward.
-     * @return true/false
-     */
-    public boolean sailorsAreInPlace(double orientation){
-        long nbSailorsInLeftOar = sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
-                .filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft())
-                .count();
-
-        long nbSailorsInRightOar = sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
-                .filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft())
-                .count();
-        if (nbSailorsInLeftOar == nbSailorsInRightOar)
-            return false;
-        return (nbSailorsInLeftOar > nbSailorsInRightOar) == orientation < 0;
-    }
-
 
     /**
      * Ask all sailors associated to an Entity to move to

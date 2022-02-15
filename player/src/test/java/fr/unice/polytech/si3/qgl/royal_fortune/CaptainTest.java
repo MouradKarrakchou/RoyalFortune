@@ -201,33 +201,6 @@ public class CaptainTest {
         assertEquals(Math.PI/2, angle);
     }
 
-    /*
-    @Test
-    //Negative angle
-    void angleCalculator2Test() {
-        ship = new Ship(
-                "ship",
-                100,
-                new Position(0, 0, 0),
-                "ShipTest",
-                new Deck(3, 4),
-                entities,
-                new Rectangle("rectangle", 3, 4, 0));
-
-        checkpoint = new Checkpoint(new Position(0,-50,0), new Circle("Circle", 50));
-
-        ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
-        checkpointArrayList.add(checkpoint);
-
-        Goal goal = new Goal("REGATTA", checkpointArrayList);
-
-        captain = new Captain(ship, null, goal);
-
-        double angle = captain.angleCalculator()[0];
-        assertEquals(-Math.PI/2, angle);
-    }
-*/
-
     @Test
     void isInConeTest() {
         captain = new Captain(null, null, null);
