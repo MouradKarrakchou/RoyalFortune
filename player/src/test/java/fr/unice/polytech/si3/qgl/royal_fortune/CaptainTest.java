@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CaptainTest {
     private Ship ship;
@@ -124,8 +124,9 @@ public class CaptainTest {
         assertEquals(Math.PI/2, angle);
     }
 
+    /*
     @Test
-        //Negative angle
+    //Negative angle
     void angleCalculator2Test() {
         ship = new Ship(
                 "ship",
@@ -148,4 +149,14 @@ public class CaptainTest {
         double angle = captain.angleCalculator()[0];
         assertEquals(-Math.PI/2, angle);
     }
+*/
+
+    @Test
+    void isInConeTest() {
+        captain = new Captain(null, null, null);
+        assertTrue(captain.isInCone(0.5,1));
+        assertFalse(captain.isInCone(1,0.5));
+    }
+
+
 }

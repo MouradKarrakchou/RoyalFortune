@@ -26,15 +26,18 @@ public class Captain {
     }
 
     public String roundDecisions() {
-        desasosiate();
+        disassociate();
         roundActions.clear();
-        if(isConeTooSmall()||isInCone()) {
+
+        double angleMove = getAngleMove();
+        double angleCone = getAngleCone();
+
+        if(isConeTooSmall(angleMove, angleCone)||isInCone(angleMove, angleCone)) {
                 associateSailorToOarEvenly();
                 askSailorsToMove();
                 askSailorsToOar();
         }
         else {
-            double angleMove = getAngleMove();
                 associateSailorToOar(angleMove);
                 associateSailorToOarEvenly();
                 askSailorsToMove();
@@ -48,7 +51,7 @@ public class Captain {
         return "[" + out + "]";
     }
 
-    private void desasosiate() {
+    private void disassociate() {
         sailors.stream().forEach(sailor -> sailor.setTargetEntity(null));
     }
 
@@ -156,15 +159,11 @@ public class Captain {
         double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
         double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
+        double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
 
         double angleCone = Math.atan(radius / distanceSC);
 
-
-        double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
-
         double angleMove = Math.acos(num / distanceSC);
-        //double angleMove = Math.PI-Math.atan(distanceSCX / distanceSCY)-angleShip;
-
 
         while(angleMove > Math.PI){
             angleMove -= 2*Math.PI;
@@ -179,24 +178,12 @@ public class Captain {
         return angles;
     }
 
-
-    private double angleInterval(double angleMove) {
-        while(angleMove > Math.PI){
-            angleMove -= 2*Math.PI;
-        }
-
-        while(angleMove < -Math.PI){
-            angleMove += 2*Math.PI;
-        }
-        return angleMove;
+    public boolean isInCone(double angleMove, double angleCone) {
+        return (Math.abs(angleMove) <= angleCone);
     }
 
-    boolean isInCone() {
-        return (Math.abs(getAngleMove()) <= getAngleCone());
-    }
-
-    boolean isConeTooSmall() {
-        return (Math.abs(getAngleMove() + getAngleCone()) < Math.PI/4);
+    boolean isConeTooSmall(double angleMove, double angleCone) {
+        return (Math.abs(angleMove + angleCone) < Math.PI/4);
     }
 
     double getAngleMove() { return angleCalculator()[0]; }
