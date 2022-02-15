@@ -158,5 +158,11 @@ public class CaptainTest {
         assertFalse(captain.isInCone(1,0.5));
     }
 
+    @Test
+    void isConeTooSmallTest() {
+        captain = new Captain(null, null, null);
+        assertTrue(captain.isConeTooSmall(0.5,0.2));
+        assertFalse(captain.isConeTooSmall(0.5,0.3));
+    }
 
 }

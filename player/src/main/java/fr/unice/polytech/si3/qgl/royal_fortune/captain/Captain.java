@@ -182,7 +182,7 @@ public class Captain {
         return (Math.abs(angleMove) <= angleCone);
     }
 
-    boolean isConeTooSmall(double angleMove, double angleCone) {
+    public boolean isConeTooSmall(double angleMove, double angleCone) {
         return (Math.abs(angleMove + angleCone) < Math.PI/4);
     }
 
