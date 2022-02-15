@@ -64,7 +64,7 @@ public class CaptainTest {
         captain.associateSailorToOar(Math.PI);
         assertEquals(4, sailors.size());
         assertEquals(3, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
-        sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertEquals(0, sailor.getTargetEntity().getY()));
+        sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertTrue(0 != sailor.getTargetEntity().getY()));
     }
 
     @Test
@@ -86,18 +86,16 @@ public class CaptainTest {
         entities.add(new Oar("oar", 1, 3));
         entities.add(new Oar("oar", 2, 3));
 
-        sailors = new ArrayList<>();
+        ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle("rectangle", 3, 4, 0));
+
         captain = new Captain(ship, sailors, null);
-
-        // For a rotation of pi/2, we need 2 sailors on the left side.
-        captain.associateSailorToOar(Math.PI/2);
-        assertEquals(4, sailors.size());
-        assertEquals(2, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
-
-        sailors.add(new Sailor(0, 0, 0, "sailor0"));
-        sailors.add(new Sailor(1, 0, 1, "sailor1"));
-        sailors.add(new Sailor(2, 1, 0, "sailor2"));
-        sailors.add(new Sailor(3, 1, 1, "sailor3"));
 
         // For a rotation of pi/4, we need 1 sailor on the left side
         captain.associateSailorToOar(- Math.PI/4);
@@ -136,11 +134,11 @@ public class CaptainTest {
 
         assertEquals(4, sailors.size());
         assertEquals(3, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
-        sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertTrue(0 != sailor.getTargetEntity().getY()));
+        sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertEquals(0, sailor.getTargetEntity().getY()));
 
         captain.askSailorsToMove();
         // Size is 2 because a sailor is already on its target entity
-        assertEquals(3, captain.getRoundActions().size());
+        assertEquals(2, captain.getRoundActions().size());
     }
 
     @Test
