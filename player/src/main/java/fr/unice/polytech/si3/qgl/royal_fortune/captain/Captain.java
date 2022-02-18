@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
@@ -143,9 +144,24 @@ public class Captain {
             angleMove += 2*Math.PI;
         }
 
-        double angles[] = {angleMove, angleCone};
+        double angles[] = {checkSign(angleMove), angleCone};
 
         return angles;
+    }
+
+    private double checkSign(double angleMove) {
+        return angleMove;
+    }
+
+    private double calculDistToCheckPoint(double angleMove) {
+        double anglerot=angleMove+ship.getPosition().getOrientation();
+        double newX= ship.getPosition().getX()+1*Math.cos(anglerot);
+        double newY= ship.getPosition().getY()+1*Math.sin(anglerot);
+
+
+        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - newX;
+        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - newY;
+        return(Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2)));
     }
 
     public boolean isInCone(double angleMove, double angleCone) {
