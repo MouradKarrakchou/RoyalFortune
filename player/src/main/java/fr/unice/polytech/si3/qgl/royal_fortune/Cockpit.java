@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
@@ -40,7 +41,9 @@ public class Cockpit implements ICockpit {
 		ship.setPosition(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
 		System.out.println("Next round input: " + round);
-		return captain.roundDecisions();
+
+		DirectionsManager directionsManager = new DirectionsManager(ship, goal);
+		return captain.roundDecisions(directionsManager);
 	}
 
 	public Ship getShip() {

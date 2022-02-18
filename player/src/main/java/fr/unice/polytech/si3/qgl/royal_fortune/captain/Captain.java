@@ -3,11 +3,9 @@ package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -25,15 +23,15 @@ public class Captain {
         roundActions = new ArrayList<>();
     }
 
-    public String roundDecisions() {
+    public String roundDecisions(DirectionsManager directionsManager) {
 
         disassociate();
         roundActions.clear();
         updateCheckPoint();
-        double angleMove = getAngleMove();
-        double angleCone = getAngleCone();
+        double angleMove = directionsManager.getAngleMove();
+        double angleCone = directionsManager.getAngleCone();
 
-        if(isConeTooSmall(angleMove, angleCone)||isInCone(angleMove, angleCone)) {
+        if(directionsManager.isConeTooSmall(angleMove, angleCone)||directionsManager.isInCone(angleMove, angleCone)) {
                 associateSailorToOarEvenly();
                 askSailorsToMove();
                 askSailorsToOar();

@@ -242,7 +242,8 @@ public class CaptainTest {
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
         captain = new Captain(ship, sailors, goal);
-        captain.roundDecisions();
+        dirMan = new DirectionsManager(ship, goal);
+        captain.roundDecisions(dirMan);
 
         assertEquals(8, captain.getRoundActions().size());
     }
@@ -275,7 +276,8 @@ public class CaptainTest {
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
         captain = new Captain(ship, sailors, goal);
-        captain.roundDecisions();
+        dirMan = new DirectionsManager(ship, goal);
+        captain.roundDecisions(dirMan);
 
         assertEquals(4, captain.getRoundActions().size());
     }
