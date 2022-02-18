@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Goal {
     String mode;
     ArrayList<Checkpoint> checkpoints;
+    int currentCheckPoint=0;
 
     Goal(String mode, ArrayList<Checkpoint> checkpoints){
         this.mode = mode;
@@ -16,9 +17,11 @@ public class Goal {
         this.mode = mode;
     }
 
-    public Checkpoint getCheckpointone() {
-        return checkpoints.get(0);
+    public Checkpoint getCurrentCheckpoint() {
+        return checkpoints.get(currentCheckPoint);
     }
+
+    public void nextCheckPoint(){currentCheckPoint++;}
 
     public void setCheckpoints(ArrayList<Checkpoint> checkpoints){
         this.checkpoints = checkpoints;
