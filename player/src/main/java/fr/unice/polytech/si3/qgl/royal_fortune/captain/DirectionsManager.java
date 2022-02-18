@@ -37,19 +37,17 @@ public class DirectionsManager {
             angleMove += 2*Math.PI;
         }
 
-        double angles[] = {checkSign(angleMove), angleCone};
-
-        return angles;
+        return new double[]{checkSign(angleMove), angleCone};
     }
 
     private double checkSign(double angleMove) {
         return angleMove;
     }
 
-    private double calculDistToCheckPoint(double angleMove) {
-        double anglerot=angleMove+ship.getPosition().getOrientation();
-        double newX= ship.getPosition().getX()+1*Math.cos(anglerot);
-        double newY= ship.getPosition().getY()+1*Math.sin(anglerot);
+    private double calculateDistToCheckPoint(double angleMove) {
+        double angleRotation=angleMove+ship.getPosition().getOrientation();
+        double newX= ship.getPosition().getX()+1*Math.cos(angleRotation);
+        double newY= ship.getPosition().getY()+1*Math.sin(angleRotation);
 
 
         double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - newX;
@@ -69,10 +67,22 @@ public class DirectionsManager {
             goal.nextCheckPoint();
     }
 
+    /**
+     * Check if the ship is in the right direction
+     * @param angleMove is the angle between the direction vector of the ship and the axis from the ship and the checkpoint
+     * @param angleCone half of the angle between the axis from the ship and the edges of the checkpoint
+     * @return true if the ship is in the right direction
+     */
     public boolean isInCone(double angleMove, double angleCone) {
         return (Math.abs(angleMove) <= angleCone);
     }
 
+    /**
+     * Check if the next turn of the ship will exceed the right direction
+     * @param angleMove is the angle between the direction vector of the ship and the axis from the ship and the checkpoint
+     * @param angleCone half of the angle between the axis from the ship and the edges of the checkpoint
+     * @return true if the next turn of the boat exceed the right direction
+     */
     public boolean isConeTooSmall(double angleMove, double angleCone) {
         return (Math.abs(angleMove + angleCone) < Math.PI/4);
     }
