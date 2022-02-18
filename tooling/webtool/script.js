@@ -67,10 +67,21 @@ function createCheckpoints(input) {
     //checkpointList.style.backgroundColor = "green"
     for (let i = 0; i < input.length; i++) {
         window.checkpoints.push(new Checkpoint(input[i].split(';')[0], input[i].split(';')[1]));
-        let check = "<div id='checkpoint" + i + "' class='checkpoint'></div>"
+        let check = "<div id='" + i + "' class='checkpoint'></div>"
         checkpointList.innerHTML += check;
-        $("#checkpoint" + i).animate({ top: window.checkpoints[i].y, left: window.checkpoints[i].x }, 1200);
+        /*$("#checkpoint" + i).animate({ top: window.checkpoints[i].y, left: window.checkpoints[i].x }, 1200)
+            .queue(function() {
+                document.getElementById("res").innerHTML += "<p>Queued Calls of checkpoint" + i + ":" + $(this).queue("fx").length + "</p>";
+            });
+            */
     }
+}
+
+function animateCheckpoints() {
+    $('.checkpoint').each(function() {
+        let id = $(this).attr("id");
+        $(this).animate({ top: window.checkpoints[id].y, left: window.checkpoints[id].x }, 1000);
+    });
 }
 
 function getText(textarea) {
@@ -102,6 +113,7 @@ function addListener() {
         let checkpoints = input.slice(0, index);
         let coord = input.slice(index + 1);
         createCheckpoints(checkpoints);
+        animateCheckpoints();
         move(coord);
     });
 
