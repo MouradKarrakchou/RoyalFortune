@@ -14,11 +14,17 @@ public class DirectionsManager {
         this.goal = goal;
     }
 
+    /**
+     * Calculate 2 angles:
+     * -The angle between the direction vertor of the ship and the axis from the ship to the checkpoint
+     * -Half of the angle between the axis from the ship to the edges of the checkpoint
+     *
+     * @return the angle which the ship must turn, the angle in which the ship is in the right direction
+     */
     public double[] angleCalculator() {
-        double angleShip=ship.getPosition().getOrientation();
-        Shape shape=goal.getCurrentCheckpoint().getShape();
-        double radius =((Circle) shape).getRadius();
-
+        Shape shape = goal.getCurrentCheckpoint().getShape();
+        double radius = ((Circle) shape).getRadius();
+        double angleShip = ship.getPosition().getOrientation();
 
         double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
         double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
@@ -26,16 +32,7 @@ public class DirectionsManager {
         double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
 
         double angleCone = Math.atan(radius / distanceSC);
-
         double angleMove = Math.acos(num / distanceSC);
-
-        while(angleMove > Math.PI){
-            angleMove -= 2*Math.PI;
-        }
-
-        while(angleMove < -Math.PI){
-            angleMove += 2*Math.PI;
-        }
 
         return new double[]{checkSign(angleMove), angleCone};
     }
