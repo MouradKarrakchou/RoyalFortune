@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
@@ -22,22 +24,17 @@ public class Cockpit implements ICockpit {
 	public void initGame(String game) {
 		System.out.println("Init game input: " + game);
 
-		// Initialize the ship
-		String shipJson = JsonManager.getNode(game, "ship");
-		ship = JsonManager.readShipJson(shipJson);
-		
-		String sailorsJson = JsonManager.getNode(game, "sailors");
-		sailors = JsonManager.readSailorsJson(sailorsJson);
-
-		String checkpointsJson = JsonManager.getNode(game,"goal");
-		goal = JsonManager.readGoalJson(checkpointsJson);
-
-		captain = new Captain(ship, sailors);
+		//initialization InitGameDAO
+		InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(game);
+		ship = initGameDAO.getShip();
+		sailors = initGameDAO.getSailors();
+		goal = initGameDAO.getGoal();
+		captain = new Captain(ship, sailors, goal);
 	}
 
 	public String nextRound(String round) {
-		String shipJson = JsonManager.getNode(round, "ship");
-		Ship newShip = JsonManager.readShipJson(shipJson);
+		NextRoundDAO nextRoundDAO = JsonManager.readNextRoundDAOJson(round);
+		Ship newShip = nextRoundDAO.getShip();
 		ship.setPosition(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
 		System.out.println("Next round input: " + round);

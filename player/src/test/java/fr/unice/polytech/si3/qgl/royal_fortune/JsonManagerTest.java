@@ -2,6 +2,8 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -194,5 +196,152 @@ public class JsonManagerTest {
         assertEquals(result,jsonManager.getNode(json, "ship"));
     }
 
+    
+    @Test
+    public void readInitGameJSON() {
+    	String json = "{\r\n"
+    			+ "  \"goal\": {\r\n"
+    			+ "    \"mode\": \"REGATTA\",\r\n"
+    			+ "    \"checkpoints\": [\r\n"
+    			+ "      {\r\n"
+    			+ "        \"position\": {\r\n"
+    			+ "          \"x\": -200,\r\n"
+    			+ "          \"y\": 1000,\r\n"
+    			+ "          \"orientation\": 0\r\n"
+    			+ "        },\r\n"
+    			+ "        \"shape\": {\r\n"
+    			+ "          \"type\": \"circle\",\r\n"
+    			+ "          \"radius\": 80\r\n"
+    			+ "        }\r\n"
+    			+ "      }\r\n"
+    			+ "    ]\r\n"
+    			+ "  },\r\n"
+    			+ "  \"ship\": {\r\n"
+    			+ "    \"type\": \"ship\",\r\n"
+    			+ "    \"position\": {\r\n"
+    			+ "      \"x\": 0,\r\n"
+    			+ "      \"y\": 0,\r\n"
+    			+ "      \"orientation\": 0\r\n"
+    			+ "    },\r\n"
+    			+ "    \"name\": \"royal_fortune\",\r\n"
+    			+ "    \"deck\": {\r\n"
+    			+ "      \"width\": 2,\r\n"
+    			+ "      \"length\": 3\r\n"
+    			+ "    },\r\n"
+    			+ "    \"entities\": [\r\n"
+    			+ "      {\r\n"
+    			+ "        \"x\": 1,\r\n"
+    			+ "        \"y\": 0,\r\n"
+    			+ "        \"type\": \"oar\"\r\n"
+    			+ "      },\r\n"
+    			+ "      {\r\n"
+    			+ "        \"x\": 1,\r\n"
+    			+ "        \"y\": 1,\r\n"
+    			+ "        \"type\": \"oar\"\r\n"
+    			+ "      },\r\n"
+    			+ "      {\r\n"
+    			+ "        \"x\": 2,\r\n"
+    			+ "        \"y\": 0,\r\n"
+    			+ "        \"type\": \"oar\"\r\n"
+    			+ "      },\r\n"
+    			+ "      {\r\n"
+    			+ "        \"x\": 2,\r\n"
+    			+ "        \"y\": 1,\r\n"
+    			+ "        \"type\": \"oar\"\r\n"
+    			+ "      }\r\n"
+    			+ "    ],\r\n"
+    			+ "    \"life\": 300,\r\n"
+    			+ "    \"shape\": {\r\n"
+    			+ "      \"type\": \"rectangle\",\r\n"
+    			+ "      \"width\": 2,\r\n"
+    			+ "      \"height\": 3,\r\n"
+    			+ "      \"orientation\": 0\r\n"
+    			+ "    }\r\n"
+    			+ "  },\r\n"
+    			+ "  \"sailors\": [\r\n"
+    			+ "    {\r\n"
+    			+ "      \"x\": 0,\r\n"
+    			+ "      \"y\": 0,\r\n"
+    			+ "      \"id\": 0,\r\n"
+    			+ "      \"name\": \"Jack Pouce\"\r\n"
+    			+ "    },\r\n"
+    			+ "    {\r\n"
+    			+ "      \"x\": 0,\r\n"
+    			+ "      \"y\": 1,\r\n"
+    			+ "      \"id\": 1,\r\n"
+    			+ "      \"name\": \"Luffy Teach\"\r\n"
+    			+ "    },\r\n"
+    			+ "    {\r\n"
+    			+ "      \"x\": 1,\r\n"
+    			+ "      \"y\": 0,\r\n"
+    			+ "      \"id\": 2,\r\n"
+    			+ "      \"name\": \"Edward Pouce\"\r\n"
+    			+ "    },\r\n"
+    			+ "    {\r\n"
+    			+ "      \"x\": 1,\r\n"
+    			+ "      \"y\": 1,\r\n"
+    			+ "      \"id\": 3,\r\n"
+    			+ "      \"name\": \"Edward Pouce\"\r\n"
+    			+ "    }\r\n"
+    			+ "  ],\r\n"
+    			+ "  \"shipCount\": 1\r\n"
+    			+ "}";
+    	InitGameDAO init = new InitGameDAO();
+    	init = JsonManager.readInitGameDAOJson(json);
+    	assertEquals(1, init.getShipCount());
+    	assertEquals(4, init.getSailors().size());
+    	assertEquals(4, init.getShip().getEntities().size());
+    }
+
+    @Test
+    public void readNextRoundJSON() {
+    	String json = "{\r\n"
+    			+ "  \"ship\": {\r\n"
+    			+ "    \"type\": \"ship\",\r\n"
+    			+ "    \"life\": 300,\r\n"
+    			+ "    \"position\": {\r\n"
+    			+ "      \"x\": 0,\r\n"
+    			+ "      \"y\": 0,\r\n"
+    			+ "      \"orientation\": 0\r\n"
+    			+ "    },\r\n"
+    			+ "    \"name\": \"royal_fortune\",\r\n"
+    			+ "    \"deck\": {\r\n"
+    			+ "      \"width\": 2,\r\n"
+    			+ "      \"length\": 3\r\n"
+    			+ "    },\r\n"
+    			+ "    \"entities\": [\r\n"
+    			+ "      {\r\n"
+    			+ "        \"type\": \"oar\",\r\n"
+    			+ "        \"x\": 1,\r\n"
+    			+ "        \"y\": 0\r\n"
+    			+ "      },\r\n"
+    			+ "      {\r\n"
+    			+ "        \"type\": \"oar\",\r\n"
+    			+ "        \"x\": 1,\r\n"
+    			+ "        \"y\": 1\r\n"
+    			+ "      },\r\n"
+    			+ "      {\r\n"
+    			+ "        \"type\": \"oar\",\r\n"
+    			+ "        \"x\": 2,\r\n"
+    			+ "        \"y\": 0\r\n"
+    			+ "      },\r\n"
+    			+ "      {\r\n"
+    			+ "        \"type\": \"oar\",\r\n"
+    			+ "        \"x\": 2,\r\n"
+    			+ "        \"y\": 1\r\n"
+    			+ "      }\r\n"
+    			+ "    ],\r\n"
+    			+ "    \"shape\": {\r\n"
+    			+ "      \"type\": \"rectangle\",\r\n"
+    			+ "      \"width\": 2,\r\n"
+    			+ "      \"height\": 3,\r\n"
+    			+ "      \"orientation\": 0\r\n"
+    			+ "    }\r\n"
+    			+ "  }\r\n"
+    			+ "}";
+    	NextRoundDAO nextRound = new NextRoundDAO();
+    	nextRound = JsonManager.readNextRoundDAOJson(json);
+    	assertEquals(4, nextRound.getShip().getEntities().size());
+    }
 
 }
