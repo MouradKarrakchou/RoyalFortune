@@ -150,7 +150,9 @@ public class Captain {
     }
 
     private double checkSign(double angleMove) {
-            return angleMove;
+            if (calculDistToCheckPoint(angleMove)<calculDistToCheckPoint(-angleMove))
+                return angleMove;
+            else return -angleMove;
     }
 
     private double calculDistToCheckPoint(double angleMove) {
@@ -169,7 +171,7 @@ public class Captain {
     }
 
     public boolean isConeTooSmall(double angleMove, double angleCone) {
-        return (Math.abs(angleMove + angleCone) < Math.PI/4);
+        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/4);
     }
 
     double getAngleMove() { return angleCalculator()[0]; }
