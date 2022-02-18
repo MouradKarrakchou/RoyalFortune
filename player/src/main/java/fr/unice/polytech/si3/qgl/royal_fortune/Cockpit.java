@@ -51,6 +51,10 @@ public class Cockpit implements ICockpit {
 		return sailors;
 	}
 
+	public Goal getGoal() {
+		return goal;
+	}
+
 	@Override
 	public List<String> getLogs() {
 		return new ArrayList<>();

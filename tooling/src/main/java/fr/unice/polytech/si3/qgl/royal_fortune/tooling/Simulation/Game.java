@@ -1,21 +1,15 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.Simulation;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Game {
@@ -24,20 +18,19 @@ public class Game {
     ArrayList<Sailor> sailors;
     Goal goal;
     Referee referee;
+    int numberOfCheckpointVisited =0;
     public Game(String initialiser){
 
         String sailorsJson = JsonManager.getNode(initialiser, "sailors");
         sailors = JsonManager.readSailorsJson(sailorsJson);
 
-        String checkpointsJson = JsonManager.getNode(initialiser,"goal");
-        goal = JsonManager.readGoalJson(checkpointsJson);
         //
         //String entitiesJson = JsonManager.getNode(initialiser, "entities");
         //entities=JsonManager.readEntitiesJson(entitiesJson);
         cockpit=new Cockpit();
-
         referee=new Referee(cockpit);
         cockpit.initGame(initialiser);
+        goal=cockpit.getGoal();
         ship = cockpit.getShip();
 
     }
@@ -68,12 +61,14 @@ public class Game {
     }
 
     public boolean isFinished() {
-        double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
+        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
-        double radius=((Circle)goal.getCheckPoints().get(0).getShape()).getRadius();
+        double radius=((Circle)goal.getCurrentCheckpoint().getShape()).getRadius();
         System.out.println("Distance to the checkpoint: "+distanceSC);
         if (distanceSC<=radius)
+        numberOfCheckpointVisited++;
+        if (numberOfCheckpointVisited==goal.getCheckPoints().size())
             return true;
         else
             return false;

@@ -25,9 +25,10 @@ public class Captain {
     }
 
     public String roundDecisions() {
+
         disassociate();
         roundActions.clear();
-
+        updateCheckPoint();
         double angleMove = getAngleMove();
         double angleCone = getAngleCone();
 
@@ -48,6 +49,15 @@ public class Captain {
             actionsToDo.append(action.toString()).append(",");
         String out = actionsToDo.substring(0, actionsToDo.length() - 1);
         return "[" + out + "]";
+    }
+
+    private void updateCheckPoint() {
+        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
+        double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
+        double radius=((Circle)goal.getCurrentCheckpoint().getShape()).getRadius();
+        if (distanceSC<=radius)
+            goal.nextCheckPoint();
     }
 
     private void disassociate() {
@@ -112,12 +122,12 @@ public class Captain {
 
     public double[] angleCalculator() {
         double angleShip=ship.getPosition().getOrientation();
-        Shape shape=goal.getCheckPoints().get(0).getShape();
+        Shape shape=goal.getCurrentCheckpoint().getShape();
         double radius =((Circle) shape).getRadius();
 
 
-        double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
+        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
 
