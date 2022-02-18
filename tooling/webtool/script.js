@@ -24,10 +24,10 @@ function Checkpoint(x, y) {
 
 function init() {
     window.checkpoints = [];
+    window.cameraLock = true;
     addListener();
     window.boat = new Boat(0, 0, 0);
     window.saveMyLife = document.getElementById("saveMyLife");
-
     window.lastX = translateX(0);
     window.lastY = translateY(0);
     document.getElementById('boat').style.transform = "rotate(-90deg)";
@@ -57,7 +57,8 @@ function move(input) {
         updateBoatPosition(input, i);
         drawpath(window.boat.getX(), window.boat.getY());
         drawBoat();
-        scrollToTheBoatV2();
+        if (window.cameraLock)
+            scrollToTheBoatV2();
     }
 }
 
@@ -143,6 +144,7 @@ function drawpath(newX, newY) {
 
 function addListener() {
     document.querySelector('#start').addEventListener('click', function(event) {
+        if (!document.getElementById("cameraLock").checked) window.cameraLock = false;
         let input = getText(document.querySelector('#log'))
         let index = input.indexOf("---");
         let checkpoints = input.slice(0, index);
