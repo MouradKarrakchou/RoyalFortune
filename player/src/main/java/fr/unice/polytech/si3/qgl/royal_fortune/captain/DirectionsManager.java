@@ -57,6 +57,18 @@ public class DirectionsManager {
         return(Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2)));
     }
 
+    /**
+     * Check if the ship has reach the current checkpoint to focus the next one
+     */
+    void updateCheckPoint() {
+        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
+        double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
+        double radius=((Circle)goal.getCurrentCheckpoint().getShape()).getRadius();
+        if (distanceSC<=radius)
+            goal.nextCheckPoint();
+    }
+
     public boolean isInCone(double angleMove, double angleCone) {
         return (Math.abs(angleMove) <= angleCone);
     }

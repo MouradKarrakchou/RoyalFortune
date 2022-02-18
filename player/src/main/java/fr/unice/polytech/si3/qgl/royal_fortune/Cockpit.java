@@ -32,7 +32,7 @@ public class Cockpit implements ICockpit {
 		String checkpointsJson = JsonManager.getNode(game,"goal");
 		goal = JsonManager.readGoalJson(checkpointsJson);
 
-		captain = new Captain(ship, sailors, goal);
+		captain = new Captain(ship, sailors);
 	}
 
 	public String nextRound(String round) {

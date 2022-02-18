@@ -59,7 +59,7 @@ public class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors, null);
+        captain = new Captain(ship, sailors);
 
         // For a rotation of pi, we need 4 sailors on the left side, but there is only 3 oars available.
         captain.associateSailorToOar(Math.PI);
@@ -96,7 +96,7 @@ public class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors, null);
+        captain = new Captain(ship, sailors);
 
         // For a rotation of pi/4, we need 1 sailor on the left side
         captain.associateSailorToOar(- Math.PI/4);
@@ -130,7 +130,7 @@ public class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors, null);
+        captain = new Captain(ship, sailors);
         captain.associateSailorToOar(- Math.PI);
 
         assertEquals(4, sailors.size());
@@ -167,7 +167,7 @@ public class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors, null);
+        captain = new Captain(ship, sailors);
         captain.associateSailorToOarEvenly();
 
         assertEquals(6, sailors.size());
@@ -193,7 +193,7 @@ public class CaptainTest {
 
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
-        captain = new Captain(ship, null, goal);
+        captain = new Captain(ship, null);
         dirMan = new DirectionsManager(ship, goal);
 
         double angle = dirMan.angleCalculator()[0];
@@ -241,7 +241,7 @@ public class CaptainTest {
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
-        captain = new Captain(ship, sailors, goal);
+        captain = new Captain(ship, sailors);
         dirMan = new DirectionsManager(ship, goal);
         captain.roundDecisions(dirMan);
 
@@ -275,7 +275,7 @@ public class CaptainTest {
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
-        captain = new Captain(ship, sailors, goal);
+        captain = new Captain(ship, sailors);
         dirMan = new DirectionsManager(ship, goal);
         captain.roundDecisions(dirMan);
 
