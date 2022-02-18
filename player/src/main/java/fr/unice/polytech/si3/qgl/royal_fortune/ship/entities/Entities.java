@@ -9,7 +9,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
 
 /**
- * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", include = JsonTypeInfo.As.EXTERNAL_PROPERTY)
