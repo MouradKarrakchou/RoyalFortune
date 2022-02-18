@@ -150,13 +150,13 @@ public class Captain {
     }
 
     private double checkSign(double angleMove) {
-        return angleMove;
+            return angleMove;
     }
 
     private double calculDistToCheckPoint(double angleMove) {
         double anglerot=angleMove+ship.getPosition().getOrientation();
-        double newX= ship.getPosition().getX()+1*Math.cos(anglerot);
-        double newY= ship.getPosition().getY()+1*Math.sin(anglerot);
+        double newX= ship.getPosition().getX()+Math.cos(anglerot);
+        double newY= ship.getPosition().getY()+Math.sin(anglerot);
 
 
         double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - newX;

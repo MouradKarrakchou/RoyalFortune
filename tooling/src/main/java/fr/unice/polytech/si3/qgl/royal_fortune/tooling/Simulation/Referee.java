@@ -43,6 +43,14 @@ public class Referee {
         angleCalcul+=anglerot/1000;
         k++;}
 
+        while(angleCalcul > Math.PI){
+            angleCalcul -= 2*Math.PI;
+        }
+
+        while(angleCalcul < -Math.PI){
+            angleCalcul += 2*Math.PI;
+        }
+
         shipPosition.setOrientation(angleCalcul);
         shipPosition.setX(newX);
         shipPosition.setY(newY);
@@ -50,9 +58,7 @@ public class Referee {
     }
 
     private double calculorientation() {
-        if (rightPush>leftPush) return rightPush-leftPush;
-        else if (rightPush<leftPush) return leftPush-rightPush;
-        else return 0;
+        return rightPush-leftPush;
     }
 
 
