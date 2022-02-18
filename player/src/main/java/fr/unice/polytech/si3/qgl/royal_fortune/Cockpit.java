@@ -29,7 +29,7 @@ public class Cockpit implements ICockpit {
 		ship = initGameDAO.getShip();
 		sailors = initGameDAO.getSailors();
 		goal = initGameDAO.getGoal();
-		captain = new Captain(ship, sailors, goal);
+		captain = new Captain(ship, sailors);
 	}
 
 	public String nextRound(String round) {
