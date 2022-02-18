@@ -25,7 +25,7 @@ public class Game {
     	InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
         sailors = initGameDAO.getSailors();
         goal = initGameDAO.getGoal();
-
+        cockpit = new Cockpit();
         referee=new Referee(cockpit);
         cockpit.initGame(initialiser);
         goal=cockpit.getGoal();
