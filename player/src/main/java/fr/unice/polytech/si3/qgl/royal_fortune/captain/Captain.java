@@ -10,7 +10,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Captain {
     private final Ship ship;
@@ -26,15 +25,18 @@ public class Captain {
     }
 
     public String roundDecisions() {
-        desasosiate();
+        disassociate();
         roundActions.clear();
-        if(isConeTooSmall()||isInCone()) {
+
+        double angleMove = getAngleMove();
+        double angleCone = getAngleCone();
+
+        if(isConeTooSmall(angleMove, angleCone)||isInCone(angleMove, angleCone)) {
                 associateSailorToOarEvenly();
                 askSailorsToMove();
                 askSailorsToOar();
         }
         else {
-            double angleMove = getAngleMove();
                 associateSailorToOar(angleMove);
                 associateSailorToOarEvenly();
                 askSailorsToMove();
@@ -48,7 +50,7 @@ public class Captain {
         return "[" + out + "]";
     }
 
-    private void desasosiate() {
+    private void disassociate() {
         sailors.stream().forEach(sailor -> sailor.setTargetEntity(null));
     }
 
@@ -94,45 +96,6 @@ public class Captain {
         }
     }
 
-    /**
-     * Check if every sailor are in place to rotate the boat.
-     * @return true/false
-     */
-    public boolean sailorsAreInPlace(){
-        long nbLeftSailors = sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
-                .filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft())
-                .count();
-        long nbRightSailors = sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
-                .filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft())
-                .count();
-        return nbLeftSailors == nbRightSailors;
-    }
-
-    /**
-     * Check if every sailor are in place to make the ship move straight forward.
-     * @return true/false
-     */
-    public boolean sailorsAreInPlace(double orientation){
-        long nbSailorsInLeftOar = sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
-                .filter(sailor -> ((Oar) sailor.getTargetEntity()).isLeft())
-                .count();
-
-        long nbSailorsInRightOar = sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity() instanceof Oar)
-                .filter(sailor -> !((Oar) sailor.getTargetEntity()).isLeft())
-                .count();
-        if (nbSailorsInLeftOar == nbSailorsInRightOar)
-            return false;
-        return (nbSailorsInLeftOar > nbSailorsInRightOar) == orientation < 0;
-    }
-
 
     /**
      * Ask all sailors associated to an Entity to move to
@@ -147,7 +110,7 @@ public class Captain {
                 .collect(Collectors.toList()));
     }
 
-    double[] angleCalculator() {
+    public double[] angleCalculator() {
         double angleShip=ship.getPosition().getOrientation();
         Shape shape=goal.getCheckPoints().get(0).getShape();
         double radius =((Circle) shape).getRadius();
@@ -156,15 +119,11 @@ public class Captain {
         double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
         double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
+        double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
 
         double angleCone = Math.atan(radius / distanceSC);
 
-
-        double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
-
         double angleMove = Math.acos(num / distanceSC);
-        //double angleMove = Math.PI-Math.atan(distanceSCX / distanceSCY)-angleShip;
-
 
         while(angleMove > Math.PI){
             angleMove -= 2*Math.PI;
@@ -179,24 +138,12 @@ public class Captain {
         return angles;
     }
 
-
-    private double angleInterval(double angleMove) {
-        while(angleMove > Math.PI){
-            angleMove -= 2*Math.PI;
-        }
-
-        while(angleMove < -Math.PI){
-            angleMove += 2*Math.PI;
-        }
-        return angleMove;
+    public boolean isInCone(double angleMove, double angleCone) {
+        return (Math.abs(angleMove) <= angleCone);
     }
 
-    boolean isInCone() {
-        return (Math.abs(getAngleMove()) <= getAngleCone());
-    }
-
-    boolean isConeTooSmall() {
-        return (Math.abs(getAngleMove() + getAngleCone()) < Math.PI/4);
+    public boolean isConeTooSmall(double angleMove, double angleCone) {
+        return (Math.abs(angleMove + angleCone) < Math.PI/4);
     }
 
     double getAngleMove() { return angleCalculator()[0]; }
