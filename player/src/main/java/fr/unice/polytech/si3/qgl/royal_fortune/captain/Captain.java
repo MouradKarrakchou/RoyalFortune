@@ -98,6 +98,7 @@ public class Captain {
         }
     }
 
+
     /**
      * Ask all sailors associated to an Entity to move to
      * If the sailor is already on the Entity, sailor will not move
