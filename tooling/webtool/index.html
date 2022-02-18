@@ -8,23 +8,25 @@
     <title>Document</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 
 <body>
-    <div id="res"></div>
+    <div class="stick"></div>
     <div id='app'>
         <div id='input'>
+            <p>Coordonnée du bateau</p>
             <textarea id="log" name="story" rows="5" cols="33">x;y</textarea>
             <input id='start' type="button" value='start' />
             <input id='reset' type="button" value='reset' />
         </div>
         <div id='sea'>
-            <svg id="draw">
-                
-            </svg>
+            <div id="svgWrapper">
+                <svg id="draw"></svg>
+            </div>
 
-            <div id='boat'></div>
-            <div id='checkpointList'>
+            <div id='boat'>
+                <img id="saveMyLife" src="boat.png" width="80" height="50">
             </div>
         </div>
 

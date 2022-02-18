@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
@@ -25,17 +26,11 @@ public class Game {
     Goal goal;
     Referee referee;
     public Game(String initialiser){
-
-        String sailorsJson = JsonManager.getNode(initialiser, "sailors");
-        sailors = JsonManager.readSailorsJson(sailorsJson);
-
-        String checkpointsJson = JsonManager.getNode(initialiser,"goal");
-        goal = JsonManager.readGoalJson(checkpointsJson);
-        //
-        //String entitiesJson = JsonManager.getNode(initialiser, "entities");
-        //entities=JsonManager.readEntitiesJson(entitiesJson);
+    	
+    	InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
+        sailors = initGameDAO.getSailors();
+        goal = initGameDAO.getGoal();
         cockpit=new Cockpit();
-
         referee=new Referee(cockpit);
         cockpit.initGame(initialiser);
         ship = cockpit.getShip();

@@ -8,79 +8,106 @@ jQuery(document).ready(function($) {
 
 
 function Boat(x, y, orientation) {
-    this.x = (x * 0.5) + sea.offsetWidth / 2;
-    this.y = (y * 0.5) + sea.offsetHeight / 2;
+    let boatHTML = document.getElementById("boat");
+    this.x = x;
+    this.y = y;
     this.orientation = orientation;
+    this.getX = function() { return translateX(this.x) }
+    this.getY = function() { return translateY(this.y) }
+    window.sea = document.getElementById('sea');
 }
 
 function Checkpoint(x, y) {
-    this.x = (x * 0.5) + sea.offsetWidth / 2;
-    this.y = (y * 0.5) + sea.offsetHeight / 2;
+    this.x = (x * 0.5) + window.sea.offsetWidth / 2;
+    this.y = (y * 0.5) + window.sea.offsetHeight / 2;
 }
 
 function init() {
     window.checkpoints = [];
     addListener();
     window.boat = new Boat(0, 0, 0);
+    window.saveMyLife = document.getElementById("saveMyLife");
 
-    //document.getElementById('draw').setAttribute("style", "height:" + window.checkpoint.y * 1.5 + "px!important");
-    //document.getElementById('draw').setAttribute("style", "height:" + window.checkpoint.y * 1.5 + "px!important");
-
-
+    window.lastX = translateX(0);
+    window.lastY = translateY(0);
     document.getElementById('boat').style.transform = "rotate(-90deg)";
-    $("#boat").animate({ top: window.boat.y, left: window.boat.x }, 1200);
+    $("#boat").animate({ top: window.lastY, left: window.lastX }, 1200, function() {
+        scrollToTheBoat();
+    });
 
+}
+
+function scrollToTheBoat() {
+    $('html, body').animate({
+        scrollTop: $('#boat').offset().top - window.lastY / 2,
+        scrollLeft: $('#boat').offset().left - window.lastX / 2 // Use element id to get element's location.
+    }, 1000);
 }
 
 function move(input) {
     for (let i = 0; i < input.length; i++) {
-        let currentPos = input[i].split(';');
-        let newX = (currentPos[0] * 0.5) + sea.offsetWidth / 2;
-        let newY = (currentPos[1] * 0.5) + sea.offsetHeight / 2;
-        let orientation = currentPos[2];
-        drawpath(newX, newY);
-        window.boat.x = newX;
-        window.boat.y = newY;
-        window.boat.orientation = orientation;
-
-
-        $('#boat').animate({ borderSpacing: orientation }, {
-            step: function(now, fx) {
-                console.log("orientation=" + orientation);
-                let rotation = (orientation * 180) / Math.PI;
-                $(this).css({
-                    '-webkit-transform': 'rotate(' + rotation + 'deg)',
-                    '-moz-transform': 'rotate(' + rotation + 'deg)',
-                    '-o-transform': 'rotate(' + rotation + 'deg)',
-                    '-ms-transform': 'rotate(' + rotation + 'deg)',
-                    'transform': 'rotate(' + rotation + 'deg)'
-                });
-            }
-        }, 'linear');
-        $("#boat").animate({ top: newY, left: newX }, 500);
+        storeCurrentPosition();
+        updateBoatPosition(input, i);
+        drawpath(window.boat.getX(), window.boat.getY());
+        drawBoat();
     }
 }
 
+function storeCurrentPosition() {
+    window.lastX = window.boat.getX();
+    window.lastY = window.boat.getY();
+}
+
+function updateBoatPosition(input, i) {
+    let currentPos = input[i].split(';');
+    window.boat.x = currentPos[0];
+    window.boat.y = currentPos[1];
+    window.boat.orientation = currentPos[2];
+}
+
+function drawBoat() {
+    let newX = window.boat.getX();
+    let newY = window.boat.getY();
+    let orientation = window.boat.orientation;
+    let rotation = (orientation * 180) / Math.PI;
+    $('#boat').animate({ borderSpacing: orientation }, {
+        step: function(now, fx) {
+            console.log("orientation=" + orientation);
+            $(this).css({
+                '-webkit-transform': 'rotate(' + rotation + 'deg)',
+                '-moz-transform': 'rotate(' + rotation + 'deg)',
+                '-o-transform': 'rotate(' + rotation + 'deg)',
+                '-ms-transform': 'rotate(' + rotation + 'deg)',
+                'transform': 'rotate(' + rotation + 'deg)'
+            });
+        }
+    }, 'linear');
+    $("#boat").animate({ top: newY - (window.saveMyLife.height / 2), left: newX - (window.saveMyLife.width / 2) }, 500);
+}
+
+function translateX(x) {
+    return (x * 0.5) + (window.sea.offsetWidth / 2);
+}
+
+function translateY(y) {
+    return (y * 0.5) + (window.sea.offsetHeight / 2);
+}
+
 function createCheckpoints(input) {
-    let checkpointList = document.getElementById('checkpointList');
-    //checkpointList.style.height = "100px"
-    //checkpointList.style.backgroundColor = "green"
+    let checkpointList = document.getElementById('sea');
     for (let i = 0; i < input.length; i++) {
         window.checkpoints.push(new Checkpoint(input[i].split(';')[0], input[i].split(';')[1]));
         let check = "<div id='" + i + "' class='checkpoint'></div>"
         checkpointList.innerHTML += check;
-        /*$("#checkpoint" + i).animate({ top: window.checkpoints[i].y, left: window.checkpoints[i].x }, 1200)
-            .queue(function() {
-                document.getElementById("res").innerHTML += "<p>Queued Calls of checkpoint" + i + ":" + $(this).queue("fx").length + "</p>";
-            });
-            */
     }
 }
 
 function animateCheckpoints() {
     $('.checkpoint').each(function() {
         let id = $(this).attr("id");
-        $(this).animate({ top: window.checkpoints[id].y, left: window.checkpoints[id].x }, 1000);
+        //$(this).animate({ top: window.checkpoints[id].y, left: window.checkpoints[id].x }, 1000);
+        $(this).animate({ top: window.checkpoints[id].y - 40, left: window.checkpoints[id].x - 40 }, 1000);
+
     });
 }
 
@@ -91,13 +118,13 @@ function getText(textarea) {
 }
 
 function drawpath(newX, newY) {
-    let pathX = Math.round(window.boat.x);
-    let pathY = Math.round(window.boat.y);
+    let pathX = window.lastX;
+    let pathY = window.lastY;
     let draw = document.getElementById("draw");
 
-    let path = "<path d='M " + pathX + " " + pathY + " L " + Math.round(newX) + " " + Math.round(newY) + "' stroke='red' stroke-width='3' fill='none' />";
-    let point = "<circle id='pointA' cx='" + pathX + "' cy='" + pathY + "' r='3' />";
-    let point2 = "<circle id='pointA' cx='" + newX + "' cy='" + newY + "' r='3' />";
+    let path = "<path class='absolute' d='M " + pathX + " " + pathY + " L " + Math.round(newX) + " " + Math.round(newY) + "' stroke='red' stroke-width='3' fill='none' />";
+    let point = "<circle class='absolute' id='pointA' cx='" + pathX + "' cy='" + pathY + "' r='3' />";
+    let point2 = "<circle class='absolute' id='pointA' cx='" + newX + "' cy='" + newY + "' r='3' />";
 
     draw.innerHTML += path;
     draw.innerHTML += point;

@@ -12,31 +12,49 @@ body {
 #input {
     display: flex;
     flex-direction: column;
+    position: fixed;
+    z-index: 100;
 }
 
 #draw {
     position: absolute;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
 }
 
 #sea {
-    height: 100vh;
-    width: 100vw;
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+    min-width: 200vw;
+    min-height: 200vh;
 }
 
 #boat {
+    position: absolute;
     margin: 0;
-    background-image: url("./boat.png");
-    position: relative;
-    height: 156px;
-    width: 358px;
+    height: fit-content;
+    width: fit-content;
+    z-index: 10;
+    display: block;
 }
 
 .checkpoint {
     position: absolute;
-    height: 50px;
-    width: 50px;
+    height: 80px;
+    width: 80px;
     border-radius: 50%;
     background-color: brown;
+    z-index: 0;
+}
+
+.absolute {
+    position: absolute;
+}
+
+#svgWrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
