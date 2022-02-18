@@ -1,8 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-
-import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -10,19 +9,18 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CaptainTest {
     private Ship ship;
     private Captain captain;
     private Checkpoint checkpoint;
+    private DirectionsManager dirMan;
     private ArrayList<Sailor> sailors;
     private ArrayList<Entities> entities;
 
@@ -196,23 +194,24 @@ public class CaptainTest {
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
         captain = new Captain(ship, null, goal);
+        dirMan = new DirectionsManager(ship, goal);
 
-        double angle = captain.angleCalculator()[0];
+        double angle = dirMan.angleCalculator()[0];
         assertEquals(Math.PI/2, angle);
     }
 
     @Test
     void isInConeTest() {
-        captain = new Captain(null, null, null);
-        assertTrue(captain.isInCone(0.5,1));
-        assertFalse(captain.isInCone(1,0.5));
+        dirMan = new DirectionsManager(null, null);
+        assertTrue(dirMan.isInCone(0.5,1));
+        assertFalse(dirMan.isInCone(1,0.5));
     }
 
     @Test
     void isConeTooSmallTest() {
-        captain = new Captain(null, null, null);
-        assertTrue(captain.isConeTooSmall(0.5,0.2));
-        assertFalse(captain.isConeTooSmall(0.5,0.3));
+        dirMan = new DirectionsManager(null, null);
+        assertTrue(dirMan.isConeTooSmall(0.5,0.2));
+        assertFalse(dirMan.isConeTooSmall(0.5,0.3));
     }
 
     @Test
