@@ -44,12 +44,20 @@ function scrollToTheBoat() {
     }, 1000);
 }
 
+function scrollToTheBoatV2() {
+    $('html, body').animate({
+        scrollTop: window.lastY / 2,
+        scrollLeft: window.lastX / 2 // Use element id to get element's location.
+    }, 1000);
+}
+
 function move(input) {
     for (let i = 0; i < input.length; i++) {
         storeCurrentPosition();
         updateBoatPosition(input, i);
         drawpath(window.boat.getX(), window.boat.getY());
         drawBoat();
+        scrollToTheBoatV2();
     }
 }
 
