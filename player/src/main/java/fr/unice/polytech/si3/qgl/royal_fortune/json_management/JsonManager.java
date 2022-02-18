@@ -121,12 +121,12 @@ public class JsonManager {
 
 	public static String getNode(String json, String searchNode){
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
 		JsonNode actualObj = null;
 		try {
 			actualObj = mapper.readTree(json);
 			JsonNode shipJson = actualObj.get(searchNode);
 			return shipJson.toString();
-
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

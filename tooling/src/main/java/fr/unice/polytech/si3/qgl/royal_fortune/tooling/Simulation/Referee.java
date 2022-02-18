@@ -20,50 +20,48 @@ public class Referee {
     public void verif(String jsonverif) {
     }
 
-    public void makeAdvance(Cockpit cockpit, ArrayList<Action> actions) {
+    public Ship makeAdvance(Cockpit cockpit, ArrayList<Action> actions) {
         rightPush=0;
         leftPush=0;
         actions.stream().forEach(action -> doAction(action));
-        makeMooveShip(cockpit.getShip());
+        return makeMooveShip(cockpit.getShip());
     }
 
-    private void makeMooveShip(Ship ship) {
+    private Ship makeMooveShip(Ship ship) {
         Position shipPosition=ship.getPosition();
-        double angle=shipPosition.getOrientation();
-        int norme=165*calculnorme();
-        double orientaton=calculorientation()*Math.PI/4;
-        double newX=norme*Math.sin(angle);
-        double newY=norme*Math.cos(angle);
-        double angleShip=orientaton+angle;
-        while(angleShip > Math.PI){
-            angleShip -= 2*Math.PI;
-        }
-        while(angleShip < -Math.PI){
-            angleShip += 2*Math.PI;
-        }
-        shipPosition.setOrientation(angleShip);
-        shipPosition.setX(shipPosition.getX()+newX);
-        shipPosition.setY(shipPosition.getY()+newY);
+        double angleInitial=shipPosition.getOrientation();
+        double anglerot=calculorientation()*Math.PI/4;
+        int k=0;
+        int norme=165*(rightPush+leftPush)/cockpit.getShip().getEntities().size();
+        double newX=shipPosition.getX();
+        double newY= shipPosition.getY();
+        double angleCalcul=angleInitial;
+
+        while (k<1000){
+        newX+=norme*Math.cos(angleCalcul)/1000;
+        newY+=norme*Math.sin(angleCalcul)/1000;
+        angleCalcul+=anglerot/1000;
+        k++;}
+
+        shipPosition.setOrientation(angleCalcul);
+        shipPosition.setX(newX);
+        shipPosition.setY(newY);
+        return ship;
     }
 
     private double calculorientation() {
-        if (rightPush>leftPush) return rightPush;
-        else if (rightPush<leftPush) return leftPush;
-        else return 0;
-    }
-
-    private int calculnorme() {
         if (rightPush>leftPush) return rightPush-leftPush;
         else if (rightPush<leftPush) return leftPush-rightPush;
         else return 0;
     }
 
 
+
     private void doAction(Action action) {
         if(action instanceof OarAction){
         cockpit.getSailors().stream()
                 .filter(sailor -> sailor.getId()==action.getSailorId())
-                .forEach(sailor -> {if(sailor.getX()>0) rightPush+=1;
+                .forEach(sailor -> {if(sailor.getY()>0) rightPush+=1;
                 else leftPush+=1;});}
     }
 

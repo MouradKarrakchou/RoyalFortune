@@ -10,8 +10,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -33,37 +35,59 @@ public class Game {
         //String entitiesJson = JsonManager.getNode(initialiser, "entities");
         //entities=JsonManager.readEntitiesJson(entitiesJson);
         cockpit=new Cockpit();
-        cockpit.initGame(initialiser);
-        ship=cockpit.getShip();
+
         referee=new Referee(cockpit);
         cockpit.initGame(initialiser);
+        ship = cockpit.getShip();
+
     }
 
     void nextRound(){
         String jsonNextRound=createJson();
+        System.out.println("-----------------------");
+        System.out.println("jsonNextRound="+jsonNextRound);
         String jsonverif=cockpit.nextRound(jsonNextRound);
+        System.out.println("jsonverif="+jsonverif);
+        System.out.println("-----------------------");
+
         ArrayList<Action> actions=JsonManager.readActionJson(jsonverif);
         System.out.println(actions);
-        referee.makeAdvance(cockpit,actions);
+        this.ship = referee.makeAdvance(cockpit,actions);
 
     }
 
     private String createJson() {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode oarActionJSON = mapper.createObjectNode();
-        oarActionJSON.put("ship", String.valueOf(ship));
-        try {
-            return mapper.writeValueAsString(oarActionJSON);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "";
+        return "{\"ship\":"+ cockpit.getShip().toString()+"}";
     }
 
     @Override
     public String toString() {
-        String string="Orientation: "+ship.getPosition().getOrientation()+'\n';
-        string+="x,y: "+ship.getPosition().getX()+","+ship.getPosition().getY()+'\n';
+        //"Orientation: "+ship.getPosition().getOrientation()+'\n';
+        String string=cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
         return(string);
+    }
+
+    public boolean isFinished() {
+        double distanceSCX = goal.getCheckPoints().get(0).getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCheckPoints().get(0).getPosition().getY() - ship.getPosition().getY();
+        double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
+        double radius=((Circle)goal.getCheckPoints().get(0).getShape()).getRadius();
+        System.out.println("Distance to the checkpoint: "+distanceSC);
+        if (distanceSC<=radius)
+            return true;
+        else
+            return false;
+    }
+    
+    public String getAllCheckpointsForOutput() {
+    	String out = "";
+    	ArrayList<Checkpoint> checks = goal.getCheckPoints();
+    	for(Checkpoint checkpoint : checks) {
+    		Position pos = checkpoint.getPosition();
+    		double x = pos.getX();
+    		double y = pos.getY();
+    		out+=x+";"+y+"\n";
+    	}
+    	return out;
     }
 }
