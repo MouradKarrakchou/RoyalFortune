@@ -41,7 +41,14 @@ public class Captain {
         askSailorsToMove();
         askSailorsToOar();
 
+        return orders();
+    }
 
+    /**
+     * Build the string of actions that the sailors must do
+     * @return the string of actions
+     */
+    String orders() {
         StringBuilder actionsToDo = new StringBuilder();
         for(Action action : roundActions)
             actionsToDo.append(action.toString()).append(",");
