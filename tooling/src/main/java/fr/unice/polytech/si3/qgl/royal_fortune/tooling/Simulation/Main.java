@@ -9,8 +9,8 @@ public class Main {
 		double xCheckpoint = 1800.0;
 		double yCheckpoint = 1000.0;
 
-		//String json = "{\"goal\":{\"mode\":\"REGATTA\",\"checkpoints\":[{\"position\":{\"x\":"+xCheckpoint+",\"y\":"+yCheckpoint+",\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":80.0}}]},\"ship\":{\"type\":\"ship\",\"position\":{\"x\":0.0,\"y\":0.0,\"orientation\":0.0},\"name\":\"royal_fortune\",\"deck\":{\"width\":2,\"length\":3},\"entities\":[{\"x\":1,\"y\":0,\"type\":\"oar\"},{\"x\":1,\"y\":1,\"type\":\"oar\"},{\"x\":2,\"y\":0,\"type\":\"oar\"},{\"x\":2,\"y\":1,\"type\":\"oar\"}],\"life\":300,\"shape\":{\"type\":\"rectangle\",\"width\":2.0,\"height\":3.0,\"orientation\":0.0}},\"sailors\":[{\"x\":0,\"y\":0,\"id\":0,\"name\":\"Jack Pouce\"},{\"x\":0,\"y\":1,\"id\":1,\"name\":\"Luffy Teach\"},{\"x\":1,\"y\":0,\"id\":2,\"name\":\"Edward Pouce\"},{\"x\":1,\"y\":1,\"id\":3,\"name\":\"Edward Pouce\"}],\"shipCount\":1}";
-		String json = "{\r\n"
+		String json = "{\"goal\":{\"mode\":\"REGATTA\",\"checkpoints\":[{\"position\":{\"x\":"+xCheckpoint+",\"y\":"+yCheckpoint+",\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":80.0}}]},\"ship\":{\"type\":\"ship\",\"position\":{\"x\":0.0,\"y\":0.0,\"orientation\":0.0},\"name\":\"royal_fortune\",\"deck\":{\"width\":2,\"length\":3},\"entities\":[{\"x\":1,\"y\":0,\"type\":\"oar\"},{\"x\":1,\"y\":1,\"type\":\"oar\"},{\"x\":2,\"y\":0,\"type\":\"oar\"},{\"x\":2,\"y\":1,\"type\":\"oar\"}],\"life\":300,\"shape\":{\"type\":\"rectangle\",\"width\":2.0,\"height\":3.0,\"orientation\":0.0}},\"sailors\":[{\"x\":0,\"y\":0,\"id\":0,\"name\":\"Jack Pouce\"},{\"x\":0,\"y\":1,\"id\":1,\"name\":\"Luffy Teach\"},{\"x\":1,\"y\":0,\"id\":2,\"name\":\"Edward Pouce\"},{\"x\":1,\"y\":1,\"id\":3,\"name\":\"Edward Pouce\"}],\"shipCount\":1}";
+		/*String json = "{\r\n"
 				+ "    \"goal\": {\r\n"
 				+ "        \"mode\": \"REGATTA\",\r\n"
 				+ "        \"checkpoints\": [\r\n"
@@ -119,6 +119,7 @@ public class Main {
 				+ "    }\r\n"
 				+ "  ]\r\n"
 				+ "}";
+				*/
 		Game game = new Game(json);
 		String textForOutput = game.getAllCheckpointsForOutput()+"---\n";
 		while (!game.isFinished()) {

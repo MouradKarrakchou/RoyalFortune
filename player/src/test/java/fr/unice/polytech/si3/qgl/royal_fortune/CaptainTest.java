@@ -30,6 +30,7 @@ public class CaptainTest {
         entities = new ArrayList<>();
     }
 
+    /*
     @Test
     public void associateSailorsToOarPITest(){
         // Initialize 4 sailors
@@ -66,7 +67,7 @@ public class CaptainTest {
         assertEquals(4, sailors.size());
         assertEquals(3, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
         sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertTrue(0 != sailor.getTargetEntity().getY()));
-    }
+    }*/
 
     @Test
     public void associateSailorsToOarPi2Test(){
@@ -105,7 +106,7 @@ public class CaptainTest {
     }
 
 
-
+/*
     @Test
     public void askSailorToMoveTest(){
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
@@ -140,7 +141,7 @@ public class CaptainTest {
         captain.askSailorsToMove();
         // Size is 2 because a sailor is already on its target entity
         assertEquals(2, captain.getRoundActions().size());
-    }
+    }*/
 
     @Test
     public void associateSailorToOarEvenlyTest(){
@@ -249,7 +250,7 @@ public class CaptainTest {
 
         assertEquals(8, captain.getRoundActions().size());
     }
-
+/*
     @Test
     //Turning
     void roundDecisions2Test() {
@@ -284,6 +285,6 @@ public class CaptainTest {
         captain.roundDecisions(dirMan);
 
         assertEquals(4, captain.getRoundActions().size());
-    }
+    }*/
 
 }
