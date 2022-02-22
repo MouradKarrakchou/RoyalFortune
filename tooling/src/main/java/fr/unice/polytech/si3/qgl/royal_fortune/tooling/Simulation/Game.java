@@ -66,12 +66,8 @@ public class Game {
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
         System.out.println("Distance to the checkpoint: "+distanceSC);
-        if (distanceSC<=radius)
-        numberOfCheckpointVisited++;
-        if (numberOfCheckpointVisited==goal.getCheckPoints().size())
-            return true;
-        else
-            return false;
+        return distanceSC<=radius && goal.getCheckPoints().size() == 1;
+        	
     }
     
     public String getAllCheckpointsForOutput() {
