@@ -1,0 +1,9 @@
+{
+  "type" : "ship",
+  "life" : 100,
+  "position" : null,
+  "name" : "ougougoug",
+  "deck" : null,
+  "entities" : null,
+  "shape" : null
+}

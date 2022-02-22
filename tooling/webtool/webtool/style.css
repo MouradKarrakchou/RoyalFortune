@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(151, 203, 248);
+}
+
+#app {
+    display: flex;
+    flex-direction: row;
+}
+
+#input {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 100;
+}
+
+#draw {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+}
+
+#sea {
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+    min-width: 200vw;
+    min-height: 200vh;
+}
+
+#boat {
+    position: absolute;
+    margin: 0;
+    height: fit-content;
+    width: fit-content;
+    z-index: 10;
+    display: block;
+}
+
+.checkpoint {
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background-color: brown;
+    z-index: 0;
+}
+
+.absolute {
+    position: absolute;
+}
+
+#svgWrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgb(239, 239, 239);
+    border-color: rgb(133, 133, 133);
+    border-width: 1px;
+    border-style: outset;
+    border-image: initial;
+    font-family: initial;
+    text-align: center;
+}
+
+#cameraDiv:hover {
+    background-color: rgb(229, 229, 229);
+}
+
+.button {
+    border-radius: 0;
+    border-color: rgb(133, 133, 133);
+    border-width: 1px;
+    border-style: outset;
+    border-image: initial;
+}

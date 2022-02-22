@@ -1,36 +1,62 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.json_management;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonPointer;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.core.ObjectCodec;
-import com.fasterxml.jackson.core.JsonParser.NumberType;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import com.fasterxml.jackson.databind.node.JsonNodeType;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
+import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
-
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class JsonManager {
 
+	/**
+	 *Create a InitGameDAO with a the InitGame JSON
+	 * @param game a String formated as JSON 
+	 * @return a InitGameDAO that describe the game
+	 */
+	public static InitGameDAO readInitGameDAOJson(String game) {
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+			return mapper.readValue(game, InitGameDAO.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 *Create a NextRoundDAO with a the NextRound JSON
+	 * @param round a String formated as JSON 
+	 * @return a NextRoundDAO that describe the next round
+	 */
+	public static NextRoundDAO readNextRoundDAOJson(String round) {
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+			return mapper.readValue(round, NextRoundDAO.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
 	 * For a given Json, will find the part concerning Ship initialization and will instantiate one.
 	 * @param json The given json
@@ -133,5 +159,8 @@ public class JsonManager {
 		}
 		return null;
 	}
+
+
+	
 
 }
