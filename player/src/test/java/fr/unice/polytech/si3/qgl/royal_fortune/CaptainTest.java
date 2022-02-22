@@ -210,7 +210,21 @@ public class CaptainTest {
 
     @Test
     void isConeTooSmallTest() {
-        captain = new Captain(null, null, null);
+    	//6 entities
+          entities.add(new Oar("oar", 1, 0));
+          entities.add(new Oar("oar", 2, 0));
+
+          entities.add(new Oar("oar", 1, 3));
+          entities.add(new Oar("oar", 2, 3));
+    	
+        captain = new Captain(new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 1.5),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle("rectangle", 3, 4, 0)), null, null);
         assertTrue(captain.isConeTooSmall(0.5,0.2));
         assertFalse(captain.isConeTooSmall(0.5,0.3));
     }
@@ -245,7 +259,7 @@ public class CaptainTest {
         captain = new Captain(ship, sailors, goal);
         captain.roundDecisions();
 
-        assertEquals(8, captain.getRoundActions().size());
+        assertEquals(8, captain.getRoundActions().size()); 
     }
 
     @Test
