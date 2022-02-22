@@ -237,7 +237,7 @@ public class CaptainTest {
         entities.add(new Oar("oar", 1, 0));
         entities.add(new Oar("oar", 1, 1));
 
-        checkpoint = new Checkpoint(new Position(0,50,0), new Circle("Circle", 50));
+        checkpoint = new Checkpoint(new Position(0,500,0), new Circle("Circle", 50));
         ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);
@@ -270,7 +270,7 @@ public class CaptainTest {
         entities.add(new Oar("oar", 1, 0));
         entities.add(new Oar("oar", 1, 1));
 
-        checkpoint = new Checkpoint(new Position(0,50,0), new Circle("Circle", 50));
+        checkpoint = new Checkpoint(new Position(0,500,0), new Circle("Circle", 50));
         ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);

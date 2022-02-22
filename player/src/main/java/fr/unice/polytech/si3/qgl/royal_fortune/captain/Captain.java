@@ -53,10 +53,10 @@ public class Captain {
     }
 
     private void updateCheckPoint() {
-        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
+        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
-        double radius=((Circle)goal.getCurrentCheckpoint().getShape()).getRadius();
+        double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
         if (distanceSC<=radius)
             goal.nextCheckPoint();
     }
@@ -123,12 +123,12 @@ public class Captain {
 
     public double[] angleCalculator() {
         double angleShip=ship.getPosition().getOrientation();
-        Shape shape=goal.getCurrentCheckpoint().getShape();
+        Shape shape=goal.getCurrentCheckPoint().getShape();
         double radius =((Circle) shape).getRadius();
 
 
-        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
+        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
 
@@ -161,8 +161,8 @@ public class Captain {
         double newY= ship.getPosition().getY()+Math.sin(anglerot);
 
 
-        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - newX;
-        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - newY;
+        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - newX;
+        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - newY;
         return(Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2)));
     }
 

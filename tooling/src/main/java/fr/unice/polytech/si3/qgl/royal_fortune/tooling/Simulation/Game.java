@@ -61,10 +61,10 @@ public class Game {
     }
 
     public boolean isFinished() {
-        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
+        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
-        double radius=((Circle)goal.getCurrentCheckpoint().getShape()).getRadius();
+        double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
         System.out.println("Distance to the checkpoint: "+distanceSC);
         if (distanceSC<=radius)
         numberOfCheckpointVisited++;
