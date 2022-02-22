@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -20,14 +21,11 @@ public class Game {
     Referee referee;
     int numberOfCheckpointVisited =0;
     public Game(String initialiser){
-
-        String sailorsJson = JsonManager.getNode(initialiser, "sailors");
-        sailors = JsonManager.readSailorsJson(sailorsJson);
-
-        //
-        //String entitiesJson = JsonManager.getNode(initialiser, "entities");
-        //entities=JsonManager.readEntitiesJson(entitiesJson);
-        cockpit=new Cockpit();
+    	
+    	InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
+        sailors = initGameDAO.getSailors();
+        goal = initGameDAO.getGoal();
+        cockpit = new Cockpit();
         referee=new Referee(cockpit);
         cockpit.initGame(initialiser);
         goal=cockpit.getGoal();
@@ -66,8 +64,7 @@ public class Game {
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
         System.out.println("Distance to the checkpoint: "+distanceSC);
-        return distanceSC<=radius && goal.getCheckPoints().size() == 1;
-        	
+        return (distanceSC<=radius && goal.getCheckPoints().size() == 1);
     }
     
     public String getAllCheckpointsForOutput() {

@@ -70,7 +70,7 @@ public class Captain {
      * @param orientation The rotation of the given angle.
      */
     public void associateSailorToOar(double orientation){
-        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / 4)));
+        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getEntities().size())));
         ArrayList<Oar> oarList = ship.getOarList(orientation < 0 ? "right" : "left");
         int i = 0;
 
@@ -171,7 +171,7 @@ public class Captain {
     }
 
     public boolean isConeTooSmall(double angleMove, double angleCone) {
-        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/4);
+        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/ship.getEntities().size());
     }
 
     double getAngleMove() { return angleCalculator()[0]; }
