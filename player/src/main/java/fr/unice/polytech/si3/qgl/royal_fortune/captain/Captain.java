@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Captain {
     private final Ship ship;
@@ -88,7 +89,7 @@ public class Captain {
         ArrayList<Oar> rightOarList = ship.getOarList("right");
         int oarIndex = 0;
         int sailorIndex = 0;
-        ArrayList<Sailor> listOfUnassignedSailors=(ArrayList<Sailor>) sailors.stream().filter(sailor-> sailor.getTargetEntity()==null).toList();
+        ArrayList<Sailor> listOfUnassignedSailors=(ArrayList<Sailor>) sailors.stream().filter(sailor-> sailor.getTargetEntity()==null).collect(Collectors.toList());
 
         // We continue associating until we run out of sailors or oars
         while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size()){
