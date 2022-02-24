@@ -1,13 +1,18 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 /**
- * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
 public class Ship {
@@ -52,14 +57,32 @@ public class Ship {
 	public Shape getShape() {
 		return shape;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "Ship [life=" + life + ", position=" + position + ", name=" + name + ", deck=" + deck + ", entities="
-				+ entities + ", shape=" + shape + "]";
+
+
+	public ArrayList<Oar> getOarList(String orientation) {
+		 return (ArrayList<Oar>) entities.stream()
+				 .filter(entity -> entity instanceof Oar)
+				 .map(Oar.class::cast)
+				 .filter(oar -> oar.getSailor()==null)
+				 .filter(oar -> oar.isLeft() == orientation.equals("left"))
+				 .collect(Collectors.toList());
 	}
 
-	
-	
+	public void setPosition(Position position){
+		this.position = position;
+	}
+
+	public void setEntities(ArrayList<Entities> entities) {
+		this.entities = entities;
+	}
+
+	@Override
+	public String toString() {
+		try {
+			 return new ObjectMapper().writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

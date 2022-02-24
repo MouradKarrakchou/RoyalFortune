@@ -1,46 +1,56 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
+import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 /**
- * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
 public class Cockpit implements ICockpit {
 	private Ship ship;
 	private ArrayList<Sailor> sailors;
+	private Goal goal;
+	private Captain captain;
 
 	public void initGame(String game) {
 		System.out.println("Init game input: " + game);
-		
-		String shipJson = JsonManager.getNode(game, "ship");
-		ship = (Ship) JsonManager.readJson(shipJson, "ship");
-		
-		String sailorsJson = JsonManager.getNode(game, "sailors");
-		sailors = (ArrayList<Sailor>) JsonManager.readJson(sailorsJson, "sailors");
-		
-		System.out.println(ship);
+
+		//initialization InitGameDAO
+		InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(game);
+		ship = initGameDAO.getShip();
+		sailors = initGameDAO.getSailors();
+		goal = initGameDAO.getGoal();
+		captain = new Captain(ship, sailors, goal);
 	}
 
 	public String nextRound(String round) {
+		NextRoundDAO nextRoundDAO = JsonManager.readNextRoundDAOJson(round);
+		Ship newShip = nextRoundDAO.getShip();
+		ship.setPosition(newShip.getPosition());
+		ship.setEntities(newShip.getEntities());
 		System.out.println("Next round input: " + round);
-		return JsonManager.writeJsonAction(idOfSailors());
 
-		/*
-		 * return " [{" + "    \"sailorId\": 0," + "    \"type\": \"OAR\"" + "  }," +
-		 * "  {" + "    \"sailorId\": 1," + "    \"type\": \"OAR\"" + "  }]";
-		 */
+		return captain.roundDecisions();
 	}
 
-	public List<Integer> idOfSailors() {
-		return sailors.stream().map(entities -> ((Sailor) entities).getId()).collect(Collectors.toList());
+	public Ship getShip() {
+		return ship;
+	}
+
+	public ArrayList<Sailor> getSailors() {
+		return sailors;
+	}
+
+	public Goal getGoal() {
+		return goal;
 	}
 
 	@Override
