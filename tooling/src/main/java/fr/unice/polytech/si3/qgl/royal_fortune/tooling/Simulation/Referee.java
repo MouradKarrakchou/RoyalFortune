@@ -30,7 +30,7 @@ public class Referee {
     private Ship makeMooveShip(Ship ship) {
         Position shipPosition=ship.getPosition();
         double angleInitial=shipPosition.getOrientation();
-        double anglerot=calculorientation()*Math.PI/4;
+        double anglerot=calculorientation()*Math.PI/cockpit.getShip().getEntities().size();
         int k=0;
         int norme=165*(rightPush+leftPush)/cockpit.getShip().getEntities().size();
         double newX=shipPosition.getX();

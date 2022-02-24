@@ -7,7 +7,6 @@ import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
@@ -29,7 +28,7 @@ public class Cockpit implements ICockpit {
 		ship = initGameDAO.getShip();
 		sailors = initGameDAO.getSailors();
 		goal = initGameDAO.getGoal();
-		captain = new Captain(ship, sailors);
+		captain = new Captain(ship, sailors, goal);
 	}
 
 	public String nextRound(String round) {
@@ -39,8 +38,7 @@ public class Cockpit implements ICockpit {
 		ship.setEntities(newShip.getEntities());
 		System.out.println("Next round input: " + round);
 
-		DirectionsManager directionsManager = new DirectionsManager(ship, goal);
-		return captain.roundDecisions(directionsManager);
+		return captain.roundDecisions();
 	}
 
 	public Ship getShip() {
