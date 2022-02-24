@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune;
+/**package fr.unice.polytech.si3.qgl.royal_fortune;
 
 
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
@@ -295,4 +295,4 @@ public class CaptainTest {
         assertEquals(4, captain.getRoundActions().size());
     }
 
-}
+}**/

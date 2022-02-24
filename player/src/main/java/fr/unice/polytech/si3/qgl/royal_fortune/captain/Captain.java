@@ -17,12 +17,14 @@ public class Captain {
     private final Goal goal;
     private final ArrayList<Sailor> sailors;
     private final ArrayList<Action> roundActions;
+    private DirectionsManager directionsManager;
 
     public Captain(Ship ship, ArrayList<Sailor> sailors, Goal goal){
         this.ship = ship;
         this.sailors = sailors;
         this.goal = goal;
         roundActions = new ArrayList<>();
+        directionsManager=new DirectionsManager(ship,goal);
     }
 
     public String roundDecisions() {
@@ -30,10 +32,10 @@ public class Captain {
         disassociate();
         roundActions.clear();
         updateCheckPoint();
-        double angleMove = getAngleMove();
-        double angleCone = getAngleCone();
+        double angleMove = directionsManager.getAngleMove();
+        double angleCone = directionsManager.getAngleCone();
 
-        if(isConeTooSmall(angleMove, angleCone)||isInCone(angleMove, angleCone)) {
+        if(directionsManager.isConeTooSmall(angleMove, angleCone)||directionsManager.isInCone(angleMove, angleCone)) {
                 associateSailorToOarEvenly();
                 askSailorsToMove();
                 askSailorsToOar();
@@ -121,62 +123,8 @@ public class Captain {
                 .collect(Collectors.toList()));
     }
 
-    public double[] angleCalculator() {
-        double angleShip=ship.getPosition().getOrientation();
-        Shape shape=goal.getCurrentCheckPoint().getShape();
-        double radius =((Circle) shape).getRadius();
 
 
-        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
-        double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
-        double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
-
-        double angleCone = Math.atan(radius / distanceSC);
-
-        double angleMove = Math.acos(num / distanceSC);
-
-        while(angleMove > Math.PI){
-            angleMove -= 2*Math.PI;
-        }
-
-        while(angleMove < -Math.PI){
-            angleMove += 2*Math.PI;
-        }
-
-        double angles[] = {checkSign(angleMove), angleCone};
-
-        return angles;
-    }
-
-    private double checkSign(double angleMove) {
-            if (calculDistToCheckPoint(angleMove)<calculDistToCheckPoint(-angleMove))
-                return angleMove;
-            else return -angleMove;
-    }
-
-    private double calculDistToCheckPoint(double angleMove) {
-        double anglerot=angleMove+ship.getPosition().getOrientation();
-        double newX= ship.getPosition().getX()+Math.cos(anglerot);
-        double newY= ship.getPosition().getY()+Math.sin(anglerot);
-
-
-        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - newX;
-        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - newY;
-        return(Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2)));
-    }
-
-    public boolean isInCone(double angleMove, double angleCone) {
-        return (Math.abs(angleMove) <= angleCone);
-    }
-
-    public boolean isConeTooSmall(double angleMove, double angleCone) {
-        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/ship.getEntities().size());
-    }
-
-    double getAngleMove() { return angleCalculator()[0]; }
-
-    double getAngleCone() { return angleCalculator()[1]; }
 
     /**
      * Ask all sailors associated to an Oar to oar

@@ -22,44 +22,58 @@ public class DirectionsManager {
      * @return the angle which the ship must turn, the angle in which the ship is in the right direction
      */
     public double[] angleCalculator() {
-        Shape shape = goal.getCurrentCheckpoint().getShape();
-        double radius = ((Circle) shape).getRadius();
-        double angleShip = ship.getPosition().getOrientation();
+        double angleShip=ship.getPosition().getOrientation();
+        Shape shape=goal.getCurrentCheckPoint().getShape();
+        double radius =((Circle) shape).getRadius();
 
-        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
+
+        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double num = distanceSCX*Math.cos(angleShip) + distanceSCY*Math.sin(angleShip);
 
         double angleCone = Math.atan(radius / distanceSC);
+
         double angleMove = Math.acos(num / distanceSC);
 
-        return new double[]{checkSign(angleMove), angleCone};
+        while(angleMove > Math.PI){
+            angleMove -= 2*Math.PI;
+        }
+
+        while(angleMove < -Math.PI){
+            angleMove += 2*Math.PI;
+        }
+
+        double angles[] = {checkSign(angleMove), angleCone};
+
+        return angles;
     }
 
     private double checkSign(double angleMove) {
-        return angleMove;
+        if (calculDistToCheckPoint(angleMove)<calculDistToCheckPoint(-angleMove))
+            return angleMove;
+        else return -angleMove;
     }
 
-    private double calculateDistToCheckPoint(double angleMove) {
-        double angleRotation=angleMove+ship.getPosition().getOrientation();
-        double newX= ship.getPosition().getX()+1*Math.cos(angleRotation);
-        double newY= ship.getPosition().getY()+1*Math.sin(angleRotation);
+    private double calculDistToCheckPoint(double angleMove) {
+        double anglerot=angleMove+ship.getPosition().getOrientation();
+        double newX= ship.getPosition().getX()+Math.cos(anglerot);
+        double newY= ship.getPosition().getY()+Math.sin(anglerot);
 
 
-        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - newX;
-        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - newY;
+        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - newX;
+        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - newY;
         return(Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2)));
     }
 
     /**
      * Check if the ship has reach the current checkpoint to focus the next one
      */
-    void updateCheckPoint() {
-        double distanceSCX = goal.getCurrentCheckpoint().getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCurrentCheckpoint().getPosition().getY() - ship.getPosition().getY();
+    private void updateCheckPoint() {
+        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - ship.getPosition().getX();
+        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
-        double radius=((Circle)goal.getCurrentCheckpoint().getShape()).getRadius();
+        double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
         if (distanceSC<=radius)
             goal.nextCheckPoint();
     }
@@ -73,7 +87,6 @@ public class DirectionsManager {
     public boolean isInCone(double angleMove, double angleCone) {
         return (Math.abs(angleMove) <= angleCone);
     }
-
     /**
      * Check if the next turn of the ship will exceed the right direction
      * @param angleMove is the angle between the direction vector of the ship and the axis from the ship and the checkpoint
@@ -81,7 +94,7 @@ public class DirectionsManager {
      * @return true if the next turn of the boat exceed the right direction
      */
     public boolean isConeTooSmall(double angleMove, double angleCone) {
-        return (Math.abs(angleMove + angleCone) < Math.PI/4);
+        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/ship.getEntities().size());
     }
 
     double getAngleMove() { return angleCalculator()[0]; }
