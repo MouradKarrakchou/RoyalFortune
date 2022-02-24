@@ -7,17 +7,14 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
-
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class Captain {
     private final Ship ship;
     private final Goal goal;
     private final ArrayList<Sailor> sailors;
     private final ArrayList<Action> roundActions;
-    private DirectionsManager directionsManager;
+    private final DirectionsManager directionsManager;
 
     public Captain(Ship ship, ArrayList<Sailor> sailors, Goal goal){
         this.ship = ship;
@@ -35,16 +32,12 @@ public class Captain {
         double angleMove = directionsManager.getAngleMove();
         double angleCone = directionsManager.getAngleCone();
 
-        if(directionsManager.isConeTooSmall(angleMove, angleCone)||directionsManager.isInCone(angleMove, angleCone)) {
-                associateSailorToOarEvenly();
-                askSailorsToMove();
-                askSailorsToOar();
+        if (!directionsManager.isConeTooSmall(angleMove, angleCone) && !directionsManager.isInCone(angleMove, angleCone)) {
+            associateSailorToOar(angleMove);
         }
-        else {
-                associateSailorToOar(angleMove);
-                associateSailorToOarEvenly();
-                askSailorsToMove();
-                askSailorsToOar();}
+        associateSailorToOarEvenly();
+        askSailorsToMove();
+        askSailorsToOar();
 
 
         StringBuilder actionsToDo = new StringBuilder();
@@ -55,8 +48,9 @@ public class Captain {
     }
 
     private void updateCheckPoint() {
-        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
+        Position checkpointPosition = goal.getCurrentCheckPoint().getPosition();
+        double distanceSCX = checkpointPosition.getX() - ship.getPosition().getX();
+        double distanceSCY = checkpointPosition.getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
         if (distanceSC<=radius)
@@ -64,7 +58,7 @@ public class Captain {
     }
 
     private void disassociate() {
-        sailors.stream().forEach(sailor -> sailor.setTargetEntity(null));
+        sailors.forEach(sailor -> sailor.setTargetEntity(null));
     }
 
     /**
@@ -94,7 +88,7 @@ public class Captain {
         ArrayList<Oar> rightOarList = ship.getOarList("right");
         int oarIndex = 0;
         int sailorIndex = 0;
-        ArrayList<Sailor> listOfUnassignedSailors=(ArrayList<Sailor>) sailors.stream().filter(sailor-> sailor.getTargetEntity()==null).collect(Collectors.toList());
+        ArrayList<Sailor> listOfUnassignedSailors=(ArrayList<Sailor>) sailors.stream().filter(sailor-> sailor.getTargetEntity()==null).toList();
 
         // We continue associating until we run out of sailors or oars
         while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size()){
@@ -120,7 +114,7 @@ public class Captain {
                 .filter(sailor -> sailor.getTargetEntity() != null)
                 .filter(sailor -> !sailor.isOnTheTargetEntity())
                 .map(Sailor::moveToTarget)
-                .collect(Collectors.toList()));
+                .toList());
     }
 
 
@@ -135,10 +129,11 @@ public class Captain {
                 .filter(sailor -> sailor.getTargetEntity() != null)
                 .filter(Sailor::isOnTheTargetEntity)
                 .map(Sailor::oar)
-                .collect(Collectors.toList()));
+                .toList());
     }
 
     public ArrayList<Action> getRoundActions(){
         return roundActions;
     }
+
 }

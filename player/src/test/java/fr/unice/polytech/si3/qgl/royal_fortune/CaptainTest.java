@@ -1,4 +1,4 @@
-/**package fr.unice.polytech.si3.qgl.royal_fortune;
+package fr.unice.polytech.si3.qgl.royal_fortune;
 
 
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
@@ -176,58 +176,9 @@ public class CaptainTest {
         assertEquals(4, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
     }
 
-    @Test
-    //Positive angle
-    void angleCalculatorTest() {
-        ship = new Ship(
-                "ship",
-                100,
-                new Position(0, 0, 0),
-                "ShipTest",
-                new Deck(3, 4),
-                entities,
-                new Rectangle("rectangle", 3, 4, 0));
 
-        checkpoint = new Checkpoint(new Position(0,50,0), new Circle("Circle", 50));
 
-        ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
-        checkpointArrayList.add(checkpoint);
 
-        Goal goal = new Goal("REGATTA", checkpointArrayList);
-
-        captain = new Captain(ship, null, goal);
-
-        double angle = captain.angleCalculator()[0];
-        assertEquals(Math.PI/2, angle);
-    }
-
-    @Test
-    void isInConeTest() {
-        captain = new Captain(null, null, null);
-        assertTrue(captain.isInCone(0.5,1));
-        assertFalse(captain.isInCone(1,0.5));
-    }
-
-    @Test
-    void isConeTooSmallTest() {
-    	//6 entities
-          entities.add(new Oar("oar", 1, 0));
-          entities.add(new Oar("oar", 2, 0));
-
-          entities.add(new Oar("oar", 1, 3));
-          entities.add(new Oar("oar", 2, 3));
-    	
-        captain = new Captain(new Ship(
-                "ship",
-                100,
-                new Position(0, 0, 1.5),
-                "ShipTest",
-                new Deck(3, 4),
-                entities,
-                new Rectangle("rectangle", 3, 4, 0)), null, null);
-        assertTrue(captain.isConeTooSmall(0.5,0.2));
-        assertFalse(captain.isConeTooSmall(0.5,0.3));
-    }
 
     @Test
     //Moving straight
@@ -295,4 +246,4 @@ public class CaptainTest {
         assertEquals(4, captain.getRoundActions().size());
     }
 
-}**/
+}
