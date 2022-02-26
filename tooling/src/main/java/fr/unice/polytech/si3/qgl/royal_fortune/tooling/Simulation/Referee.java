@@ -5,7 +5,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ public class Referee {
     private Ship makeMooveShip(Ship ship) {
         Position shipPosition=ship.getPosition();
         double angleInitial=shipPosition.getOrientation();
-        double anglerot=calculorientation()*Math.PI/cockpit.getShip().getEntities().size();
+        double anglerot= orientationCalculus()*Math.PI/cockpit.getShip().getEntities().size();
         int k=0;
         int norme=165*(rightPush+leftPush)/cockpit.getShip().getEntities().size();
         double newX=shipPosition.getX();
@@ -57,8 +56,8 @@ public class Referee {
         return ship;
     }
 
-    private double calculorientation() {
-        return rightPush-leftPush;
+    private double orientationCalculus() {
+        return (double) rightPush-leftPush;
     }
 
 
