@@ -17,7 +17,7 @@ public class Position {
 	private double x;
 	private double y;
 	private double orientation;
-	final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+	final Logger logger = Logger.getLogger(Position.class.getName());
 	
 	public Position() {}
 	public Position(double x, double y, double orientation) {
@@ -77,7 +77,7 @@ public class Position {
 		try {
 			return mapper.writeValueAsString(oarActionJSON);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, "Exception");
+			logger.log(Level.INFO, "Exception");
 		}
 		return "";
 	}
