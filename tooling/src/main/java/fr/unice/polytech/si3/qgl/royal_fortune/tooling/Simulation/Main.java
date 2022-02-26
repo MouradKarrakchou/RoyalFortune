@@ -15,9 +15,8 @@ public class Main {
 			textForOutput += game.toString();
 		}
 
-		BufferedWriter writer;
 		try {
-			writer = new BufferedWriter(new FileWriter("output.txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
 			writer.write(textForOutput);
 			writer.close();
 		} catch (IOException e) {
