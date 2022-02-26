@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.util.Objects;
+
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
@@ -54,6 +56,12 @@ public class Position {
 		if (Double.compare(position.y, y) != 0) return false;
 		return Double.compare(position.orientation, orientation) == 0;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(x, y, orientation);
+	}
+
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();
