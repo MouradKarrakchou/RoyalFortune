@@ -1,13 +1,13 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
@@ -22,13 +22,13 @@ public class Ship {
 	private Position position;
 	private String name;
 	private Deck deck;
-	private ArrayList<Entities> entities;
+	private List<Entities> entities;
 	private Shape shape;
-	final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+	final Logger logger = Logger.getLogger(Ship.class.getName());
 	
 	public Ship() {}
 	
-	public Ship(String type, int life, Position position, String name, Deck deck, ArrayList<Entities> entities, Shape shape) {
+	public Ship(String type, int life, Position position, String name, Deck deck, List<Entities> entities, Shape shape) {
 		this.type =type;
 		this.life = life;
 		this.position = position;
@@ -53,7 +53,7 @@ public class Ship {
 	public Deck getDeck() {
 		return deck;
 	}
-	public ArrayList<Entities> getEntities() {
+	public List<Entities> getEntities() {
 		return entities;
 	}
 	public Shape getShape() {
@@ -61,9 +61,9 @@ public class Ship {
 	}
 
 
-	public ArrayList<Oar> getOarList(String orientation) {
-		 return (ArrayList<Oar>) entities.stream()
-				 .filter(entity -> entity instanceof Oar)
+	public List<Oar> getOarList(String orientation) {
+		 return entities.stream()
+				 .filter(Oar.class::isInstance)
 				 .map(Oar.class::cast)
 				 .filter(oar -> oar.getSailor()==null)
 				 .filter(oar -> oar.isLeft() == orientation.equals("left"))
@@ -74,7 +74,7 @@ public class Ship {
 		this.position = position;
 	}
 
-	public void setEntities(ArrayList<Entities> entities) {
+	public void setEntities(List<Entities> entities) {
 		this.entities = entities;
 	}
 
@@ -83,7 +83,7 @@ public class Ship {
 		try {
 			 return new ObjectMapper().writeValueAsString(this);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, "Exception");
+			logger.log(Level.INFO, "Exception");
 		}
 		return "";
 	}
