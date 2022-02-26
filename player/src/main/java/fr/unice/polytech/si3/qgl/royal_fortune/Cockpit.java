@@ -39,7 +39,8 @@ public class Cockpit implements ICockpit {
 		Ship newShip = nextRoundDAO.getShip();
 		ship.setPosition(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
-		LOGGER.info("Next round input: " + round);
+		String out = "Next round input: " + round;
+		LOGGER.info(out);
 
 		return captain.roundDecisions();
 	}
@@ -57,7 +58,7 @@ public class Cockpit implements ICockpit {
 	}
 
 	@Override
-	public List<String> getLogs() {
+	public ArrayList<String> getLogs() {
 		return new ArrayList<>();
 	}
 }
