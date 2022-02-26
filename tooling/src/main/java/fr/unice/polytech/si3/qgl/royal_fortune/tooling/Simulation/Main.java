@@ -3,6 +3,8 @@ package fr.unice.polytech.si3.qgl.royal_fortune.tooling.Simulation;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
@@ -20,7 +22,8 @@ public class Main {
 			writer.write(textForOutput);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(Main.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		} finally {
 			writer.close();
 		}
