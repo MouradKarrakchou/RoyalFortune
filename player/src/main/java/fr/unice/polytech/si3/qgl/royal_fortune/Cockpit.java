@@ -20,10 +20,11 @@ public class Cockpit implements ICockpit {
 	private ArrayList<Sailor> sailors;
 	private Goal goal;
 	private Captain captain;
-	private final static Logger LOGGER = Logger.getLogger(Cockpit.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Cockpit.class.getName());
 
 	public void initGame(String game) {
-		LOGGER.info("Init game input: " + game);
+		String out = "Init game input: " + game;
+		LOGGER.info(out);
 
 		//initialization InitGameDAO
 		InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(game);
