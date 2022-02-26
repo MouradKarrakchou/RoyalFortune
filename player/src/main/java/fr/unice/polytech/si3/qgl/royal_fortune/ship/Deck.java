@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 public class Deck {
 	private int width;
 	private int length;
+	final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 	
 	public Deck() {}
 
@@ -40,7 +41,6 @@ public class Deck {
 		try {
 			return mapper.writeValueAsString(oarActionJSON);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 			LOGGER.log(Level.INFO, "Exception");
 		}
 		return "";

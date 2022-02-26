@@ -24,6 +24,7 @@ public class Ship {
 	private Deck deck;
 	private ArrayList<Entities> entities;
 	private Shape shape;
+	final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 	
 	public Ship() {}
 	
@@ -82,7 +83,6 @@ public class Ship {
 		try {
 			 return new ObjectMapper().writeValueAsString(this);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 			LOGGER.log(Level.INFO, "Exception");
 		}
 		return "";

@@ -3,11 +3,14 @@ package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import java.util.ArrayList;
+import java.util.function.Supplier;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Captain {
@@ -16,6 +19,7 @@ public class Captain {
     private final ArrayList<Sailor> sailors;
     private final ArrayList<Action> roundActions;
     private final DirectionsManager directionsManager;
+    final Logger LOGGER = Logger.getLogger(Captain.class.getName());
 
     public Captain(Ship ship, ArrayList<Sailor> sailors, Goal goal){
         this.ship = ship;
@@ -74,7 +78,7 @@ public class Captain {
         // We continue associating until we run out of sailors or oars
         while(i < oarList.size() && i < sailors.size() && i < maxSailors){
             Oar oar = oarList.get(i);
-            System.out.println(oar);
+            LOGGER.info((Supplier<String>) oar);
             sailors.get(i).setTargetEntity(oar);
             oar.setSailor(sailors.get(i));
             i++;

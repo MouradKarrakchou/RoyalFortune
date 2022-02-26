@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.DAO;
+package fr.unice.polytech.si3.qgl.royal_fortune.dao;
 
 import java.util.ArrayList;
 

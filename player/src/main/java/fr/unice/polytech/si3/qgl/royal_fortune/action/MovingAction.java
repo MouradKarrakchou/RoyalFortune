@@ -10,7 +10,8 @@ import java.util.logging.Logger;
 public class MovingAction extends Action {
     private int xdistance;
     private int ydistance;
-    private final String moving = "MOVING";
+    private final static String moving = "MOVING";
+    final Logger LOGGER = Logger.getLogger(MovingAction.class.getName());
 
     
     public MovingAction(int sailorId, int xdistance, int ydistance) {
@@ -33,7 +34,6 @@ public class MovingAction extends Action {
         try {
             return mapper.writeValueAsString(oarActionJSON);
         } catch (JsonProcessingException e) {
-            final Logger LOGGER = Logger.getLogger(MovingAction.class.getName());
             LOGGER.log(Level.INFO, "Exception");
         }
         return "";

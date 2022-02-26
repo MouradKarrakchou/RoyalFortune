@@ -1,7 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.json_management;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,8 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
@@ -27,6 +26,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
  *
  */
 public class JsonManager {
+	static final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+	static String exception = "Exception";
+
 	/**
 	 *Create a InitGameDAO with a the InitGame JSON
 	 * @param game a String formated as JSON 
@@ -38,8 +40,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(game, InitGameDAO.class);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
-			LOGGER.log(Level.INFO, "Exception");
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -55,8 +56,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(round, NextRoundDAO.class);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
-			LOGGER.log(Level.INFO, "Exception");
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -72,8 +72,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, Ship.class);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
-			LOGGER.log(Level.INFO, "Exception");
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -91,8 +90,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
-			LOGGER.log(Level.INFO, "Exception");
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -108,8 +106,7 @@ public class JsonManager {
 			}
 				
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
-			LOGGER.log(Level.INFO, "Exception");
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -125,8 +122,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, Goal.class);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
-			LOGGER.log(Level.INFO, "Exception");
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -137,8 +133,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
-			LOGGER.log(Level.INFO, "Exception");
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -149,8 +144,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
-			LOGGER.log(Level.INFO, "Exception");
+			LOGGER.log(Level.INFO, exception);
 		}
 		return(null);
 	}
@@ -165,8 +159,7 @@ public class JsonManager {
 			return shipJson.toString();
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
-			LOGGER.log(Level.INFO, "Exception");
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}

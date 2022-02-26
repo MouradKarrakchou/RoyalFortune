@@ -21,6 +21,7 @@ public class Rectangle extends Shape{
 	private double width;
 	private double height;
 	private double orientation;
+	final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 	
 	public Rectangle() {}
 	
@@ -53,7 +54,6 @@ public class Rectangle extends Shape{
 		try {
 			return mapper.writeValueAsString(oarActionJSON);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 			LOGGER.log(Level.INFO, "Exception");
 		}
 		return "";

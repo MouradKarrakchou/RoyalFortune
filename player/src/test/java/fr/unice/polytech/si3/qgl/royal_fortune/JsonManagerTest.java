@@ -2,16 +2,13 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

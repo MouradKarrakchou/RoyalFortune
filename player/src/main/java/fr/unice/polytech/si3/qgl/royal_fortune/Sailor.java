@@ -4,6 +4,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
+import java.util.logging.Logger;
+
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
@@ -14,6 +16,8 @@ public class Sailor{
 	private int y;
 	private String name;
 	private Entities targetEntity;
+	private final static Logger LOGGER = Logger.getLogger(Sailor.class.getName());
+
 	
 	public Sailor() {}
 

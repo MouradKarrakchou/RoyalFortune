@@ -22,6 +22,7 @@ public class Entities {
 	private String type;
 	private int x;
 	protected int y;
+	final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 	
 	public Entities() {}
 	public Entities(String type, int x, int y) {
@@ -45,7 +46,6 @@ public class Entities {
 		try {
 			return mapper.writeValueAsString(this);
 		} catch (JsonProcessingException e) {
-			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 			LOGGER.log(Level.INFO, "Exception");
 		}
 		return "";

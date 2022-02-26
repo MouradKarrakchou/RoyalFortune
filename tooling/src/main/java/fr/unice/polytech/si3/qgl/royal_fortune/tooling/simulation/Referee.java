@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.tooling.Simulation;
+package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;

@@ -2,10 +2,11 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -19,9 +20,10 @@ public class Cockpit implements ICockpit {
 	private ArrayList<Sailor> sailors;
 	private Goal goal;
 	private Captain captain;
+	private final static Logger LOGGER = Logger.getLogger(Cockpit.class.getName());
 
 	public void initGame(String game) {
-		System.out.println("Init game input: " + game);
+		LOGGER.info("Init game input: " + game);
 
 		//initialization InitGameDAO
 		InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(game);
@@ -36,7 +38,7 @@ public class Cockpit implements ICockpit {
 		Ship newShip = nextRoundDAO.getShip();
 		ship.setPosition(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
-		System.out.println("Next round input: " + round);
+		LOGGER.info("Next round input: " + round);
 
 		return captain.roundDecisions();
 	}

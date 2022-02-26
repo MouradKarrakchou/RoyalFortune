@@ -13,8 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CaptainTest {
     private Ship ship;
@@ -64,7 +63,7 @@ class CaptainTest {
         captain.associateSailorToOar(Math.PI);
         assertEquals(4, sailors.size());
         assertEquals(3, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
-        sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertTrue(0 != sailor.getTargetEntity().getY()));
+        sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertNotEquals(0, sailor.getTargetEntity().getY()));
     }
 
     @Test
