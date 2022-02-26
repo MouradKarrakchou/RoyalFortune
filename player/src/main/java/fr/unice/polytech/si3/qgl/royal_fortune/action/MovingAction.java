@@ -10,15 +10,15 @@ import java.util.logging.Logger;
 public class MovingAction extends Action {
     private int xdistance;
     private int ydistance;
-    private final static String moving = "MOVING";
-    final Logger LOGGER = Logger.getLogger(MovingAction.class.getName());
+    private static final String MOVING = "MOVING";
+    final Logger logger = Logger.getLogger(MovingAction.class.getName());
 
     
     public MovingAction(int sailorId, int xdistance, int ydistance) {
-        super(sailorId, "MOVING");
+        super(sailorId, MOVING);
         this.xdistance = xdistance;
         this.ydistance = ydistance;
-        this.type=moving;
+        this.type = MOVING;
     }
     public MovingAction(){}
 
@@ -27,14 +27,14 @@ public class MovingAction extends Action {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode oarActionJSON = mapper.createObjectNode();
         oarActionJSON.put("sailorId", sailorId);
-        oarActionJSON.put("type", moving);
+        oarActionJSON.put("type", MOVING);
         oarActionJSON.put("xdistance", xdistance);
         oarActionJSON.put("ydistance", ydistance);
 
         try {
             return mapper.writeValueAsString(oarActionJSON);
         } catch (JsonProcessingException e) {
-            LOGGER.log(Level.INFO, "Exception");
+            logger.log(Level.INFO, "Exception");
         }
         return "";
     }
