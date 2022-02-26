@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
