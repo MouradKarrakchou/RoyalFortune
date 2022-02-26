@@ -2,6 +2,8 @@ package fr.unice.polytech.si3.qgl.royal_fortune.json_management;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -36,7 +38,8 @@ public class JsonManager {
 		try {
 			return mapper.readValue(game, InitGameDAO.class);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return null;
 	}
@@ -52,7 +55,8 @@ public class JsonManager {
 		try {
 			return mapper.readValue(round, NextRoundDAO.class);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return null;
 	}
@@ -68,7 +72,8 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, Ship.class);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return null;
 	}
@@ -86,7 +91,8 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return null;
 	}
@@ -102,7 +108,8 @@ public class JsonManager {
 			}
 				
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return null;
 	}
@@ -118,7 +125,8 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, Goal.class);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return null;
 	}
@@ -129,7 +137,8 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return null;
 	}
@@ -140,7 +149,8 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return(null);
 	}
@@ -155,12 +165,10 @@ public class JsonManager {
 			return shipJson.toString();
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return null;
 	}
-
-
-	
 
 }

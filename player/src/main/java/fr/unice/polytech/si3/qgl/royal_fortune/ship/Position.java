@@ -3,8 +3,11 @@ package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
@@ -73,7 +76,8 @@ public class Position {
 		try {
 			return mapper.writeValueAsString(oarActionJSON);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return "";
 	}

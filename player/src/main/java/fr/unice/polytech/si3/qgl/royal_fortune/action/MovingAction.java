@@ -4,6 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class MovingAction extends Action {
     private int xdistance;
     private int ydistance;
@@ -30,7 +33,8 @@ public class MovingAction extends Action {
         try {
             return mapper.writeValueAsString(oarActionJSON);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            final Logger LOGGER = Logger.getLogger(MovingAction.class.getName());
+            LOGGER.log(Level.INFO, "Exception");
         }
         return "";
     }

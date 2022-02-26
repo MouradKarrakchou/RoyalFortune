@@ -1,10 +1,13 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
@@ -79,7 +82,8 @@ public class Ship {
 		try {
 			 return new ObjectMapper().writeValueAsString(this);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+			LOGGER.log(Level.INFO, "Exception");
 		}
 		return "";
 	}
