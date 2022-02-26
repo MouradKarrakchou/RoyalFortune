@@ -3,25 +3,24 @@ package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import java.util.ArrayList;
-import java.util.function.Supplier;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Captain {
     private final Ship ship;
     private final Goal goal;
-    private final ArrayList<Sailor> sailors;
+    private final List<Sailor> sailors;
     private final ArrayList<Action> roundActions;
     private final DirectionsManager directionsManager;
-    final Logger LOGGER = Logger.getLogger(Captain.class.getName());
+    final Logger logger = Logger.getLogger(Captain.class.getName());
 
-    public Captain(Ship ship, ArrayList<Sailor> sailors, Goal goal){
+    public Captain(Ship ship, List<Sailor> sailors, Goal goal){
         this.ship = ship;
         this.sailors = sailors;
         this.goal = goal;
@@ -78,7 +77,7 @@ public class Captain {
         // We continue associating until we run out of sailors or oars
         while(i < oarList.size() && i < sailors.size() && i < maxSailors){
             Oar oar = oarList.get(i);
-            LOGGER.info(String.valueOf(oar));
+            logger.info(String.valueOf(oar));
             sailors.get(i).setTargetEntity(oar);
             oar.setSailor(sailors.get(i));
             i++;
@@ -93,7 +92,9 @@ public class Captain {
         ArrayList<Oar> rightOarList = ship.getOarList("right");
         int oarIndex = 0;
         int sailorIndex = 0;
-        ArrayList<Sailor> listOfUnassignedSailors=(ArrayList<Sailor>) sailors.stream().filter(sailor-> sailor.getTargetEntity()==null).collect(Collectors.toList());
+        ArrayList<Sailor> listOfUnassignedSailors = (ArrayList<Sailor>) sailors.stream()
+                .filter(sailor-> sailor.getTargetEntity()==null)
+                .collect(Collectors.toList());
 
         // We continue associating until we run out of sailors or oars
         while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size()){
@@ -122,9 +123,6 @@ public class Captain {
                 .toList());
     }
 
-
-
-
     /**
      * Ask all sailors associated to an Oar to oar
      * This method update list of Action (roundActions)
@@ -137,7 +135,7 @@ public class Captain {
                 .toList());
     }
 
-    public ArrayList<Action> getRoundActions(){
+    public List<Action> getRoundActions(){
         return roundActions;
     }
 
