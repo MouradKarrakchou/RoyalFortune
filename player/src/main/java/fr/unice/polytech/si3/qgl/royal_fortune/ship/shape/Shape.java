@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 })
 public class Shape {
 	private String type;
-	final Logger logger = Logger.getLogger(JsonManager.class.getName());
+	final Logger logger = Logger.getLogger(Shape.class.getName());
 
 	public Shape() {}
 	public Shape(String type) {
