@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class Game {
     Ship ship;
     Cockpit cockpit;
-    ArrayList<Sailor> sailors;
+    List<Sailor> sailors;
     Goal goal;
     Referee referee;
     final Logger LOGGER = Logger.getLogger(Game.class.getName());

@@ -17,7 +17,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
  */
 public class Cockpit implements ICockpit {
 	private Ship ship;
-	private ArrayList<Sailor> sailors;
+	private List<Sailor> sailors;
 	private Goal goal;
 	private Captain captain;
 	private static final Logger LOGGER = Logger.getLogger(Cockpit.class.getName());
