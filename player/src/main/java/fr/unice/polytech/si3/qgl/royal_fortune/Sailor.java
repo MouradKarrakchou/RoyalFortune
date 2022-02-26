@@ -16,7 +16,6 @@ public class Sailor{
 	private int y;
 	private String name;
 	private Entities targetEntity;
-	private final static Logger LOGGER = Logger.getLogger(Sailor.class.getName());
 
 	
 	public Sailor() {}
