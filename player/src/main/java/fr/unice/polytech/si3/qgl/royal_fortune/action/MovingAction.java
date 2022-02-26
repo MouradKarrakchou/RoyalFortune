@@ -1,21 +1,20 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.action;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 
 public class MovingAction extends Action {
     private int xdistance;
     private int ydistance;
+    private final String moving = "MOVING";
 
     
     public MovingAction(int sailorId, int xdistance, int ydistance) {
         super(sailorId, "MOVING");
         this.xdistance = xdistance;
         this.ydistance = ydistance;
-        this.type="MOVING";
+        this.type=moving;
     }
     public MovingAction(){}
 
@@ -24,7 +23,7 @@ public class MovingAction extends Action {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode oarActionJSON = mapper.createObjectNode();
         oarActionJSON.put("sailorId", sailorId);
-        oarActionJSON.put("type", "MOVING");
+        oarActionJSON.put("type", moving);
         oarActionJSON.put("xdistance", xdistance);
         oarActionJSON.put("ydistance", ydistance);
 

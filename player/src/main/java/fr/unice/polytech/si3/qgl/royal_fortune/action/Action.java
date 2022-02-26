@@ -2,8 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.action;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", include = JsonTypeInfo.As.EXTERNAL_PROPERTY)
 @JsonSubTypes(value = {
 		@JsonSubTypes.Type(value = MovingAction.class, name = "MOVING"),

@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune.action;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 
 public class OarAction extends Action {
 	
