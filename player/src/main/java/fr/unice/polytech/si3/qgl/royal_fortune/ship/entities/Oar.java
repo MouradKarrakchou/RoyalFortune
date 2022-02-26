@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 
 /**
- * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
 @JsonIgnoreProperties(value = {

@@ -5,10 +5,9 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 /**
@@ -54,12 +53,16 @@ public class Ship {
 	public ArrayList<Entities> getEntities() {
 		return entities;
 	}
+	public ArrayList<Entities> getAllOars() {
+		return (ArrayList<Entities>) entities.stream().filter(e -> e.getType() == "oar").collect(Collectors.toList());
+	}
+
 	public Shape getShape() {
 		return shape;
 	}
 
 
-	public ArrayList<Oar> getOarList(String orientation) {
+	public ArrayList<Oar> getOarListByOrientation(String orientation) {
 		 return (ArrayList<Oar>) entities.stream()
 				 .filter(entity -> entity instanceof Oar)
 				 .map(Oar.class::cast)

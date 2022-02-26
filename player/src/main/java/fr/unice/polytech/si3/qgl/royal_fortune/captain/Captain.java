@@ -68,7 +68,7 @@ public class Captain {
      */
     public void associateSailorToOar(double orientation){
         int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getEntities().size())));
-        ArrayList<Oar> oarList = ship.getOarList(orientation < 0 ? "right" : "left");
+        ArrayList<Oar> oarList = ship.getOarListByOrientation(orientation < 0 ? "right" : "left");
         int i = 0;
 
         // We continue associating until we run out of sailors or oars
@@ -85,8 +85,8 @@ public class Captain {
      * Associate the same amount of sailors to the left oars and the right oars of the ship.
      */
     public void associateSailorToOarEvenly(){
-        ArrayList<Oar> leftOarList = ship.getOarList("left");
-        ArrayList<Oar> rightOarList = ship.getOarList("right");
+        ArrayList<Oar> leftOarList = ship.getOarListByOrientation("left");
+        ArrayList<Oar> rightOarList = ship.getOarListByOrientation("right");
         int oarIndex = 0;
         int sailorIndex = 0;
         ArrayList<Sailor> listOfUnassignedSailors=(ArrayList<Sailor>) sailors.stream().filter(sailor-> sailor.getTargetEntity()==null).collect(Collectors.toList());
