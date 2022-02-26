@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
