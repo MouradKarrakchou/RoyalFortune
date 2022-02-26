@@ -49,7 +49,7 @@ public class Cockpit implements ICockpit {
 		return ship;
 	}
 
-	public ArrayList<Sailor> getSailors() {
+	public List<Sailor> getSailors() {
 		return sailors;
 	}
 
