@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OarAction extends Action {
-    final Logger LOGGER = Logger.getLogger(OarAction.class.getName());
+    final Logger logger = Logger.getLogger(OarAction.class.getName());
 	
     public OarAction(int sailorId) {
         super(sailorId, "OAR");
@@ -27,7 +27,7 @@ public class OarAction extends Action {
         try {
             return mapper.writeValueAsString(oarActionJSON);
         } catch (JsonProcessingException e) {
-            LOGGER.log(Level.INFO, "Exception");
+            logger.log(Level.INFO, "Exception");
         }
         return "";
     }
