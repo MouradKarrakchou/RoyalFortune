@@ -20,7 +20,7 @@ public class Game {
     List<Sailor> sailors;
     Goal goal;
     Referee referee;
-    final Logger LOGGER = Logger.getLogger(Game.class.getName());
+    final Logger logger = Logger.getLogger(Game.class.getName());
     int numberOfCheckpointVisited =0;
     public Game(String initialiser){
     	
@@ -37,14 +37,16 @@ public class Game {
 
     void nextRound(){
         String jsonNextRound=createJson();
-        LOGGER.info("-----------------------");
-        LOGGER.info("jsonNextRound="+jsonNextRound);
+        logger.info("-----------------------");
+        String out = "jsonNextRound="+jsonNextRound;
+        logger.info(out);
         String jsonverif=cockpit.nextRound(jsonNextRound);
-        LOGGER.info("jsonverif="+jsonverif);
-        LOGGER.info("-----------------------");
+        out = "jsonverif="+jsonverif;
+        logger.info(out);
+        logger.info("-----------------------");
 
         List<Action> actions=JsonManager.readActionJson(jsonverif);
-        LOGGER.info(String.valueOf(actions));
+        logger.info(String.valueOf(actions));
         this.ship = referee.makeAdvance(cockpit,actions);
 
     }
@@ -65,7 +67,8 @@ public class Game {
         double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
-        LOGGER.info("Distance to the checkpoint: "+distanceSC);
+        String out = "Distance to the checkpoint: "+distanceSC;
+        logger.info(out);
         return (distanceSC<=radius && goal.getCheckPoints().size() == 1);
     }
     
