@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-
-import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -15,11 +13,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CaptainTest {
+class CaptainTest {
     private Ship ship;
     private Captain captain;
     private Checkpoint checkpoint;
@@ -27,13 +24,13 @@ public class CaptainTest {
     private ArrayList<Entities> entities;
 
     @BeforeEach
-    public void init(){
+    void init(){
         sailors = new ArrayList<>();
         entities = new ArrayList<>();
     }
 
     @Test
-    public void associateSailorsToOarPITest(){
+    void associateSailorsToOarPITest(){
         // Initialize 4 sailors
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
@@ -71,7 +68,7 @@ public class CaptainTest {
     }
 
     @Test
-    public void associateSailorsToOarPi2Test(){
+    void associateSailorsToOarPi2Test(){
         // Initialize 4 sailors
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
@@ -109,7 +106,7 @@ public class CaptainTest {
 
 
     @Test
-    public void askSailorToMoveTest(){
+    void askSailorToMoveTest(){
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
         sailors.add(new Sailor(2, 1, 0, "sailor2"));
@@ -145,7 +142,7 @@ public class CaptainTest {
     }
 
     @Test
-    public void associateSailorToOarEvenlyTest(){
+    void associateSailorToOarEvenlyTest(){
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
         sailors.add(new Sailor(2, 1, 0, "sailor2"));
@@ -175,10 +172,6 @@ public class CaptainTest {
         assertEquals(6, sailors.size());
         assertEquals(4, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
     }
-
-
-
-
 
     @Test
     //Moving straight

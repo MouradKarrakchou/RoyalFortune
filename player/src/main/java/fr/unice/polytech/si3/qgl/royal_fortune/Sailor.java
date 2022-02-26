@@ -62,7 +62,7 @@ public class Sailor{
 			return null;
 
 		// If there is a target entity and the sailor can go to in one turn (>= 5 cases).
-		MovingAction movingAction = null;
+		MovingAction movingAction;
 		if(Math.abs(targetEntity.getX() - x) + Math.abs(targetEntity.getY() - y) <= 5){
 			movingAction = new MovingAction(this.getId(), targetEntity.getX() - x, targetEntity.getY() - y);
 		}
@@ -70,29 +70,31 @@ public class Sailor{
 		// If there is a target entity and the sailor can not go to in one turn (> 5 cases).
 		// CODE HERE ...
 		else{
-			int i = 0 ;
-			int posX = 0;
-			int posY = 0;
-			int vectX = (targetEntity.getX()-this.x)<0 ? -1 : 1;
-			int vectY = (targetEntity.getY()-this.y)<0 ? -1 : 1;
-			
-			//tant que this.x+Deplacement < target.x || i < 5
-			while(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()) && posX < 5) {
-				System.out.println(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()));
-				posX+=vectX;
-			}
-			if(posX<5)
-				while(Math.abs(this.y+posX) < Math.abs(targetEntity.getY()) && posY+posX < 5) {
-					posY+=vectY;
-				}
-			
-			
-			movingAction = new MovingAction(this.getId(), posX - x, posY - y);
+			movingAction = targetEntityFarAway();
 		}
 
 		this.x += movingAction.getXdistance();
 		this.y += movingAction.getYdistance();
 		return movingAction;
+	}
+
+	MovingAction targetEntityFarAway() {
+		int posX = 0;
+		int posY = 0;
+		int vectX = (targetEntity.getX()-this.x)<0 ? -1 : 1;
+		int vectY = (targetEntity.getY()-this.y)<0 ? -1 : 1;
+
+		//tant que this.x+Deplacement < target.x || i < 5
+		while(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()) && posX < 5) {
+			System.out.println(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()));
+			posX+=vectX;
+		}
+		if(posX<5)
+			while(Math.abs(this.y+posX) < Math.abs(targetEntity.getY()) && posY+posX < 5) {
+				posY+=vectY;
+			}
+
+		return new MovingAction(this.getId(), posX - x, posY - y);
 	}
 
 	public OarAction oar(){

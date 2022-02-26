@@ -44,9 +44,7 @@ public class DirectionsManager {
             angleMove += 2*Math.PI;
         }
 
-        double angles[] = {checkSign(angleMove), angleCone};
-
-        return angles;
+        return new double[]{checkSign(angleMove), angleCone};
     }
 
     private double checkSign(double angleMove) {

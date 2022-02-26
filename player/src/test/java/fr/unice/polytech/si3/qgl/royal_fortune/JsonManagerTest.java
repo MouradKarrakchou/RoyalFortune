@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JsonManagerTest {
+class JsonManagerTest {
     JsonManager jsonManager = new JsonManager();
 
     @BeforeEach
@@ -42,17 +42,6 @@ public class JsonManagerTest {
         assertEquals(100, ship.getLife());
         assertEquals(new Position(10, 20, 0), ship.getPosition());
         assertEquals("Boat test", ship.getName());
-    }
-
-    @Test
-    void writeJsonActionTest() throws JsonProcessingException {
-        List<Integer> list = new ArrayList<>();
-        list.add(0);
-        list.add(1);
-
-        String actionDone = "[{\"sailorId\":0,\"type\":\"OAR\"},{\"sailorId\":1,\"type\":\"OAR\"}]";
-
-        //assertEquals(actionDone,jsonManager.writeJsonAction(list));
     }
 
     @Test
@@ -198,7 +187,7 @@ public class JsonManagerTest {
 
     
     @Test
-    public void readInitGameJSON() {
+    void readInitGameJSON() {
     	String json = "{\r\n"
     			+ "  \"goal\": {\r\n"
     			+ "    \"mode\": \"REGATTA\",\r\n"
@@ -294,7 +283,7 @@ public class JsonManagerTest {
     }
 
     @Test
-    public void readNextRoundJSON() {
+    void readNextRoundJSON() {
     	String json = "{\r\n"
     			+ "  \"ship\": {\r\n"
     			+ "    \"type\": \"ship\",\r\n"
