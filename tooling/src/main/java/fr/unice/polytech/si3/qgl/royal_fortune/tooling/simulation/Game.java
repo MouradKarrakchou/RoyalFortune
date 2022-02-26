@@ -11,7 +11,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -44,7 +43,7 @@ public class Game {
         LOGGER.info("jsonverif="+jsonverif);
         LOGGER.info("-----------------------");
 
-        ArrayList<Action> actions=JsonManager.readActionJson(jsonverif);
+        List<Action> actions=JsonManager.readActionJson(jsonverif);
         LOGGER.info(String.valueOf(actions));
         this.ship = referee.makeAdvance(cockpit,actions);
 

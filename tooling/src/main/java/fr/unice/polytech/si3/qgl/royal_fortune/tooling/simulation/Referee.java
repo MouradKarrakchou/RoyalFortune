@@ -6,7 +6,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Referee {
     Cockpit cockpit;
@@ -19,7 +19,7 @@ public class Referee {
     public void verif(String jsonverif) {
     }
 
-    public Ship makeAdvance(Cockpit cockpit, ArrayList<Action> actions) {
+    public Ship makeAdvance(Cockpit cockpit, List<Action> actions) {
         rightPush=0;
         leftPush=0;
         actions.stream().forEach(action -> doAction(action));

@@ -1,6 +1,8 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.json_management;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,7 +85,7 @@ public class JsonManager {
 	 * @param json The given json
 	 * @return the associated Sailors.
 	 */
-	public static ArrayList<Sailor> readSailorsJson(String json){
+	public static List<Sailor> readSailorsJson(String json){
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		JavaType javaType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Sailor.class);
@@ -92,7 +94,7 @@ public class JsonManager {
 		} catch (JsonProcessingException e) {
 			LOGGER.log(Level.INFO, exception);
 		}
-		return null;
+		return Collections.emptyList();
 	}
 	
 	public static Shape readShapeJson(String json, String type){
@@ -126,7 +128,7 @@ public class JsonManager {
 		}
 		return null;
 	}
-	public static ArrayList<Entities> readEntitiesJson(String json) {
+	public static List<Entities> readEntitiesJson(String json) {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		JavaType javaType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Entities.class);
@@ -135,9 +137,9 @@ public class JsonManager {
 		} catch (JsonProcessingException e) {
 			LOGGER.log(Level.INFO, exception);
 		}
-		return null;
+		return Collections.emptyList();
 	}
-	public static ArrayList<Action> readActionJson(String json) {
+	public static List<Action> readActionJson(String json) {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		JavaType javaType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Action.class);
