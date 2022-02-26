@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 public class Circle extends Shape{
 
     private double radius;
-    final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 
     public Circle() {}
     public Circle(String type, double radius) {
@@ -39,7 +38,7 @@ public class Circle extends Shape{
         try {
             return mapper.writeValueAsString(oarActionJSON);
         } catch (JsonProcessingException e) {
-            LOGGER.log(Level.INFO, "Exception");
+            logger.log(Level.INFO, "Exception");
         }
         return "";
     }

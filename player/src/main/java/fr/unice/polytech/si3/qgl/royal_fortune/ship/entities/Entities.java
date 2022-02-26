@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +21,7 @@ public class Entities {
 	private String type;
 	private int x;
 	protected int y;
-	final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+	final Logger logger = Logger.getLogger(Entities.class.getName());
 	
 	public Entities() {}
 	public Entities(String type, int x, int y) {
@@ -46,7 +45,7 @@ public class Entities {
 		try {
 			return mapper.writeValueAsString(this);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, "Exception");
+			logger.log(Level.INFO, "Exception");
 		}
 		return "";
 	}

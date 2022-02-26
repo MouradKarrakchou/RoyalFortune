@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 })
 public class Shape {
 	private String type;
-	final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+	final Logger logger = Logger.getLogger(JsonManager.class.getName());
 
 	public Shape() {}
 	public Shape(String type) {
@@ -43,7 +43,7 @@ public class Shape {
 		try {
 			return mapper.writeValueAsString(oarActionJSON);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, "Exception");
+			logger.log(Level.INFO, "Exception");
 		}
 		return "";
 	}
