@@ -16,13 +16,11 @@ public class Referee {
     public Referee (Cockpit cockpit){
         this.cockpit=cockpit;
     }
-    public void verif(String jsonverif) {
-    }
 
     public Ship makeAdvance(Cockpit cockpit, List<Action> actions) {
         rightPush=0;
         leftPush=0;
-        actions.stream().forEach(action -> doAction(action));
+        actions.stream().forEach(this::doAction);
         return makeMooveShip(cockpit.getShip());
     }
 
