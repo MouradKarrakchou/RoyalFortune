@@ -25,11 +25,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
  *
  */
 public class JsonManager {
-
-	private JsonManager() {
-		throw new IllegalStateException();
-	}
-
 	/**
 	 *Create a InitGameDAO with a the InitGame JSON
 	 * @param game a String formated as JSON 
