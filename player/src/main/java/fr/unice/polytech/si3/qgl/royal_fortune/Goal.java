@@ -1,10 +1,11 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Goal {
     String mode;
-    ArrayList<Checkpoint> checkpoints;
+    List<Checkpoint> checkpoints;
 
     Goal(String mode, ArrayList<Checkpoint> checkpoints){
         this.mode = mode;
@@ -22,9 +23,9 @@ public class Goal {
 
     public void nextCheckPoint(){checkpoints.remove(0);}
 
-    public void setCheckpoints(ArrayList<Checkpoint> checkpoints){
+    public void setCheckpoints(List<Checkpoint> checkpoints){
         this.checkpoints = checkpoints;
     }
 
-    public ArrayList<Checkpoint> getCheckPoints() { return checkpoints; }
+    public List<Checkpoint> getCheckPoints() { return checkpoints; }
 }

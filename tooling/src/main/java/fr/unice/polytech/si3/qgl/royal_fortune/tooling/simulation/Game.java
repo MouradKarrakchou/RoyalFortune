@@ -12,7 +12,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
 import java.util.ArrayList;
-import java.util.function.Supplier;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Game {
@@ -45,7 +45,7 @@ public class Game {
         LOGGER.info("-----------------------");
 
         ArrayList<Action> actions=JsonManager.readActionJson(jsonverif);
-        LOGGER.info((Supplier<String>) actions);
+        LOGGER.info(String.valueOf(actions));
         this.ship = referee.makeAdvance(cockpit,actions);
 
     }
@@ -72,7 +72,7 @@ public class Game {
     
     public StringBuilder getAllCheckpointsForOutput() {
     	StringBuilder out = new StringBuilder("");
-    	ArrayList<Checkpoint> checks = goal.getCheckPoints();
+    	List<Checkpoint> checks = goal.getCheckPoints();
     	for(Checkpoint checkpoint : checks) {
     		Position pos = checkpoint.getPosition();
     		double x = pos.getX();

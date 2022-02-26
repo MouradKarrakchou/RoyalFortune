@@ -15,7 +15,7 @@ public class Main {
 		StringBuilder textForOutput = new StringBuilder(game.getAllCheckpointsForOutput() + "---\n");
 		while (!game.isFinished()) {
 			game.nextRound();
-			LOGGER.info((Supplier<String>) game);
+			LOGGER.info(String.valueOf(game));
 			textForOutput.append(game);
 		}
 
