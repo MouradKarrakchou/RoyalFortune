@@ -19,16 +19,18 @@ public class Captain {
     private final Ship ship;
     private final Goal goal;
     private final List<Sailor> sailors;
+    private final FictitiousCheckpoint fictitiousCheckpoints;
     private final ArrayList<Action> roundActions;
     private final DirectionsManager directionsManager;
     final Logger logger = Logger.getLogger(Captain.class.getName());
 
-    public Captain(Ship ship, List<Sailor> sailors, Goal goal){
+    public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints){
         this.ship = ship;
         this.sailors = sailors;
         this.goal = goal;
+        this.fictitiousCheckpoints = fictitiousCheckpoints;
         roundActions = new ArrayList<>();
-        directionsManager=new DirectionsManager(ship,goal);
+        directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
     }
 
     public String roundDecisions() {
@@ -55,8 +57,11 @@ public class Captain {
     }
 
     private void updateCheckPoint() {
-        if (isInCheckpoint()) goal.nextCheckPoint();
-    }
+        if (isInCheckpoint())
+        {goal.nextCheckPoint();
+            fictitiousCheckpoints.nextCheckPoint();}
+
+        }
     private boolean isInCheckpoint() {
         return(isInCheckpointShipPos(ship.getPosition().getX(),ship.getPosition().getY()));
     }
@@ -111,7 +116,7 @@ public class Captain {
                 .collect(Collectors.toList());
 
         // We continue associating until we run out of sailors or oars
-        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size() && needSailorToOar(oarIndex)){
+        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size()){
             Oar leftOar = leftOarList.get(oarIndex);
             Oar rightOar = rightOarList.get(oarIndex);
             listOfUnassignedSailors.get(sailorIndex).setTargetEntity(leftOar);

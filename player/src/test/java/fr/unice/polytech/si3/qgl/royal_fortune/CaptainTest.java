@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -59,7 +60,7 @@ class CaptainTest {
         entities.add(new Oar(2, 3));
 
         // Initialize a ship
-        captain = new Captain(basicShip, sailors, null);
+        captain = new Captain(basicShip, sailors, null, null);
 
         // For a rotation of pi, we need 4 sailors on the left side, but there is only 3 oars available.
         captain.associateSailorToOar(Math.PI);
@@ -87,7 +88,7 @@ class CaptainTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
-        captain = new Captain(basicShip, sailors, null);
+        captain = new Captain(basicShip, sailors, null, null);
 
         // For a rotation of pi/4, we need 1 sailor on the left side
         captain.associateSailorToOar(- Math.PI/4);
@@ -121,7 +122,7 @@ class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
 
-        captain = new Captain(ship, sailors, null);
+        captain = new Captain(ship, sailors, null, null);
         captain.associateSailorToOar(- Math.PI);
 
         assertEquals(4, sailors.size());
@@ -151,7 +152,7 @@ class CaptainTest {
 
         ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
         tabCheckPoint.add(new Checkpoint(new Position(0,1000,40),new Circle("circle",50)));
-        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint));
+        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),null);
         captain.associateSailorToOarEvenly();
 
         assertEquals(6, sailors.size());
@@ -170,14 +171,14 @@ class CaptainTest {
 
         ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
         tabCheckPoint.add(new Checkpoint(new Position(165*5/basicShip.getEntities().size(),0,0),new Circle("circle",55)));
-        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint));
+        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),null);
         assertEquals(true,captain.needSailorToOar(1));
         assertEquals(false,captain.needSailorToOar(2));
         assertEquals(false,captain.needSailorToOar(3));
     }
 
     @Test
-        //Moving straight
+    //Moving straight
     void roundDecisionsTest() {
         Ship ship = new Ship(
                 "ship",
@@ -203,7 +204,7 @@ class CaptainTest {
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
-        captain = new Captain(ship, sailors, goal);
+        captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(checkpointArrayList));
         captain.roundDecisions();
 
         assertEquals(8, captain.getRoundActions().size());
@@ -227,7 +228,7 @@ class CaptainTest {
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
-        captain = new Captain(basicShip, sailors, goal);
+        captain = new Captain(basicShip, sailors, goal, new FictitiousCheckpoint(checkpointArrayList));
         captain.roundDecisions();
 
         assertEquals(4, captain.getRoundActions().size());
@@ -248,7 +249,7 @@ class CaptainTest {
         entities.add(new Oar(1, 0));
         entities.add(new Oar(1, 1));
 
-        captain = new Captain(basicShip, sailors, null);
+        captain = new Captain(basicShip, sailors, null, null);
         assertEquals(4, basicShip.getEntities().size());
         captain.askSailorToMoveToRudder();
         assertEquals(0, captain.getRoundActions().size());
