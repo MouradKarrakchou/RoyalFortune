@@ -62,8 +62,7 @@ public class Referee {
     }
 
     private double rudderA(RudderAction rudderAction) {
-         //return rudderAction.getAngle();
-        return 0.0;
+         return rudderAction.getRotationRudder();
     }
 
     private void oarA(OarAction oarAction) {
