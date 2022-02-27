@@ -150,12 +150,23 @@ function addListener() {
         let index = input.indexOf("---");
         let checkpoints = input.slice(0, index);
         let coord = input.slice(index + 1);
+        let score = document.getElementById("score");
+
+        console.log("---compute score---");
+        score.innerText = "Score: " + countRound(coord);
+        console.log("---create checkpoint---");
         createCheckpoints(checkpoints);
+        console.log("---animate checkpoint---");
         animateCheckpoints();
+        console.log("---move boat---");
         move(coord);
     });
 
     document.querySelector('#reset').addEventListener('click', function(event) {
         location.reload();
     });
+}
+
+function countRound(input) {
+    return input.length;
 }
