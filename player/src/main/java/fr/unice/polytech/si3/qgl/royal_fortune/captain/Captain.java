@@ -156,6 +156,9 @@ public class Captain {
                 .toList());
     }
 
+    void askSailorsToTurnWithRudder() {
+    }
+
     public List<Action> getRoundActions(){
         return roundActions;
     }

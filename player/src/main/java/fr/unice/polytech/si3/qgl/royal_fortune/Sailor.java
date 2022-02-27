@@ -114,4 +114,5 @@ public class Sailor{
 
 		return new OarAction(this.getId());
 	}
+
 }
