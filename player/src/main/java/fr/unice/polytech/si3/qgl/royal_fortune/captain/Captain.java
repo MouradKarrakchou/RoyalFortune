@@ -85,6 +85,12 @@ public class Captain {
             oar.setSailor(sailors.get(i));
             i++;
         }
+        List<Oar> allOars = ship.getAllOar();
+        List<Oar> leftOars;
+        for(Oar oar : allOars) {
+
+        }
+
     }
 
     /**
@@ -156,7 +162,17 @@ public class Captain {
                 .toList());
     }
 
-    void askSailorsToTurnWithRudder() {
+    /**
+     * Ask a sailor to turn with the rudder
+     * This method update list of Action (roundActions)
+     * @param rotationRudder
+     */
+    void askSailorsToTurnWithRudder(double rotationRudder) {
+        roundActions.addAll(sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() instanceof Rudder)
+                .filter(Sailor::isOnTheTargetEntity)
+                .map(sailor -> sailor.turnWithRudder(rotationRudder))
+                .toList());
     }
 
     public List<Action> getRoundActions(){
