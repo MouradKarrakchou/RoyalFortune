@@ -2,6 +2,8 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 /**
@@ -14,7 +16,6 @@ public class Sailor{
 	private int y;
 	private String name;
 	private Entities targetEntity;
-
 
 	public Sailor() {}
 
@@ -114,4 +115,13 @@ public class Sailor{
 
 		return new OarAction(this.getId());
 	}
+
+	public RudderAction turnWithRudder(double rotationRudder) {
+		// If sailor don't have a target entity, sailor can't go to this target.
+		if (targetEntity == null)
+			return null;
+
+		return new RudderAction(this.getId(), rotationRudder);
+	}
+
 }

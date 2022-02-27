@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -23,6 +23,8 @@ public class Ship {
 	private String name;
 	private Deck deck;
 	private List<Entities> entities;
+
+
 	private Shape shape;
 	final Logger logger = Logger.getLogger(Ship.class.getName());
 	
@@ -99,4 +101,17 @@ public class Ship {
 		return "";
 	}
 
+	public int getNbrOar() {
+		return getAllOar().size();
+	}
+
+	private List<Oar> getAllOar() {
+		List<Oar> listOar = new ArrayList<>();
+		for(Entities currentEntite : entities){
+			if(currentEntite.isOar()){
+				listOar.add((Oar)currentEntite);
+			}
+		}
+		return listOar;
+	}
 }

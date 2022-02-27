@@ -16,7 +16,7 @@ public class DirectionsManager {
 
     /**
      * Calculate 2 angles:
-     * -The angle between the direction vertor of the ship and the axis from the ship to the checkpoint
+     * -The angle between the direction vector of the ship and the axis from the ship to the checkpoint
      * -Half of the angle between the axis from the ship to the edges of the checkpoint
      *
      * @return the angle which the ship must turn, the angle in which the ship is in the right direction
@@ -65,18 +65,6 @@ public class DirectionsManager {
     }
 
     /**
-     * Check if the ship has reach the current checkpoint to focus the next one
-     */
-    private void updateCheckPoint() {
-        double distanceSCX = goal.getCurrentCheckPoint().getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
-        double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
-        double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
-        if (distanceSC<=radius)
-            goal.nextCheckPoint();
-    }
-
-    /**
      * Check if the ship is in the right direction
      * @param angleMove is the angle between the direction vector of the ship and the axis from the ship and the checkpoint
      * @param angleCone half of the angle between the axis from the ship and the edges of the checkpoint
@@ -92,7 +80,7 @@ public class DirectionsManager {
      * @return true if the next turn of the boat exceed the right direction
      */
     public boolean isConeTooSmall(double angleMove, double angleCone) {
-        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/ship.getEntities().size());
+        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/ship.getNbrOar());
     }
 
     double getAngleMove() { return angleCalculator()[0]; }

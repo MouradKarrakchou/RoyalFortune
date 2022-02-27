@@ -1,7 +1,6 @@
 //transform: rotate(90deg);
 jQuery(document).ready(function($) {
-    let x = 50;
-    let y = 50;
+    window.speed = 300;
     //$("#boat").animate({ top: y, left: x }, 1200);
     init()
 });
@@ -17,9 +16,10 @@ function Boat(x, y, orientation) {
     window.sea = document.getElementById('sea');
 }
 
-function Checkpoint(x, y) {
+function Checkpoint(x, y, radius) {
     this.x = (x * 0.5) + window.sea.offsetWidth / 2;
     this.y = (y * 0.5) + window.sea.offsetHeight / 2;
+    this.radius = radius;
 }
 
 function init() {
@@ -48,7 +48,7 @@ function scrollToTheBoatV2() {
     $('html, body').animate({
         scrollTop: window.lastY / 2,
         scrollLeft: window.lastX / 2 // Use element id to get element's location.
-    }, 1000);
+    }, window.speed);
 }
 
 function move(input) {
@@ -91,7 +91,7 @@ function drawBoat() {
             });
         }
     }, 'linear');
-    $("#boat").animate({ top: newY - (window.saveMyLife.height / 2), left: newX - (window.saveMyLife.width / 2) }, 500);
+    $("#boat").animate({ top: newY - (window.saveMyLife.height / 2), left: newX - (window.saveMyLife.width / 2) }, window.speed);
 }
 
 function translateX(x) {
@@ -105,7 +105,7 @@ function translateY(y) {
 function createCheckpoints(input) {
     let checkpointList = document.getElementById('sea');
     for (let i = 0; i < input.length; i++) {
-        window.checkpoints.push(new Checkpoint(input[i].split(';')[0], input[i].split(';')[1]));
+        window.checkpoints.push(new Checkpoint(input[i].split(';')[0], input[i].split(';')[1], input[i].split(';')[2]));
         let check = "<div id='" + i + "' class='checkpoint'></div>"
         checkpointList.innerHTML += check;
     }
@@ -114,9 +114,10 @@ function createCheckpoints(input) {
 function animateCheckpoints() {
     $('.checkpoint').each(function() {
         let id = $(this).attr("id");
+        let radius = window.checkpoints[id].radius;
         //$(this).animate({ top: window.checkpoints[id].y, left: window.checkpoints[id].x }, 1000);
-        $(this).animate({ top: window.checkpoints[id].y - 40, left: window.checkpoints[id].x - 40 }, 1000);
-
+        $(this).animate({ top: window.checkpoints[id].y - radius / 2, left: window.checkpoints[id].x - radius / 2 }, 1000);
+        $(this).animate({ height: radius, width: radius }, 1000);
     });
 }
 
