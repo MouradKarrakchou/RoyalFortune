@@ -43,6 +43,8 @@ public class Captain {
             double angleMadeBySailors = associateSailorToOar(angleMove);
             if(Math.abs(angleMove - angleMadeBySailors) < Math.PI/4)
                 askSailorsToTurnWithRudder(angleMove - angleMadeBySailors);
+            else
+                askSailorsToTurnWithRudder(0);
         }
         associateSailorToOarEvenly();
         askSailorsToMove();
