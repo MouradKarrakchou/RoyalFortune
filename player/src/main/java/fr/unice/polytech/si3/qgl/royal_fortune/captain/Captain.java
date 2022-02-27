@@ -40,7 +40,9 @@ public class Captain {
         double angleCone = directionsManager.getAngleCone();
 
         if (!directionsManager.isConeTooSmall(angleMove, angleCone) && !directionsManager.isInCone(angleMove, angleCone)) {
-            associateSailorToOar(angleMove);
+            double angleMadeBySailors = associateSailorToOar(angleMove);
+            if(Math.abs(angleMove - angleMadeBySailors) < Math.PI/4)
+                askSailorsToTurnWithRudder(angleMove - angleMadeBySailors);
         }
         associateSailorToOarEvenly();
         askSailorsToMove();
@@ -72,7 +74,7 @@ public class Captain {
      * Captain will associate the best number of sailors to proceed a rotation of the given angle.
      * @param orientation The rotation of the given angle.
      */
-    public void associateSailorToOar(double orientation){
+    public double associateSailorToOar(double orientation){
         int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getEntities().size())));
         List<Oar> oarList = ship.getOarList(orientation < 0 ? "right" : "left");
         int i = 0;
@@ -85,12 +87,16 @@ public class Captain {
             oar.setSailor(sailors.get(i));
             i++;
         }
-//        List<Oar> allOars = ship.getAllOar();
-//        List<Oar> leftOars;
-//        for(Oar oar : allOars) {
-//
-//        }
 
+        List<Oar> allOars = ship.getAllOar();
+        List<Oar> leftOars = new ArrayList<>();
+        List<Oar> rightOars = new ArrayList<>();
+        for(Oar oar : allOars) {
+            if(oar.isLeft()) leftOars.add(oar);
+            else rightOars.add(oar);
+        }
+
+        return Math.abs((rightOars.size() - leftOars.size())*(Math.PI/allOars.size()));
     }
 
     /**
