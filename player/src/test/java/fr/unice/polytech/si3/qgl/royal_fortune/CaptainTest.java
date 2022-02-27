@@ -36,6 +36,7 @@ class CaptainTest {
                 new Deck(3, 4),
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
+
     }
 
     @Test
@@ -148,7 +149,9 @@ class CaptainTest {
         entities.add(new Oar(0, 3));
         entities.add(new Oar(1, 3));
 
-        captain = new Captain(basicShip, sailors, null);
+        ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
+        tabCheckPoint.add(new Checkpoint(new Position(0,1000,40),new Circle("circle",50)));
+        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint));
         captain.associateSailorToOarEvenly();
 
         assertEquals(6, sailors.size());
@@ -156,7 +159,25 @@ class CaptainTest {
     }
 
     @Test
-    //Moving straight
+    void needSailorToOarTest(){
+        entities.add(new Oar(0, 0));
+        entities.add(new Oar(1, 0));
+        entities.add(new Oar(2, 0));
+        entities.add(new Oar(0, 3));
+        entities.add(new Oar(1, 3));
+        entities.add(new Oar(2, 0));
+
+
+        ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
+        tabCheckPoint.add(new Checkpoint(new Position(165*5/basicShip.getEntities().size(),0,0),new Circle("circle",55)));
+        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint));
+        assertEquals(true,captain.needSailorToOar(1));
+        assertEquals(false,captain.needSailorToOar(2));
+        assertEquals(false,captain.needSailorToOar(3));
+    }
+
+    @Test
+        //Moving straight
     void roundDecisionsTest() {
         Ship ship = new Ship(
                 "ship",
@@ -185,11 +206,11 @@ class CaptainTest {
         captain = new Captain(ship, sailors, goal);
         captain.roundDecisions();
 
-        assertEquals(8, captain.getRoundActions().size()); 
+        assertEquals(8, captain.getRoundActions().size());
     }
 
     @Test
-    //Turning
+        //Turning
     void roundDecisions2Test() {
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
