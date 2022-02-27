@@ -34,4 +34,8 @@ public class RudderAction extends Action {
         }
         return "";
     }
+
+    public double getRotationRudder() {
+        return rotationRudder;
+    }
 }
