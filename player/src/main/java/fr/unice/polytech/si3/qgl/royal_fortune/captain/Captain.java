@@ -73,7 +73,7 @@ public class Captain {
      * @param orientation The rotation of the given angle.
      */
     public void associateSailorToOar(double orientation){
-        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getEntities().size())));
+        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getNbrOar())));
         List<Oar> oarList = ship.getOarList(orientation < 0 ? "right" : "left");
         int i = 0;
 

@@ -80,7 +80,7 @@ public class DirectionsManager {
      * @return true if the next turn of the boat exceed the right direction
      */
     public boolean isConeTooSmall(double angleMove, double angleCone) {
-        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/ship.getEntities().size());
+        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/ship.getNbrOar());
     }
 
     double getAngleMove() { return angleCalculator()[0]; }
