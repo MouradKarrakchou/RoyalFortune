@@ -13,6 +13,10 @@ import java.util.logging.Logger;
  *
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", include = JsonTypeInfo.As.EXTERNAL_PROPERTY)
+@JsonSubTypes(value = {
+		@JsonSubTypes.Type(value = Oar.class, name = "oar"),
+		@JsonSubTypes.Type(value = Rudder.class, name = "rudder"),
+})
 
 public class Entities {
 	private String type;
