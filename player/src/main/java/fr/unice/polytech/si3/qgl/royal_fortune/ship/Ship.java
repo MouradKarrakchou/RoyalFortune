@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 /**
@@ -64,9 +65,20 @@ public class Ship {
 		 return entities.stream()
 				 .filter(Oar.class::isInstance)
 				 .map(Oar.class::cast)
-				 .filter(oar -> oar.getSailor()==null)
+				 .filter(oar -> oar.getSailor() == null)
 				 .filter(oar -> oar.isLeft() == orientation.equals("left"))
 				 .collect(Collectors.toList());
+	}
+
+	/**
+	 * Get the rudder, return null if there is no rudder on the ship (Week 1-3)
+	 * @return The rudder entity.
+	 */
+	public Rudder getRudder(){
+		for(Entities entity : entities)
+			if (entity instanceof Rudder)
+				return (Rudder) entity;
+		return null;
 	}
 
 	public void setPosition(Position position){

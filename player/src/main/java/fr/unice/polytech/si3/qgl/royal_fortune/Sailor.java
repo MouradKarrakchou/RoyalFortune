@@ -15,7 +15,7 @@ public class Sailor{
 	private String name;
 	private Entities targetEntity;
 
-	
+
 	public Sailor() {}
 
 	public Sailor(int id, int x, int y, String name) {
@@ -54,6 +54,15 @@ public class Sailor{
 	}
 
 	/**
+	 * Calculate the distance between a sailor and a given entity.
+	 * @param entity The entity to calculate the distance with.
+	 * @return The distance between the sailor and the given entity.
+	 */
+	public int getDistanceToEntity(Entities entity){
+		return Math.abs(entity.getX() - x) + Math.abs(entity.getY() - y);
+	}
+
+	/**
 	 * Called by the Captain, call a sailor to move to its targetEntity.
 	 * @return A MovingAction that will be added to the action list.
 	 */
@@ -64,7 +73,7 @@ public class Sailor{
 
 		// If there is a target entity and the sailor can go to in one turn (>= 5 cases).
 		MovingAction movingAction;
-		if(Math.abs(targetEntity.getX() - x) + Math.abs(targetEntity.getY() - y) <= 5){
+		if(getDistanceToEntity(targetEntity) <= 5){
 			movingAction = new MovingAction(this.getId(), targetEntity.getX() - x, targetEntity.getY() - y);
 		}
 

@@ -6,8 +6,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -109,6 +112,24 @@ public class Captain {
         }
     }
 
+    /**
+     * Will ask the nearest sailor to the rudder to move to.
+     */
+    public void askSailorToMoveToRudder(){
+        Rudder rudder = ship.getRudder();
+        if (rudder == null)
+            return;
+
+        Optional<Sailor> sailorToMove = sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() == null)
+                .min(Comparator.comparingInt(sailor -> sailor.getDistanceToEntity(rudder)));
+
+        if(sailorToMove.isPresent()) {
+            Sailor s = sailorToMove.get();
+            s.setTargetEntity(rudder);
+            roundActions.add(s.moveToTarget());
+        }
+    }
 
     /**
      * Ask all sailors associated to an Entity to move to
@@ -138,5 +159,4 @@ public class Captain {
     public List<Action> getRoundActions(){
         return roundActions;
     }
-
 }

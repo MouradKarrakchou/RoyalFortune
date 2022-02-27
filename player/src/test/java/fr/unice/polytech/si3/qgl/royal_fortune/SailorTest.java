@@ -22,8 +22,12 @@ class SailorTest {
 		targetEntitiesInRange = new Entities("OAR", 2,2);
 		targetEntitiesOutOfRange = new Entities("OAR", 3,5);
 		targetEntitiesIn00 = new Entities("OAR", 1,1);
+	}
 
-
+	@Test
+	public void getDistanceToEntityTest(){
+		assertEquals(4, sailor.getDistanceToEntity(targetEntitiesInRange));
+		assertEquals(8, sailor.getDistanceToEntity(targetEntitiesOutOfRange));
 	}
 
 	@Test
