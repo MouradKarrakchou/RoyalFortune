@@ -7,7 +7,7 @@ public class Checkpoint {
     private Position position;
     private Shape shape;
 
-    Checkpoint(Position position, Shape shape) {
+    public Checkpoint(Position position, Shape shape) {
         this.position = position;
         this.shape = shape;
     }
