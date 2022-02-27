@@ -38,16 +38,19 @@ public class Captain {
         updateCheckPoint();
         double angleMove = directionsManager.getAngleMove();
         double angleCone = directionsManager.getAngleCone();
+        double angleMadeBySailors = 0.0;
 
         if (!directionsManager.isConeTooSmall(angleMove, angleCone) && !directionsManager.isInCone(angleMove, angleCone)) {
-            double angleMadeBySailors = associateSailorToOar(angleMove);
-            if(Math.abs(angleMove - angleMadeBySailors) < Math.PI/4) {
-                askSailorToMoveToRudder();
-                askSailorsToTurnWithRudder(angleMove - angleMadeBySailors);
-            }
-            else
-                askSailorsToTurnWithRudder(0);
+            angleMadeBySailors = associateSailorToOar(angleMove);
         }
+
+        if( angleMove - angleMadeBySailors > -Math.PI/4 && angleMove - angleMadeBySailors < Math.PI/4) {
+            askSailorToMoveToRudder();
+            askSailorsToTurnWithRudder(angleMove - angleMadeBySailors);
+        }
+        else
+            askSailorsToTurnWithRudder(0);
+
         associateSailorToOarEvenly();
         askSailorsToMove();
         askSailorsToOar();
