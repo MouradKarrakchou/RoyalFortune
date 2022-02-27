@@ -6,7 +6,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", include = JsonTypeInfo.As.EXTERNAL_PROPERTY)
 @JsonSubTypes(value = {
 		@JsonSubTypes.Type(value = MovingAction.class, name = "MOVING"),
-		@JsonSubTypes.Type(value = OarAction.class, name = "OAR")
+		@JsonSubTypes.Type(value = OarAction.class, name = "OAR"),
+		@JsonSubTypes.Type(value = OarAction.class, name = "TURN")
 })
 public class Action  {
 	protected int sailorId;

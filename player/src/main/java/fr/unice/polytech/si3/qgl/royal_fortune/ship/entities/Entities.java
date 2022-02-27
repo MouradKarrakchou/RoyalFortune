@@ -54,4 +54,10 @@ public class Entities {
 		}
 		return "";
 	}
+
+    public boolean isOar() {
+		if(this instanceof Oar)
+			return true;
+		return false;
+    }
 }
