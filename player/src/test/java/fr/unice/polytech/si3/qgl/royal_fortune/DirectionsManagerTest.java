@@ -60,11 +60,11 @@ public class DirectionsManagerTest {
     @Test
     void isConeTooSmallTest() {
         //6 entities
-        entities.add(new Oar("oar", 1, 0));
-        entities.add(new Oar("oar", 2, 0));
+        entities.add(new Oar(1, 0));
+        entities.add(new Oar(2, 0));
 
-        entities.add(new Oar("oar", 1, 3));
-        entities.add(new Oar("oar", 2, 3));
+        entities.add(new Oar(1, 3));
+        entities.add(new Oar(2, 3));
 
        Ship ship = new Ship(
                 "ship",

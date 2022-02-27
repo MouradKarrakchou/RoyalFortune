@@ -13,12 +13,13 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 		"type",
 		"left"
 	})
+
 public class Oar extends Entities{
 	private Sailor sailor;
 
 	public Oar() {}
 
-	public Oar(String type, int x, int y) {
+	public Oar(int x, int y) {
 		super("oar", x, y);
 	}
 
