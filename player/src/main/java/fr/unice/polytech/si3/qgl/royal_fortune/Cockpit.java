@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
@@ -31,7 +32,7 @@ public class Cockpit implements ICockpit {
 		ship = initGameDAO.getShip();
 		sailors = initGameDAO.getSailors();
 		goal = initGameDAO.getGoal();
-		captain = new Captain(ship, sailors, goal);
+		captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(goal.getCheckPoints()));
 	}
 
 	public String nextRound(String round) {

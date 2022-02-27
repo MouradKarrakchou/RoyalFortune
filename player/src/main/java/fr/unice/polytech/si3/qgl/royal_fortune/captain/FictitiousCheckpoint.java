@@ -9,9 +9,11 @@ import java.util.List;
 
 public class FictitiousCheckpoint {
     List<Checkpoint> originalCheckpoints;
+    List<Checkpoint> fictitiousCheckpoints;
 
     public FictitiousCheckpoint(List<Checkpoint> originalCheckpoints) {
         this.originalCheckpoints = originalCheckpoints;
+        fictitiousCheckpoints = createFictitiousCheckpoints();
     }
 
     public List<Checkpoint> createFictitiousCheckpoints() {
@@ -58,5 +60,13 @@ public class FictitiousCheckpoint {
                 currentCheckpointY + fictitiousCheckpointRadius * unitY, 0);
 
         return new Checkpoint(fictitiousCheckpointPosition, fictitiousCheckpointShape);
+    }
+
+    public void nextCheckPoint() {
+        fictitiousCheckpoints.remove(0);
+    }
+
+    public Checkpoint getCurrentCheckPoint() {
+        return fictitiousCheckpoints.get(0);
     }
 }
