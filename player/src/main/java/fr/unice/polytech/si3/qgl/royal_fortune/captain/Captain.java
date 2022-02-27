@@ -73,7 +73,7 @@ public class Captain {
      * @param orientation The rotation of the given angle.
      */
     public void associateSailorToOar(double orientation){
-        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getEntities().size())));
+        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getNbrOar())));
         List<Oar> oarList = ship.getOarList(orientation < 0 ? "right" : "left");
         int i = 0;
 
@@ -85,6 +85,12 @@ public class Captain {
             oar.setSailor(sailors.get(i));
             i++;
         }
+//        List<Oar> allOars = ship.getAllOar();
+//        List<Oar> leftOars;
+//        for(Oar oar : allOars) {
+//
+//        }
+
     }
 
     /**
@@ -153,6 +159,19 @@ public class Captain {
                 .filter(sailor -> sailor.getTargetEntity() != null)
                 .filter(Sailor::isOnTheTargetEntity)
                 .map(Sailor::oar)
+                .toList());
+    }
+
+    /**
+     * Ask a sailor to turn with the rudder
+     * This method update list of Action (roundActions)
+     * @param rotationRudder
+     */
+    void askSailorsToTurnWithRudder(double rotationRudder) {
+        roundActions.addAll(sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() instanceof Rudder)
+                .filter(Sailor::isOnTheTargetEntity)
+                .map(sailor -> sailor.turnWithRudder(rotationRudder))
                 .toList());
     }
 
