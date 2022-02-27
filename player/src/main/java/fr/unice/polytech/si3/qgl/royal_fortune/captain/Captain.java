@@ -19,16 +19,18 @@ public class Captain {
     private final Ship ship;
     private final Goal goal;
     private final List<Sailor> sailors;
+    private final FictitiousCheckpoint fictitiousCheckpoints;
     private final ArrayList<Action> roundActions;
     private final DirectionsManager directionsManager;
     final Logger logger = Logger.getLogger(Captain.class.getName());
 
-    public Captain(Ship ship, List<Sailor> sailors, Goal goal){
+    public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints){
         this.ship = ship;
         this.sailors = sailors;
         this.goal = goal;
+        this.fictitiousCheckpoints = fictitiousCheckpoints;
         roundActions = new ArrayList<>();
-        directionsManager=new DirectionsManager(ship,goal);
+        directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
     }
 
     public String roundDecisions() {
@@ -60,8 +62,11 @@ public class Captain {
         double distanceSCY = checkpointPosition.getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
-        if (distanceSC<=radius)
+        if (distanceSC<=radius){
             goal.nextCheckPoint();
+            fictitiousCheckpoints.nextCheckPoint();
+        }
+
     }
 
     private void disassociate() {
