@@ -15,7 +15,7 @@ public class FictitiousCheckpointTest {
     FictitiousCheckpoint emptyFictitiousCheckpoints;
 
     @BeforeEach
-    private void init(){
+    void init(){
         emptyFictitiousCheckpoints = new FictitiousCheckpoint(null);
     }
 
