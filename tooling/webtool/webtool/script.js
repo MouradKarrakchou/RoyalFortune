@@ -153,7 +153,7 @@ function addListener() {
         let score = document.getElementById("score");
 
         console.log("---compute score---");
-        score.innerText = "Score: " + countRound(coord);
+        score.innerText = "Number of round: " + countRound(coord);
         console.log("---create checkpoint---");
         createCheckpoints(checkpoints);
         console.log("---animate checkpoint---");
