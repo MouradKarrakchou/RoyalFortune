@@ -55,13 +55,18 @@ public class Captain {
     }
 
     private void updateCheckPoint() {
+        if (isInCheckpoint()) goal.nextCheckPoint();
+    }
+    private boolean isInCheckpoint() {
+        return(isInCheckpointShipPos(ship.getPosition().getX(),ship.getPosition().getY()));
+    }
+    private boolean isInCheckpointShipPos(double shipX,double shipY) {
         Position checkpointPosition = goal.getCurrentCheckPoint().getPosition();
-        double distanceSCX = checkpointPosition.getX() - ship.getPosition().getX();
-        double distanceSCY = checkpointPosition.getY() - ship.getPosition().getY();
+        double distanceSCX = checkpointPosition.getX() - shipX;
+        double distanceSCY = checkpointPosition.getY() - shipY;
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
-        if (distanceSC<=radius)
-            goal.nextCheckPoint();
+        return(distanceSC<=radius);
     }
 
     private void disassociate() {
@@ -100,7 +105,7 @@ public class Captain {
                 .collect(Collectors.toList());
 
         // We continue associating until we run out of sailors or oars
-        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size()){
+        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size() && needSailorToOar(oarIndex+1)){
             Oar leftOar = leftOarList.get(oarIndex);
             Oar rightOar = rightOarList.get(oarIndex);
             listOfUnassignedSailors.get(sailorIndex).setTargetEntity(leftOar);
@@ -110,6 +115,15 @@ public class Captain {
             sailorIndex++;
             oarIndex++;
         }
+    }
+    public boolean needSailorToOar(int numberOfCoples){
+        int norme=165*(2*numberOfCoples)/ship.getEntities().size();
+        double newX=ship.getPosition().getX();
+        double newY= ship.getPosition().getY();
+        double angleCalcul=ship.getPosition().getOrientation();
+        newX+=norme*Math.cos(angleCalcul);
+        newY+=norme*Math.sin(angleCalcul);
+        return !isInCheckpointShipPos(newX,newY);
     }
 
     /**
