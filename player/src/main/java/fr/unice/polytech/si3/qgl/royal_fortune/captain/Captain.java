@@ -41,8 +41,10 @@ public class Captain {
 
         if (!directionsManager.isConeTooSmall(angleMove, angleCone) && !directionsManager.isInCone(angleMove, angleCone)) {
             double angleMadeBySailors = associateSailorToOar(angleMove);
-            if(Math.abs(angleMove - angleMadeBySailors) < Math.PI/4)
+            if(Math.abs(angleMove - angleMadeBySailors) < Math.PI/4) {
+                askSailorToMoveToRudder();
                 askSailorsToTurnWithRudder(angleMove - angleMadeBySailors);
+            }
             else
                 askSailorsToTurnWithRudder(0);
         }
