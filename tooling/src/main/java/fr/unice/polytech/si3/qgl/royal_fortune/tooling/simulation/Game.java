@@ -21,7 +21,6 @@ public class Game {
     Goal goal;
     Referee referee;
     final Logger logger = Logger.getLogger(Game.class.getName());
-    int numberOfCheckpointVisited =0;
     public Game(String initialiser){
     	
     	InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
@@ -58,8 +57,7 @@ public class Game {
     @Override
     public String toString() {
         //"Orientation: "+ship.getPosition().getOrientation()+'\n';
-        String string=cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
-        return(string);
+        return cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
     }
 
     public boolean isFinished() {
@@ -73,7 +71,7 @@ public class Game {
     }
     
     public StringBuilder getAllCheckpointsForOutput() {
-    	StringBuilder out = new StringBuilder("");
+    	StringBuilder out = new StringBuilder();
     	List<Checkpoint> checks = goal.getCheckPoints();
     	for(Checkpoint checkpoint : checks) {
     		Position pos = checkpoint.getPosition();

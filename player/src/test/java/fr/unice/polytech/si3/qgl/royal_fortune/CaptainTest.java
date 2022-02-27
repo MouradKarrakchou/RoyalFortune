@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CaptainTest {
     private Ship basicShip;
-    private Ship ship;
     private Captain captain;
     private Checkpoint checkpoint;
     private ArrayList<Sailor> sailors;

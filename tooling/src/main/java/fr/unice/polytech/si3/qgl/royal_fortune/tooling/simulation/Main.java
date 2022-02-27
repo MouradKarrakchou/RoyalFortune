@@ -18,14 +18,15 @@ public class Main {
 			textForOutput.append(game);
 		}
 
-		BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
-		try {
-			writer.write(String.valueOf(textForOutput));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			logger.log(Level.INFO, "Exception");
-		} finally {
-			writer.close();
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
+			try {
+				writer.write(String.valueOf(textForOutput));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				logger.log(Level.INFO, "Exception");
+			} finally {
+				writer.close();
+			}
 		}
 
 	}

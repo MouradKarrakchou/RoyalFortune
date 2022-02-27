@@ -101,11 +101,11 @@ public class JsonManager {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		try {
-			switch(type) {
-			case "circle": return mapper.readValue(json, Circle.class);
-			case "rectangle": return mapper.readValue(json, Rectangle.class);
-			default: return null;
-			}
+			return switch (type) {
+				case "circle" -> mapper.readValue(json, Circle.class);
+				case "rectangle" -> mapper.readValue(json, Rectangle.class);
+				default -> null;
+			};
 				
 		} catch (JsonProcessingException e) {
 			LOGGER.log(Level.INFO, exception);
@@ -154,7 +154,7 @@ public class JsonManager {
 	public static String getNode(String json, String searchNode){
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		JsonNode actualObj = null;
+		JsonNode actualObj;
 		try {
 			actualObj = mapper.readTree(json);
 			JsonNode shipJson = actualObj.get(searchNode);

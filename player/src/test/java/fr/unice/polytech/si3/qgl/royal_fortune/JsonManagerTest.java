@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
@@ -13,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JsonManagerTest {
-    JsonManager jsonManager = new JsonManager();
 
     @BeforeEach
     void init(){
@@ -21,7 +18,7 @@ class JsonManagerTest {
     }
 
     @Test
-    void readJsonTest() throws JsonProcessingException {
+    void readJsonTest() {
         String json ="""
             {
                 "type": "ship",
@@ -42,7 +39,7 @@ class JsonManagerTest {
     }
 
     @Test
-    void getNodeTest() throws Exception {
+    void getNodeTest() {
         String json = "{\n" +
                 "  \"goal\": {\n" +
                 "    \"mode\": \"REGATTA\",\n" +
@@ -179,7 +176,7 @@ class JsonManagerTest {
 
 //        String result = "100";
 
-        assertEquals(result,jsonManager.getNode(json, "ship"));
+        assertEquals(result, JsonManager.getNode(json, "ship"));
     }
 
     
@@ -272,7 +269,7 @@ class JsonManagerTest {
     			+ "  ],\r\n"
     			+ "  \"shipCount\": 1\r\n"
     			+ "}";
-    	InitGameDAO init = new InitGameDAO();
+    	InitGameDAO init;
     	init = JsonManager.readInitGameDAOJson(json);
     	assertEquals(1, init.getShipCount());
     	assertEquals(4, init.getSailors().size());
@@ -325,7 +322,7 @@ class JsonManagerTest {
     			+ "    }\r\n"
     			+ "  }\r\n"
     			+ "}";
-    	NextRoundDAO nextRound = new NextRoundDAO();
+    	NextRoundDAO nextRound;
     	nextRound = JsonManager.readNextRoundDAOJson(json);
     	assertEquals(4, nextRound.getShip().getEntities().size());
     }

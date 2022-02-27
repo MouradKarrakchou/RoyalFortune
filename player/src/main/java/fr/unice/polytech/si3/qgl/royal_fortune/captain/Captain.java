@@ -13,8 +13,6 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.Comparator;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Captain {

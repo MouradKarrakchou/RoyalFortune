@@ -20,7 +20,7 @@ public class Referee {
     public Ship makeAdvance(Cockpit cockpit, List<Action> actions) {
         rightPush=0;
         leftPush=0;
-        actions.stream().forEach(this::doAction);
+        actions.forEach(this::doAction);
         return makeMooveShip(cockpit.getShip());
     }
 
