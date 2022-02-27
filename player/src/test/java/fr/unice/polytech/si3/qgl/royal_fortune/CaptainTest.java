@@ -14,7 +14,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -152,7 +154,8 @@ class CaptainTest {
 
         ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
         tabCheckPoint.add(new Checkpoint(new Position(0,1000,40),new Circle("circle",50)));
-        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),null);
+        FictitiousCheckpoint fictitiousCheckpoint=new FictitiousCheckpoint(tabCheckPoint);
+        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),fictitiousCheckpoint);
         captain.associateSailorToOarEvenly();
 
         assertEquals(6, sailors.size());
@@ -168,10 +171,11 @@ class CaptainTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 0));
 
-
         ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
         tabCheckPoint.add(new Checkpoint(new Position(165*5/basicShip.getEntities().size(),0,0),new Circle("circle",55)));
-        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),null);
+        FictitiousCheckpoint fictitiousCheckpoint=new FictitiousCheckpoint(tabCheckPoint);
+        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),fictitiousCheckpoint);
+
         assertEquals(true,captain.needSailorToOar(1));
         assertEquals(false,captain.needSailorToOar(2));
         assertEquals(false,captain.needSailorToOar(3));
