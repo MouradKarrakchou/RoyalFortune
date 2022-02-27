@@ -77,7 +77,8 @@ public class Game {
     		Position pos = checkpoint.getPosition();
     		double x = pos.getX();
     		double y = pos.getY();
-    		out.append(x).append(";").append(y).append("\n");
+            double radius = ((Circle)checkpoint.getShape()).getRadius();
+            out.append(x).append(";").append(y).append(";").append(radius).append("\n");
     	}
     	return out;
     }

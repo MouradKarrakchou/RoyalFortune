@@ -42,8 +42,8 @@ body {
 
 .checkpoint {
     position: absolute;
-    height: 80px;
-    width: 80px;
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
     background-color: brown;
     z-index: 0;
@@ -62,7 +62,7 @@ body {
 .menu {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     background-color: rgb(239, 239, 239);
     border-color: rgb(133, 133, 133);
     border-width: 1px;
@@ -70,6 +70,14 @@ body {
     border-image: initial;
     font-family: initial;
     text-align: center;
+}
+
+.inputBox {
+    margin: 0.5vw;
+}
+
+#speedInput {
+    width: 6vw;
 }
 
 #cameraDiv:hover {
