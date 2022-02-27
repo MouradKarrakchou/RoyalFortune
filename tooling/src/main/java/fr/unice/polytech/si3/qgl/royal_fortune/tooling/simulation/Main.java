@@ -24,8 +24,6 @@ public class Main {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				logger.log(Level.INFO, "Exception");
-			} finally {
-				writer.close();
 			}
 		}
 

@@ -25,7 +25,7 @@ class SailorTest {
 	}
 
 	@Test
-	public void getDistanceToEntityTest(){
+	void getDistanceToEntityTest(){
 		assertEquals(4, sailor.getDistanceToEntity(targetEntitiesInRange));
 		assertEquals(8, sailor.getDistanceToEntity(targetEntitiesOutOfRange));
 	}
