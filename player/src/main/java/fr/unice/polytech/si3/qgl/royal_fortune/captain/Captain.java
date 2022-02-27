@@ -85,11 +85,11 @@ public class Captain {
             oar.setSailor(sailors.get(i));
             i++;
         }
-        List<Oar> allOars = ship.getAllOar();
-        List<Oar> leftOars;
-        for(Oar oar : allOars) {
-
-        }
+//        List<Oar> allOars = ship.getAllOar();
+//        List<Oar> leftOars;
+//        for(Oar oar : allOars) {
+//
+//        }
 
     }
 
