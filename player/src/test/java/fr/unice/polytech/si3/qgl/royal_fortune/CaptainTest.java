@@ -14,7 +14,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,6 +39,7 @@ class CaptainTest {
                 new Deck(3, 4),
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
+
     }
 
     @Test
@@ -149,11 +152,33 @@ class CaptainTest {
         entities.add(new Oar(0, 3));
         entities.add(new Oar(1, 3));
 
-        captain = new Captain(basicShip, sailors, null, null);
+        ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
+        tabCheckPoint.add(new Checkpoint(new Position(0,1000,40),new Circle("circle",50)));
+        FictitiousCheckpoint fictitiousCheckpoint=new FictitiousCheckpoint(tabCheckPoint);
+        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),fictitiousCheckpoint);
         captain.associateSailorToOarEvenly();
 
         assertEquals(6, sailors.size());
         assertEquals(4, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
+    }
+
+    @Test
+    void needSailorToOarTest(){
+        entities.add(new Oar(0, 0));
+        entities.add(new Oar(1, 0));
+        entities.add(new Oar(2, 0));
+        entities.add(new Oar(0, 3));
+        entities.add(new Oar(1, 3));
+        entities.add(new Oar(2, 0));
+
+        ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
+        tabCheckPoint.add(new Checkpoint(new Position(165*5/basicShip.getEntities().size(),0,0),new Circle("circle",55)));
+        FictitiousCheckpoint fictitiousCheckpoint=new FictitiousCheckpoint(tabCheckPoint);
+        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),fictitiousCheckpoint);
+
+        assertEquals(true,captain.needSailorToOar(1));
+        assertEquals(false,captain.needSailorToOar(2));
+        assertEquals(false,captain.needSailorToOar(3));
     }
 
     @Test
@@ -186,11 +211,11 @@ class CaptainTest {
         captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(checkpointArrayList));
         captain.roundDecisions();
 
-        assertEquals(8, captain.getRoundActions().size()); 
+        assertEquals(8, captain.getRoundActions().size());
     }
 
     @Test
-    //Turning
+        //Turning
     void roundDecisions2Test() {
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));

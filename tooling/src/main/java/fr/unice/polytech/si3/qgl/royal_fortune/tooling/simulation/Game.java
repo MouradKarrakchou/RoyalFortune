@@ -21,6 +21,7 @@ public class Game {
     Goal goal;
     Referee referee;
     final Logger logger = Logger.getLogger(Game.class.getName());
+    int i=0;
     public Game(String initialiser){
     	
     	InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
@@ -39,6 +40,9 @@ public class Game {
         logger.info("-----------------------");
         String out = "jsonNextRound="+jsonNextRound;
         logger.info(out);
+        i++;
+        if (i==45)
+            i++;
         String jsonverif=cockpit.nextRound(jsonNextRound);
         out = "jsonverif="+jsonverif;
         logger.info(out);
