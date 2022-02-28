@@ -98,15 +98,7 @@ public class Captain {
             i++;
         }
 
-        List<Oar> allOars = ship.getAllOar();
-        List<Oar> leftOars = new ArrayList<>();
-        List<Oar> rightOars = new ArrayList<>();
-        for(Oar oar : allOars) {
-            if(oar.isLeft()) leftOars.add(oar);
-            else rightOars.add(oar);
-        }
-
-        return Math.abs((rightOars.size() - leftOars.size())*(Math.PI/allOars.size()));
+        return i*orientation/Math.abs(orientation)*(Math.PI/ship.getNbrOar());
     }
 
     /**
