@@ -62,8 +62,8 @@ public class Referee {
     }
 
     private double rudderA(RudderAction rudderAction) {
-        System.out.println("Rudder = "+ rudderAction.getRotationRudder());
-        return rudderAction.getRotationRudder();
+        System.out.println("Rudder = "+ rudderAction.getRotation());
+        return rudderAction.getRotation();
     }
 
     private void oarA(OarAction oarAction) {
