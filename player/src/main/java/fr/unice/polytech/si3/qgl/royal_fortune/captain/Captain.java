@@ -45,7 +45,7 @@ public class Captain {
             angleMadeBySailors = associateSailorToOar(angleMove);
         }
 
-        if(-Math.PI/4 <= angleMove - angleMadeBySailors && angleMove - angleMadeBySailors <= Math.PI/4 && angleMove - angleMadeBySailors != 0) {
+        if(-Math.PI/4 <= angleMove - angleMadeBySailors && angleMove - angleMadeBySailors <= Math.PI/4 && Math.abs(angleMove - angleMadeBySailors)>Math.pow(10,-3)) {
             askSailorToMoveToRudder();
             askSailorsToTurnWithRudder(angleMove - angleMadeBySailors);
         }
