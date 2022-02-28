@@ -128,7 +128,7 @@ public class Captain {
         }
     }
     public boolean needSailorToOar(int numberOfCoples){
-        int norme=165*(2*numberOfCoples)/ship.getEntities().size();
+        int norme=165*(2*numberOfCoples)/ship.getNbrOar();
         double newX=ship.getPosition().getX();
         double newY= ship.getPosition().getY();
         double angleCalcul=ship.getPosition().getOrientation();
