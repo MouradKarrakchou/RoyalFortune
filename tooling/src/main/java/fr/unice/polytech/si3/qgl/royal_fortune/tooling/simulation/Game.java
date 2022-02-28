@@ -21,6 +21,7 @@ public class Game {
     Goal goal;
     Referee referee;
     final Logger logger = Logger.getLogger(Game.class.getName());
+    int i=0;
     public Game(String initialiser){
     	
     	InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
@@ -39,6 +40,9 @@ public class Game {
         logger.info("-----------------------");
         String out = "jsonNextRound="+jsonNextRound;
         logger.info(out);
+        i++;
+        if (i==45)
+            i++;
         String jsonverif=cockpit.nextRound(jsonNextRound);
         out = "jsonverif="+jsonverif;
         logger.info(out);
@@ -77,7 +81,8 @@ public class Game {
     		Position pos = checkpoint.getPosition();
     		double x = pos.getX();
     		double y = pos.getY();
-    		out.append(x).append(";").append(y).append("\n");
+            double radius = ((Circle)checkpoint.getShape()).getRadius();
+            out.append(x).append(";").append(y).append(";").append(radius).append("\n");
     	}
     	return out;
     }

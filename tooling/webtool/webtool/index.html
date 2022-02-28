@@ -16,12 +16,19 @@
     <div id='app'>
         <div id='input' class="menu">
             <p>Coordonnée du bateau</p>
+            <span id="score">Number of round:</span>
             <textarea id="log" name="story" rows="5" cols="33" style="border: none;">x;y</textarea>
             <input class="button" id='start' type="button" value='start' />
             <input class="button" id='reset' type="button" value='reset' />
             <div class="menu" id="cameraDiv">
-                <span>cameraLock</span>
-                <input type="checkbox" id="cameraLock" name="cameraLock" checked>
+                <div class="inputBox">
+                    <span>cameraLock</span>
+                    <input type="checkbox" id="cameraLock" name="cameraLock" checked>
+                </div>
+                <div class="inputBox">
+                    <span>Speed</span>
+                    <input id="speedInput" type="text" id="cameraLock" name="cameraLock" checked>
+                </div>
             </div>
         </div>
         <div id='sea'>
