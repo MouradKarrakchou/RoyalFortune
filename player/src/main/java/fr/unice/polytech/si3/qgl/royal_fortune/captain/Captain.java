@@ -170,6 +170,7 @@ public class Captain {
     public void askSailorsToOar(){
         roundActions.addAll(sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)
+                .filter(sailor-> sailor.getTargetEntity().isOar())
                 .filter(Sailor::isOnTheTargetEntity)
                 .map(Sailor::oar)
                 .toList());
