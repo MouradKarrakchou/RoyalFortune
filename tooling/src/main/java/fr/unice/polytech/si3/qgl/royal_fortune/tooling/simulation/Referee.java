@@ -29,13 +29,13 @@ public class Referee {
     private Ship makeMooveShipByOaring(Ship ship) {
         Position shipPosition = ship.getPosition();
         double angleInitial = shipPosition.getOrientation();
+        double anglerot = (orientationCalculus() * Math.PI / cockpit.getShip().getNbrOar()) +rudderRotation;
         int norme = 165 * (rightPush + leftPush) / cockpit.getShip().getNbrOar()  ;
         double newX = shipPosition.getX();
         double newY = shipPosition.getY();
         double angleCalcul = angleInitial;
 
         int k = 0;
-        double anglerot = (orientationCalculus() * Math.PI / cockpit.getShip().getNbrOar()) +rudderRotation;
         while (k < 1000) {
             newX += norme * Math.cos(angleCalcul) / 1000;
             newY += norme * Math.sin(angleCalcul) / 1000;

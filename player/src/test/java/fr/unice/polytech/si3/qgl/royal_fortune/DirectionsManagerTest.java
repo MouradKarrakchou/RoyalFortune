@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -41,9 +42,7 @@ class DirectionsManagerTest {
         ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
         checkpointArrayList.add(checkpoint);
 
-        Goal goal = new Goal("REGATTA", checkpointArrayList);
-
-        dirMan = new DirectionsManager(ship, goal);
+        dirMan = new DirectionsManager(ship, new FictitiousCheckpoint(checkpointArrayList));
 
         double angle = dirMan.angleCalculator()[0];
         assertEquals(Math.PI/2, angle);

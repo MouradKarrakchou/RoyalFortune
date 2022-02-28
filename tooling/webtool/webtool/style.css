@@ -91,3 +91,7 @@ body {
     border-style: outset;
     border-image: initial;
 }
+
+#score {
+    align-self: flex-start;
+}

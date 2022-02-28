@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
@@ -19,16 +20,18 @@ public class Captain {
     private final Ship ship;
     private final Goal goal;
     private final List<Sailor> sailors;
+    private final FictitiousCheckpoint fictitiousCheckpoints;
     private final ArrayList<Action> roundActions;
     private final DirectionsManager directionsManager;
     final Logger logger = Logger.getLogger(Captain.class.getName());
 
-    public Captain(Ship ship, List<Sailor> sailors, Goal goal){
+    public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints){
         this.ship = ship;
         this.sailors = sailors;
         this.goal = goal;
+        this.fictitiousCheckpoints = fictitiousCheckpoints;
         roundActions = new ArrayList<>();
-        directionsManager=new DirectionsManager(ship,goal);
+        directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
     }
 
     public String roundDecisions() {
@@ -67,13 +70,20 @@ public class Captain {
     }
 
     private void updateCheckPoint() {
-        Position checkpointPosition = goal.getCurrentCheckPoint().getPosition();
-        double distanceSCX = checkpointPosition.getX() - ship.getPosition().getX();
-        double distanceSCY = checkpointPosition.getY() - ship.getPosition().getY();
+        if (isInCheckpoint(goal.getCurrentCheckPoint()))
+        {goal.nextCheckPoint();
+            fictitiousCheckpoints.nextCheckPoint();}
+        }
+    private boolean isInCheckpoint(Checkpoint checkpoint) {
+        return(isInCheckpointShipPos(checkpoint,ship.getPosition().getX(),ship.getPosition().getY()));
+    }
+
+    private boolean isInCheckpointShipPos(Checkpoint checkpoint,double shipX,double shipY) {
+        double distanceSCX = checkpoint.getPosition().getX() - shipX;
+        double distanceSCY = checkpoint.getPosition().getY() - shipY;
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
-        double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
-        if (distanceSC<=radius)
-            goal.nextCheckPoint();
+        double radius=((Circle)checkpoint.getShape()).getRadius();
+        return(distanceSC<=radius);
     }
 
     private void disassociate() {
@@ -85,7 +95,7 @@ public class Captain {
      * @param orientation The rotation of the given angle.
      */
     public double associateSailorToOar(double orientation){
-        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getEntities().size())));
+        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getNbrOar())));
         List<Oar> oarList = ship.getOarList(orientation < 0 ? "right" : "left");
         int i = 0;
 
@@ -114,7 +124,7 @@ public class Captain {
                 .collect(Collectors.toList());
 
         // We continue associating until we run out of sailors or oars
-        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size()){
+        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size()&&needSailorToOar(sailorIndex)){
             Oar leftOar = leftOarList.get(oarIndex);
             Oar rightOar = rightOarList.get(oarIndex);
             listOfUnassignedSailors.get(sailorIndex).setTargetEntity(leftOar);
@@ -124,6 +134,15 @@ public class Captain {
             sailorIndex++;
             oarIndex++;
         }
+    }
+    public boolean needSailorToOar(int numberOfCoples){
+        int norme=165*(2*numberOfCoples)/ship.getNbrOar();
+        double newX=ship.getPosition().getX();
+        double newY= ship.getPosition().getY();
+        double angleCalcul=ship.getPosition().getOrientation();
+        newX+=norme*Math.cos(angleCalcul);
+        newY+=norme*Math.sin(angleCalcul);
+        return !isInCheckpointShipPos(fictitiousCheckpoints.getCurrentCheckPoint(),newX,newY);
     }
 
     /**
