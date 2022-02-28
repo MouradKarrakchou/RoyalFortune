@@ -105,7 +105,7 @@ public class Ship {
 		return getAllOar().size();
 	}
 
-	private List<Oar> getAllOar() {
+	public List<Oar> getAllOar() {
 		List<Oar> listOar = new ArrayList<>();
 		for(Entities currentEntite : entities){
 			if(currentEntite.isOar()){

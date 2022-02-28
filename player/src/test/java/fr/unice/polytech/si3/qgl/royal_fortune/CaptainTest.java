@@ -176,9 +176,9 @@ class CaptainTest {
         FictitiousCheckpoint fictitiousCheckpoint=new FictitiousCheckpoint(tabCheckPoint);
         captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),fictitiousCheckpoint);
 
-        assertEquals(true,captain.needSailorToOar(1));
-        assertEquals(false,captain.needSailorToOar(2));
-        assertEquals(false,captain.needSailorToOar(3));
+        assertEquals(true,captain.needSailorToOar(2));
+        assertEquals(false,captain.needSailorToOar(4));
+        assertEquals(false,captain.needSailorToOar(6));
     }
 
     @Test
