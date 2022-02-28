@@ -48,10 +48,10 @@ public class Captain {
             askSailorToMoveToRudder();
             askSailorsToTurnWithRudder(angleMove - angleMadeBySailors);
         }
-        else {
-            askSailorToMoveToRudder();
-            askSailorsToTurnWithRudder((angleMove/Math.abs(angleMove))*Math.PI/4);
-        }
+//        else {
+//            askSailorToMoveToRudder();
+//            askSailorsToTurnWithRudder((angleMove/Math.abs(angleMove))*Math.PI/4);
+//        }
 
         associateSailorToOarEvenly();
         askSailorsToMove();
