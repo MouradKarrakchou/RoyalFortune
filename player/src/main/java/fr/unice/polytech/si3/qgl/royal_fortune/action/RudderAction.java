@@ -8,13 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RudderAction extends Action {
-    double rotationRudder;
+    double rotation;
     final Logger logger = Logger.getLogger(RudderAction.class.getName());
 
-    public RudderAction(int sailorId, double rotationRudder) {
+    public RudderAction(int sailorId, double rotation) {
         super(sailorId, "TURN");
         this.type = "TURN";
-        this.rotationRudder = rotationRudder;
+        this.rotation = rotation;
     }
 
     public RudderAction(){}
@@ -25,7 +25,7 @@ public class RudderAction extends Action {
         ObjectNode rudderActionJSON = mapper.createObjectNode();
         rudderActionJSON.put("sailorId", sailorId);
         rudderActionJSON.put("type", "TURN");
-        rudderActionJSON.put("rotation", rotationRudder);
+        rudderActionJSON.put("rotation", rotation);
 
         try {
             return mapper.writeValueAsString(rudderActionJSON);
@@ -35,7 +35,7 @@ public class RudderAction extends Action {
         return "";
     }
 
-    public double getRotationRudder() {
-        return rotationRudder;
+    public double getRotation() {
+        return rotation;
     }
 }

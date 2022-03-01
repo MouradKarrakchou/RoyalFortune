@@ -45,7 +45,7 @@ public class Referee {
 
         angleCalcul = fixInterval(angleCalcul);
         updatePosition(shipPosition, angleCalcul, newX, newY);
-
+        rudderRotation = 0.0;
         return ship;
     }
 
@@ -58,11 +58,12 @@ public class Referee {
         if (action instanceof OarAction)
             oarA((OarAction)action);
         else if (action instanceof RudderAction)
-            rudderA((RudderAction)action);
+            rudderRotation = rudderA((RudderAction)action);
     }
 
     private double rudderA(RudderAction rudderAction) {
-         return rudderAction.getRotationRudder();
+        System.out.println("Rudder = "+ rudderAction.getRotation());
+        return rudderAction.getRotation();
     }
 
     private void oarA(OarAction oarAction) {

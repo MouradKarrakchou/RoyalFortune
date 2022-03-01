@@ -41,10 +41,22 @@ public class Captain {
         updateCheckPoint();
         double angleMove = directionsManager.getAngleMove();
         double angleCone = directionsManager.getAngleCone();
+        double angleMadeBySailors = 0;
+        double signOfAngleMove = (angleMove/Math.abs(angleMove));
 
         if (!directionsManager.isConeTooSmall(angleMove, angleCone) && !directionsManager.isInCone(angleMove, angleCone)) {
-            associateSailorToOar(angleMove);
+            angleMadeBySailors = associateSailorToOar(angleMove);
         }
+
+        if(-Math.PI/4 <= angleMove - angleMadeBySailors && angleMove - angleMadeBySailors <= Math.PI/4 && Math.abs(angleMove - angleMadeBySailors)>Math.pow(10,-3)) {
+            askSailorToMoveToRudder();
+            askSailorsToTurnWithRudder(angleMove - angleMadeBySailors);
+        }
+        else if(angleMove - angleMadeBySailors < -Math.PI/4 || Math.PI/4 < angleMove - angleMadeBySailors) {
+            askSailorToMoveToRudder();
+            askSailorsToTurnWithRudder(signOfAngleMove*Math.PI/4);
+        }
+
         associateSailorToOarEvenly();
         askSailorsToMove();
         askSailorsToOar();
@@ -82,7 +94,7 @@ public class Captain {
      * Captain will associate the best number of sailors to proceed a rotation of the given angle.
      * @param orientation The rotation of the given angle.
      */
-    public void associateSailorToOar(double orientation){
+    public double associateSailorToOar(double orientation){
         int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getNbrOar())));
         List<Oar> oarList = ship.getOarList(orientation < 0 ? "right" : "left");
         int i = 0;
@@ -95,12 +107,8 @@ public class Captain {
             oar.setSailor(sailors.get(i));
             i++;
         }
-//        List<Oar> allOars = ship.getAllOar();
-//        List<Oar> leftOars;
-//        for(Oar oar : allOars) {
-//
-//        }
 
+        return i*orientation/Math.abs(orientation)*(Math.PI/ship.getNbrOar());
     }
 
     /**
@@ -128,7 +136,7 @@ public class Captain {
         }
     }
     public boolean needSailorToOar(int numberOfCoples){
-        int norme=165*(2*numberOfCoples)/ship.getNbrOar();
+        int norme=165*numberOfCoples/ship.getNbrOar();
         double newX=ship.getPosition().getX();
         double newY= ship.getPosition().getY();
         double angleCalcul=ship.getPosition().getOrientation();
@@ -176,6 +184,7 @@ public class Captain {
     public void askSailorsToOar(){
         roundActions.addAll(sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)
+                .filter(sailor-> sailor.getTargetEntity().isOar())
                 .filter(Sailor::isOnTheTargetEntity)
                 .map(Sailor::oar)
                 .toList());
