@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.util.logging.Level;
+
 /**
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
@@ -49,7 +51,7 @@ public class Rectangle extends Shape{
 		try {
 			return mapper.writeValueAsString(oarActionJSON);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception");
 		}
 		return "";
 	}

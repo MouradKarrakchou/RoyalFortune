@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DirectionsManagerTest {
+class DirectionsManagerTest {
     private DirectionsManager dirMan;
     private ArrayList<Entities> entities;
 
@@ -42,9 +42,7 @@ public class DirectionsManagerTest {
         ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
         checkpointArrayList.add(checkpoint);
 
-        Goal goal = new Goal("REGATTA", checkpointArrayList);
-
-        dirMan = new DirectionsManager(ship, goal);
+        dirMan = new DirectionsManager(ship, new FictitiousCheckpoint(checkpointArrayList));
 
         double angle = dirMan.angleCalculator()[0];
         assertEquals(Math.PI/2, angle);
@@ -60,11 +58,11 @@ public class DirectionsManagerTest {
     @Test
     void isConeTooSmallTest() {
         //6 entities
-        entities.add(new Oar("oar", 1, 0));
-        entities.add(new Oar("oar", 2, 0));
+        entities.add(new Oar(1, 0));
+        entities.add(new Oar(2, 0));
 
-        entities.add(new Oar("oar", 1, 3));
-        entities.add(new Oar("oar", 2, 3));
+        entities.add(new Oar(1, 3));
+        entities.add(new Oar(2, 3));
 
        Ship ship = new Ship(
                 "ship",

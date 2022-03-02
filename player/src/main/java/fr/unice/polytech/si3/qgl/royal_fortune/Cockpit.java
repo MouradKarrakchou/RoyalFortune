@@ -2,10 +2,12 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -16,19 +18,21 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
  */
 public class Cockpit implements ICockpit {
 	private Ship ship;
-	private ArrayList<Sailor> sailors;
+	private List<Sailor> sailors;
 	private Goal goal;
 	private Captain captain;
+	private static final Logger LOGGER = Logger.getLogger(Cockpit.class.getName());
 
 	public void initGame(String game) {
-		System.out.println("Init game input: " + game);
+		String out = "Init game input: " + game;
+		LOGGER.info(out);
 
 		//initialization InitGameDAO
 		InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(game);
 		ship = initGameDAO.getShip();
 		sailors = initGameDAO.getSailors();
 		goal = initGameDAO.getGoal();
-		captain = new Captain(ship, sailors, goal);
+		captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(goal.getCheckPoints()));
 	}
 
 	public String nextRound(String round) {
@@ -36,7 +40,8 @@ public class Cockpit implements ICockpit {
 		Ship newShip = nextRoundDAO.getShip();
 		ship.setPosition(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
-		System.out.println("Next round input: " + round);
+		String out = "Next round input: " + round;
+		LOGGER.info(out);
 
 		return captain.roundDecisions();
 	}
@@ -45,7 +50,7 @@ public class Cockpit implements ICockpit {
 		return ship;
 	}
 
-	public ArrayList<Sailor> getSailors() {
+	public List<Sailor> getSailors() {
 		return sailors;
 	}
 
@@ -54,7 +59,7 @@ public class Cockpit implements ICockpit {
 	}
 
 	@Override
-	public List<String> getLogs() {
+	public ArrayList<String> getLogs() {
 		return new ArrayList<>();
 	}
 }

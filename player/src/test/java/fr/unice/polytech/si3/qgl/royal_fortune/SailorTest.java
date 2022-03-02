@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
-public class SailorTest {
+class SailorTest {
 	Sailor sailor;
 	Entities targetEntitiesInRange;
 	Entities targetEntitiesOutOfRange;
@@ -17,17 +17,21 @@ public class SailorTest {
 
 
 	@BeforeEach
-	public void init() {
+	void init() {
 		sailor = new Sailor(0, 0,0, "sailorTest");
 		targetEntitiesInRange = new Entities("OAR", 2,2);
 		targetEntitiesOutOfRange = new Entities("OAR", 3,5);
 		targetEntitiesIn00 = new Entities("OAR", 1,1);
-
-
 	}
 
 	@Test
-	public void moveToTargetExistingInRangeTest() {
+	void getDistanceToEntityTest(){
+		assertEquals(4, sailor.getDistanceToEntity(targetEntitiesInRange));
+		assertEquals(8, sailor.getDistanceToEntity(targetEntitiesOutOfRange));
+	}
+
+	@Test
+	void moveToTargetExistingInRangeTest() {
 		assertEquals(0, sailor.getX());
 		assertEquals(0, sailor.getY());
 
@@ -46,7 +50,7 @@ public class SailorTest {
 	}
 
 	@Test
-	public void moveToTargetExistingOutOfRangeTest() {
+	void moveToTargetExistingOutOfRangeTest() {
 		assertEquals(0, sailor.getX());
 		assertEquals(0, sailor.getY());
 

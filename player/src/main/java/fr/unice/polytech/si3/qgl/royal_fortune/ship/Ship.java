@@ -1,6 +1,8 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,12 +22,15 @@ public class Ship {
 	private Position position;
 	private String name;
 	private Deck deck;
-	private ArrayList<Entities> entities;
+	private List<Entities> entities;
+
+
 	private Shape shape;
+	final Logger logger = Logger.getLogger(Ship.class.getName());
 	
 	public Ship() {}
 	
-	public Ship(String type, int life, Position position, String name, Deck deck, ArrayList<Entities> entities, Shape shape) {
+	public Ship(String type, int life, Position position, String name, Deck deck, List<Entities> entities, Shape shape) {
 		this.type =type;
 		this.life = life;
 		this.position = position;
@@ -50,32 +55,39 @@ public class Ship {
 	public Deck getDeck() {
 		return deck;
 	}
-	public ArrayList<Entities> getEntities() {
+	public List<Entities> getEntities() {
 		return entities;
 	}
-	public ArrayList<Entities> getAllOars() {
-		return (ArrayList<Entities>) entities.stream().filter(e -> e.getType() == "oar").collect(Collectors.toList());
-	}
-
 	public Shape getShape() {
 		return shape;
 	}
 
 
-	public ArrayList<Oar> getOarListByOrientation(String orientation) {
-		 return (ArrayList<Oar>) entities.stream()
-				 .filter(entity -> entity instanceof Oar)
+	public List<Oar> getOarList(String orientation) {
+		 return entities.stream()
+				 .filter(Oar.class::isInstance)
 				 .map(Oar.class::cast)
-				 .filter(oar -> oar.getSailor()==null)
+				 .filter(oar -> oar.getSailor() == null)
 				 .filter(oar -> oar.isLeft() == orientation.equals("left"))
 				 .collect(Collectors.toList());
+	}
+
+	/**
+	 * Get the rudder, return null if there is no rudder on the ship (Week 1-3)
+	 * @return The rudder entity.
+	 */
+	public Rudder getRudder(){
+		for(Entities entity : entities)
+			if (entity instanceof Rudder)
+				return (Rudder) entity;
+		return null;
 	}
 
 	public void setPosition(Position position){
 		this.position = position;
 	}
 
-	public void setEntities(ArrayList<Entities> entities) {
+	public void setEntities(List<Entities> entities) {
 		this.entities = entities;
 	}
 
@@ -84,8 +96,22 @@ public class Ship {
 		try {
 			 return new ObjectMapper().writeValueAsString(this);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception");
 		}
-		return null;
+		return "";
+	}
+
+	public int getNbrOar() {
+		return getAllOar().size();
+	}
+
+	public List<Oar> getAllOar() {
+		List<Oar> listOar = new ArrayList<>();
+		for(Entities currentEntite : entities){
+			if(currentEntite.isOar()){
+				listOar.add((Oar)currentEntite);
+			}
+		}
+		return listOar;
 	}
 }

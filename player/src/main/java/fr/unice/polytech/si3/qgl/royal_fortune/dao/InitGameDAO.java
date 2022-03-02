@@ -1,6 +1,6 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.DAO;
+package fr.unice.polytech.si3.qgl.royal_fortune.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
@@ -9,11 +9,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 public class InitGameDAO {
 	Goal goal;
 	Ship ship;
-	ArrayList<Sailor> sailors;
+	List<Sailor> sailors;
 	int shipCount;
 	
 	public InitGameDAO() {}
-	public InitGameDAO(Goal goal, Ship ship, ArrayList<Sailor> sailors, int shipCount) {
+	public InitGameDAO(Goal goal, Ship ship, List<Sailor> sailors, int shipCount) {
 		super();
 		this.goal = goal;
 		this.ship = ship;
@@ -27,7 +27,7 @@ public class InitGameDAO {
 	public Ship getShip() {
 		return ship;
 	}
-	public ArrayList<Sailor> getSailors() {
+	public List<Sailor> getSailors() {
 		return sailors;
 	}
 	public int getShipCount() {

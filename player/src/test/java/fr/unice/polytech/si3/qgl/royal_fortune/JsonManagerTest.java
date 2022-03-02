@@ -1,22 +1,16 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JsonManagerTest {
-    JsonManager jsonManager = new JsonManager();
+class JsonManagerTest {
 
     @BeforeEach
     void init(){
@@ -24,7 +18,7 @@ public class JsonManagerTest {
     }
 
     @Test
-    void readJsonTest() throws JsonProcessingException {
+    void readJsonTest() {
         String json ="""
             {
                 "type": "ship",
@@ -45,18 +39,7 @@ public class JsonManagerTest {
     }
 
     @Test
-    void writeJsonActionTest() throws JsonProcessingException {
-        List<Integer> list = new ArrayList<>();
-        list.add(0);
-        list.add(1);
-
-        String actionDone = "[{\"sailorId\":0,\"type\":\"OAR\"},{\"sailorId\":1,\"type\":\"OAR\"}]";
-
-        //assertEquals(actionDone,jsonManager.writeJsonAction(list));
-    }
-
-    @Test
-    void getNodeTest() throws Exception {
+    void getNodeTest() {
         String json = "{\n" +
                 "  \"goal\": {\n" +
                 "    \"mode\": \"REGATTA\",\n" +
@@ -193,12 +176,12 @@ public class JsonManagerTest {
 
 //        String result = "100";
 
-        assertEquals(result,jsonManager.getNode(json, "ship"));
+        assertEquals(result, JsonManager.getNode(json, "ship"));
     }
 
     
     @Test
-    public void readInitGameJSON() {
+    void readInitGameJSON() {
     	String json = "{\r\n"
     			+ "  \"goal\": {\r\n"
     			+ "    \"mode\": \"REGATTA\",\r\n"
@@ -286,7 +269,7 @@ public class JsonManagerTest {
     			+ "  ],\r\n"
     			+ "  \"shipCount\": 1\r\n"
     			+ "}";
-    	InitGameDAO init = new InitGameDAO();
+    	InitGameDAO init;
     	init = JsonManager.readInitGameDAOJson(json);
     	assertEquals(1, init.getShipCount());
     	assertEquals(4, init.getSailors().size());
@@ -294,7 +277,7 @@ public class JsonManagerTest {
     }
 
     @Test
-    public void readNextRoundJSON() {
+    void readNextRoundJSON() {
     	String json = "{\r\n"
     			+ "  \"ship\": {\r\n"
     			+ "    \"type\": \"ship\",\r\n"
@@ -339,7 +322,7 @@ public class JsonManagerTest {
     			+ "    }\r\n"
     			+ "  }\r\n"
     			+ "}";
-    	NextRoundDAO nextRound = new NextRoundDAO();
+    	NextRoundDAO nextRound;
     	nextRound = JsonManager.readNextRoundDAOJson(json);
     	assertEquals(4, nextRound.getShip().getEntities().size());
     }

@@ -8,6 +8,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
@@ -19,6 +22,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 })
 public class Shape {
 	private String type;
+	final Logger logger = Logger.getLogger(Shape.class.getName());
 
 	public Shape() {}
 	public Shape(String type) {
@@ -38,7 +42,7 @@ public class Shape {
 		try {
 			return mapper.writeValueAsString(oarActionJSON);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception");
 		}
 		return "";
 	}

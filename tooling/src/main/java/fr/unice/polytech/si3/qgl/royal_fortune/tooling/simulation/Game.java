@@ -1,25 +1,27 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.tooling.Simulation;
+package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class Game {
     Ship ship;
     Cockpit cockpit;
-    ArrayList<Sailor> sailors;
+    List<Sailor> sailors;
     Goal goal;
     Referee referee;
-    int numberOfCheckpointVisited =0;
+    final Logger logger = Logger.getLogger(Game.class.getName());
+    int i=0;
     public Game(String initialiser){
     	
     	InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
@@ -35,14 +37,19 @@ public class Game {
 
     void nextRound(){
         String jsonNextRound=createJson();
-        System.out.println("-----------------------");
-        System.out.println("jsonNextRound="+jsonNextRound);
+        logger.info("-----------------------");
+        String out = "jsonNextRound="+jsonNextRound;
+        logger.info(out);
+        i++;
+        if (i==45)
+            i++;
         String jsonverif=cockpit.nextRound(jsonNextRound);
-        System.out.println("jsonverif="+jsonverif);
-        System.out.println("-----------------------");
+        out = "jsonverif="+jsonverif;
+        logger.info(out);
+        logger.info("-----------------------");
 
-        ArrayList<Action> actions=JsonManager.readActionJson(jsonverif);
-        System.out.println(actions);
+        List<Action> actions=JsonManager.readActionJson(jsonverif);
+        logger.info(String.valueOf(actions));
         this.ship = referee.makeAdvance(cockpit,actions);
 
     }
@@ -54,8 +61,7 @@ public class Game {
     @Override
     public String toString() {
         //"Orientation: "+ship.getPosition().getOrientation()+'\n';
-        String string=cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
-        return(string);
+        return cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
     }
 
     public boolean isFinished() {
@@ -63,18 +69,20 @@ public class Game {
         double distanceSCY = goal.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
         double distanceSC = Math.sqrt(Math.pow(distanceSCX,2) + Math.pow(distanceSCY,2));
         double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
-        System.out.println("Distance to the checkpoint: "+distanceSC);
+        String out = "Distance to the checkpoint: "+distanceSC;
+        logger.info(out);
         return (distanceSC<=radius && goal.getCheckPoints().size() == 1);
     }
     
-    public String getAllCheckpointsForOutput() {
-    	String out = "";
-    	ArrayList<Checkpoint> checks = goal.getCheckPoints();
+    public StringBuilder getAllCheckpointsForOutput() {
+    	StringBuilder out = new StringBuilder();
+    	List<Checkpoint> checks = goal.getCheckPoints();
     	for(Checkpoint checkpoint : checks) {
     		Position pos = checkpoint.getPosition();
     		double x = pos.getX();
     		double y = pos.getY();
-    		out+=x+";"+y+"\n";
+            double radius = ((Circle)checkpoint.getShape()).getRadius();
+            out.append(x).append(";").append(y).append(";").append(radius).append("\n");
     	}
     	return out;
     }

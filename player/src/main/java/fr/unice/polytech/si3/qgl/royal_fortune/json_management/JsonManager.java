@@ -1,6 +1,10 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.json_management;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -10,8 +14,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.InitGameDAO;
-import fr.unice.polytech.si3.qgl.royal_fortune.DAO.NextRoundDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
@@ -24,6 +28,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
  *
  */
 public class JsonManager {
+	static final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
+	static String exception = "Exception";
 
 	/**
 	 *Create a InitGameDAO with a the InitGame JSON
@@ -36,7 +42,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(game, InitGameDAO.class);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -52,7 +58,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(round, NextRoundDAO.class);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -68,7 +74,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, Ship.class);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -79,30 +85,30 @@ public class JsonManager {
 	 * @param json The given json
 	 * @return the associated Sailors.
 	 */
-	public static ArrayList<Sailor> readSailorsJson(String json){
+	public static List<Sailor> readSailorsJson(String json){
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		JavaType javaType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Sailor.class);
 		try {
 			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, exception);
 		}
-		return null;
+		return Collections.emptyList();
 	}
 	
 	public static Shape readShapeJson(String json, String type){
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		try {
-			switch(type) {
-			case "circle": return mapper.readValue(json, Circle.class);
-			case "rectangle": return mapper.readValue(json, Rectangle.class);
-			default: return null;
-			}
+			return switch (type) {
+				case "circle" -> mapper.readValue(json, Circle.class);
+				case "rectangle" -> mapper.readValue(json, Rectangle.class);
+				default -> null;
+			};
 				
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
@@ -118,29 +124,29 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, Goal.class);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
-	public static ArrayList<Entities> readEntitiesJson(String json) {
+	public static List<Entities> readEntitiesJson(String json) {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		JavaType javaType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Entities.class);
 		try {
 			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, exception);
 		}
-		return null;
+		return Collections.emptyList();
 	}
-	public static ArrayList<Action> readActionJson(String json) {
+	public static List<Action> readActionJson(String json) {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		JavaType javaType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Action.class);
 		try {
 			return mapper.readValue(json, javaType);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, exception);
 		}
 		return(null);
 	}
@@ -148,19 +154,16 @@ public class JsonManager {
 	public static String getNode(String json, String searchNode){
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		JsonNode actualObj = null;
+		JsonNode actualObj;
 		try {
 			actualObj = mapper.readTree(json);
 			JsonNode shipJson = actualObj.get(searchNode);
 			return shipJson.toString();
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, exception);
 		}
 		return null;
 	}
-
-
-	
 
 }
