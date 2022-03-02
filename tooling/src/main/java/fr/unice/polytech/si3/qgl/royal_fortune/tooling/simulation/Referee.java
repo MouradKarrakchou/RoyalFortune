@@ -26,11 +26,11 @@ public class Referee {
         return makeMooveShipByOaring(cockpit.getShip());
     }
 
-    private Ship makeMooveShipByOaring(Ship ship) {
+    public Ship makeMooveShipByOaring(Ship ship) {
         Position shipPosition = ship.getPosition();
         double angleInitial = shipPosition.getOrientation();
-        double anglerot = (orientationCalculus() * Math.PI / cockpit.getShip().getNbrOar()) +rudderRotation;
-        int norme = 165 * (rightPush + leftPush) / cockpit.getShip().getNbrOar()  ;
+        double anglerot = computeAngleRotate();
+        int norme = computeNorme();
         double newX = shipPosition.getX();
         double newY = shipPosition.getY();
         double angleCalcul = angleInitial;
@@ -49,12 +49,20 @@ public class Referee {
         return ship;
     }
 
+    private double computeAngleRotate(){
+        return (orientationCalculus() * Math.PI / cockpit.getShip().getNbrOar()) +rudderRotation;
+    }
+
+    public int computeNorme(){
+        return 165 * (rightPush + leftPush) / cockpit.getShip().getNbrOar();
+    }
+
     private double orientationCalculus() {
         return (double) rightPush - leftPush;
     }
 
 
-    private void doAction(Action action) {
+    public void doAction(Action action) {
         if (action instanceof OarAction)
             oarA((OarAction)action);
         else if (action instanceof RudderAction)
@@ -62,7 +70,6 @@ public class Referee {
     }
 
     private double rudderA(RudderAction rudderAction) {
-        System.out.println("Rudder = "+ rudderAction.getRotation());
         return rudderAction.getRotation();
     }
 
@@ -93,4 +100,31 @@ public class Referee {
     }
 
 
+    public Cockpit getCockpit() {
+        return cockpit;
+    }
+
+    public int getRightPush() {
+        return rightPush;
+    }
+
+    public int getLeftPush() {
+        return leftPush;
+    }
+
+    public double getRudderRotation() {
+        return rudderRotation;
+    }
+
+    public void setRightPush(int rightPush) {
+        this.rightPush = rightPush;
+    }
+
+    public void setLeftPush(int leftPush) {
+        this.leftPush = leftPush;
+    }
+
+    public void setRudderRotation(double rudderRotation) {
+        this.rudderRotation = rudderRotation;
+    }
 }
