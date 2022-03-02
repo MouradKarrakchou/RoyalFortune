@@ -39,13 +39,14 @@ public class Captain {
         disassociate();
         roundActions.clear();
         updateCheckPoint();
+        directionsManager.update();
         double angleMove = directionsManager.getAngleMove();
-        double angleCone = directionsManager.getAngleCone();
         double angleMadeBySailors = 0;
         double signOfAngleMove = (angleMove/Math.abs(angleMove));
 
-        if (!directionsManager.isConeTooSmall(angleMove, angleCone) && !directionsManager.isInCone(angleMove, angleCone)) {
-            angleMadeBySailors = associateSailorToOar(angleMove);
+        if (!directionsManager.isConeTooSmall() && !directionsManager.isInCone()) {
+            int numberOfSailorOaring=associateSailorToOar(numberOfSailorToTurn(angleMove),directionsManager.getDirection());
+            angleMadeBySailors = numberOfSailorOaring*angleMove/Math.abs(angleMove)*(Math.PI/ship.getNbrOar());
         }
 
         if(-Math.PI/4 <= angleMove - angleMadeBySailors && angleMove - angleMadeBySailors <= Math.PI/4 && Math.abs(angleMove - angleMadeBySailors)>Math.pow(10,-3)) {
@@ -57,9 +58,7 @@ public class Captain {
             askSailorsToTurnWithRudder(signOfAngleMove*Math.PI/4);
         }
 
-        associateSailorToOarEvenly();
-        askSailorsToMove();
-        askSailorsToOar();
+        makeBoatMove();
 
 
         StringBuilder actionsToDo = new StringBuilder();
@@ -67,6 +66,15 @@ public class Captain {
             actionsToDo.append(action.toString()).append(",");
         String out = actionsToDo.substring(0, actionsToDo.length() - 1);
         return "[" + out + "]";
+    }
+
+    /**
+     * Make the sailor go to the oar and use them.
+     */
+    private void makeBoatMove() {
+        associateSailorToOarEvenly();
+        askSailorsToMove();
+        askSailorsToOar();
     }
 
     private void updateCheckPoint() {
@@ -92,23 +100,34 @@ public class Captain {
 
     /**
      * Captain will associate the best number of sailors to proceed a rotation of the given angle.
-     * @param orientation The rotation of the given angle.
+     * @param numberOfSailors The rotation of the given angle.
+     * @param whereToTurn 1 to turn right/ -1 to turn left
      */
-    public double associateSailorToOar(double orientation){
-        int maxSailors = Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getNbrOar())));
-        List<Oar> oarList = ship.getOarList(orientation < 0 ? "right" : "left");
+    public int associateSailorToOar(int numberOfSailors,int whereToTurn){
+        List<Oar> oarList = ship.getOarList(whereToTurn > 0 ? "right" : "left");
         int i = 0;
 
         // We continue associating until we run out of sailors or oars
-        while(i < oarList.size() && i < sailors.size() && i < maxSailors){
+        while(i < numberOfSailors){
             Oar oar = oarList.get(i);
             logger.info(String.valueOf(oar));
             sailors.get(i).setTargetEntity(oar);
             oar.setSailor(sailors.get(i));
             i++;
         }
+        return numberOfSailors;
+    }
 
-        return i*orientation/Math.abs(orientation)*(Math.PI/ship.getNbrOar());
+    /**
+     * It gives the number of Sailor needed to turn
+     * @param orientation that we need to make our ship move
+     * @return the number of Sailor that will oar in one direction
+     */
+    public int numberOfSailorToTurn(double orientation){
+        int sizeOfOarList = ship.getOarList(orientation < 0 ? "right" : "left").size();
+        int maxSailorsToMoveAngle=Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getNbrOar())));
+        int numberOfSailors=sailors.size();
+        return(Math.min(numberOfSailors,Math.min(sizeOfOarList,maxSailorsToMoveAngle)));
     }
 
     /**
@@ -135,8 +154,19 @@ public class Captain {
             oarIndex++;
         }
     }
-    public boolean needSailorToOar(int numberOfCoples){
-        int norme=165*numberOfCoples/ship.getNbrOar();
+    public int numberOfSailorToGoStraight(){
+        List<Oar> leftOarList = ship.getOarList("left");
+        List<Oar> rightOarList = ship.getOarList("right");
+
+    }
+
+    /**
+     * It predict if we are going to be in the modified checkpoint
+     * @param numberOfSailors
+     * @return if with this numberOfSailors we are in the checkpoint or not
+     */
+    public boolean needSailorToOar(int numberOfSailors){
+        int norme=165*numberOfSailors/ship.getNbrOar();
         double newX=ship.getPosition().getX();
         double newY= ship.getPosition().getY();
         double angleCalcul=ship.getPosition().getOrientation();
