@@ -4,7 +4,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
@@ -40,6 +39,26 @@ public class Captain {
         roundActions.clear();
         updateCheckPoint();
         directionsManager.update();
+        roundProceed();
+        makeBoatMove();
+
+        String out = createAction();
+        return "[" + out + "]";
+    }
+
+    /**
+     * Create the Json of actions
+     * @return String wit the json
+     */
+    public String createAction(){
+        StringBuilder actionsToDo = new StringBuilder();
+        for(Action action : roundActions)
+            actionsToDo.append(action.toString()).append(",");
+        return(actionsToDo.substring(0, actionsToDo.length() - 1));
+    }
+
+
+    public void roundProceed(){
         double angleMove = directionsManager.getAngleMove();
         double angleMadeBySailors = 0;
         double signOfAngleMove = (angleMove/Math.abs(angleMove));
@@ -57,15 +76,6 @@ public class Captain {
             askSailorToMoveToRudder();
             askSailorsToTurnWithRudder(signOfAngleMove*Math.PI/4);
         }
-
-        makeBoatMove();
-
-
-        StringBuilder actionsToDo = new StringBuilder();
-        for(Action action : roundActions)
-            actionsToDo.append(action.toString()).append(",");
-        String out = actionsToDo.substring(0, actionsToDo.length() - 1);
-        return "[" + out + "]";
     }
 
     /**
@@ -138,12 +148,10 @@ public class Captain {
         List<Oar> rightOarList = ship.getOarList("right");
         int oarIndex = 0;
         int sailorIndex = 0;
-        ArrayList<Sailor> listOfUnassignedSailors = (ArrayList<Sailor>) sailors.stream()
-                .filter(sailor-> sailor.getTargetEntity()==null)
-                .collect(Collectors.toList());
+        ArrayList<Sailor> listOfUnassignedSailors = getlistOfUnassignedSailors();
 
         // We continue associating until we run out of sailors or oars
-        while(oarIndex < leftOarList.size() && oarIndex < rightOarList.size() && sailorIndex + 1 < listOfUnassignedSailors.size()&&needSailorToOar(sailorIndex)){
+        while (sailorIndex<numberOfSailorToGoStraight()){
             Oar leftOar = leftOarList.get(oarIndex);
             Oar rightOar = rightOarList.get(oarIndex);
             listOfUnassignedSailors.get(sailorIndex).setTargetEntity(leftOar);
@@ -154,18 +162,43 @@ public class Captain {
             oarIndex++;
         }
     }
-    public int numberOfSailorToGoStraight(){
-        List<Oar> leftOarList = ship.getOarList("left");
-        List<Oar> rightOarList = ship.getOarList("right");
-        return 0;
+
+    /**
+     * Give The list of Sailors that are not assigned to an entitie;
+     * @return
+     */
+    ArrayList<Sailor> getlistOfUnassignedSailors(){
+        return((ArrayList<Sailor>) sailors.stream()
+                .filter(sailor-> sailor.getTargetEntity()==null)
+                .collect(Collectors.toList()));
     }
 
+
+    public int numberOfSailorToGoStraight(){
+        int leftOarList = ship.getOarList("left").size();
+        int rightOarList = ship.getOarList("right").size();
+        int listOfUnassignedSailors=getlistOfUnassignedSailors().size()-1;
+        int numberOfSailorToCheckPoint=numberOfSailorToOarToCheckPoint();
+        return Math.min(Math.min(leftOarList,rightOarList),Math.min(listOfUnassignedSailors,numberOfSailorToCheckPoint));
+    }
+
+    /**
+     * give the number of sailor needed to go to the next checkpoint(with max at sailors.size())
+     * @return number of sailors needed
+     */
+    public int numberOfSailorToOarToCheckPoint(){
+        int numberOfSailor=2;
+        while (needSailorToOarToCheckpoint(numberOfSailor)&& numberOfSailor<=sailors.size()){
+            numberOfSailor+=2;
+        }
+        return numberOfSailor;
+    }
     /**
      * It predict if we are going to be in the modified checkpoint
      * @param numberOfSailors
      * @return if with this numberOfSailors we are in the checkpoint or not
      */
-    public boolean needSailorToOar(int numberOfSailors){
+    public boolean needSailorToOarToCheckpoint(int numberOfSailors){
         int norme=165*numberOfSailors/ship.getNbrOar();
         double newX=ship.getPosition().getX();
         double newY= ship.getPosition().getY();

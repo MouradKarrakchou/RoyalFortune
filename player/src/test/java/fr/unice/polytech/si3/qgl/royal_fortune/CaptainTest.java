@@ -14,9 +14,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -176,9 +174,9 @@ class CaptainTest {
         FictitiousCheckpoint fictitiousCheckpoint=new FictitiousCheckpoint(tabCheckPoint);
         captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),fictitiousCheckpoint);
 
-        assertEquals(true,captain.needSailorToOar(2));
-        assertEquals(false,captain.needSailorToOar(4));
-        assertEquals(false,captain.needSailorToOar(6));
+        assertEquals(true,captain.needSailorToOarToCheckpoint(2));
+        assertEquals(false,captain.needSailorToOarToCheckpoint(4));
+        assertEquals(false,captain.needSailorToOarToCheckpoint(6));
     }
 
     @Test
