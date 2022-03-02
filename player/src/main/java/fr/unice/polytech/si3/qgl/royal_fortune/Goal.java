@@ -12,7 +12,7 @@ public class Goal {
         this.checkpoints = checkpoints;
     }
 
-    Goal(){}
+    public Goal(){}
     public void setMode(String mode){
         this.mode = mode;
     }

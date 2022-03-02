@@ -17,12 +17,12 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Captain {
-    private final Ship ship;
-    private final Goal goal;
-    private final List<Sailor> sailors;
-    private final FictitiousCheckpoint fictitiousCheckpoints;
-    private final ArrayList<Action> roundActions;
-    private final DirectionsManager directionsManager;
+    private Ship ship;
+    private Goal goal;
+    private List<Sailor> sailors;
+    private FictitiousCheckpoint fictitiousCheckpoints;
+    private ArrayList<Action> roundActions;
+    private DirectionsManager directionsManager;
     final Logger logger = Logger.getLogger(Captain.class.getName());
 
     public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints){
@@ -33,6 +33,8 @@ public class Captain {
         roundActions = new ArrayList<>();
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
     }
+    public Captain(){}
+
 
     public String roundDecisions() {
 

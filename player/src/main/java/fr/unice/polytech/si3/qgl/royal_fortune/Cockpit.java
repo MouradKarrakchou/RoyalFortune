@@ -23,6 +23,14 @@ public class Cockpit implements ICockpit {
 	private Captain captain;
 	private static final Logger LOGGER = Logger.getLogger(Cockpit.class.getName());
 
+	public Cockpit(){}
+	public Cockpit(Ship ship, List<Sailor> sailors, Goal goal, Captain captain) {
+		this.ship = ship;
+		this.sailors = sailors;
+		this.goal = goal;
+		this.captain = captain;
+	}
+
 	public void initGame(String game) {
 		String out = "Init game input: " + game;
 		LOGGER.info(out);
@@ -62,4 +70,6 @@ public class Cockpit implements ICockpit {
 	public ArrayList<String> getLogs() {
 		return new ArrayList<>();
 	}
+
+
 }
