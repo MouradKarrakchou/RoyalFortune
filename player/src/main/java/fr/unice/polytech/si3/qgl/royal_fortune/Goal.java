@@ -7,12 +7,12 @@ public class Goal {
     String mode;
     List<Checkpoint> checkpoints;
 
-    Goal(String mode, ArrayList<Checkpoint> checkpoints){
+    public Goal(String mode, ArrayList<Checkpoint> checkpoints){
         this.mode = mode;
         this.checkpoints = checkpoints;
     }
 
-    Goal(){}
+    public Goal(){}
     public void setMode(String mode){
         this.mode = mode;
     }

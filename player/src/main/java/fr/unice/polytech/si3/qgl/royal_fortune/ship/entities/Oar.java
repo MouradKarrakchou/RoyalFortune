@@ -24,7 +24,7 @@ public class Oar extends Entities{
 	}
 
 	public boolean isLeft() {
-		return y != 0;
+		return y == 0;
 	}
 
 	public Sailor getSailor() {

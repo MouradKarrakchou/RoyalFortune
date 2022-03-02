@@ -8,6 +8,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 public class DirectionsManager {
     private Ship ship;
     private FictitiousCheckpoint fictitiousCheckpoints;
+    double angleMove;
+    double angleCone;
+    static final int LEFT=-1;
+    static final int RIGHT=1;
 
     public DirectionsManager(Ship ship, FictitiousCheckpoint fictitiousCheckpoints) {
         this.ship = ship;
@@ -70,7 +74,7 @@ public class DirectionsManager {
      * @param angleCone half of the angle between the axis from the ship and the edges of the checkpoint
      * @return true if the ship is in the right direction
      */
-    public boolean isInCone(double angleMove, double angleCone) {
+    public boolean isInCone() {
         return (Math.abs(angleMove) <= angleCone);
     }
 
@@ -80,16 +84,25 @@ public class DirectionsManager {
      * @param angleCone half of the angle between the axis from the ship and the edges of the checkpoint
      * @return true if the next turn of the boat exceed the right direction
      */
-    public boolean isConeTooSmall(double angleMove, double angleCone) {
+    public boolean isConeTooSmall() {
         return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/ship.getNbrOar());
     }
 
-    double getAngleMove() {
-        return angleCalculator()[0];
+    public void update() {
+        angleMove=angleCalculator()[0];
+        angleCone=angleCalculator()[1];
+
     }
 
-    double getAngleCone() {
-        return angleCalculator()[1];
+    public double getAngleMove() {
+        return angleMove;
     }
 
+    public double getAngleCone() {
+        return angleCone;
+    }
+
+    public int getDirection() {
+        return angleMove>0 ? RIGHT:LEFT;
+    }
 }
