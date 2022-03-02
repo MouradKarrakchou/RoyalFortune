@@ -47,7 +47,7 @@ class DirectionsManagerTest {
         double angle = dirMan.angleCalculator()[0];
         assertEquals(Math.PI/2, angle);
     }
-
+/*
     @Test
     void isInConeTest() {
         dirMan = new DirectionsManager(null, null);
@@ -76,6 +76,6 @@ class DirectionsManagerTest {
         dirMan = new DirectionsManager(ship, null);
         assertTrue(dirMan.isConeTooSmall(0.5,0.2));
         assertFalse(dirMan.isConeTooSmall(0.5,0.3));
-    }
+    }*/
 
 }
