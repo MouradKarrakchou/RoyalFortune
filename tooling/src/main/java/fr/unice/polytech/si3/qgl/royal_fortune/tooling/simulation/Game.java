@@ -54,7 +54,7 @@ public class Game {
 
     }
 
-    private String createJson() {
+    public String createJson() {
         return "{\"ship\":"+ cockpit.getShip().toString()+"}";
     }
 
