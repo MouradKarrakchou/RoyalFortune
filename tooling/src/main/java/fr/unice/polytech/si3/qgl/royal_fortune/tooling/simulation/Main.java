@@ -183,10 +183,12 @@ public class Main {
 				"}";
 		Game game = new Game(jsonWeek4);
 		StringBuilder textForOutput = new StringBuilder(game.getAllCheckpointsForOutput() + "---\n");
+		int tour=0;
 		while (!game.isFinished()) {
 			game.nextRound();
 			logger.info(String.valueOf(game));
 			textForOutput.append(game);
+			tour++;
 		}
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
