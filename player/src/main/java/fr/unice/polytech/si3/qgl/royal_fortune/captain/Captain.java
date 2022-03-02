@@ -134,7 +134,7 @@ public class Captain {
      * @return the number of Sailor that will oar in one direction
      */
     public int numberOfSailorToTurn(double orientation){
-        int sizeOfOarList = ship.getOarList(orientation < 0 ? "right" : "left").size();
+        int sizeOfOarList = ship.getOarList(orientation > 0 ? "right" : "left").size();
         int maxSailorsToMoveAngle=Math.abs((int) Math.ceil(orientation/(Math.PI / ship.getNbrOar())));
         int numberOfSailors=sailors.size();
         return(Math.min(numberOfSailors,Math.min(sizeOfOarList,maxSailorsToMoveAngle)));
@@ -149,9 +149,9 @@ public class Captain {
         int oarIndex = 0;
         int sailorIndex = 0;
         ArrayList<Sailor> listOfUnassignedSailors = getlistOfUnassignedSailors();
-
+        int numberOfSailorNeeded=numberOfSailorToOarEvenly();
         // We continue associating until we run out of sailors or oars
-        while (sailorIndex<numberOfSailorToGoStraight()){
+        while (sailorIndex<numberOfSailorNeeded){
             Oar leftOar = leftOarList.get(oarIndex);
             Oar rightOar = rightOarList.get(oarIndex);
             listOfUnassignedSailors.get(sailorIndex).setTargetEntity(leftOar);
@@ -174,10 +174,10 @@ public class Captain {
     }
 
 
-    public int numberOfSailorToGoStraight(){
-        int leftOarList = ship.getOarList("left").size();
-        int rightOarList = ship.getOarList("right").size();
-        int listOfUnassignedSailors=getlistOfUnassignedSailors().size()-1;
+    public int numberOfSailorToOarEvenly(){
+        int leftOarList = 2*ship.getOarList("left").size();
+        int rightOarList = 2*ship.getOarList("right").size();
+        int listOfUnassignedSailors=2*((int)getlistOfUnassignedSailors().size()/2);
         int numberOfSailorToCheckPoint=numberOfSailorToOarToCheckPoint();
         return Math.min(Math.min(leftOarList,rightOarList),Math.min(listOfUnassignedSailors,numberOfSailorToCheckPoint));
     }

@@ -206,7 +206,7 @@ class CaptainTest {
         captain = new Captain(basicShip, sailors, goal, new FictitiousCheckpoint(checkpointArrayList));
         captain.roundDecisions();
 
-        assertEquals(4, captain.getRoundActions().size());
+        assertEquals(3, captain.getRoundActions().size());
     }
 
     @Test
