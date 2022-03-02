@@ -14,7 +14,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,13 +24,14 @@ class CaptainTest {
     private Ship basicShip;
     private Captain captain;
     private Checkpoint checkpoint;
-    private ArrayList<Sailor> sailors;
-    private ArrayList<Entities> entities;
+    private List<Sailor> sailors;
+    private List<Entities> entities;
 
     @BeforeEach
     void init(){
         sailors = new ArrayList<>();
         entities = new ArrayList<>();
+
         basicShip = new Ship(
                 "ship",
                 100,
@@ -37,18 +40,16 @@ class CaptainTest {
                 new Deck(3, 4),
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
-
     }
 
     @Test
-    void associateSailorsToOarPITest(){
+    void numberOfSailorToTurnTest(){
         // Initialize 4 sailors
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
         sailors.add(new Sailor(2, 1, 0, "sailor2"));
         sailors.add(new Sailor(3, 1, 1, "sailor3"));
 
-        // Initialize 6 oars
         // Left oars
         entities.add(new Oar(0, 0));
         entities.add(new Oar(1, 0));
@@ -59,25 +60,19 @@ class CaptainTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
-        // Initialize a ship
-        captain = new Captain(basicShip, sailors, null, null);
-
-        // For a rotation of pi, we need 4 sailors on the left side, but there is only 3 oars available.
-        captain.associateSailorToOar(Math.PI);
-        assertEquals(4, sailors.size());
-        assertEquals(3, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
-        sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertNotEquals(0, sailor.getTargetEntity().getY()));
+        Captain captain = new Captain(basicShip, sailors, null, null);
+        assertEquals(6, basicShip.getNbrOar());
+        assertEquals(3, captain.numberOfSailorToTurn(Math.PI));
     }
 
     @Test
-    void associateSailorsToOarPi2Test(){
+    void numberOfSailorToTurnTestAngleLimiting(){
         // Initialize 4 sailors
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
         sailors.add(new Sailor(2, 1, 0, "sailor2"));
         sailors.add(new Sailor(3, 1, 1, "sailor3"));
 
-        // Initialize 6 oars
         // Left oars
         entities.add(new Oar(0, 0));
         entities.add(new Oar(1, 0));
@@ -88,96 +83,74 @@ class CaptainTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
-        captain = new Captain(basicShip, sailors, null, null);
-
-        // For a rotation of pi/4, we need 1 sailor on the left side
-        captain.associateSailorToOar(- Math.PI/4);
-        assertEquals(4, sailors.size());
-        assertEquals(1, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
+        Captain captain = new Captain(basicShip, sailors, null, null);
+        assertEquals(6, basicShip.getNbrOar());
+        assertEquals(1, captain.numberOfSailorToTurn(Math.PI / 6));
     }
 
-
-
     @Test
-    void askSailorToMoveTest(){
+    void numberOfSailorToTurnTestSailorLimiting(){
+        // Initialize 2 sailors
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
-        sailors.add(new Sailor(2, 1, 0, "sailor2"));
-        sailors.add(new Sailor(3, 1, 1, "sailor3"));
 
+        // Left oars
         entities.add(new Oar(0, 0));
         entities.add(new Oar(1, 0));
         entities.add(new Oar(2, 0));
 
+        // Right oars
         entities.add(new Oar(0, 3));
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
-        Ship ship = new Ship(
-                "ship",
-                100,
-                new Position(0, 0, 0),
-                "ShipTest",
-                new Deck(3, 4),
-                entities,
-                new Rectangle("rectangle", 3, 4, 0));
-
-        captain = new Captain(ship, sailors, null, null);
-        captain.associateSailorToOar(- Math.PI);
-
-        assertEquals(4, sailors.size());
-        assertEquals(3, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
-        sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).forEach(sailor -> assertEquals(0, sailor.getTargetEntity().getY()));
-
-        captain.askSailorsToMove();
-        // Size is 2 because a sailor is already on its target entity
-        assertEquals(2, captain.getRoundActions().size());
+        Captain captain = new Captain(basicShip, sailors, null, null);
+        assertEquals(6, basicShip.getNbrOar());
+        assertEquals(2, captain.numberOfSailorToTurn(Math.PI));
     }
 
     @Test
-    void associateSailorToOarEvenlyTest(){
+    void numberOfSailorToTurnTestRightOarLimiting(){
+        // Initialize 4 sailors
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
         sailors.add(new Sailor(2, 1, 0, "sailor2"));
         sailors.add(new Sailor(3, 1, 1, "sailor3"));
-        sailors.add(new Sailor(4, 1, 2, "sailor4"));
-        sailors.add(new Sailor(5, 2, 2, "sailor5"));
 
+        // Left oars
         entities.add(new Oar(0, 0));
         entities.add(new Oar(1, 0));
         entities.add(new Oar(2, 0));
 
+        // Right oars
         entities.add(new Oar(0, 3));
-        entities.add(new Oar(1, 3));
 
-        ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
-        tabCheckPoint.add(new Checkpoint(new Position(0,1000,40),new Circle("circle",50)));
-        FictitiousCheckpoint fictitiousCheckpoint=new FictitiousCheckpoint(tabCheckPoint);
-        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),fictitiousCheckpoint);
-        captain.associateSailorToOarEvenly();
-
-        assertEquals(6, sailors.size());
-        assertEquals(4, sailors.stream().filter(sailor -> sailor.getTargetEntity() != null).count());
+        Captain captain = new Captain(basicShip, sailors, null, null);
+        assertEquals(4, basicShip.getNbrOar());
+        assertEquals(1, captain.numberOfSailorToTurn(Math.PI));
     }
 
     @Test
-    void needSailorToOarTest(){
+    void numberOfSailorToTurnTestLeftOarLimiting(){
+        // Initialize 4 sailors
+        sailors.add(new Sailor(0, 0, 0, "sailor0"));
+        sailors.add(new Sailor(1, 0, 1, "sailor1"));
+        sailors.add(new Sailor(2, 1, 0, "sailor2"));
+        sailors.add(new Sailor(3, 1, 1, "sailor3"));
+
+        // Left oars
         entities.add(new Oar(0, 0));
-        entities.add(new Oar(1, 0));
-        entities.add(new Oar(2, 0));
+
+        // Right oars
         entities.add(new Oar(0, 3));
         entities.add(new Oar(1, 3));
-        entities.add(new Oar(2, 0));
+        entities.add(new Oar(2, 3));
 
-        ArrayList<Checkpoint> tabCheckPoint=new ArrayList<>();
-        tabCheckPoint.add(new Checkpoint(new Position(165*5/basicShip.getEntities().size(),0,0),new Circle("circle",55)));
-        FictitiousCheckpoint fictitiousCheckpoint=new FictitiousCheckpoint(tabCheckPoint);
-        captain = new Captain(basicShip, sailors, new Goal("circle",tabCheckPoint),fictitiousCheckpoint);
-
-        assertEquals(true,captain.needSailorToOarToCheckpoint(2));
-        assertEquals(false,captain.needSailorToOarToCheckpoint(4));
-        assertEquals(false,captain.needSailorToOarToCheckpoint(6));
+        Captain captain = new Captain(basicShip, sailors, null, null);
+        assertEquals(4, basicShip.getNbrOar());
+        assertEquals(1, captain.numberOfSailorToTurn(- Math.PI));
     }
+
 
     @Test
     //Moving straight
