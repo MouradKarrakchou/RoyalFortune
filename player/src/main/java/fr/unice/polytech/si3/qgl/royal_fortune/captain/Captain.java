@@ -157,7 +157,7 @@ public class Captain {
     public int numberOfSailorToGoStraight(){
         List<Oar> leftOarList = ship.getOarList("left");
         List<Oar> rightOarList = ship.getOarList("right");
-
+        return 0;
     }
 
     /**
