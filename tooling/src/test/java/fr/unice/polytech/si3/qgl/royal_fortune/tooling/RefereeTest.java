@@ -22,20 +22,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class RefereeTest{
     Cockpit cockpit;
     Referee referee;
+    Ship mockShip;
 
     @BeforeEach
     public void init(){
-        Ship ship = new Ship(null, 0, new Position(0, 0, 0), null, null, new ArrayList<Entities>() {
-        }, null);
-        List<Entities> oarList = ship.getEntities();
-        oarList.add(new Oar());
-        oarList.add(new Oar());
-        cockpit = new Cockpit(ship, new ArrayList<Sailor>(), new Goal(), new Captain());
+        mockShip = mock(Ship.class);
+        cockpit = new Cockpit(mockShip, new ArrayList<Sailor>(), new Goal(), new Captain());
         referee = new Referee(cockpit);
     }
 
@@ -58,23 +56,23 @@ public class RefereeTest{
         sailors.clear();
         sailors.add(new Sailor(0,0,1,"testSailor"));
 
-        assertEquals(0, referee.getRightPush());
-        referee.doAction(new OarAction(0));
+        assertEquals(0, referee.getRightPush());referee.doAction(new OarAction(0));
         assertEquals(1, referee.getRightPush());
     }
 
     @Test
-    public void makeMooveShipByOaringTest(){
+    public void makeMooveShipByOaringFrontTest(){
         referee.setLeftPush(1);
         referee.setRightPush(1);
-        Position testedPosition = referee.getCockpit().getShip().getPosition();
 
-        Position expectedPos = new Position(testedPosition.getX() + referee.computeNorme(), testedPosition.getY(), testedPosition.getOrientation());
+        when(mockShip.getNbrOar()).thenReturn(2);
+        when(mockShip.getPosition()).thenReturn(new Position(0,0,0));
+
+        Position testedPosition = referee.getCockpit().getShip().getPosition();
         referee.makeMooveShipByOaring(referee.getCockpit().getShip());
+
         assertEquals(165, (int) testedPosition.getX());
         assertEquals(0, (int) testedPosition.getY());
         assertEquals(0, (int) testedPosition.getOrientation());
-
-
     }
 }
