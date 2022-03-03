@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
@@ -226,15 +227,15 @@ class CaptainTest {
 
         captain = new Captain(basicShip, sailors, null, null);
         assertEquals(4, basicShip.getEntities().size());
-        captain.askSailorToMoveToRudder();
+        captain.getCrew().sailorMoveToRudder();
         assertEquals(0, captain.getRoundActions().size());
 
         entities.add(new Rudder(3, 4));
         assertEquals(5, basicShip.getEntities().size());
-        captain.askSailorToMoveToRudder();
-        assertEquals(1, captain.getRoundActions().size());
+        List<Action> actions=captain.getCrew().sailorMoveToRudder();
+        assertEquals(1, actions.size());
 
-        assertEquals(new MovingAction(nearestSailor.getId(), 0, 1).toString(), captain.getRoundActions().get(0).toString());
+        assertEquals(new MovingAction(nearestSailor.getId(), 0, 1).toString(),actions.get(0).toString());
     }
 
 }

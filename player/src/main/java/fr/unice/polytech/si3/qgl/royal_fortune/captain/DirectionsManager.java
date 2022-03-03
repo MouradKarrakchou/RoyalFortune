@@ -6,12 +6,12 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 public class DirectionsManager {
-    private Ship ship;
-    private FictitiousCheckpoint fictitiousCheckpoints;
-    double angleMove;
-    double angleCone;
-    static final int LEFT=-1;
-    static final int RIGHT=1;
+    private final Ship ship;
+    private final FictitiousCheckpoint fictitiousCheckpoints;
+    private double angleMove;
+    private double angleCone;
+    public static final int LEFT = -1;
+    public static final int RIGHT = 1;
 
     public DirectionsManager(Ship ship, FictitiousCheckpoint fictitiousCheckpoints) {
         this.ship = ship;
@@ -52,15 +52,15 @@ public class DirectionsManager {
     }
 
     private double checkSign(double angleMove) {
-        if (calculDistToCheckPoint(angleMove) < calculDistToCheckPoint(-angleMove))
+        if (distToCheckPoint(angleMove) < distToCheckPoint(-angleMove))
             return angleMove;
         else return -angleMove;
     }
 
-    private double calculDistToCheckPoint(double angleMove) {
-        double anglerot = angleMove + ship.getPosition().getOrientation();
-        double newX = ship.getPosition().getX() + Math.cos(anglerot);
-        double newY = ship.getPosition().getY() + Math.sin(anglerot);
+    private double distToCheckPoint(double angleMove) {
+        double angleRot = angleMove + ship.getPosition().getOrientation();
+        double newX = ship.getPosition().getX() + Math.cos(angleRot);
+        double newY = ship.getPosition().getY() + Math.sin(angleRot);
 
 
         double distanceSCX = fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getX() - newX;
@@ -69,10 +69,9 @@ public class DirectionsManager {
     }
 
     /**
-     * Check if the ship is in the right direction
-     * @param angleMove is the angle between the direction vector of the ship and the axis from the ship and the checkpoint
-     * @param angleCone half of the angle between the axis from the ship and the edges of the checkpoint
-     * @return true if the ship is in the right direction
+     * Check if the ship is facing the cone.
+     *
+     * @return true/false The ship is facing the cone.
      */
     public boolean isInCone() {
         return (Math.abs(angleMove) <= angleCone);
@@ -80,17 +79,16 @@ public class DirectionsManager {
 
     /**
      * Check if the next turn of the ship will exceed the right direction
-     * @param angleMove is the angle between the direction vector of the ship and the axis from the ship and the checkpoint
-     * @param angleCone half of the angle between the axis from the ship and the edges of the checkpoint
+     *
      * @return true if the next turn of the boat exceed the right direction
      */
     public boolean isConeTooSmall() {
-        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI/ship.getNbrOar());
+        return (Math.abs(Math.abs(angleMove) + angleCone) < Math.PI / ship.getNbrOar());
     }
 
     public void update() {
-        angleMove=angleCalculator()[0];
-        angleCone=angleCalculator()[1];
+        angleMove = angleCalculator()[0];
+        angleCone = angleCalculator()[1];
 
     }
 
@@ -103,6 +101,6 @@ public class DirectionsManager {
     }
 
     public int getDirection() {
-        return angleMove>0 ? RIGHT:LEFT;
+        return angleMove > 0 ? RIGHT : LEFT;
     }
 }
