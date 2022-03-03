@@ -47,8 +47,8 @@ public class PreCalculator {
      * @return number of Sailor that will oar evenly
      */
     public int numberOfSailorToOarEvenly(int nbUnassignedSailors){
-        int leftOarList = 2*ship.getOarList("left").size();
-        int rightOarList = 2*ship.getOarList("right").size();
+        int leftOarList = 2*ship.getOarList(DirectionsManager.LEFT).size();
+        int rightOarList = 2*ship.getOarList(DirectionsManager.RIGHT).size();
         int listOfUnassignedSailors=2*((int)nbUnassignedSailors/2);
         int numberOfSailorToCheckPoint=numberOfSailorToOarToCheckPoint();
         return Math.min(Math.min(leftOarList,rightOarList),Math.min(listOfUnassignedSailors,numberOfSailorToCheckPoint));

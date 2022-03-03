@@ -17,34 +17,39 @@ public class Crew {
     private final List<Sailor> sailors;
     private final Ship ship;
     private final PreCalculator preCalculator;
-    public Crew(List<Sailor> sailors,Ship ship,PreCalculator preCalculator){
-        this.sailors=sailors;
-        this.ship=ship;
-        this.preCalculator=preCalculator;
+
+    public Crew(List<Sailor> sailors, Ship ship, PreCalculator preCalculator) {
+        this.sailors = sailors;
+        this.ship = ship;
+        this.preCalculator = preCalculator;
     }
+
     /**
-     * Make the sailor go to the oar and use them.
-     * @return
+     * Make the remaining sailors oar evenly (if possible) to speed up the boat.
+     * Make all the sailors associated to an oar to send a oar action.
+     *
+     * @return The list of action needed.
      */
     public List<Action> makeBoatMove() {
-        List<Action> actions=new ArrayList<>();
+        List<Action> actions = new ArrayList<>();
         associateSailorToOarEvenly();
         actions.addAll(sailorsMove());
         actions.addAll(sailorsOar());
-        return(actions);
-
+        return (actions);
     }
+
     /**
      * Captain will associate the best number of sailors to proceed a rotation of the given angle.
+     *
      * @param numberOfSailors The rotation of the given angle.
-     * @param whereToTurn 1 to turn right/ -1 to turn left
+     * @param whereToTurn     1 to turn right/ -1 to turn left
      */
-    public int associateSailorToOar(int numberOfSailors,int whereToTurn){
-        List<Oar> oarList = ship.getOarList(whereToTurn > 0 ? "right" : "left");
+    public int associateSailorToOar(int numberOfSailors, int whereToTurn) {
+        List<Oar> oarList = ship.getOarList(whereToTurn > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT);
         int i = 0;
 
         // We continue associating until we run out of sailors or oars
-        while(i < numberOfSailors){
+        while (i < numberOfSailors) {
             Oar oar = oarList.get(i);
             sailors.get(i).setTargetEntity(oar);
             oar.setSailor(sailors.get(i));
@@ -52,18 +57,19 @@ public class Crew {
         }
         return numberOfSailors;
     }
+
     /**
      * Associate the same amount of sailors to the left oars and the right oars of the ship.
      */
-    public void associateSailorToOarEvenly(){
-        List<Oar> leftOarList = ship.getOarList("left");
-        List<Oar> rightOarList = ship.getOarList("right");
+    public void associateSailorToOarEvenly() {
+        List<Oar> leftOarList = ship.getOarList(DirectionsManager.LEFT);
+        List<Oar> rightOarList = ship.getOarList(DirectionsManager.RIGHT);
         int oarIndex = 0;
         int sailorIndex = 0;
-        List<Sailor> listOfUnassignedSailors = getlistOfUnassignedSailors();
-        int numberOfSailorNeeded=preCalculator.numberOfSailorToOarEvenly(getlistOfUnassignedSailors().size());
+        List<Sailor> listOfUnassignedSailors = getListOfUnassignedSailors();
+        int numberOfSailorNeeded = preCalculator.numberOfSailorToOarEvenly(getListOfUnassignedSailors().size());
         // We continue associating until we run out of sailors or oars
-        while (sailorIndex<numberOfSailorNeeded){
+        while (sailorIndex < numberOfSailorNeeded) {
             Oar leftOar = leftOarList.get(oarIndex);
             Oar rightOar = rightOarList.get(oarIndex);
             listOfUnassignedSailors.get(sailorIndex).setTargetEntity(leftOar);
@@ -78,8 +84,8 @@ public class Crew {
     /**
      * Will ask the nearest sailor to the rudder to move to.
      */
-    public List<Action> sailorMoveToRudder(){
-        List<Action> roundActions=new ArrayList<>();
+    public List<Action> sailorMoveToRudder() {
+        List<Action> roundActions = new ArrayList<>();
         Rudder rudder = ship.getRudder();
         if (rudder == null)
             return roundActions;
@@ -88,7 +94,7 @@ public class Crew {
                 .filter(sailor -> sailor.getTargetEntity() == null)
                 .min(Comparator.comparingInt(sailor -> sailor.getDistanceToEntity(rudder)));
 
-        if(sailorToMove.isPresent()) {
+        if (sailorToMove.isPresent()) {
             Sailor s = sailorToMove.get();
             s.setTargetEntity(rudder);
             roundActions.add(s.moveToTarget());
@@ -100,56 +106,53 @@ public class Crew {
      * Ask all sailors associated to an Entity to move to
      * If the sailor is already on the Entity, sailor will not move
      * This method update list of Action (roundActions)
-     * @return
+     *
+     * @return The list of action
      */
-    public List<Action> sailorsMove(){
-        List<Action> roundActions=new ArrayList<>();
-
-        roundActions.addAll(sailors.stream()
+    public List<Action> sailorsMove() {
+        return new ArrayList<>(sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)
                 .filter(sailor -> !sailor.isOnTheTargetEntity())
                 .map(Sailor::moveToTarget)
                 .toList());
-        return roundActions;
     }
 
     /**
      * Ask all sailors associated to an Oar to oar
      * This method update list of Action (roundActions)
      */
-    public List<Action> sailorsOar(){
-        List<Action> roundActions=new ArrayList<>();
-        roundActions.addAll(sailors.stream()
+    public List<Action> sailorsOar() {
+        return new ArrayList<>(sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor-> sailor.getTargetEntity().isOar())
+                .filter(sailor -> sailor.getTargetEntity().isOar())
                 .filter(Sailor::isOnTheTargetEntity)
                 .map(Sailor::oar)
                 .toList());
-        return roundActions;
     }
 
     /**
      * Ask a sailor to turn with the rudder
      * This method update list of Action (roundActions)
+     *
      * @param rotationRudder
      */
     public List<Action> sailorsTurnWithRudder(double rotationRudder) {
-        List<Action> roundActions=new ArrayList<>();
-        roundActions.addAll(sailors.stream()
+        return new ArrayList<>(sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() instanceof Rudder)
                 .filter(Sailor::isOnTheTargetEntity)
                 .map(sailor -> sailor.turnWithRudder(rotationRudder))
                 .toList());
-        return roundActions;
 
     }
+
     /**
      * Give The list of Sailors that are not assigned to an entitie;
+     *
      * @return
      */
-    public List<Sailor> getlistOfUnassignedSailors(){
-        return((ArrayList<Sailor>) sailors.stream()
-                .filter(sailor-> sailor.getTargetEntity()==null)
+    public List<Sailor> getListOfUnassignedSailors() {
+        return ((ArrayList<Sailor>) sailors.stream()
+                .filter(sailor -> sailor.getTargetEntity() == null)
                 .collect(Collectors.toList()));
     }
 
