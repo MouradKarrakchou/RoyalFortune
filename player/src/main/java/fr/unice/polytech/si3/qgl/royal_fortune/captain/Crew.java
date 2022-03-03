@@ -27,9 +27,12 @@ public class Crew {
      * @return
      */
     public List<Action> makeBoatMove() {
+        List<Action> actions=new ArrayList<>();
         associateSailorToOarEvenly();
-        sailorsMove();
-        return(sailorsOar());
+        actions.addAll(sailorsMove());
+        actions.addAll(sailorsOar());
+        return(actions);
+
     }
     /**
      * Captain will associate the best number of sailors to proceed a rotation of the given angle.
