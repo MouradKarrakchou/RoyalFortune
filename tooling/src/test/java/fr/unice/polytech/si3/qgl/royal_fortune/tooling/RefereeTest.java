@@ -31,10 +31,45 @@ public class RefereeTest{
     Ship mockShip;
 
     @BeforeEach
-    public void init(){
+    void init(){
         mockShip = mock(Ship.class);
         cockpit = new Cockpit(mockShip, new ArrayList<Sailor>(), new Goal(), new Captain());
         referee = new Referee(cockpit);
+    }
+
+    @Test
+    void angleTest1(){
+        int nbrLeft = 0 ;
+        int nbrRight = 0 ;
+        double rudderAngle = 0.0;
+        when(mockShip.getNbrOar()).thenReturn(nbrLeft+nbrRight);
+
+
+        referee.setLeftPush(nbrLeft);
+        referee.setLeftPush(nbrRight);
+
+        referee.computeAngleRotate();
+        double expected = ((nbrRight-nbrLeft)* Math.PI/(nbrLeft+nbrRight)) + rudderAngle;
+        assertEquals(expected, referee.computeAngleRotate());
+    }
+
+    @Test
+    void angleTest2(){
+    //return (orientationCalculus() * Math.PI / cockpit.getShip().getNbrOar()) +rudderRotation;
+
+        int nbrLeft = 5 ;
+        int nbrRight = 7 ;
+        double rudderAngle = 5.0;
+        when(mockShip.getNbrOar()).thenReturn(nbrLeft+nbrRight);
+
+
+        referee.setLeftPush(nbrLeft);
+        referee.setRightPush(nbrRight);
+        referee.setRudderRotation(rudderAngle);
+        referee.computeAngleRotate();
+
+        double expected = ((nbrRight-nbrLeft)* Math.PI/(nbrLeft+nbrRight)) + rudderAngle;
+        assertEquals(expected, referee.computeAngleRotate());
     }
 
     @Test
@@ -61,7 +96,7 @@ public class RefereeTest{
     }
 
     @Test
-    public void makeMooveShipByOaringFrontTest(){
+    void makeMooveShipByOaringFrontTest(){
         referee.setLeftPush(1);
         referee.setRightPush(1);
 
@@ -74,5 +109,35 @@ public class RefereeTest{
         assertEquals(165, (int) testedPosition.getX());
         assertEquals(0, (int) testedPosition.getY());
         assertEquals(0, (int) testedPosition.getOrientation());
+    }
+
+    @Test
+    void makeMooveShipByOaringOneLeftTest(){
+        referee.setLeftPush(1);
+
+        when(mockShip.getNbrOar()).thenReturn(1);
+        when(mockShip.getPosition()).thenReturn(new Position(0,0,0));
+
+        Position testedPosition = referee.getCockpit().getShip().getPosition();
+        referee.makeMooveShipByOaring(referee.getCockpit().getShip());
+
+        assertEquals(0, (int) testedPosition.getX());
+        assertEquals(-105, (int) testedPosition.getY());
+        assertEquals(-3, (int) testedPosition.getOrientation());
+    }
+
+    @Test
+    void makeMooveShipByOaringOneRightTest(){
+        referee.setRightPush(1);
+
+        when(mockShip.getNbrOar()).thenReturn(1);
+        when(mockShip.getPosition()).thenReturn(new Position(0,0,0));
+
+        Position testedPosition = referee.getCockpit().getShip().getPosition();
+        referee.makeMooveShipByOaring(referee.getCockpit().getShip());
+
+        assertEquals(0, (int) testedPosition.getX());
+        assertEquals(105, (int) testedPosition.getY());
+        assertEquals(3, (int) testedPosition.getOrientation());
     }
 }
