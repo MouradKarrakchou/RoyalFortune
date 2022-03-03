@@ -56,8 +56,6 @@ public class Entities {
 	}
 
     public boolean isOar() {
-		if(this instanceof Oar)
-			return true;
-		return false;
+		return(this instanceof Oar);
     }
 }
