@@ -93,7 +93,7 @@ public class Captain {
      * @return the number of Sailor that will oar in one direction
      */
     public int numberOfSailorToTurn(double orientation) {
-        int sizeOfOarList = ship.getOarList(orientation > 0 ? "right" : "left").size();
+        int sizeOfOarList = ship.getOarList(orientation > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT).size();
         int maxSailorsToMoveAngle = Math.abs((int) Math.ceil(orientation / (Math.PI / ship.getNbrOar())));
         int numberOfSailors = sailors.size();
         return (Math.min(numberOfSailors, Math.min(sizeOfOarList, maxSailorsToMoveAngle)));

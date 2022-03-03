@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
@@ -63,12 +64,12 @@ public class Ship {
 	}
 
 
-	public List<Oar> getOarList(String orientation) {
+	public List<Oar> getOarList(int orientation) {
 		 return entities.stream()
 				 .filter(Oar.class::isInstance)
 				 .map(Oar.class::cast)
 				 .filter(oar -> oar.getSailor() == null)
-				 .filter(oar -> oar.isLeft() == orientation.equals("left"))
+				 .filter(oar -> oar.isLeft() == (orientation == DirectionsManager.LEFT))
 				 .collect(Collectors.toList());
 	}
 
@@ -107,9 +108,9 @@ public class Ship {
 
 	public List<Oar> getAllOar() {
 		List<Oar> listOar = new ArrayList<>();
-		for(Entities currentEntite : entities){
-			if(currentEntite.isOar()){
-				listOar.add((Oar)currentEntite);
+		for(Entities currentEntity : entities){
+			if(currentEntity.isOar()){
+				listOar.add((Oar)currentEntity);
 			}
 		}
 		return listOar;
