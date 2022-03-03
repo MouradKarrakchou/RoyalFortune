@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class FictitiousCheckpointTest {
     FictitiousCheckpoint emptyFictitiousCheckpoints;
@@ -113,24 +114,27 @@ public class FictitiousCheckpointTest {
         Checkpoint thirdCheckpoint = new Checkpoint(thirdCheckpointPosition, thirdCheckpointShape);
         originalCheckpoints.add(thirdCheckpoint);
 
-        FictitiousCheckpoint fictitiousCheckpointsMaker = new FictitiousCheckpoint(originalCheckpoints);
-        List<Checkpoint> fictitiousCheckpoints = fictitiousCheckpointsMaker.createFictitiousCheckpoints();
+        FictitiousCheckpoint fictitiousCheckpoints = new FictitiousCheckpoint(originalCheckpoints);
 
         // First Checkpoint
-        assertEquals(40, fictitiousCheckpoints.get(0).getPosition().getX());
-        assertEquals(-30, fictitiousCheckpoints.get(0).getPosition().getY());
-        assertEquals(50, ((Circle) fictitiousCheckpoints.get(0).getShape()).getRadius());
+        assertEquals(40, fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getX());
+        assertEquals(-30, fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getY());
+        assertEquals(50, ((Circle) fictitiousCheckpoints.getCurrentCheckPoint().getShape()).getRadius());
 
         // Second Checkpoint
-        assertEquals(130, fictitiousCheckpoints.get(1).getPosition().getX());
-        assertEquals(-90, fictitiousCheckpoints.get(1).getPosition().getY());
-        assertEquals(10, ((Circle) fictitiousCheckpoints.get(1).getShape()).getRadius());
+        fictitiousCheckpoints.nextCheckPoint();
+        assertEquals(130, fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getX());
+        assertEquals(-90, fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getY());
+        assertEquals(10, ((Circle) fictitiousCheckpoints.getCurrentCheckPoint().getShape()).getRadius());
 
         // Third Checkpoint (unchanged)
-        assertEquals(200, fictitiousCheckpoints.get(2).getPosition().getX());
-        assertEquals(-90, fictitiousCheckpoints.get(2).getPosition().getY());
-        assertEquals(30, ((Circle) fictitiousCheckpoints.get(2).getShape()).getRadius());
+        fictitiousCheckpoints.nextCheckPoint();
+        assertEquals(200, fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getX());
+        assertEquals(-90, fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getY());
+        assertEquals(30, ((Circle) fictitiousCheckpoints.getCurrentCheckPoint().getShape()).getRadius());
 
+        fictitiousCheckpoints.nextCheckPoint();
+        assertNull(fictitiousCheckpoints.getCurrentCheckPoint());
     }
 
 }
