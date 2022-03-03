@@ -49,7 +49,7 @@ public class Referee {
         return ship;
     }
 
-    private double computeAngleRotate(){
+    public double computeAngleRotate(){
         return (orientationCalculus() * Math.PI / cockpit.getShip().getNbrOar()) +rudderRotation;
     }
 
@@ -57,7 +57,7 @@ public class Referee {
         return 165 * (rightPush + leftPush) / cockpit.getShip().getNbrOar();
     }
 
-    private double orientationCalculus() {
+    public double orientationCalculus() {
         return (double) rightPush - leftPush;
     }
 
