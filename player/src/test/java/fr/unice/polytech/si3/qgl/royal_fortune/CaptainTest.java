@@ -226,12 +226,12 @@ class CaptainTest {
 
         captain = new Captain(basicShip, sailors, null, null);
         assertEquals(4, basicShip.getEntities().size());
-        captain.askSailorToMoveToRudder();
+        captain.getCrew().sailorMoveToRudder();
         assertEquals(0, captain.getRoundActions().size());
 
         entities.add(new Rudder(3, 4));
         assertEquals(5, basicShip.getEntities().size());
-        captain.askSailorToMoveToRudder();
+        captain.getCrew().sailorMoveToRudder();
         assertEquals(1, captain.getRoundActions().size());
 
         assertEquals(new MovingAction(nearestSailor.getId(), 0, 1).toString(), captain.getRoundActions().get(0).toString());
