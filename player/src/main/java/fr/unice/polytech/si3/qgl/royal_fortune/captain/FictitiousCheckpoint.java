@@ -8,15 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FictitiousCheckpoint {
-    List<Checkpoint> originalCheckpoints;
-    List<Checkpoint> fictitiousCheckpoints;
+    private final List<Checkpoint> fictitiousCheckpoints;
 
     public FictitiousCheckpoint(List<Checkpoint> originalCheckpoints) {
-        this.originalCheckpoints = originalCheckpoints;
-        fictitiousCheckpoints = createFictitiousCheckpoints();
+        fictitiousCheckpoints = createFictitiousCheckpoints(originalCheckpoints);
     }
 
-    public List<Checkpoint> createFictitiousCheckpoints() {
+    /**
+     * For a given list of checkpoints, will create the associated list of fictitious checkpoints.
+     * @param originalCheckpoints The list of original checkpoints.
+     * @return The list of fictitious checkpoints.
+     */
+    public List<Checkpoint> createFictitiousCheckpoints(List<Checkpoint> originalCheckpoints) {
         if (originalCheckpoints == null)
             return null;
 
@@ -63,10 +66,13 @@ public class FictitiousCheckpoint {
     }
 
     public void nextCheckPoint() {
-        fictitiousCheckpoints.remove(0);
+        if (!fictitiousCheckpoints.isEmpty())
+            fictitiousCheckpoints.remove(0);
     }
 
     public Checkpoint getCurrentCheckPoint() {
+        if (fictitiousCheckpoints.isEmpty())
+            return null;
         return fictitiousCheckpoints.get(0);
     }
 }
