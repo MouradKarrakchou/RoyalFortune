@@ -46,7 +46,7 @@ public class Cockpit implements ICockpit {
 	public String nextRound(String round) {
 		NextRoundDAO nextRoundDAO = JsonManager.readNextRoundDAOJson(round);
 		Ship newShip = nextRoundDAO.getShip();
-		ship.setPosition(newShip.getPosition());
+		ship.updatePos(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
 		String out = "Next round input: " + round;
 		LOGGER.info(out);

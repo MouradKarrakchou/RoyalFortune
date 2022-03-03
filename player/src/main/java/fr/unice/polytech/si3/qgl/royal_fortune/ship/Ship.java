@@ -84,7 +84,7 @@ public class Ship {
 	}
 
 	public void setPosition(Position position){
-		this.position = position;
+		this.position=position;
 	}
 
 	public void setEntities(List<Entities> entities) {
@@ -113,5 +113,8 @@ public class Ship {
 			}
 		}
 		return listOar;
+	}
+	public void updatePos(Position position){
+		this.position.update(position);
 	}
 }

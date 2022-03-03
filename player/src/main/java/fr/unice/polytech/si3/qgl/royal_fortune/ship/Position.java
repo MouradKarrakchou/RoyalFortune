@@ -81,4 +81,9 @@ public class Position {
 		return "";
 	}
 
+    public void update(Position position) {
+		this.x=position.getX();
+		this.y=position.getY();
+		this.orientation=position.getOrientation();
+    }
 }

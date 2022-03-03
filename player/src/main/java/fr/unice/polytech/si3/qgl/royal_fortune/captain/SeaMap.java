@@ -6,9 +6,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
 public class SeaMap {
-    private Goal goal;
-    private FictitiousCheckpoint fictitiousCheckpoints;
-    private Position shipPosition;
+    private final Goal goal;
+    private final FictitiousCheckpoint fictitiousCheckpoints;
+    private final Position shipPosition;
     public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition){
         this.goal=goal;
         this.fictitiousCheckpoints=fictitiousCheckpoints;
