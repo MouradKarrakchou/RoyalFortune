@@ -1,11 +1,14 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
+import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 
 import java.util.List;
 
@@ -63,23 +66,54 @@ public class Referee {
 
 
     public void doAction(Action action) {
+        if (action instanceof MovingAction)
+            makeMove((MovingAction) action);
         if (action instanceof OarAction)
             oarA((OarAction)action);
         else if (action instanceof RudderAction)
             rudderRotation = rudderA((RudderAction)action);
     }
 
+    private void makeMove(MovingAction movingAction) {
+        cockpit.getSailors().stream()
+                .filter(sailor -> sailor.getId() == movingAction.getSailorId())
+                .forEach(sailor -> {
+                    makeMoveToPosition(sailor,movingAction.getXdistance(),movingAction.getYdistance());
+                });
+    }
+
+    private void makeMoveToPosition(Sailor sailor, int xdistance, int ydistance) {
+        if (xdistance+ydistance<=5){
+            sailor.setX(xdistance+sailor.getX());
+            sailor.setY(ydistance+sailor.getY());
+        }
+    }
+
     private double rudderA(RudderAction rudderAction) {
+        if (cockpit.getSailors().stream()
+                .filter(sailor -> sailor.getId() == rudderAction.getSailorId())
+                .filter(sailor -> isOnAnEntity(sailor))
+                .count()>0)
         return rudderAction.getRotation();
+        else return 0;
     }
 
     private void oarA(OarAction oarAction) {
         cockpit.getSailors().stream()
                 .filter(sailor -> sailor.getId() == oarAction.getSailorId())
+                .filter(sailor -> isOnAnEntity(sailor))
                 .forEach(sailor -> {
                     if (sailor.getY() > 0) rightPush += 1;
                     else leftPush += 1;
                 });
+    }
+
+    private boolean isOnAnEntity(Sailor sailor) {
+        cockpit.getShip().getAllOar().stream()
+                .filter(entity -> entity.getSailor()==null)
+                .filter(entity -> entity.getX()==sailor.getX()&&entity.getY()==sailor.getY())
+                .forEach(entity -> {entity.setSailor(sailor);sailor.setTargetEntity(entity);});
+        return (sailor.getTargetEntity()!=null);
     }
 
     public double fixInterval(double angleCalcul){
