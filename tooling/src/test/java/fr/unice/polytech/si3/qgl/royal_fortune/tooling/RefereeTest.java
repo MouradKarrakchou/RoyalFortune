@@ -9,12 +9,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation.Referee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +33,7 @@ public class RefereeTest{
         sailors=new ArrayList<>();
         mockShip = mock(Ship.class);
         cockpit = new Cockpit(mockShip, sailors, new Goal(), new Captain());
-        referee = new Referee(cockpit);
+        referee = new Referee(cockpit, mockShip, sailors);
     }
 
     @Test

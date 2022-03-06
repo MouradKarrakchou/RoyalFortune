@@ -66,6 +66,10 @@ public class Cockpit implements ICockpit {
 		return goal;
 	}
 
+	public void setShip(Ship ship) {
+		this.ship = ship;
+	}
+
 	@Override
 	public ArrayList<String> getLogs() {
 		return new ArrayList<>();
