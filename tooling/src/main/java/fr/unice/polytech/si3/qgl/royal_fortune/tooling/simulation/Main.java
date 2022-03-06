@@ -114,6 +114,12 @@ public class Main {
 				"        \"x\": 2,\n" +
 				"        \"y\": 2\n" +
 				"      },\n" +
+				"		{\n" +
+				"        \"type\": \"sail\",\n" +
+				"        \"x\": 3,\n" +
+				"        \"y\": 2,\n" +
+				"		 \"openned\": false\n" +
+				"      },\n" +
 				"      {\n" +
 				"        \"type\": \"rudder\",\n" +
 				"        \"x\": 3,\n" +
