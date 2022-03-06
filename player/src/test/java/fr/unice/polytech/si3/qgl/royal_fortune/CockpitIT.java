@@ -1,8 +1,11 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-class CockpitTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class CockpitIT {
 
     Cockpit cockpit;
 
@@ -11,5 +14,8 @@ class CockpitTest {
         this.cockpit = new Cockpit();
     }
 
-
+    @Test
+    void test(){
+        assertEquals(true, true);
+    }
 }
