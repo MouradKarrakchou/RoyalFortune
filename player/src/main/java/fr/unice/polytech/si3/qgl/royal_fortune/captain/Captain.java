@@ -66,7 +66,8 @@ public class Captain {
         double signOfAngleMove = (angleMove / Math.abs(angleMove));
 
         if (!directionsManager.isConeTooSmall() && !directionsManager.isInCone()) {
-            int numberOfSailorOaring = crew.associateSailorToOar(numberOfSailorToTurn(angleMove), directionsManager.getDirection());
+            int numberOfSailorOaring = numberOfSailorToTurn(angleMove);
+            crew.associateSailorToOar(numberOfSailorOaring, directionsManager.getDirection());
             angleMadeBySailors = numberOfSailorOaring * angleMove / Math.abs(angleMove) * (Math.PI / ship.getNbrOar());
         }
 
