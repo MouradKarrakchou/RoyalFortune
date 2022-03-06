@@ -12,8 +12,8 @@
 		<java.version>17</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<junit.jupiter.version>5.8.0</junit.jupiter.version>
-		<mockito.version>3.12.4</mockito.version>
+		<junit.jupiter.version>5.8.2</junit.jupiter.version>
+		<mockito.version>4.3.1</mockito.version>
 		<jackson.databind.version>2.13.1</jackson.databind.version>
 		<maven.failsafe.plugin.version>2.13.1</maven.failsafe.plugin.version>
 
