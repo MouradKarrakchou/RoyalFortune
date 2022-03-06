@@ -18,4 +18,9 @@ class CockpitIT {
     void test(){
         assertEquals(true, true);
     }
+
+    @Test
+    void test2(){
+        assertEquals(true, true);
+    }
 }
