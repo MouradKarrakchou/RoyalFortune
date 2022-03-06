@@ -44,7 +44,7 @@ public class Crew {
      * @param numberOfSailors The rotation of the given angle.
      * @param whereToTurn     1 to turn right/ -1 to turn left
      */
-    public int associateSailorToOar(int numberOfSailors, int whereToTurn) {
+    public void associateSailorToOar(int numberOfSailors, int whereToTurn) {
         List<Oar> oarList = ship.getOarList(whereToTurn > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT);
         int i = 0;
 
@@ -55,7 +55,6 @@ public class Crew {
             oar.setSailor(sailors.get(i));
             i++;
         }
-        return numberOfSailors;
     }
 
     /**
