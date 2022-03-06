@@ -47,24 +47,6 @@ public class Position {
 		this.orientation = orientation;
 	}
 
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-
-		if (! (o instanceof Position)) return false;
-		Position position = (Position) o;
-
-		if (Double.compare(position.x, x) != 0) return false;
-		if (Double.compare(position.y, y) != 0) return false;
-		return Double.compare(position.orientation, orientation) == 0;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(x, y, orientation);
-	}
-
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();
