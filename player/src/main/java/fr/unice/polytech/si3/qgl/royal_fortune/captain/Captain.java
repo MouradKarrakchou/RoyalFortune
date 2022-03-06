@@ -83,7 +83,7 @@ public class Captain {
     /**
      * Remove for each sailor every associated entity.
      */
-    private void disassociate() {
+    public void disassociate() {
         sailors.forEach(sailor -> sailor.setTargetEntity(null));
     }
 
