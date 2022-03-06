@@ -6,10 +6,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -45,6 +42,7 @@ public class Crew {
      * @param whereToTurn     1 to turn right/ -1 to turn left
      */
     public void associateSailorToOar(int numberOfSailors, int whereToTurn) {
+        //whereToTurn is always !=0
         List<Oar> oarList = ship.getOarList(whereToTurn > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT);
         int i = 0;
 
@@ -87,7 +85,7 @@ public class Crew {
         List<Action> roundActions = new ArrayList<>();
         Rudder rudder = ship.getRudder();
         if (rudder == null)
-            return roundActions;
+            return Collections.emptyList();
 
         Optional<Sailor> sailorToMove = sailors.stream()
                 .filter(sailor -> sailor.getTargetEntity() == null)

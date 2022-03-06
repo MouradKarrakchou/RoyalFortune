@@ -7,7 +7,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 
 public class SeaMap {
     private final Goal goal;
-    private final FictitiousCheckpoint fictitiousCheckpoints;
+    private FictitiousCheckpoint fictitiousCheckpoints;
     private final Position shipPosition;
     public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition){
         this.goal=goal;
@@ -31,7 +31,12 @@ public class SeaMap {
         return(distanceSC<=radius);
     }
 
+    public void setFictitiousCheckpoints(FictitiousCheckpoint fictitiousCheckpoints) {
+        this.fictitiousCheckpoints=fictitiousCheckpoints;
+    }
+
     public Checkpoint getCurrentFictitiousCheckPoint() {
         return(fictitiousCheckpoints.getCurrentCheckPoint());
     }
+
 }

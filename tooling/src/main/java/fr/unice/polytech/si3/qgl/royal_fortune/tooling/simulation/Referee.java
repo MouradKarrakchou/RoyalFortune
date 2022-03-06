@@ -82,12 +82,13 @@ public class Referee {
                 });
     }
 
-    private double fixInterval(double angleCalcul){
+    public double fixInterval(double angleCalcul){
+        if (angleCalcul>-Math.PI)
         while (angleCalcul > Math.PI) {
             angleCalcul -= 2 * Math.PI;
         }
-
-        while (angleCalcul < -Math.PI) {
+        else
+        while (angleCalcul <= -Math.PI) {
             angleCalcul += 2 * Math.PI;
         }
         return angleCalcul;
