@@ -86,4 +86,8 @@ public class Game {
     	}
     	return out;
     }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
+    }
 }

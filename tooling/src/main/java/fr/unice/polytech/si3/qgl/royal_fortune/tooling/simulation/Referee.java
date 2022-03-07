@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 
 import java.util.List;
@@ -78,7 +79,7 @@ public class Referee {
             rudderRotation = rudderA((RudderAction)action);
     }
 
-    private void makeMove(MovingAction movingAction) {
+    public void makeMove(MovingAction movingAction) {
         sailors.stream()
                 .filter(sailor -> sailor.getId() == movingAction.getSailorId())
                 .forEach(sailor -> {
@@ -93,7 +94,7 @@ public class Referee {
         }
     }
 
-    private double rudderA(RudderAction rudderAction) {
+    public double rudderA(RudderAction rudderAction) {
         if (sailors.stream()
                 .filter(sailor -> sailor.getId() == rudderAction.getSailorId())
                 .filter(sailor -> isOnARudder(sailor))
@@ -102,7 +103,7 @@ public class Referee {
         else return 0;
     }
 
-    private void oarA(OarAction oarAction) {
+    public void oarA(OarAction oarAction) {
         sailors.stream()
                 .filter(sailor -> sailor.getId() == oarAction.getSailorId())
                 .filter(sailor -> isOnAOar(sailor))
@@ -112,21 +113,21 @@ public class Referee {
                 });
     }
 
-    private boolean isOnAOar(Sailor sailor) {
+    public boolean isOnAOar(Sailor sailor) {
         ship.getAllOar().stream()
                 .filter(oar -> oar.getSailor()==null)
                 .filter(oar -> oar.getX()==sailor.getX()&&oar.getY()==sailor.getY())
                 .forEach(oar -> {oar.setSailor(sailor);sailor.setTargetEntity(oar);});
-        return (sailor.getTargetEntity()!=null);
+        return (sailor.getTargetEntity()!=null && sailor.getTargetEntity() instanceof Oar);
     }
 
-    private boolean isOnARudder(Sailor sailor) {
+    public boolean isOnARudder(Sailor sailor) {
         ship.getEntities().stream()
                 .filter(rudder -> rudder.getSailor()==null)
                 .filter(rudder -> rudder instanceof Rudder)
                 .filter(rudder -> rudder.getX()==sailor.getX()&&rudder.getY()==sailor.getY())
                 .forEach(rudder -> {rudder.setSailor(sailor);sailor.setTargetEntity(rudder);});
-        return (sailor.getTargetEntity()!=null);
+        return (sailor.getTargetEntity()!=null && sailor.getTargetEntity() instanceof Rudder);
     }
 
     public double fixInterval(double angleCalcul){
