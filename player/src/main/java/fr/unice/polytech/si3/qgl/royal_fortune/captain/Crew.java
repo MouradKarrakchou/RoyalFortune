@@ -94,7 +94,7 @@ public class Crew {
         if (sailorToMove.isPresent()) {
             Sailor s = sailorToMove.get();
             s.setTargetEntity(rudder);
-            rudder.setSailor(s);
+            //rudder.setSailor(s);
             roundActions.add(s.moveToTarget());
         }
         return roundActions;
