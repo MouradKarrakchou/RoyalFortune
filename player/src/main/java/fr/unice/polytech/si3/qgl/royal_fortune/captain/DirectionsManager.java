@@ -4,7 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
-//
+
 public class DirectionsManager {
     private final Ship ship;
     private final FictitiousCheckpoint fictitiousCheckpoints;
