@@ -33,7 +33,14 @@ public class Entities {
 		this.x = x;
 		this.y = y;
 	}
-	
+	public Sailor getSailor() {
+		return sailor;
+	}
+
+	public void setSailor(Sailor sailor) {
+		this.sailor = sailor;
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -60,12 +67,4 @@ public class Entities {
     public boolean isOar() {
 		return(this instanceof Oar);
     }
-
-	public Sailor getSailor() {
-		return sailor;
-	}
-
-	public void setSailor(Sailor sailor) {
-		this.sailor = sailor;
-	}
 }
