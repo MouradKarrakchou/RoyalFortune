@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,7 @@ public class Entities {
 	private String type;
 	private int x;
 	protected int y;
+	private Sailor sailor;
 	final Logger logger = Logger.getLogger(Entities.class.getName());
 	
 	public Entities() {}
@@ -58,4 +60,12 @@ public class Entities {
     public boolean isOar() {
 		return(this instanceof Oar);
     }
+
+	public Sailor getSailor() {
+		return sailor;
+	}
+
+	public void setSailor(Sailor sailor) {
+		this.sailor = sailor;
+	}
 }
