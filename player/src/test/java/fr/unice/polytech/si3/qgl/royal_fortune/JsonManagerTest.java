@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JsonManagerTest {
 
@@ -34,8 +35,12 @@ class JsonManagerTest {
 
         assertEquals("ship", ship.getType());
         assertEquals(100, ship.getLife());
-        assertEquals(new Position(10, 20, 0), ship.getPosition());
-        assertEquals("Boat test", ship.getName());
+
+		assertEquals(10.0, ship.getPosition().getX());
+		assertEquals(20.0, ship.getPosition().getY());
+		assertEquals(0.0, ship.getPosition().getOrientation());
+
+		assertEquals("Boat test", ship.getName());
     }
 
     @Test
