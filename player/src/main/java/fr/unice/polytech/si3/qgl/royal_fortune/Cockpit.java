@@ -9,6 +9,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
+import fr.unice.polytech.si3.qgl.royal_fortune.exception.EmptyDaoException;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
@@ -31,20 +32,29 @@ public class Cockpit implements ICockpit {
 		this.captain = captain;
 	}
 
-	public void initGame(String game) {
+	public void initGame(String game)  {
 		String out = "Init game input: " + game;
 		LOGGER.info(out);
-
-		//initialization InitGameDAO
-		InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(game);
+		InitGameDAO initGameDAO = null;
+		try {
+			initGameDAO = createInitGameDAO(game);
+		} catch (EmptyDaoException e) {
+			e.printStackTrace();
+		}
 		ship = initGameDAO.getShip();
 		sailors = initGameDAO.getSailors();
 		goal = initGameDAO.getGoal();
 		captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(goal.getCheckPoints()));
 	}
 
-	public String nextRound(String round) {
-		NextRoundDAO nextRoundDAO = JsonManager.readNextRoundDAOJson(round);
+	public String nextRound(String round){
+		NextRoundDAO nextRoundDAO = null;
+		try {
+			nextRoundDAO = createNextRoundDAO(round);
+		} catch (EmptyDaoException e) {
+			e.printStackTrace();
+		}
+
 		Ship newShip = nextRoundDAO.getShip();
 		ship.updatePos(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
@@ -53,6 +63,23 @@ public class Cockpit implements ICockpit {
 
 		return captain.roundDecisions();
 	}
+
+	public InitGameDAO createInitGameDAO(String json)throws EmptyDaoException{
+		InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(json);
+		if(initGameDAO == null) {
+			throw new EmptyDaoException("InitGameDAO is null check the InitGame JSON");
+		}
+		return initGameDAO;
+	}
+
+	public NextRoundDAO createNextRoundDAO(String json)throws EmptyDaoException{
+		NextRoundDAO nextRoundDAO = JsonManager.readNextRoundDAOJson(json);
+		if(nextRoundDAO == null) {
+			throw new EmptyDaoException("NextRoundDAO is null check the NextRound JSON");
+		}
+		return nextRoundDAO;
+	}
+
 
 	public Ship getShip() {
 		return ship;

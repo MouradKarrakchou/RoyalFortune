@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 @JsonSubTypes(value = {
 		@JsonSubTypes.Type(value = Oar.class, name = "oar"),
 		@JsonSubTypes.Type(value = Rudder.class, name = "rudder"),
+		@JsonSubTypes.Type(value = Sail.class, name = "sail"),
 })
 
 public class Entities {

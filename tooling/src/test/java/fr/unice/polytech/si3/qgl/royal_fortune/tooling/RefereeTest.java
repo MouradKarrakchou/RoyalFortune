@@ -29,11 +29,13 @@ public class RefereeTest{
     Cockpit cockpit;
     Referee referee;
     Ship mockShip;
+    ArrayList<Sailor> sailors;
 
     @BeforeEach
     void init(){
+        sailors=new ArrayList<>();
         mockShip = mock(Ship.class);
-        cockpit = new Cockpit(mockShip, new ArrayList<Sailor>(), new Goal(), new Captain());
+        cockpit = new Cockpit(mockShip, sailors, new Goal(), new Captain());
         referee = new Referee(cockpit);
     }
 
@@ -139,5 +141,50 @@ public class RefereeTest{
         assertEquals(0, (int) testedPosition.getX());
         assertEquals(105, (int) testedPosition.getY());
         assertEquals(3, (int) testedPosition.getOrientation());
+    }
+    @Test
+    void makeAdvanceTest(){
+        sailors.add(new Sailor(1,0,0,"Sailor1"));
+        sailors.add(new Sailor(2,0,1,"Sailor2"));
+        sailors.add(new Sailor(3,0,1,"Sailor3"));
+
+
+        List<Action> actions=new ArrayList<>();
+        actions.add(new OarAction(1));
+        actions.add(new OarAction(2));
+        when(mockShip.getPosition()).thenReturn(new Position(0,0,0));
+        when(mockShip.getNbrOar()).thenReturn(2);
+
+        assertEquals(mockShip,referee.makeAdvance(cockpit,actions));
+        assertEquals(true,Math.abs(mockShip.getPosition().getX()-165)<0.1);
+        assertEquals(true,Math.abs(mockShip.getPosition().getY()-0)<0.1);
+
+
+    }
+    @Test
+    void makeAdvanceTest2(){
+        sailors.add(new Sailor(1,0,0,"Sailor1"));
+        sailors.add(new Sailor(2,0,1,"Sailor2"));
+        sailors.add(new Sailor(3,0,1,"Sailor3"));
+
+        List<Action> actions=new ArrayList<>();
+        actions.add(new OarAction(1));
+        actions.add(new OarAction(2));
+        when(mockShip.getPosition()).thenReturn(new Position(0,0,Math.PI/2));
+        when(mockShip.getNbrOar()).thenReturn(2);
+
+        assertEquals(mockShip,referee.makeAdvance(cockpit,actions));
+        assertEquals(true,Math.abs(mockShip.getPosition().getX()-0)<0.1);
+        assertEquals(true,Math.abs(mockShip.getPosition().getY()-165)<0.1);
+    }
+    @Test
+    void fixIntervalTest(){
+        assertEquals(Math.PI,referee.fixInterval(3*Math.PI));
+        assertEquals(Math.PI,referee.fixInterval(5*Math.PI));
+        assertEquals(Math.PI,referee.fixInterval(-5*Math.PI));
+        assertEquals(Math.PI,referee.fixInterval(-Math.PI));
+
+
+
     }
 }
