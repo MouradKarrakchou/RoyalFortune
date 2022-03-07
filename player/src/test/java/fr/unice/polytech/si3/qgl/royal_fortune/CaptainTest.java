@@ -13,11 +13,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +64,7 @@ class CaptainTest {
 
         Captain captain = new Captain(basicShip, sailors, null, null);
         assertEquals(6, basicShip.getNbrOar());
-        assertEquals(3, captain.numberOfSailorToTurn(Math.PI));
+        assertEquals(3, captain.oarWeight(Math.PI));
     }
 
     @Test
@@ -89,7 +87,7 @@ class CaptainTest {
 
         Captain captain = new Captain(basicShip, sailors, null, null);
         assertEquals(6, basicShip.getNbrOar());
-        assertEquals(1, captain.numberOfSailorToTurn(Math.PI / 6));
+        assertEquals(1, captain.oarWeight(Math.PI / 6));
     }
 
     @Test
@@ -110,7 +108,7 @@ class CaptainTest {
 
         Captain captain = new Captain(basicShip, sailors, null, null);
         assertEquals(6, basicShip.getNbrOar());
-        assertEquals(2, captain.numberOfSailorToTurn(Math.PI));
+        assertEquals(2, captain.oarWeight(Math.PI));
     }
 
     @Test
@@ -131,7 +129,7 @@ class CaptainTest {
 
         Captain captain = new Captain(basicShip, sailors, null, null);
         assertEquals(4, basicShip.getNbrOar());
-        assertEquals(1, captain.numberOfSailorToTurn(Math.PI));
+        assertEquals(1, captain.oarWeight(Math.PI));
     }
 
     @Test
@@ -152,7 +150,7 @@ class CaptainTest {
 
         Captain captain = new Captain(basicShip, sailors, null, null);
         assertEquals(4, basicShip.getNbrOar());
-        assertEquals(1, captain.numberOfSailorToTurn(- Math.PI));
+        assertEquals(1, captain.oarWeight(- Math.PI));
     }
 
 
