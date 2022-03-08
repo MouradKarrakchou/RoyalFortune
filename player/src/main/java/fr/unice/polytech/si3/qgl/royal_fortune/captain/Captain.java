@@ -8,7 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//
 public class Captain {
     private Ship ship;
     private List<Sailor> sailors;
