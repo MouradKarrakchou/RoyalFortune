@@ -36,7 +36,7 @@ public class Captain {
         roundActions = new ArrayList<>();
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
         seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
-        preCalculator = new PreCalculator(ship, sailors, seaMap);
+        preCalculator = new PreCalculator(ship, sailors, seaMap,wind);
         crew = new Crew(sailors, ship, preCalculator, associations);
 
     }
@@ -109,11 +109,6 @@ public class Captain {
             takeWind = false;
         }
 
-        if(needSail) {
-            Sailor sailorOfSail = associations.getAssociatedSailor(ship.getSail());
-            roundActions.add(new SailAction(sailorOfSail.getId(), takeWind));
-        }
-
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
 
@@ -128,6 +123,11 @@ public class Captain {
             roundActions.addAll(crew.sailorsTurnWithRudder(angleMove - angleMadeBySailors));
         } else if ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake) && strategyAnswer.hasRudder()) {
             roundActions.addAll(crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4));
+        }
+
+        if(strategyAnswer.hasSail()) {
+            Sailor sailorOfSail = associations.getAssociatedSailor(ship.getSail());
+            roundActions.add(new SailAction(sailorOfSail.getId(), takeWind));
         }
     }
 
