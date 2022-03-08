@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
