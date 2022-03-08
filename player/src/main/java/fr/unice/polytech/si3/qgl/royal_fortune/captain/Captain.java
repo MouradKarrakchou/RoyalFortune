@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
@@ -16,10 +17,12 @@ public class Captain {
     private Crew crew;
     private PreCalculator preCalculator;
     private SeaMap seaMap;
+    private Wind wind;
 
-    public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints) {
+    public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints, Wind wind) {
         this.ship = ship;
         this.sailors = sailors;
+        this.wind = wind;
         roundActions = new ArrayList<>();
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
         seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
@@ -81,6 +84,8 @@ public class Captain {
         {
             needRudder = true;
         }
+
+
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship);
