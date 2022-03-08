@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.*;
 
@@ -66,6 +67,12 @@ public class SailorMovementStrategy {
         if(needRudder && !hasAssociatedRudder){
             hasAssociatedRudder = associateNearestSailor(ship.getRudder());
         }
+
+        // We are associating (if possible) the nearest sailor to the Sail.
+        if(needSail && !hasAssociatedSail){
+            hasAssociatedSail = associateNearestSailor(ship.getRudder());
+        }
+
 
         // We are associating (if possible) the left or right oar to the nearest sailor according to the oarWeight.
         if(oarWeight > 0)
@@ -162,10 +169,15 @@ public class SailorMovementStrategy {
      * Will apply the onlyOnePossible methods.
      */
     public void onlyOnePossibleAssociation(int oarWeight, boolean needRudder , boolean needSail){
-        Rudder rudder = ship.getRudder();
-
-        if (needRudder)
+        if (needRudder){
+            Rudder rudder = ship.getRudder();
             hasAssociatedRudder = associateTheOnlyOnePossible(rudder);
+        }
+
+        if(needSail){
+            Sail sail = ship.getSail();
+            hasAssociatedSail = associateTheOnlyOnePossible(sail);
+        }
 
         if(oarWeight > 0)
             nbAssociatedRightSailors = associateTheOnlyOnePossibleToOar(DirectionsManager.RIGHT,
