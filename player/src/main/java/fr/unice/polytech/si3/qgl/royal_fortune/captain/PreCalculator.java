@@ -42,6 +42,7 @@ public class PreCalculator {
         double angle = ship.getPosition().getOrientation();
         newX += norm * Math.cos(angle);
         newY += norm * Math.sin(angle);
+
         return !seaMap.isInCheckpointShipPos(seaMap.getCurrentFictitiousCheckPoint(), newX, newY);
     }
 

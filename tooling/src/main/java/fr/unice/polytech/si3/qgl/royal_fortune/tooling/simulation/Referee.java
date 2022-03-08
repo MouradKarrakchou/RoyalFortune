@@ -73,7 +73,7 @@ public class Referee {
     public void doAction(Action action) {
         if (action instanceof MovingAction)
             makeMove((MovingAction) action);
-        if (action instanceof OarAction)
+        else if (action instanceof OarAction)
             oarA((OarAction)action);
         else if (action instanceof RudderAction)
             rudderRotation = rudderA((RudderAction)action);
