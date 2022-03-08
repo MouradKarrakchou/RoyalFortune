@@ -50,9 +50,9 @@ public class PreCalculator {
      *
      * @return number of Sailor that will oar evenly
      */
-    public int numberOfSailorToOarEvenly(int nbUnassignedSailors) {
-        int leftOarList = 2 * ship.getOarList(DirectionsManager.LEFT).size();
-        int rightOarList = 2 * ship.getOarList(DirectionsManager.RIGHT).size();
+    public int numberOfSailorToOarEvenly(int nbUnassignedSailors, Associations associations) {
+        int leftOarList = 2 * ship.getOarList(DirectionsManager.LEFT, associations).size();
+        int rightOarList = 2 * ship.getOarList(DirectionsManager.RIGHT, associations).size();
         int nbUnassignedSailorsCanOar = 2 * (nbUnassignedSailors / 2);
         int numberOfSailorToCheckPoint = numberOfSailorToOarToCheckPoint();
         return Math.min(Math.min(leftOarList, rightOarList), Math.min(nbUnassignedSailorsCanOar, numberOfSailorToCheckPoint));

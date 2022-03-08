@@ -46,7 +46,7 @@ public class Crew {
      */
     public void associateSailorToOar(int numberOfSailors, int whereToTurn) {
         //whereToTurn is always !=0
-        List<Oar> oarList = ship.getOarList(whereToTurn > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT);
+        List<Oar> oarList = ship.getOarList(whereToTurn > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT, associations);
         int i = 0;
 
         // We continue associating until we run out of sailors or oars
@@ -60,12 +60,12 @@ public class Crew {
      * Associate the same amount of sailors to the left oars and the right oars of the ship.
      */
     public void associateSailorToOarEvenly() {
-        List<Oar> leftOarList = ship.getOarList(DirectionsManager.LEFT);
-        List<Oar> rightOarList = ship.getOarList(DirectionsManager.RIGHT);
+        List<Oar> leftOarList = ship.getOarList(DirectionsManager.LEFT, associations);
+        List<Oar> rightOarList = ship.getOarList(DirectionsManager.RIGHT, associations);
         int oarIndex = 0;
         int sailorIndex = 0;
         List<Sailor> listOfUnassignedSailors = getListOfUnassignedSailors();
-        int numberOfSailorNeeded = preCalculator.numberOfSailorToOarEvenly(getListOfUnassignedSailors().size());
+        int numberOfSailorNeeded = preCalculator.numberOfSailorToOarEvenly(getListOfUnassignedSailors().size(), associations);
         // We continue associating until we run out of sailors or oars
         while (sailorIndex < numberOfSailorNeeded) {
             Oar leftOar = leftOarList.get(oarIndex);

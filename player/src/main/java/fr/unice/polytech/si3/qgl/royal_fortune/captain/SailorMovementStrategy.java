@@ -116,7 +116,7 @@ public class SailorMovementStrategy {
      * @return The number of sailors successfully associated.
      */
     public int associateTheOnlyOnePossibleToOar(int direction, int maxSailorsToAssociate){
-        List<Oar> oarList = ship.getOarList(direction);
+        List<Oar> oarList = ship.getOarList(direction, associations);
         int oarIndex = 0;
         int successfullyAssociated = 0;
 
@@ -138,7 +138,7 @@ public class SailorMovementStrategy {
      * @return The number of associates sailors.
      */
     public int associateNearestSailorToOar(int direction, int maxSailorsToAssociate){
-        List<Oar> oarList = ship.getOarList(direction);
+        List<Oar> oarList = ship.getOarList(direction, associations);
         int nbSuccessfulAssociation = 0;
         int i = 0;
 
@@ -221,7 +221,7 @@ public class SailorMovementStrategy {
     }
 
     public List<Oar> getUnassignedOar(int direction){
-        return ship.getOarList(direction).stream()
+        return ship.getOarList(direction, associations).stream()
                 .filter(oar -> associations.isFree(oar))
                 .toList();
     }
