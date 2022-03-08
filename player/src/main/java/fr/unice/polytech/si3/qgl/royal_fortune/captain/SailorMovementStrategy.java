@@ -65,7 +65,7 @@ public class SailorMovementStrategy {
 
         // We are associating (if possible) the nearest sailor to the Rudder.
         if(needRudder && !hasAssociatedRudder){
-            hasAssociatedRudder = associateNearestSailor(ship.getRudder());
+            hasAssociatedRudder = associateNearestSailor(ship.getSail());
         }
 
         // We are associating (if possible) the nearest sailor to the Sail.
