@@ -101,4 +101,8 @@ public class Entities {
 				.min(Comparator.comparingInt(sailor -> sailor.getDistanceToEntity(this)))
 				.filter(sailor -> sailor.getDistanceToEntity(this) <= range);
 	}
+
+	public boolean isFree(){
+		return this.sailor == null;
+	}
 }

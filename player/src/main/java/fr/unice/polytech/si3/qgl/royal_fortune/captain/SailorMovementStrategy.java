@@ -6,12 +6,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class SailorMovementStrategy {
     private List<Sailor> sailors;
+    private Crew crew;
     private Ship ship;
 
     private int nbAssociatedLeftSailors = 0;
@@ -67,14 +66,13 @@ public class SailorMovementStrategy {
 
         // We are associating (if possible) the left or right oar to the nearest sailor according to the oarWeight.
         if(oarWeight > 0)
-            nbAssociatedRightSailors = associateSailorToOar(DirectionsManager.RIGHT,
+            nbAssociatedRightSailors = associateNearestSailorToOar(DirectionsManager.RIGHT,
                     Math.abs(oarWeight) - nbAssociatedRightSailors);
         if(oarWeight < 0)
-            nbAssociatedLeftSailors = associateSailorToOar(DirectionsManager.LEFT,
+            nbAssociatedLeftSailors = associateNearestSailorToOar(DirectionsManager.LEFT,
                     Math.abs(oarWeight) - nbAssociatedLeftSailors);
-        System.out.println("Marins " + sailors.size());
-        System.out.println("Marins restant " + (sailors.size() - getNbAssociations()));
 
+        System.out.println(getNbAssociations());
         return new SailorPlacement(nbAssociatedLeftSailors, nbAssociatedRightSailors, hasAssociatedSail, hasAssociatedRudder);
     }
 
@@ -90,6 +88,7 @@ public class SailorMovementStrategy {
             return false;
 
         nearestSailor.get().setTargetEntity(entity);
+        entity.setSailor(nearestSailor.get());
         return true;
     }
 
@@ -105,6 +104,7 @@ public class SailorMovementStrategy {
             return false;
 
         possibleSailors.get(0).setTargetEntity(entity);
+        entity.setSailor(possibleSailors.get(0));
         return true;
     }
 
@@ -136,7 +136,7 @@ public class SailorMovementStrategy {
      * @param maxSailorsToAssociate The maximum of sailors required to turn the ship.
      * @return The number of associates sailors.
      */
-    public int associateSailorToOar(int direction, int maxSailorsToAssociate){
+    public int associateNearestSailorToOar(int direction, int maxSailorsToAssociate){
         List<Oar> oarList = ship.getOarList(direction);
         int nbSuccessfulAssociation = 0;
         int i = 0;
@@ -145,6 +145,7 @@ public class SailorMovementStrategy {
             Optional<Sailor> possibleSailor = oarList.get(i).getNearestSailor(sailors, MAX_MOVING_RANGE);
             if (possibleSailor.isPresent()) {
                 oarList.get(i).setSailor(possibleSailor.get());
+                possibleSailor.get().setTargetEntity(oarList.get(i));
                 nbSuccessfulAssociation++;
             }
             i++;
@@ -168,6 +169,55 @@ public class SailorMovementStrategy {
         if(oarWeight < 0)
             nbAssociatedLeftSailors = associateTheOnlyOnePossibleToOar(DirectionsManager.LEFT,
                     Math.abs(oarWeight) - nbAssociatedLeftSailors);
-
     }
+
+    public void associateNearestSailorToOarEvenly(){
+        Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
+        Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
+
+        List<Sailor> sailorsCanOnlyGoLeft = new ArrayList<>(sailorsCanGoLeft);
+        sailorsCanOnlyGoLeft.removeAll(sailorsCanGoRight);
+
+        List<Sailor> sailorsCanOnlyGoRight = new ArrayList<>(sailorsCanGoLeft);
+        sailorsCanOnlyGoRight.removeAll(sailorsCanGoLeft);
+
+        List<Sailor> sailorsCanGoBoth = sailorsCanGoLeft.stream()
+                .filter(sailorsCanGoRight::contains)
+                .toList();
+
+        // If we can associate both oar
+        if(Math.min(sailorsCanOnlyGoLeft.size(), sailorsCanOnlyGoRight.size()) > 0) {
+            Sailor rightSailor = sailorsCanOnlyGoRight.get(0);
+            Sailor leftSailor = sailorsCanOnlyGoLeft.get(0);
+            Oar bestLeftOar = leftSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
+            Oar bestRightOar = rightSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
+
+            rightSailor.setTargetEntity(bestRightOar);
+            bestRightOar.setSailor(rightSailor);
+            nbAssociatedRightSailors++;
+
+            leftSailor.setTargetEntity(bestLeftOar);
+            bestLeftOar.setSailor(leftSailor);
+            nbAssociatedLeftSailors++;
+
+            associateNearestSailorToOarEvenly();
+        }
+    }
+
+    public Set<Sailor> getSailorNearToOar(int direction){
+        Set<Sailor> nearbySailors = new HashSet<>();
+
+        for(Oar unassignedOar : getUnassignedOar(direction)){
+            Optional<Sailor> nearbySailor =  unassignedOar.getNearestSailor(sailors, MAX_MOVING_RANGE);
+            nearbySailor.ifPresent(nearbySailors::add);
+        }
+        return nearbySailors;
+    }
+
+    public List<Oar> getUnassignedOar(int direction){
+        return ship.getOarList(direction).stream()
+                .filter(Oar::isFree)
+                .toList();
+    }
+
 }

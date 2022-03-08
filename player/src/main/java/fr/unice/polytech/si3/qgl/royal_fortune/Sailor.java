@@ -3,7 +3,14 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+
+import java.util.Comparator;
+import java.util.List;
+
+import static fr.unice.polytech.si3.qgl.royal_fortune.captain.SailorMovementStrategy.MAX_MOVING_RANGE;
 
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
@@ -127,4 +134,9 @@ public class Sailor{
 		return new RudderAction(this.getId(), rotationRudder);
 	}
 
+	public Oar getNearestOar(List<Oar> oars, int maxRange){
+		return oars.stream()
+				.min(Comparator.comparingInt(this::getDistanceToEntity))
+				.get();
+	}
 }
