@@ -10,7 +10,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.List;
-
+//
 public class Referee {
     private final Cockpit cockpit;
     private final List<Sailor> sailors;
