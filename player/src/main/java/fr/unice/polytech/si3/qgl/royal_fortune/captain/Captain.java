@@ -4,7 +4,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.SailAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.ArrayList;
 import java.util.List;
