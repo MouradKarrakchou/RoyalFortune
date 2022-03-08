@@ -34,7 +34,9 @@ class JsonManagerTest {
 
         assertEquals("ship", ship.getType());
         assertEquals(100, ship.getLife());
+
         assertEquals(new Position(10, 20, 0), ship.getPosition());
+
         assertEquals("Boat test", ship.getName());
     }
 

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,4 +67,12 @@ public class Position {
 		this.y=position.getY();
 		this.orientation=position.getOrientation();
     }
+
+
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof Position)) return false;
+		Position p = (Position) o;
+		return p.getX() == x && p.getY() == y && p.getOrientation() == orientation;
+	}
 }

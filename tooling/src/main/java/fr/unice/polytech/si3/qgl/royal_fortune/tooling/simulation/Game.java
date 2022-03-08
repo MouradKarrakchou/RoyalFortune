@@ -28,10 +28,10 @@ public class Game {
         sailors = initGameDAO.getSailors();
         goal = initGameDAO.getGoal();
         cockpit = new Cockpit();
-        referee=new Referee(cockpit);
         cockpit.initGame(initialiser);
         goal=cockpit.getGoal();
-        ship = cockpit.getShip();
+        ship = new Ship(cockpit.getShip());
+        referee=new Referee(cockpit,ship,sailors);
 
     }
 
@@ -85,5 +85,9 @@ public class Game {
             out.append(x).append(";").append(y).append(";").append(radius).append("\n");
     	}
     	return out;
+    }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
     }
 }
