@@ -72,6 +72,8 @@ public class Captain {
         boolean needRudder = false;
         boolean needSail = false;
 
+        boolean takeWind = false;
+
         if (!directionsManager.isConeTooSmall() && !directionsManager.isInCone()){
             oarWeight = oarWeight(angleMove);
             angleSailorsShouldMake = oarWeight * (Math.PI / ship.getNbrOar());
@@ -85,7 +87,26 @@ public class Captain {
             needRudder = true;
         }
 
+        if( (wind.getOrientation() + Math.PI/2) > ship.getPosition().getOrientation()
+                && ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2)
+                && !ship.getSail().isOpenned() ) {
+            needSail = true;
+            takeWind = true;
+        }
 
+        if( (ship.getPosition().getOrientation() > (wind.getOrientation() + Math.PI/2)
+                || (wind.getOrientation() - Math.PI/2) > ship.getPosition().getOrientation())
+                && ship.getSail().isOpenned() ) {
+            needSail = true;
+            takeWind = false;
+        }
+
+        if(needSail) {
+            Sail mySail = ship.getSail();
+            Sailor sailorOfSail = mySail.getSailor();
+
+            roundActions.add(new SailAction(sailorOfSail.getId(), takeWind));
+        }
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship);
@@ -102,6 +123,7 @@ public class Captain {
         } else if ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake) && strategyAnswer.hasRudder()) {
             crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4);
         }
+
     }
 
     /**
@@ -119,6 +141,10 @@ public class Captain {
      */
     public int oarWeight(double orientation) {
         return Math.min((int) ((orientation * ship.getNbrOar()) / Math.PI), sailors.size());
+    }
+
+    public void updateWind(Wind wind) {
+        this.wind = wind;
     }
 
     public List<Action> getRoundActions() {

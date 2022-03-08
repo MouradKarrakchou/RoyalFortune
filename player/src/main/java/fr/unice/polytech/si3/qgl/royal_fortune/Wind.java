@@ -12,7 +12,7 @@ public class Wind {
         this.strength = strength;
     }
 
-    double getOrientation() { return orientation; }
+    public double getOrientation() { return orientation; }
 
-    double getStrength() { return strength; }
+    public double getStrength() { return strength; }
 }

@@ -61,6 +61,8 @@ public class Cockpit implements ICockpit {
 		String out = "Next round input: " + round;
 		LOGGER.info(out);
 
+		captain.updateWind(nextRoundDAO.getWind());
+
 		return captain.roundDecisions();
 	}
 
