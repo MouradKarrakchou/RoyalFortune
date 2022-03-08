@@ -51,7 +51,6 @@ public class Captain {
         String out = createAction();
         return "[" + out + "]";
     }
-
     /**
      * Create the Json of actions
      *
