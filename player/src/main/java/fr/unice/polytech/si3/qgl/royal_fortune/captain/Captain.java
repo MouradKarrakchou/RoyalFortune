@@ -31,7 +31,7 @@ public class Captain {
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
         seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
         preCalculator = new PreCalculator(ship, sailors, seaMap);
-        crew = new Crew(sailors, ship, preCalculator);
+        crew = new Crew(sailors, ship, preCalculator, associations);
         associations = new Associations();
     }
 
@@ -93,7 +93,7 @@ public class Captain {
 
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
-        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship);
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations);
 
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
         double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
