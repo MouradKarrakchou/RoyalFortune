@@ -10,7 +10,8 @@ public class NextRoundDAO {
 	Ship ship;
 	List<Entities> visibleEntities;
 	Wind wind;
-	
+
+
 	public NextRoundDAO() {}
 	public NextRoundDAO(Ship ship, List<Entities> visibleEntities, Wind wind) {
 		super();

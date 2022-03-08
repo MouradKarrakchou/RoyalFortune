@@ -95,6 +95,14 @@ public class Cockpit implements ICockpit {
 		return goal;
 	}
 
+	public Captain getCaptain() {
+		return captain;
+	}
+
+	public void setShip(Ship ship) {
+		this.ship = ship;
+	}
+
 	@Override
 	public ArrayList<String> getLogs() {
 		return new ArrayList<>();
