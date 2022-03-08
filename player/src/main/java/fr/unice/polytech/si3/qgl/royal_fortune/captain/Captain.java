@@ -27,12 +27,13 @@ public class Captain {
         this.ship = ship;
         this.sailors = sailors;
         this.wind = wind;
+        associations = new Associations();
         roundActions = new ArrayList<>();
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
         seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
         preCalculator = new PreCalculator(ship, sailors, seaMap);
         crew = new Crew(sailors, ship, preCalculator, associations);
-        associations = new Associations();
+
     }
 
     public Captain() {
@@ -97,16 +98,20 @@ public class Captain {
 
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
         double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
-        crew.sailorsMove();
+        roundActions.addAll(crew.sailorsMove());
 
         if (-Math.PI / 4 <= angleMove - angleMadeBySailors
                 && angleMove - angleMadeBySailors <= Math.PI / 4
                 && Math.abs(angleMove - angleMadeBySailors) > Math.pow(10, -3)
                 && strategyAnswer.hasRudder()) {
-            crew.sailorsTurnWithRudder(angleMove - angleMadeBySailors);
+            roundActions.addAll(crew.sailorsTurnWithRudder(angleMove - angleMadeBySailors));
         } else if ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake) && strategyAnswer.hasRudder()) {
-            crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4);
+            roundActions.addAll(crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4));
         }
+
+        roundActions.addAll(crew.sailorsOar());
+
+        System.out.println(roundActions);
     }
 
     /**

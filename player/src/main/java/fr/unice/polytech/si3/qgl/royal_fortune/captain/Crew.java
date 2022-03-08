@@ -118,7 +118,7 @@ public class Crew {
      */
     public List<Action> sailorsOar() {
         return new ArrayList<>(sailors.stream()
-                .filter(sailor -> associations.isFree(sailor))
+                .filter(sailor -> !associations.isFree(sailor))
                 .filter(sailor -> associations.getAssociatedEntity(sailor).isOar())
                 .filter(sailor -> sailor.isOnTheTargetEntity(associations))
                 .map(Sailor::oar)

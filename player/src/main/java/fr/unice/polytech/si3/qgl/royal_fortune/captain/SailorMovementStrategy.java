@@ -73,6 +73,7 @@ public class SailorMovementStrategy {
             nbAssociatedLeftSailors = associateNearestSailorToOar(DirectionsManager.LEFT,
                     Math.abs(oarWeight) - nbAssociatedLeftSailors);
 
+        associateNearestSailorToOarEvenlyRecursive();
         associateNearestSailorToOarEvenly();
 
         System.out.println("End of turn, nbAssociation -> " + getNbAssociations());
@@ -171,7 +172,33 @@ public class SailorMovementStrategy {
                     Math.abs(oarWeight) - nbAssociatedLeftSailors);
     }
 
+
     public void associateNearestSailorToOarEvenly(){
+        Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
+        Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
+
+        List<Sailor> sailorsCanGoBoth = sailorsCanGoLeft.stream()
+                .filter(sailorsCanGoRight::contains)
+                .toList();
+
+        if (sailorsCanGoBoth.size() > 2){
+            Sailor rightSailor = sailorsCanGoBoth.get(0);
+            Oar bestRightOar = rightSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
+            associations.addAssociation(rightSailor, bestRightOar);
+            nbAssociatedRightSailors++;
+
+            Sailor leftSailor = sailorsCanGoBoth.get(1);
+            Oar bestLeftOar = leftSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
+            associations.addAssociation(leftSailor, bestLeftOar);
+            nbAssociatedLeftSailors++;
+
+            associateNearestSailorToOarEvenly();
+        }
+    }
+
+
+
+    public void associateNearestSailorToOarEvenlyRecursive(){
         Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
         Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
 
@@ -206,7 +233,7 @@ public class SailorMovementStrategy {
             associations.addAssociation(leftSailor, bestLeftOar);
             nbAssociatedLeftSailors++;
 
-            associateNearestSailorToOarEvenly();
+            associateNearestSailorToOarEvenlyRecursive();
         }
     }
 
