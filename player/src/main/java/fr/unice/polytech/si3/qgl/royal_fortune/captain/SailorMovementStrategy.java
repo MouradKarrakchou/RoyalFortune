@@ -183,12 +183,12 @@ public class SailorMovementStrategy {
 
         if (sailorsCanGoBoth.size() > 2){
             Sailor rightSailor = sailorsCanGoBoth.get(0);
-            Oar bestRightOar = rightSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
+            Oar bestRightOar = rightSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT,associations), associations);
             associations.addAssociation(rightSailor, bestRightOar);
             nbAssociatedRightSailors++;
 
             Sailor leftSailor = sailorsCanGoBoth.get(1);
-            Oar bestLeftOar = leftSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
+            Oar bestLeftOar = leftSailor.getNearestOar(ship.getOarList(DirectionsManager.LEFT,associations),associations);
             associations.addAssociation(leftSailor, bestLeftOar);
             nbAssociatedLeftSailors++;
 
@@ -224,8 +224,8 @@ public class SailorMovementStrategy {
         if(Math.min(sailorsCanOnlyGoLeft.size(), sailorsCanOnlyGoRight.size()) > 0) {
             Sailor rightSailor = sailorsCanOnlyGoRight.get(0);
             Sailor leftSailor = sailorsCanOnlyGoLeft.get(0);
-            Oar bestLeftOar = leftSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
-            Oar bestRightOar = rightSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
+            Oar bestLeftOar = leftSailor.getNearestOar(ship.getAllOar(), associations);
+            Oar bestRightOar = rightSailor.getNearestOar(ship.getAllOar(), associations);
 
             associations.addAssociation(rightSailor, bestRightOar);
             nbAssociatedRightSailors++;

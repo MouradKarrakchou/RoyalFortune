@@ -119,8 +119,9 @@ public class Sailor{
 		return new RudderAction(this.getId(), rotationRudder);
 	}
 
-	public Oar getNearestOar(List<Oar> oars, int maxRange){
+	public Oar getNearestOar(List<Oar> oars,Associations associations){
 		return oars.stream()
+				.filter(associations::isFree)
 				.min(Comparator.comparingInt(this::getDistanceToEntity))
 				.get();
 	}

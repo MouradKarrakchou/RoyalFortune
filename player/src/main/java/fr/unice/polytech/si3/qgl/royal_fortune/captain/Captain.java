@@ -83,10 +83,7 @@ public class Captain {
             angleSailorsShouldMake = oarWeight * (Math.PI / ship.getNbrOar());
         }
 
-        if ((-Math.PI / 4 <= angleMove - angleSailorsShouldMake
-                && angleMove - angleSailorsShouldMake <= Math.PI / 4
-                && Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3))
-                || ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake)))
+        if ((-Math.PI / 4 <= angleMove - angleSailorsShouldMake && angleMove - angleSailorsShouldMake <= Math.PI / 4 && Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3)) || ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake)))
         {
             needRudder = true;
         }
@@ -108,10 +105,6 @@ public class Captain {
         } else if ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake) && strategyAnswer.hasRudder()) {
             roundActions.addAll(crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4));
         }
-
-        roundActions.addAll(crew.sailorsOar());
-
-        System.out.println(roundActions);
     }
 
     /**
