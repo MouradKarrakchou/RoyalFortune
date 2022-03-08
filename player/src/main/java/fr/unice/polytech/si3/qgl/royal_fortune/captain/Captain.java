@@ -5,9 +5,12 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Captain {
     private Ship ship;
@@ -18,6 +21,7 @@ public class Captain {
     private PreCalculator preCalculator;
     private SeaMap seaMap;
     private Wind wind;
+    private Associations associations;
 
     public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints, Wind wind) {
         this.ship = ship;
@@ -28,6 +32,7 @@ public class Captain {
         seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
         preCalculator = new PreCalculator(ship, sailors, seaMap);
         crew = new Crew(sailors, ship, preCalculator);
+        associations = new Associations();
     }
 
     public Captain() {
@@ -39,7 +44,7 @@ public class Captain {
      * @return The json file of the round actions
      */
     public String roundDecisions() {
-        disassociate();
+        associations.dissociateAll();
         roundActions.clear();
         seaMap.updateCheckPoint();
         directionsManager.update();
@@ -102,14 +107,6 @@ public class Captain {
         } else if ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake) && strategyAnswer.hasRudder()) {
             crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4);
         }
-    }
-
-    /**
-     * Remove for each sailor every associated entity.
-     */
-    public void disassociate() {
-        sailors.forEach(sailor -> sailor.setTargetEntity(null));
-        ship.getAllOar().forEach(sailor -> sailor.setSailor(null));
     }
 
     /**

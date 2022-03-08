@@ -10,8 +10,8 @@ import java.util.*;
 
 public class SailorMovementStrategy {
     private List<Sailor> sailors;
-    private Crew crew;
     private Ship ship;
+    private Associations associations;
 
     private int nbAssociatedLeftSailors = 0;
     private int nbAssociatedRightSailors = 0;
@@ -20,8 +20,9 @@ public class SailorMovementStrategy {
 
     public static final int MAX_MOVING_RANGE = 5;
 
-    public SailorMovementStrategy(List<Sailor> sailors, Ship ship){
+    public SailorMovementStrategy(List<Sailor> sailors, Ship ship, Associations associations){
         this.sailors = sailors;
+        this.associations = associations;
         this.ship = ship;
     }
 

@@ -15,11 +15,13 @@ public class Crew {
     private final List<Sailor> sailors;
     private final Ship ship;
     private final PreCalculator preCalculator;
+    private final Associations associations;
 
-    public Crew(List<Sailor> sailors, Ship ship, PreCalculator preCalculator) {
+    public Crew(List<Sailor> sailors, Ship ship, PreCalculator preCalculator, Associations associations) {
         this.sailors = sailors;
         this.ship = ship;
         this.preCalculator = preCalculator;
+        this.associations = associations;
     }
 
     /**
