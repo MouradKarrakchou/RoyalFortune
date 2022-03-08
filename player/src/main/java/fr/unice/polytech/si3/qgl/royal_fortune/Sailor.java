@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 /**
@@ -52,6 +51,10 @@ public class Sailor{
 
 	public int getY() {
 		return y;
+	}
+
+	public boolean isFree(){
+		return this.targetEntity == null;
 	}
 
 	/**

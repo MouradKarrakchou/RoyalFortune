@@ -45,7 +45,7 @@ public class CrewTest {
                 new Deck(3, 4),
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
-        captain=new Captain(basicShip,sailors,goal,new FictitiousCheckpoint(checkpoints));
+        captain=new Captain(basicShip,sailors,goal,new FictitiousCheckpoint(checkpoints), new Wind(0,0));
         crew=captain.getCrew();
     }
     @Test

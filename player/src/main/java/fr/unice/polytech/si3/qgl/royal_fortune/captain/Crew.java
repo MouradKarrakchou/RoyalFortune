@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
@@ -107,12 +108,12 @@ public class Crew {
      *
      * @return The list of action
      */
-    public List<Action> sailorsMove() {
-        return new ArrayList<>(sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
+    public List<MovingAction> sailorsMove() {
+        return sailors.stream()
+                .filter(sailor -> !sailor.isFree())
                 .filter(sailor -> !sailor.isOnTheTargetEntity())
                 .map(Sailor::moveToTarget)
-                .toList());
+                .toList();
     }
 
     /**

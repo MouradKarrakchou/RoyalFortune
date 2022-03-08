@@ -11,6 +11,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 /**
@@ -90,6 +91,12 @@ public class Ship {
 		for(Entities entity : entities)
 			if (entity instanceof Rudder)
 				return (Rudder) entity;
+		return null;
+	}
+	public Sail getSail(){
+		for(Entities entity : entities)
+			if (entity instanceof Sail)
+				return (Sail) entity;
 		return null;
 	}
 

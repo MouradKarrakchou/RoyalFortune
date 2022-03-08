@@ -43,7 +43,7 @@ public class SeaMap {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
         fictitiousCheckpoint=new FictitiousCheckpoint(checkpoints);
-        captain=new Captain(basicShip,sailors,goal,fictitiousCheckpoint);
+        captain=new Captain(basicShip,sailors,goal,fictitiousCheckpoint, new Wind(0,0));
 
         seaMap=captain.getSeaMap();
     }
