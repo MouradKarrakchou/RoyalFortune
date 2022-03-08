@@ -85,13 +85,12 @@ public class SailorMovementStrategy {
      * @return The association has been proceeded.
      */
     public boolean associateNearestSailor(Entities entity){
-        Optional<Sailor> nearestSailor = entity.getNearestSailor(sailors, MAX_MOVING_RANGE);
+        Optional<Sailor> nearestSailor = entity.getNearestSailor(sailors, MAX_MOVING_RANGE, associations);
 
         if (nearestSailor.isEmpty())
             return false;
 
-        nearestSailor.get().setTargetEntity(entity);
-        entity.setSailor(nearestSailor.get());
+        associations.addAssociation(nearestSailor.get(), entity);
         return true;
     }
 
@@ -101,13 +100,12 @@ public class SailorMovementStrategy {
      * @return Boolean, the association can be made.
      */
     public boolean associateTheOnlyOnePossible(Entities entity){
-        List<Sailor> possibleSailors = entity.getSailorsInRange(sailors, MAX_MOVING_RANGE);
+        List<Sailor> possibleSailors = entity.getSailorsInRange(sailors, MAX_MOVING_RANGE, associations);
 
         if (possibleSailors.size() != 1)
             return false;
 
-        possibleSailors.get(0).setTargetEntity(entity);
-        entity.setSailor(possibleSailors.get(0));
+        associations.addAssociation(possibleSailors.get(0), entity);
         return true;
     }
 
@@ -145,10 +143,9 @@ public class SailorMovementStrategy {
         int i = 0;
 
         while(i < oarList.size() && nbSuccessfulAssociation < maxSailorsToAssociate) {
-            Optional<Sailor> possibleSailor = oarList.get(i).getNearestSailor(sailors, MAX_MOVING_RANGE);
+            Optional<Sailor> possibleSailor = oarList.get(i).getNearestSailor(sailors, MAX_MOVING_RANGE, associations);
             if (possibleSailor.isPresent()) {
-                oarList.get(i).setSailor(possibleSailor.get());
-                possibleSailor.get().setTargetEntity(oarList.get(i));
+                associations.addAssociation(possibleSailor.get(), oarList.get(i));
                 nbSuccessfulAssociation++;
             }
             i++;
@@ -203,12 +200,10 @@ public class SailorMovementStrategy {
             Oar bestLeftOar = leftSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
             Oar bestRightOar = rightSailor.getNearestOar(ship.getAllOar(), MAX_MOVING_RANGE);
 
-            rightSailor.setTargetEntity(bestRightOar);
-            bestRightOar.setSailor(rightSailor);
+            associations.addAssociation(rightSailor, bestRightOar);
             nbAssociatedRightSailors++;
 
-            leftSailor.setTargetEntity(bestLeftOar);
-            bestLeftOar.setSailor(leftSailor);
+            associations.addAssociation(leftSailor, bestLeftOar);
             nbAssociatedLeftSailors++;
 
             associateNearestSailorToOarEvenly();
@@ -219,7 +214,7 @@ public class SailorMovementStrategy {
         Set<Sailor> nearbySailors = new HashSet<>();
 
         for(Oar unassignedOar : getUnassignedOar(direction)){
-            Optional<Sailor> nearbySailor =  unassignedOar.getNearestSailor(sailors, MAX_MOVING_RANGE);
+            Optional<Sailor> nearbySailor =  unassignedOar.getNearestSailor(sailors, MAX_MOVING_RANGE, associations);
             nearbySailor.ifPresent(nearbySailors::add);
         }
         return nearbySailors;
@@ -227,7 +222,7 @@ public class SailorMovementStrategy {
 
     public List<Oar> getUnassignedOar(int direction){
         return ship.getOarList(direction).stream()
-                .filter(Oar::isFree)
+                .filter(oar -> associations.isFree(oar))
                 .toList();
     }
 
