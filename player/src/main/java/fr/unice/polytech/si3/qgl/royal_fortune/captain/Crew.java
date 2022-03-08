@@ -51,9 +51,7 @@ public class Crew {
 
         // We continue associating until we run out of sailors or oars
         while (i < numberOfSailors) {
-            Oar oar = oarList.get(i);
-            sailors.get(i).setTargetEntity(oar);
-            oar.setSailor(sailors.get(i));
+            associations.addAssociation(sailors.get(i),oarList.get(i));
             i++;
         }
     }
@@ -72,11 +70,8 @@ public class Crew {
         while (sailorIndex < numberOfSailorNeeded) {
             Oar leftOar = leftOarList.get(oarIndex);
             Oar rightOar = rightOarList.get(oarIndex);
-            listOfUnassignedSailors.get(sailorIndex).setTargetEntity(leftOar);
-            leftOar.setSailor(listOfUnassignedSailors.get(sailorIndex));
-            listOfUnassignedSailors.get(++sailorIndex).setTargetEntity(rightOar);
-            rightOar.setSailor(listOfUnassignedSailors.get(sailorIndex));
-            sailorIndex++;
+            associations.addAssociation(listOfUnassignedSailors.get(sailorIndex++),leftOar);
+            associations.addAssociation(listOfUnassignedSailors.get(sailorIndex++),rightOar);
             oarIndex++;
         }
     }
@@ -91,14 +86,13 @@ public class Crew {
             return Collections.emptyList();
 
         Optional<Sailor> sailorToMove = sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() == null)
+                .filter(sailor -> associations.getAssociatedEntity(sailor) == null)
                 .min(Comparator.comparingInt(sailor -> sailor.getDistanceToEntity(rudder)));
 
         if (sailorToMove.isPresent()) {
             Sailor s = sailorToMove.get();
-            s.setTargetEntity(rudder);
-            rudder.setSailor(s);
-            roundActions.add(s.moveToTarget());
+            associations.addAssociation(s,rudder);
+            roundActions.add(s.moveToTarget(associations));
         }
         return roundActions;
     }
@@ -112,9 +106,9 @@ public class Crew {
      */
     public List<MovingAction> sailorsMove() {
         return sailors.stream()
-                .filter(sailor -> !sailor.isFree())
-                .filter(sailor -> !sailor.isOnTheTargetEntity())
-                .map(Sailor::moveToTarget)
+                .filter(sailor -> !associations.isFree(sailor))
+                .filter(sailor -> !sailor.isOnTheTargetEntity(associations))
+                .map(sailor -> sailor.moveToTarget(associations))
                 .toList();
     }
 
@@ -124,9 +118,9 @@ public class Crew {
      */
     public List<Action> sailorsOar() {
         return new ArrayList<>(sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() != null)
-                .filter(sailor -> sailor.getTargetEntity().isOar())
-                .filter(Sailor::isOnTheTargetEntity)
+                .filter(sailor -> associations.isFree(sailor))
+                .filter(sailor -> associations.getAssociatedEntity(sailor).isOar())
+                .filter(sailor -> sailor.isOnTheTargetEntity(associations))
                 .map(Sailor::oar)
                 .toList());
     }
@@ -139,8 +133,8 @@ public class Crew {
      */
     public List<Action> sailorsTurnWithRudder(double rotationRudder) {
         return new ArrayList<>(sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() instanceof Rudder)
-                .filter(Sailor::isOnTheTargetEntity)
+                .filter(sailor -> associations.getAssociatedEntity(sailor) instanceof Rudder)
+                .filter(sailor -> sailor.isOnTheTargetEntity(associations))
                 .map(sailor -> sailor.turnWithRudder(rotationRudder))
                 .toList());
 
@@ -153,7 +147,7 @@ public class Crew {
      */
     public List<Sailor> getListOfUnassignedSailors() {
         return ((ArrayList<Sailor>) sailors.stream()
-                .filter(sailor -> sailor.getTargetEntity() == null)
+                .filter(sailor -> associations.isFree(sailor))
                 .collect(Collectors.toList()));
     }
 
