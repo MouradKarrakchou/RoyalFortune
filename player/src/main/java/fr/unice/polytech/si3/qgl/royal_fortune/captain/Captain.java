@@ -109,6 +109,7 @@ public class Captain {
      */
     public void disassociate() {
         sailors.forEach(sailor -> sailor.setTargetEntity(null));
+        ship.getAllOar().forEach(sailor -> sailor.setSailor(null));
     }
 
     /**

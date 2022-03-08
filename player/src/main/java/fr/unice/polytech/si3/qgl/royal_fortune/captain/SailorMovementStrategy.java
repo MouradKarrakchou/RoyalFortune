@@ -72,7 +72,9 @@ public class SailorMovementStrategy {
             nbAssociatedLeftSailors = associateNearestSailorToOar(DirectionsManager.LEFT,
                     Math.abs(oarWeight) - nbAssociatedLeftSailors);
 
-        System.out.println(getNbAssociations());
+        associateNearestSailorToOarEvenly();
+
+        System.out.println("End of turn, nbAssociation -> " + getNbAssociations());
         return new SailorPlacement(nbAssociatedLeftSailors, nbAssociatedRightSailors, hasAssociatedSail, hasAssociatedRudder);
     }
 
@@ -175,11 +177,19 @@ public class SailorMovementStrategy {
         Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
         Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
 
+        System.out.println("-- Left right --");
+        System.out.println("Left -> " + sailorsCanGoLeft);
+        System.out.println("Right -> " +sailorsCanGoRight);
+
         List<Sailor> sailorsCanOnlyGoLeft = new ArrayList<>(sailorsCanGoLeft);
         sailorsCanOnlyGoLeft.removeAll(sailorsCanGoRight);
 
-        List<Sailor> sailorsCanOnlyGoRight = new ArrayList<>(sailorsCanGoLeft);
+        List<Sailor> sailorsCanOnlyGoRight = new ArrayList<>(sailorsCanGoRight);
         sailorsCanOnlyGoRight.removeAll(sailorsCanGoLeft);
+
+        System.out.println("-- Left right remove double--");
+        System.out.println("Left -> " + sailorsCanOnlyGoLeft);
+        System.out.println("Right -> " + sailorsCanOnlyGoRight);
 
         List<Sailor> sailorsCanGoBoth = sailorsCanGoLeft.stream()
                 .filter(sailorsCanGoRight::contains)

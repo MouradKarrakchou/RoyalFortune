@@ -139,4 +139,9 @@ public class Sailor{
 				.min(Comparator.comparingInt(this::getDistanceToEntity))
 				.get();
 	}
+
+	@Override
+	public String toString() {
+		return name + " " + id;
+	}
 }
