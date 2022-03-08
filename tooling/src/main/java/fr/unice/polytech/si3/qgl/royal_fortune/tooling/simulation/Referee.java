@@ -12,7 +12,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.List;
 //
-public class Referee {
+public class Referee {/*
     private final Cockpit cockpit;
     private final List<Sailor> sailors;
     private Ship ship;
@@ -111,6 +111,7 @@ public class Referee {
         }
     }
 
+    /*
     public double useRudder(RudderAction rudderAction) {
         if (sailors.stream()
                 .filter(sailor -> sailor.getId() == rudderAction.getSailorId())
@@ -130,31 +131,7 @@ public class Referee {
                 });
     }
 
-    public boolean isOnAOar(Sailor sailor) {
-        ship.getAllOar().stream()
-                .filter(oar -> oar.getSailor()==null)
-                .filter(oar -> oar.getX()==sailor.getX()&&oar.getY()==sailor.getY())
-                .forEach(oar -> {oar.setSailor(sailor);sailor.setTargetEntity(oar);});
-        return (sailor.getTargetEntity()!=null && sailor.getTargetEntity() instanceof Oar);
-    }
 
-    private boolean isOnASail(Sailor sailor) {
-        ship.getEntities().stream()
-                .filter(sail -> sail.getSailor()==null)
-                .filter(sail -> sail instanceof Rudder)
-                .filter(sail -> sail.getX()==sailor.getX()&&sail.getY()==sailor.getY())
-                .forEach(sail -> {sail.setSailor(sailor);sailor.setTargetEntity(sail);});
-        return (sailor.getTargetEntity()!=null && sailor.getTargetEntity() instanceof Sail);
-    }
-
-    public boolean isOnARudder(Sailor sailor) {
-        ship.getEntities().stream()
-                .filter(rudder -> rudder.getSailor()==null)
-                .filter(rudder -> rudder instanceof Rudder)
-                .filter(rudder -> rudder.getX()==sailor.getX()&&rudder.getY()==sailor.getY())
-                .forEach(rudder -> {rudder.setSailor(sailor);sailor.setTargetEntity(rudder);});
-        return (sailor.getTargetEntity()!=null && sailor.getTargetEntity() instanceof Rudder);
-    }
 
     public double fixInterval(double angleCalcul){
         if (angleCalcul>-Math.PI)
@@ -202,4 +179,6 @@ public class Referee {
     public void setRudderRotation(double rudderRotation) {
         this.rudderRotation = rudderRotation;
     }
+
+    */
 }
