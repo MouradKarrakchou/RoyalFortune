@@ -115,12 +115,6 @@ public class Main {
 				"        \"x\": 2,\n" +
 				"        \"y\": 2\n" +
 				"      },\n" +
-				"		{\n" +
-				"        \"type\": \"sail\",\n" +
-				"        \"x\": 3,\n" +
-				"        \"y\": 2,\n" +
-				"		 \"openned\": false\n" +
-				"      },\n" +
 				"      {\n" +
 				"        \"type\": \"rudder\",\n" +
 				"        \"x\": 3,\n" +
@@ -188,7 +182,7 @@ public class Main {
 				"  \"minumumCrewSize\": 5,\n" +
 				"  \"maximumCrewSize\": 5\n" +
 				"}";
-		Game game = new Game(jsonTest);
+		Game game = new Game(jsonWeek4);
 		StringBuilder textForOutput = new StringBuilder(game.getAllCheckpointsForOutput() + "---\n");
 		int tour=0;
 		while (!game.isFinished()) {

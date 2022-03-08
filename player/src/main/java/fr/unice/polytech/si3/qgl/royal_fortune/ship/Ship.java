@@ -92,6 +92,12 @@ public class Ship {
 				return (Rudder) entity;
 		return null;
 	}
+	public Sail getSail(){
+		for(Entities entity : entities)
+			if (entity instanceof Sail)
+				return (Sail) entity;
+		return null;
+	}
 
 	public void setPosition(Position position){
 		this.position=position;

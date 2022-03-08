@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @JsonIgnoreProperties(value = {
-	    "sailor",
 		"type",
 		"left"
 	})
