@@ -26,11 +26,11 @@ public class Associations {
     }
 
     public boolean isFree(Sailor sailor){
-        return sailorAssociations.containsKey(sailor);
+        return !sailorAssociations.containsKey(sailor);
     }
 
     public boolean isFree(Entities entity){
-        return entitiyAssociations.containsKey(entity);
+        return !entitiyAssociations.containsKey(entity);
     }
 
     public Sailor getAssociatedSailor(Entities entity){

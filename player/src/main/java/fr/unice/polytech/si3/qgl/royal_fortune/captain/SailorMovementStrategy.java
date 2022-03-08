@@ -214,8 +214,7 @@ public class SailorMovementStrategy {
         Set<Sailor> nearbySailors = new HashSet<>();
 
         for(Oar unassignedOar : getUnassignedOar(direction)){
-            Optional<Sailor> nearbySailor =  unassignedOar.getNearestSailor(sailors, MAX_MOVING_RANGE, associations);
-            nearbySailor.ifPresent(nearbySailors::add);
+            nearbySailors.addAll(unassignedOar.getSailorsInRange(sailors, MAX_MOVING_RANGE, associations));
         }
         return nearbySailors;
     }
