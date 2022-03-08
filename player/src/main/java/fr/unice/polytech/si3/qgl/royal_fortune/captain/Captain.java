@@ -147,6 +147,10 @@ public class Captain {
         this.wind = wind;
     }
 
+    public Wind getWind() {
+        return wind;
+    }
+
     public List<Action> getRoundActions() {
         return roundActions;
     }
