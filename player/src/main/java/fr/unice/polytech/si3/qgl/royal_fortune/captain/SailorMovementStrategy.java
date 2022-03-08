@@ -12,6 +12,7 @@ public class SailorMovementStrategy {
     private List<Sailor> sailors;
     private Ship ship;
     private Associations associations;
+    private PreCalculator preCalculator;
 
     private int nbAssociatedLeftSailors = 0;
     private int nbAssociatedRightSailors = 0;
@@ -20,10 +21,11 @@ public class SailorMovementStrategy {
 
     public static final int MAX_MOVING_RANGE = 5;
 
-    public SailorMovementStrategy(List<Sailor> sailors, Ship ship, Associations associations){
+    public SailorMovementStrategy(List<Sailor> sailors, Ship ship, Associations associations,PreCalculator preCalculator){
         this.sailors = sailors;
         this.associations = associations;
         this.ship = ship;
+        this.preCalculator=preCalculator;
     }
 
     public void reset(){
@@ -73,11 +75,13 @@ public class SailorMovementStrategy {
             nbAssociatedLeftSailors = associateNearestSailorToOar(DirectionsManager.LEFT,
                     Math.abs(oarWeight) - nbAssociatedLeftSailors);
 
+        if (preCalculator.needSailorToOarToCheckpoint(Math.min(nbAssociatedLeftSailors,nbAssociatedRightSailors)*2+2))
         associateNearestSailorToOarEvenlyRecursive();
-        associateNearestSailorToOarEvenly();
+        if (preCalculator.needSailorToOarToCheckpoint(Math.min(nbAssociatedLeftSailors,nbAssociatedRightSailors)*2+2))
+            associateNearestSailorToOarEvenly();
 
         System.out.println("End of turn, nbAssociation -> " + getNbAssociations());
-        return new SailorPlacement(nbAssociatedLeftSailors, nbAssociatedRightSailors, hasAssociatedSail, hasAssociatedRudder);
+        return new SailorPlacement(nbAssociatedLeftSailors, nbAssociatedRightSailors, hasAssociatedRudder,hasAssociatedSail);
     }
 
     /**
@@ -180,7 +184,6 @@ public class SailorMovementStrategy {
         List<Sailor> sailorsCanGoBoth = sailorsCanGoLeft.stream()
                 .filter(sailorsCanGoRight::contains)
                 .toList();
-
         if (sailorsCanGoBoth.size() > 2){
             Sailor rightSailor = sailorsCanGoBoth.get(0);
             Oar bestRightOar = rightSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT,associations), associations);
@@ -191,8 +194,8 @@ public class SailorMovementStrategy {
             Oar bestLeftOar = leftSailor.getNearestOar(ship.getOarList(DirectionsManager.LEFT,associations),associations);
             associations.addAssociation(leftSailor, bestLeftOar);
             nbAssociatedLeftSailors++;
-
-            associateNearestSailorToOarEvenly();
+            if (preCalculator.needSailorToOarToCheckpoint(Math.min(nbAssociatedLeftSailors,nbAssociatedRightSailors)*2+2))
+                associateNearestSailorToOarEvenly();
         }
     }
 
@@ -219,7 +222,6 @@ public class SailorMovementStrategy {
         List<Sailor> sailorsCanGoBoth = sailorsCanGoLeft.stream()
                 .filter(sailorsCanGoRight::contains)
                 .toList();
-
         // If we can associate both oar
         if(Math.min(sailorsCanOnlyGoLeft.size(), sailorsCanOnlyGoRight.size()) > 0) {
             Sailor rightSailor = sailorsCanOnlyGoRight.get(0);
@@ -232,8 +234,8 @@ public class SailorMovementStrategy {
 
             associations.addAssociation(leftSailor, bestLeftOar);
             nbAssociatedLeftSailors++;
-
-            associateNearestSailorToOarEvenlyRecursive();
+            if (preCalculator.needSailorToOarToCheckpoint(Math.min(nbAssociatedLeftSailors,nbAssociatedRightSailors)*2+2))
+                associateNearestSailorToOarEvenlyRecursive();
         }
     }
 

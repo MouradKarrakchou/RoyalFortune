@@ -91,7 +91,7 @@ public class Captain {
 
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
-        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations);
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
 
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
         double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
