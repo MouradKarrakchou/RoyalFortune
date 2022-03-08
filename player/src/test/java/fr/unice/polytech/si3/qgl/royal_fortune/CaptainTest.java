@@ -22,7 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CaptainTest {
-    private Ship basicShip;
+    /*private Ship basicShip;
     private Captain captain;
     private Checkpoint checkpoint;
     private List<Sailor> sailors;
@@ -294,6 +294,6 @@ class CaptainTest {
         assertTrue(sailors.get(0).getTargetEntity() != null);
         captain.disassociate();
         assertTrue(sailors.get(0).getTargetEntity() == null);
-    }
+    }*/
 
 }

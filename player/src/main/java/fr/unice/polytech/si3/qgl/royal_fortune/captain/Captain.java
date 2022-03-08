@@ -5,9 +5,12 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Captain {
     private Ship ship;
@@ -18,16 +21,19 @@ public class Captain {
     private PreCalculator preCalculator;
     private SeaMap seaMap;
     private Wind wind;
+    private Associations associations;
 
     public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints, Wind wind) {
         this.ship = ship;
         this.sailors = sailors;
         this.wind = wind;
+        associations = new Associations();
         roundActions = new ArrayList<>();
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
         seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
         preCalculator = new PreCalculator(ship, sailors, seaMap);
-        crew = new Crew(sailors, ship, preCalculator);
+        crew = new Crew(sailors, ship, preCalculator, associations);
+
     }
 
     public Captain() {
@@ -39,7 +45,7 @@ public class Captain {
      * @return The json file of the round actions
      */
     public String roundDecisions() {
-        disassociate();
+        associations.dissociateAll();
         roundActions.clear();
         seaMap.updateCheckPoint();
         directionsManager.update();
@@ -79,10 +85,7 @@ public class Captain {
             angleSailorsShouldMake = oarWeight * (Math.PI / ship.getNbrOar());
         }
 
-        if ((-Math.PI / 4 <= angleMove - angleSailorsShouldMake
-                && angleMove - angleSailorsShouldMake <= Math.PI / 4
-                && Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3))
-                || ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake)))
+        if ((-Math.PI / 4 <= angleMove - angleSailorsShouldMake && angleMove - angleSailorsShouldMake <= Math.PI / 4 && Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3)) || ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake)))
         {
             needRudder = true;
         }
@@ -109,28 +112,21 @@ public class Captain {
         }
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
-        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship);
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
 
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
         double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
-        crew.sailorsMove();
+        roundActions.addAll(crew.sailorsMove());
 
         if (-Math.PI / 4 <= angleMove - angleMadeBySailors
                 && angleMove - angleMadeBySailors <= Math.PI / 4
                 && Math.abs(angleMove - angleMadeBySailors) > Math.pow(10, -3)
                 && strategyAnswer.hasRudder()) {
-            crew.sailorsTurnWithRudder(angleMove - angleMadeBySailors);
+            roundActions.addAll(crew.sailorsTurnWithRudder(angleMove - angleMadeBySailors));
         } else if ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake) && strategyAnswer.hasRudder()) {
-            crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4);
+            roundActions.addAll(crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4));
         }
 
-    }
-
-    /**
-     * Remove for each sailor every associated entity.
-     */
-    public void disassociate() {
-        sailors.forEach(sailor -> sailor.setTargetEntity(null));
     }
 
     /**

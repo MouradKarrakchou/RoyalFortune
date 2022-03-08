@@ -3,7 +3,16 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+
+import javax.swing.text.html.parser.Entity;
+import java.util.Comparator;
+import java.util.List;
+
+import static fr.unice.polytech.si3.qgl.royal_fortune.captain.SailorMovementStrategy.MAX_MOVING_RANGE;
 
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
@@ -14,7 +23,6 @@ public class Sailor{
 	private int x;
 	private int y;
 	private String name;
-	private Entities targetEntity;
 
 	public Sailor() {}
 
@@ -23,14 +31,6 @@ public class Sailor{
 		this.x = x;
 		this.y = y;
 		this.name = name;
-	}
-
-	public void setTargetEntity(Entities targetEntity) {
-		this.targetEntity = targetEntity;
-	}
-
-	public Entities getTargetEntity(){
-		return targetEntity;
 	}
 	
 	public String getName() {
@@ -41,7 +41,8 @@ public class Sailor{
 		return (id);
 	}
 
-	public boolean isOnTheTargetEntity(){
+	public boolean isOnTheTargetEntity(Associations associations){
+		Entities targetEntity = associations.getAssociatedEntity(this);
 		return (x == targetEntity.getX() && y == targetEntity.getY());
 	}
 
@@ -53,9 +54,6 @@ public class Sailor{
 		return y;
 	}
 
-	public boolean isFree(){
-		return this.targetEntity == null;
-	}
 
 	/**
 	 * Calculate the distance between a sailor and a given entity.
@@ -70,7 +68,9 @@ public class Sailor{
 	 * Called by the Captain, call a sailor to move to its targetEntity.
 	 * @return A MovingAction that will be added to the action list.
 	 */
-	public MovingAction moveToTarget(){
+	public MovingAction moveToTarget(Associations associations){
+		Entities targetEntity = associations.getAssociatedEntity(this);
+
 		// If sailor don't have a target entity, sailor can't go to this target.
 		if (targetEntity == null)
 			return null;
@@ -82,9 +82,8 @@ public class Sailor{
 		}
 
 		// If there is a target entity and the sailor can not go to in one turn (> 5 cases).
-		// CODE HERE ...
 		else{
-			movingAction = targetEntityFarAway();
+			movingAction = targetEntityFarAway(associations);
 		}
 
 		this.x += movingAction.getXdistance();
@@ -92,7 +91,8 @@ public class Sailor{
 		return movingAction;
 	}
 
-	MovingAction targetEntityFarAway() {
+	MovingAction targetEntityFarAway(Associations associations) {
+		Entities targetEntity = associations.getAssociatedEntity(this);
 		int posX = 0;
 		int posY = 0;
 		int vectX = (targetEntity.getX()-this.x)<0 ? -1 : 1;
@@ -112,19 +112,22 @@ public class Sailor{
 	}
 
 	public OarAction oar(){
-		// If sailor don't have a target entity, sailor can't go to this target.
-		if (targetEntity == null)
-			return null;
-
 		return new OarAction(this.getId());
 	}
 
 	public RudderAction turnWithRudder(double rotationRudder) {
-		// If sailor don't have a target entity, sailor can't go to this target.
-		if (targetEntity == null)
-			return null;
-
 		return new RudderAction(this.getId(), rotationRudder);
 	}
 
+	public Oar getNearestOar(List<Oar> oars,Associations associations){
+		return oars.stream()
+				.filter(associations::isFree)
+				.min(Comparator.comparingInt(this::getDistanceToEntity))
+				.get();
+	}
+
+	@Override
+	public String toString() {
+		return name + " " + id;
+	}
 }
