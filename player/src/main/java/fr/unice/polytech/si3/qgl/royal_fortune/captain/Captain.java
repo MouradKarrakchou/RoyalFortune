@@ -85,6 +85,8 @@ public class Captain {
             needRudder = true;
         }
 
+
+
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship);
 
