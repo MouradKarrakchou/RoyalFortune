@@ -61,6 +61,8 @@ public class Cockpit implements ICockpit {
 		String out = "Next round input: " + round;
 		LOGGER.info(out);
 
+		captain.updateWind(nextRoundDAO.getWind());
+
 		return captain.roundDecisions();
 	}
 
@@ -91,6 +93,14 @@ public class Cockpit implements ICockpit {
 
 	public Goal getGoal() {
 		return goal;
+	}
+
+	public Captain getCaptain() {
+		return captain;
+	}
+
+	public void setShip(Ship ship) {
+		this.ship = ship;
 	}
 
 	@Override

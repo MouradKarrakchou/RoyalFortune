@@ -12,6 +12,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 
 /**
@@ -31,7 +32,16 @@ public class Ship {
 	final Logger logger = Logger.getLogger(Ship.class.getName());
 	
 	public Ship() {}
-	
+
+	public Ship(Ship ship) {
+		this.type =ship.type;
+		this.life = ship.life;
+		this.position = ship.position;
+		this.name = ship.name;
+		this.deck = ship.deck;
+		this.entities = ship.entities;
+		this.shape = ship.shape;
+	}
 	public Ship(String type, int life, Position position, String name, Deck deck, List<Entities> entities, Shape shape) {
 		this.type =type;
 		this.life = life;
@@ -82,6 +92,12 @@ public class Ship {
 		for(Entities entity : entities)
 			if (entity instanceof Rudder)
 				return (Rudder) entity;
+		return null;
+	}
+	public Sail getSail(){
+		for(Entities entity : entities)
+			if (entity instanceof Sail)
+				return (Sail) entity;
 		return null;
 	}
 

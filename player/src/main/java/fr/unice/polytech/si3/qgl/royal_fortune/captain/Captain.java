@@ -1,16 +1,21 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
+import com.sun.nio.sctp.Association;
 import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.SailAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class Captain {
     private Ship ship;
@@ -78,6 +83,8 @@ public class Captain {
         boolean needRudder = false;
         boolean needSail = false;
 
+        boolean takeWind = false;
+
         if (!directionsManager.isConeTooSmall() && !directionsManager.isInCone()){
             oarWeight = oarWeight(angleMove);
             angleSailorsShouldMake = oarWeight * (Math.PI / ship.getNbrOar());
@@ -88,7 +95,24 @@ public class Captain {
             needRudder = true;
         }
 
+        if( (wind.getOrientation() + Math.PI/2) > ship.getPosition().getOrientation()
+                && ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2)
+                && !ship.getSail().isOpenned() ) {
+            needSail = true;
+            takeWind = true;
+        }
 
+        if( (ship.getPosition().getOrientation() > (wind.getOrientation() + Math.PI/2)
+                || (wind.getOrientation() - Math.PI/2) > ship.getPosition().getOrientation())
+                && ship.getSail().isOpenned() ) {
+            needSail = true;
+            takeWind = false;
+        }
+
+        if(needSail) {
+            Sailor sailorOfSail = associations.getAssociatedSailor(ship.getSail());
+            roundActions.add(new SailAction(sailorOfSail.getId(), takeWind));
+        }
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
@@ -115,6 +139,14 @@ public class Captain {
      */
     public int oarWeight(double orientation) {
         return Math.min((int) ((orientation * ship.getNbrOar()) / Math.PI), sailors.size());
+    }
+
+    public void updateWind(Wind wind) {
+        this.wind = wind;
+    }
+
+    public Wind getWind() {
+        return wind;
     }
 
     public List<Action> getRoundActions() {
