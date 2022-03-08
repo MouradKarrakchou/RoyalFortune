@@ -236,7 +236,7 @@ public class RefereeTest{
         assertEquals(false,referee.isOnARudder(sailors.get(0)));
         referee.doAction(new MovingAction(0, 0,1));
         assertEquals(true,referee.isOnARudder(sailors.get(0)));
-        referee.oarA(new OarAction(0));
+        referee.useOar(new OarAction(0));
         assertEquals(true,referee.getLeftPush()+referee.getRightPush()==0);
         entities.get(0).setSailor(new Sailor());
         assertEquals(true,referee.isOnARudder(sailors.get(0)));
@@ -283,12 +283,12 @@ public class RefereeTest{
     @Test
     void doActionTestRudder2(){
         when(mockShip.getEntities()).thenReturn(entities);
-        assertEquals(0,referee.rudderA(new RudderAction(0,1.2)));
+        assertEquals(0,referee.useRudder(new RudderAction(0,1.2)));
         entities.add(new Rudder(0,0));
         sailors.add(new Sailor(0,0,0,"sailor1"));
         sailors.add(new Sailor(1,0,0,"sailor1"));
 
-        referee.rudderA(new RudderAction(0,1.2));
+        referee.useRudder(new RudderAction(0,1.2));
         assertEquals(true,sailors.get(1).getTargetEntity()==null);
 
 
@@ -304,20 +304,20 @@ public class RefereeTest{
     @Test
     void doActionTestRudder3(){
         when(mockShip.getEntities()).thenReturn(entities);
-        assertEquals(0,referee.rudderA(new RudderAction(0,1.2)));
+        assertEquals(0,referee.useRudder(new RudderAction(0,1.2)));
         entities.add(new Rudder(1,1));
         entities.add(new Rudder(2,2));
 
         sailors.add(new Sailor(0,0,0,"sailor0"));
         sailors.add(new Sailor(1,0,1,"sailor1"));
         sailors.add(new Sailor(2,2,2,"sailor2"));
-        assertEquals(0,referee.rudderA(new RudderAction(1,1.2)));
-        assertEquals(1.2,referee.rudderA(new RudderAction(2,1.2)));
+        assertEquals(0,referee.useRudder(new RudderAction(1,1.2)));
+        assertEquals(1.2,referee.useRudder(new RudderAction(2,1.2)));
 
 
 
-        referee.rudderA(new RudderAction(0,1.2));
-        referee.rudderA(new RudderAction(1,1.2));
+        referee.useRudder(new RudderAction(0,1.2));
+        referee.useRudder(new RudderAction(1,1.2));
 
         assertEquals(true,sailors.get(0).getTargetEntity()==null);
         assertEquals(true,entities.get(0).getSailor()==null);

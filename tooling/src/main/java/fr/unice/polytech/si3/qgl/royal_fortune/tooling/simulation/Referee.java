@@ -2,14 +2,12 @@ package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.List;
 
@@ -20,6 +18,7 @@ public class Referee {
     int rightPush;
     int leftPush;
     double rudderRotation = 0.0;
+    boolean sailOpenned = false;
 
     public Referee(Cockpit cockpit, Ship ship, List<Sailor> sailors) {
         this.cockpit = cockpit;
@@ -62,7 +61,12 @@ public class Referee {
     }
 
     public int computeNorme(){
-        return 165 * (rightPush + leftPush) / ship.getNbrOar();
+        //(nombre de voile ouverte / nombre de voile) x force du vent x cosinus(angle entre la direction du vent et la direction du bateau)
+        Wind wind = cockpit.getCaptain().getWind();
+        int norme = 165 * (rightPush + leftPush) / ship.getNbrOar();
+        if(sailOpenned)
+            norme+= wind.getStrength()*Math.cos(Math.abs(wind.getOrientation()-ship.getPosition().getOrientation()));
+        return norme;
     }
 
     public double orientationCalculus() {
@@ -74,10 +78,22 @@ public class Referee {
         if (action instanceof MovingAction)
             makeMove((MovingAction) action);
         else if (action instanceof OarAction)
-            oarA((OarAction)action);
+            useOar((OarAction)action);
         else if (action instanceof RudderAction)
-            rudderRotation = rudderA((RudderAction)action);
+            rudderRotation = useRudder((RudderAction)action);
+        else if (action instanceof SailAction)
+            useSail((SailAction)action);
     }
+
+    private void useSail(SailAction sailAction) {
+        if (sailors.stream()
+                .filter(sailor -> sailor.getId() == sailAction.getSailorId())
+                .filter(sailor -> isOnASail(sailor))
+                .count()>0)
+                sailOpenned = sailAction.getAction().equals(SailAction.LOWER)?true:false;
+    }
+
+
 
     public void makeMove(MovingAction movingAction) {
         sailors.stream()
@@ -94,7 +110,7 @@ public class Referee {
         }
     }
 
-    public double rudderA(RudderAction rudderAction) {
+    public double useRudder(RudderAction rudderAction) {
         if (sailors.stream()
                 .filter(sailor -> sailor.getId() == rudderAction.getSailorId())
                 .filter(sailor -> isOnARudder(sailor))
@@ -103,7 +119,7 @@ public class Referee {
         else return 0;
     }
 
-    public void oarA(OarAction oarAction) {
+    public void useOar(OarAction oarAction) {
         sailors.stream()
                 .filter(sailor -> sailor.getId() == oarAction.getSailorId())
                 .filter(sailor -> isOnAOar(sailor))
@@ -119,6 +135,15 @@ public class Referee {
                 .filter(oar -> oar.getX()==sailor.getX()&&oar.getY()==sailor.getY())
                 .forEach(oar -> {oar.setSailor(sailor);sailor.setTargetEntity(oar);});
         return (sailor.getTargetEntity()!=null && sailor.getTargetEntity() instanceof Oar);
+    }
+
+    private boolean isOnASail(Sailor sailor) {
+        ship.getEntities().stream()
+                .filter(sail -> sail.getSailor()==null)
+                .filter(sail -> sail instanceof Rudder)
+                .filter(sail -> sail.getX()==sailor.getX()&&sail.getY()==sailor.getY())
+                .forEach(sail -> {sail.setSailor(sailor);sailor.setTargetEntity(sail);});
+        return (sailor.getTargetEntity()!=null && sailor.getTargetEntity() instanceof Sail);
     }
 
     public boolean isOnARudder(Sailor sailor) {

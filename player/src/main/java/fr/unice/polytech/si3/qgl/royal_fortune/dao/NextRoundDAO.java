@@ -2,18 +2,22 @@ package fr.unice.polytech.si3.qgl.royal_fortune.dao;
 
 import java.util.List;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 public class NextRoundDAO {
 	Ship ship;
 	List<Entities> visibleEntities;
-	
+	Wind wind;
+
+
 	public NextRoundDAO() {}
-	public NextRoundDAO(Ship ship, List<Entities> visibleEntities) {
+	public NextRoundDAO(Ship ship, List<Entities> visibleEntities, 	Wind wind) {
 		super();
 		this.ship = ship;
 		this.visibleEntities = visibleEntities;
+		this.wind = wind;
 	}
 	
 	public Ship getShip() {
@@ -23,5 +27,8 @@ public class NextRoundDAO {
 	public List<Entities> getVisibleEntities() {
 		return visibleEntities;
 	}
-	
+
+	public Wind getWind() {
+		return wind;
+	}
 }
