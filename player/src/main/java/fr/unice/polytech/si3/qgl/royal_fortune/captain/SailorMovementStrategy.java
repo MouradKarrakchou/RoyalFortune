@@ -97,6 +97,9 @@ public class SailorMovementStrategy {
      * @return The association has been proceeded.
      */
     public boolean associateNearestSailor(Entities entity){
+        if(!associations.isFree(entity))
+            return false;
+
         Optional<Sailor> nearestSailor = entity.getNearestSailor(sailors, MAX_MOVING_RANGE, associations);
 
         if (nearestSailor.isEmpty())
