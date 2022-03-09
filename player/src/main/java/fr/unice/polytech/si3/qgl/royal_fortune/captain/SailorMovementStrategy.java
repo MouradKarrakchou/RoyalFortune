@@ -254,16 +254,9 @@ public class SailorMovementStrategy {
     public Set<Sailor> getSailorNearToOar(int direction){
         Set<Sailor> nearbySailors = new HashSet<>();
 
-        for(Oar unassignedOar : getUnassignedOar(direction)){
+        for(Oar unassignedOar : ship.getOarList(direction, associations)){
             nearbySailors.addAll(unassignedOar.getSailorsInRange(sailors, MAX_MOVING_RANGE, associations));
         }
         return nearbySailors;
     }
-
-    public List<Oar> getUnassignedOar(int direction){
-        return ship.getOarList(direction, associations).stream()
-                .filter(oar -> associations.isFree(oar))
-                .toList();
-    }
-
 }
