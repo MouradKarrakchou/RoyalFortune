@@ -10,10 +10,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import java.util.*;
 
 public class SailorMovementStrategy {
-    private List<Sailor> sailors;
-    private Ship ship;
-    private Associations associations;
-    private PreCalculator preCalculator;
+    private final List<Sailor> sailors;
+    private final Ship ship;
+    private final Associations associations;
+    private final PreCalculator preCalculator;
 
     private SailorPlacement currentSailorPlacement;
 
@@ -142,7 +142,7 @@ public class SailorMovementStrategy {
      * @param requestedSailorPlacement the requested sailor placement.
      */
     public void associateNearestSailorToOars(SailorPlacement requestedSailorPlacement){
-        int direction = requestedSailorPlacement.getOarWeight() > 0 ? DirectionsManager.LEFT : DirectionsManager.RIGHT;
+        int direction = requestedSailorPlacement.getOarWeight() > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT;
         List<Oar> oarList = ship.getOarList(direction, associations);
         int i = 0;
 
@@ -156,6 +156,7 @@ public class SailorMovementStrategy {
                     currentSailorPlacement.incrementNbRightSailor(1);
                 requestedSailorPlacement.incrementOarWeight(-direction);
             }
+            i++;
         }
     }
 
