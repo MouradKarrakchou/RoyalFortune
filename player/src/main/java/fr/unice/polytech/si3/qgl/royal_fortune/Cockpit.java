@@ -44,7 +44,7 @@ public class Cockpit implements ICockpit {
 		ship = initGameDAO.getShip();
 		sailors = initGameDAO.getSailors();
 		goal = initGameDAO.getGoal();
-		captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(goal.getCheckPoints()));
+		captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(goal.getCheckPoints()), new Wind(0,0));
 	}
 
 	public String nextRound(String round){
