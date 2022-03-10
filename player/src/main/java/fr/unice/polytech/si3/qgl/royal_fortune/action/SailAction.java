@@ -8,6 +8,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SailAction extends Action{
+    public static String LOWER = "LOWER_SAIL";
+    public static String LIFT = "LIFT_SAIL";
+
     final Logger logger = Logger.getLogger(RudderAction.class.getName());
     public String action;
     public SailAction(int sailorId, boolean takeWind) {
@@ -31,5 +34,9 @@ public class SailAction extends Action{
             logger.log(Level.INFO, "Exception");
         }
         return "";
+    }
+
+    public String getAction() {
+        return action;
     }
 }

@@ -1,5 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship.entities;
-
+//
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 @JsonIgnoreProperties(value = {"type"})

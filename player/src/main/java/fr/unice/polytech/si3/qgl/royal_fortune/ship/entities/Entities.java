@@ -1,10 +1,17 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 
+import javax.swing.text.html.Option;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +25,10 @@ import java.util.logging.Logger;
 		@JsonSubTypes.Type(value = Rudder.class, name = "rudder"),
 		@JsonSubTypes.Type(value = Sail.class, name = "sail"),
 })
+@JsonIgnoreProperties(value = {
+	"sailor"
+})
+
 
 public class Entities {
 	private String type;
@@ -32,7 +43,7 @@ public class Entities {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
@@ -59,4 +70,28 @@ public class Entities {
     public boolean isOar() {
 		return(this instanceof Oar);
     }
+
+	public boolean isRudder(){
+		return(this instanceof Rudder);
+	}
+
+	/**
+	 * For a given range (included), will return the list of unassigned sailors.
+	 * @param sailors The list of all the sailors.
+	 * @param range The maximum range.
+	 * @return The list of unassigned sailors in the oar range.
+	 */
+	public List<Sailor> getSailorsInRange(List<Sailor> sailors, int range, Associations associations){
+		return sailors.stream()
+				.filter(associations::isFree)
+				.filter(sailor -> sailor.getDistanceToEntity(this) <= range)
+				.toList();
+	}
+
+	public Optional<Sailor> getNearestSailor(List<Sailor> sailors, int range, Associations associations){
+		return sailors.stream()
+				.filter(associations::isFree)
+				.filter(sailor -> sailor.getDistanceToEntity(this) <= range)
+				.min(Comparator.comparingInt(sailor -> sailor.getDistanceToEntity(this)));
+	}
 }

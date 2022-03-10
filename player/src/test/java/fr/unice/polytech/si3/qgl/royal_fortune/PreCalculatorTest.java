@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PreCalculatorTest {
-
+/*
     @Test
     void needSailorToOarToCheckpointTest() {
         List<Sailor> sailors = new ArrayList<>();
@@ -89,5 +89,5 @@ public class PreCalculatorTest {
 
         PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap);
         assertFalse(preCalculator.needSailorToOarToCheckpoint(ship.getNbrOar()));
-    }
+    }*/
 }
