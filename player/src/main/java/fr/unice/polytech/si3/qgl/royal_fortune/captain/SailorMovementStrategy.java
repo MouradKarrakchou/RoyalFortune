@@ -286,7 +286,7 @@ public class SailorMovementStrategy {
         if (sailorsCanGoBoth.isEmpty())
             return;
 
-        if (sailorsCanGoBoth.size() > 2){
+        if (sailorsCanGoBoth.size() >= 2){
             Sailor rightSailor = sailorsCanGoBoth.get(0);
             Oar bestRightOar = rightSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT,associations), associations);
             associations.addAssociation(rightSailor, bestRightOar);

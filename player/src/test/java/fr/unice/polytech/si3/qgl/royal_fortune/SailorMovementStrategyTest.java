@@ -1,9 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.SailorMovementStrategy;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.SailorPlacement;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -18,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class SailorMovementStrategyTest {
 
@@ -454,5 +455,83 @@ public class SailorMovementStrategyTest {
         assertEquals(rightOar00, associations.getAssociatedEntity(sailor00));
         assertEquals(rightOar01, associations.getAssociatedEntity(sailor01));
         assertEquals(rightOar02, associations.getAssociatedEntity(sailor02));
+    }
+
+    @Test
+    void askPlacementTest(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        // Sailor00
+        Sailor sailor00 = new Sailor(0, 0, 1, "sailor0");
+        sailors.add(sailor00);
+
+        // Sailor01
+        Sailor sailor01 = new Sailor(1, 3, 4, "sailor1");
+        sailors.add(sailor01);
+
+        // Sailor02
+        Sailor sailor02 = new Sailor(1, 4, 1, "sailor2");
+        sailors.add(sailor02);
+
+        // Sailor03
+        Sailor sailor03 = new Sailor(1, 5, 4, "sailor3");
+        sailors.add(sailor03);
+
+        // Sailor04
+        Sailor sailor04 = new Sailor(1, 7, 2, "sailor4");
+        sailors.add(sailor04);
+
+        List<Entities> entities = new ArrayList<>();
+        Oar oar00 = new Oar(1, 0);
+        entities.add(oar00);
+
+        Oar oar01 = new Oar(0, 6);
+        entities.add(oar01);
+
+        Oar oar02 = new Oar(3, 0);
+        entities.add(oar02);
+
+        Oar oar03 = new Oar(3, 6);
+        entities.add(oar03);
+
+        Oar oar04 = new Oar(5, 0);
+        entities.add(oar04);
+
+        Oar oar05 = new Oar(5, 6);
+        entities.add(oar05);
+
+        Oar oar06 = new Oar(7, 0);
+        entities.add(oar06);
+
+        Oar oar07 = new Oar(7, 6);
+        entities.add(oar07);
+
+        Rudder rudder = new Rudder(1, 2);
+        entities.add(rudder);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(7, 9),
+                entities,
+                new Rectangle("rectangle", 7, 9, 0));
+
+        PreCalculator mockPreCalculator = mock(PreCalculator.class);
+        when(mockPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(true);
+
+        Associations associations = new Associations();
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockPreCalculator);
+
+        SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, true, false);
+        SailorPlacement answer = sailorMovementStrategy.askPlacement(requestedPlacement);
+        assertTrue(answer.hasRudder());
+        assertFalse(answer.hasSail());
+        assertEquals(sailor00, associations.getAssociatedSailor(rudder));
+        assertEquals(1, answer.getNbRightSailors());
+        assertEquals(3, answer.getNbLeftSailors());
+        assertEquals(1, answer.getNbRightSailors());
+
     }
 }
