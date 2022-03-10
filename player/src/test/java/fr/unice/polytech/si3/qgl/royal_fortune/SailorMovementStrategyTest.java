@@ -392,7 +392,7 @@ public class SailorMovementStrategyTest {
         assertEquals(1, sailorMovementStrategy.associateNearestSailorToOar(DirectionsManager.RIGHT, 1));
         assertEquals(rightOar00, associations.getAssociatedEntity(sailor00));
         assertEquals(1, sailorMovementStrategy.associateNearestSailorToOar(DirectionsManager.LEFT, 1));
-        assertEquals(leftOar01, associations.getAssociatedEntity(sailor01));
+        assertEquals(leftOar00, associations.getAssociatedEntity(sailor01));
     }
 
 }
