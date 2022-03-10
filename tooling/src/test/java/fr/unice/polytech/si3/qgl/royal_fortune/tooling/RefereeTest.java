@@ -27,6 +27,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class RefereeTest{
+    /*
     Cockpit cockpit;
     Referee referee;
     Ship mockShip;
@@ -322,4 +323,5 @@ public class RefereeTest{
         assertEquals(true,sailors.get(0).getTargetEntity()==null);
         assertEquals(true,entities.get(0).getSailor()==null);
     }
+    */
 }

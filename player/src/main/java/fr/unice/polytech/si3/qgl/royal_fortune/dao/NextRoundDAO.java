@@ -13,7 +13,7 @@ public class NextRoundDAO {
 
 
 	public NextRoundDAO() {}
-	public NextRoundDAO(Ship ship, List<Entities> visibleEntities, 	Wind wind) {
+	public NextRoundDAO(Ship ship, List<Entities> visibleEntities, Wind wind) {
 		super();
 		this.ship = ship;
 		this.visibleEntities = visibleEntities;
@@ -24,11 +24,10 @@ public class NextRoundDAO {
 		return ship;
 	}
 
+	public Wind getWind() { return wind; }
+
 	public List<Entities> getVisibleEntities() {
 		return visibleEntities;
 	}
-
-	public Wind getWind() {
-		return wind;
-	}
+	
 }

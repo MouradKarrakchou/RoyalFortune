@@ -22,7 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CrewTest {
-    private Ship basicShip;
+    /*private Ship basicShip;
     private Captain captain;
     private List<Checkpoint> checkpoints;
     private List<Sailor> sailors;
@@ -45,7 +45,7 @@ public class CrewTest {
                 new Deck(3, 4),
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
-        captain=new Captain(basicShip,sailors,goal,new FictitiousCheckpoint(checkpoints));
+        captain=new Captain(basicShip,sailors,goal,new FictitiousCheckpoint(checkpoints), new Wind(0,0));
         crew=captain.getCrew();
     }
     @Test
@@ -212,5 +212,5 @@ public class CrewTest {
         entities.add(new Oar(1, 0));
         entities.add(new Rudder(0, 0));
 
-        assertEquals(new ArrayList<>(),crew.sailorsTurnWithRudder(20));}
+        assertEquals(new ArrayList<>(),crew.sailorsTurnWithRudder(20));}*/
 }
