@@ -238,7 +238,7 @@ public class SailorMovementStrategyTest {
     }
 
     @Test
-    void onlyOnePossibleAssociation01Test(){
+    void associateStarvingEntitiesTest1(){
         List<Sailor> sailors = new ArrayList<>();
 
         // Sailor is close enough to all entities.
@@ -286,7 +286,7 @@ public class SailorMovementStrategyTest {
     }
 
     @Test
-    void onlyOnePossibleAssociation02Test(){
+    void associateStarvingEntitiesTest2(){
         List<Sailor> sailors = new ArrayList<>();
 
         // Sailor00 is close enough to all entities.
