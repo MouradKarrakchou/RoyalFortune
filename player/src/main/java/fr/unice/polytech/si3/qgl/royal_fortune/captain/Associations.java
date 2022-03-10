@@ -4,25 +4,26 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Associations {
     private final Map<Sailor, Entities> sailorAssociations;
-    private final Map<Entities, Sailor> entitiyAssociations;
+    private final Map<Entities, Sailor> entityAssociations;
 
     public Associations(){
         this.sailorAssociations = new HashMap<>();
-        this.entitiyAssociations = new HashMap<>();
+        this.entityAssociations = new HashMap<>();
     }
 
     public void dissociateAll(){
-        entitiyAssociations.clear();
+        entityAssociations.clear();
         sailorAssociations.clear();
     }
 
     public void addAssociation(Sailor sailor, Entities entity){
         sailorAssociations.put(sailor, entity);
-        entitiyAssociations.put(entity, sailor);
+        entityAssociations.put(entity, sailor);
     }
 
     public boolean isFree(Sailor sailor){
@@ -30,11 +31,11 @@ public class Associations {
     }
 
     public boolean isFree(Entities entity){
-        return !entitiyAssociations.containsKey(entity);
+        return !entityAssociations.containsKey(entity);
     }
 
     public Sailor getAssociatedSailor(Entities entity){
-        return entitiyAssociations.get(entity);
+        return entityAssociations.get(entity);
     }
 
     public Entities getAssociatedEntity(Sailor sailor){

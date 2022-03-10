@@ -245,7 +245,7 @@ public class SailorMovementStrategyTest {
         sailors.add(sailor);
 
         List<Entities> entities = new ArrayList<>();
-        Oar leftOar = new Oar(0, 0);
+        Oar leftOar = new Oar(1, 0);
         entities.add(leftOar);
 
         Oar rightOar = new Oar(0, 3);
@@ -279,7 +279,120 @@ public class SailorMovementStrategyTest {
         associations.dissociateAll();
         sailorMovementStrategy.onlyOnePossibleAssociation(DirectionsManager.LEFT, false, false);
         assertEquals(leftOar, associations.getAssociatedEntity(sailor));
+    }
 
+    @Test
+    void onlyOnePossibleAssociation02Test(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        // Sailor00 is close enough to all entities.
+        Sailor sailor00 = new Sailor(0, 3, 3, "sailor0");
+        sailors.add(sailor00);
+
+        // Sailor01 is close enough to rudder entities.
+        Sailor sailor01 = new Sailor(1, 4, 5, "sailor1");
+        sailors.add(sailor01);
+
+        List<Entities> entities = new ArrayList<>();
+        Oar leftOar = new Oar(1, 0);
+        entities.add(leftOar);
+
+        Oar rightOar = new Oar(0, 3);
+        entities.add(rightOar);
+
+        Rudder rudder = new Rudder(2, 2);
+        entities.add(rudder);
+
+        Sail sail = new Sail(1, 1, false);
+        entities.add(sail);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(5, 5),
+                entities,
+                new Rectangle("rectangle", 10, 10, 0));
+
+        Associations associations = new Associations();
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
+
+        sailorMovementStrategy.onlyOnePossibleAssociation(DirectionsManager.LEFT, true, true);
+        assertNull(associations.getAssociatedSailor(rudder));
+        assertNull(associations.getAssociatedEntity(sailor01));
+        assertEquals(sail, associations.getAssociatedEntity(sailor00));
+
+        sailorMovementStrategy.onlyOnePossibleAssociation(DirectionsManager.LEFT, true, true);
+        assertEquals(sail, associations.getAssociatedEntity(sailor00));
+        assertEquals(rudder, associations.getAssociatedEntity(sailor01));
+
+        associations.dissociateAll();
+        sailorMovementStrategy.onlyOnePossibleAssociation(DirectionsManager.RIGHT, false, true);
+        assertEquals(sail, associations.getAssociatedEntity(sailor00));
+    }
+
+    @Test
+    void associateNearestSailorToOarTest(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        // Sailor00 is near to leftOar00 and rightOar00
+        Sailor sailor00 = new Sailor(0, 0, 2, "sailor0");
+        sailors.add(sailor00);
+
+        // Sailor01 is near to leftOar00 and rightOar00
+        Sailor sailor01 = new Sailor(1, 1, 2, "sailor1");
+        sailors.add(sailor01);
+
+        List<Entities> entities = new ArrayList<>();
+        Oar leftOar00 = new Oar(0, 0);
+        entities.add(leftOar00);
+
+        Oar leftOar01 = new Oar(1, 0);
+        entities.add(leftOar01);
+
+        Oar rightOar00 = new Oar(0, 3);
+        entities.add(rightOar00);
+
+        Oar rightOar01 = new Oar(1, 3);
+        entities.add(rightOar01);
+
+        Rudder rudder = new Rudder(3, 2);
+        entities.add(rudder);
+
+        Sail sail = new Sail(1, 2, false);
+        entities.add(sail);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(5, 5),
+                entities,
+                new Rectangle("rectangle", 10, 10, 0));
+
+        Associations associations = new Associations();
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
+
+        assertEquals(2, sailorMovementStrategy.associateNearestSailorToOar(DirectionsManager.LEFT, 2));
+        assertEquals(leftOar00, associations.getAssociatedEntity(sailor00));
+        assertEquals(leftOar01, associations.getAssociatedEntity(sailor01));
+        assertNull(associations.getAssociatedSailor(rightOar00));
+        assertNull(associations.getAssociatedSailor(rightOar01));
+
+        associations.dissociateAll();
+        assertEquals(2, sailorMovementStrategy.associateNearestSailorToOar(DirectionsManager.RIGHT, 2));
+        assertEquals(rightOar00, associations.getAssociatedEntity(sailor00));
+        assertEquals(rightOar01, associations.getAssociatedEntity(sailor01));
+        assertNull(associations.getAssociatedSailor(leftOar00));
+        assertNull(associations.getAssociatedSailor(leftOar01));
+
+        associations.dissociateAll();
+        assertEquals(1, sailorMovementStrategy.associateNearestSailorToOar(DirectionsManager.RIGHT, 1));
+        assertEquals(rightOar00, associations.getAssociatedEntity(sailor00));
+        assertEquals(1, sailorMovementStrategy.associateNearestSailorToOar(DirectionsManager.LEFT, 1));
+        assertEquals(leftOar01, associations.getAssociatedEntity(sailor01));
     }
 
 }
