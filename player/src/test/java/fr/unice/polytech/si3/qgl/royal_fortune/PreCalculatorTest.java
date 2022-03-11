@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
@@ -38,6 +39,8 @@ public class PreCalculatorTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
+        entities.add(new Sail(4, 2, false));
+
         Ship ship = new Ship(
                 "ship",
                 100,
@@ -52,7 +55,7 @@ public class PreCalculatorTest {
 
         SeaMap seaMap = new SeaMap(new Goal("",checkpoints), new FictitiousCheckpoint(checkpoints), ship.getPosition());
 
-        PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap);
+        PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap, new Wind(0, 0));
         assertTrue(preCalculator.needSailorToOarToCheckpoint(ship.getNbrOar()));
     }
 
@@ -73,6 +76,8 @@ public class PreCalculatorTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
+        entities.add(new Sail(4, 2, false));
+
         Ship ship = new Ship(
                 "ship",
                 100,
@@ -87,7 +92,7 @@ public class PreCalculatorTest {
 
         SeaMap seaMap = new SeaMap(new Goal("",checkpoints), new FictitiousCheckpoint(checkpoints), ship.getPosition());
 
-        PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap);
+        PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap, new Wind(0, 0));
         assertFalse(preCalculator.needSailorToOarToCheckpoint(ship.getNbrOar()));
     }
 

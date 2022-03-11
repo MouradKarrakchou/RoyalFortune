@@ -12,7 +12,7 @@ public class PreCalculator {
     private final SeaMap seaMap;
     private final Wind wind;
 
-    public PreCalculator(Ship ship, List<Sailor> sailors, SeaMap seaMap,Wind wind) {
+    public PreCalculator(Ship ship, List<Sailor> sailors, SeaMap seaMap, Wind wind) {
         this.ship = ship;
         this.sailors = sailors;
         this.seaMap = seaMap;

@@ -1,10 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crew;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -22,13 +19,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CrewTest {
-    /*private Ship basicShip;
+    private Ship basicShip;
     private Captain captain;
     private List<Checkpoint> checkpoints;
     private List<Sailor> sailors;
     private List<Entities> entities;
     private Crew crew;
     Goal goal;
+    Associations associations = new Associations();
 
     @BeforeEach
     void init(){
@@ -92,7 +90,7 @@ public class CrewTest {
         crew.associateSailorToOar(2, DirectionsManager.RIGHT);
         assertEquals(0,crew.getListOfUnassignedSailors().size());
         for (Sailor sailor : sailors){
-            assertEquals(true,oarRight.contains(sailor.getTargetEntity()));
+            assertEquals(true,oarRight.contains(associations.getAssociatedEntity(sailor)));
         }
     }
     @Test
@@ -118,7 +116,7 @@ public class CrewTest {
         crew.associateSailorToOar(2, DirectionsManager.LEFT);
         assertEquals(0,crew.getListOfUnassignedSailors().size());
         for (Sailor sailor : sailors){
-            assertEquals(true,oarLeft.contains(sailor.getTargetEntity()));
+            assertEquals(true,oarLeft.contains(associations.getAssociatedEntity(sailor)));
         }
     }
     @Test
@@ -140,7 +138,7 @@ public class CrewTest {
         crew.associateSailorToOarEvenly();
         assertEquals(0,crew.getListOfUnassignedSailors().size());
         for (Sailor sailor : sailors){
-            assertEquals(true,entities.contains(sailor.getTargetEntity()));
+            assertEquals(true,entities.contains(associations.getAssociatedEntity(sailor)));
         }
         for (Entities oar : entities){
             assertEquals(true,sailors.contains(((Oar)oar).getSailor()));
@@ -212,5 +210,5 @@ public class CrewTest {
         entities.add(new Oar(1, 0));
         entities.add(new Rudder(0, 0));
 
-        assertEquals(new ArrayList<>(),crew.sailorsTurnWithRudder(20));}*/
+        assertEquals(new ArrayList<>(),crew.sailorsTurnWithRudder(20));}
 }
