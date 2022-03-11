@@ -1,21 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
-import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
-import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
-import fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation.Game;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class GameTest {
 /*
     @Test
