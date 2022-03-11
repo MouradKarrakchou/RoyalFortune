@@ -164,8 +164,4 @@ public class Captain {
     public SeaMap getSeaMap() {
         return seaMap;
     }
-
-    public Wind getWind() {
-        return wind;
-    }
 }
