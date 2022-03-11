@@ -17,7 +17,9 @@ public class Mathematician {
      * @param listReefs
      * @return the best beacon to go through or empty
      */
-    public Optional<Beacon> computeTrajectory(HashMap<Stream, List<Beacon>>, List<Reef> listReefs){
+    public Optional<Beacon> computeTrajectory(HashMap<Stream, List<Beacon>> hashStreamBeacon, List<Reef> listReefs){
+        //getHashBeaconOfListStream()
+        //for each beacon on list<Beacon> use computeDistance()
         return null;
     }
 
@@ -26,5 +28,16 @@ public class Mathematician {
      * @param listStream
      * @return Return a Hashmap that link streams with their lists of beacons
      */
-    public HashMap<Stream, List<Beacon>> getHashBeaconOfListStream(List<Stream> listStream){return null;}
+    public HashMap<Stream, List<Beacon>> getHashBeaconOfListStream(List<Stream> listStream){
+        return null;
+    }
+
+    /**
+     * Call the Geometer to compute the distance of a route
+     * @param beacon
+     * @return distance of the route from the ship to the checkpoint, through the beacon
+     */
+    public double computeDistance(Beacon beacon) {
+        return 0;
+    }
 }
