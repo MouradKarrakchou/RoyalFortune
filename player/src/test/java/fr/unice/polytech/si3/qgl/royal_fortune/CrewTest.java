@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CrewTest {
     private Ship basicShip;
@@ -90,13 +92,13 @@ public class CrewTest {
         crew.associateSailorToOar(2, DirectionsManager.RIGHT);
         assertEquals(0,crew.getListOfUnassignedSailors().size());
         for (Sailor sailor : sailors){
-            assertEquals(true,oarRight.contains(associations.getAssociatedEntity(sailor)));
+            assertEquals(true,oarRight.contains(crew.getAssociations().getAssociatedEntity(sailor)));
         }
     }
     @Test
     void associateSailorToOarLeftTest(){
         List<Entities> oarLeft = new ArrayList<>();
-        List<Entities> oarRight=new ArrayList<>();
+        List<Entities> oarRight = new ArrayList<>();
         // Initialize 4 sailors
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
@@ -116,7 +118,7 @@ public class CrewTest {
         crew.associateSailorToOar(2, DirectionsManager.LEFT);
         assertEquals(0,crew.getListOfUnassignedSailors().size());
         for (Sailor sailor : sailors){
-            assertEquals(true,oarLeft.contains(associations.getAssociatedEntity(sailor)));
+            assertEquals(true,oarLeft.contains(crew.getAssociations().getAssociatedEntity(sailor)));
         }
     }
     @Test
@@ -135,13 +137,16 @@ public class CrewTest {
         entities.add(new Oar(0, 3));
         entities.add(new Oar(1, 3));
 
+        //Sail
+        entities.add(new Sail(3, 3, false));
+
         crew.associateSailorToOarEvenly();
         assertEquals(0,crew.getListOfUnassignedSailors().size());
         for (Sailor sailor : sailors){
-            assertEquals(true,entities.contains(associations.getAssociatedEntity(sailor)));
+            assertTrue(entities.contains(crew.getAssociations().getAssociatedEntity(sailor)));
         }
         for (Entities oar : entities){
-            assertEquals(true,sailors.contains(((Oar)oar).getSailor()));
+            assertTrue(sailors.contains(crew.getAssociations().getAssociatedSailor(oar)));
         }
     }
     @Test
@@ -160,7 +165,9 @@ public class CrewTest {
         entities.add(new Oar(0, 3));
         entities.add(new Oar(1, 3));
 
-        sailors.get(0).setTargetEntity(entities.get(0));
+        entities.add(new Sail(3, 3, false));
+
+        crew.getAssociations().addAssociation(sailors.get(0), entities.get(0));
 
         crew.associateSailorToOarEvenly();
         assertEquals(1,crew.getListOfUnassignedSailors().size());
@@ -174,12 +181,11 @@ public class CrewTest {
         entities.add(new Rudder(0, 0));
         entities.add(new Oar(1, 0));
 
-
-        sailors.get(0).setTargetEntity(entities.get(1));
+        associations.addAssociation(sailors.get(0), entities.get(1));
 
         crew.sailorMoveToRudder();
         assertEquals(0,crew.getListOfUnassignedSailors().size());
-        assertEquals(entities.get(1),sailors.get(0).getTargetEntity());
+        assertEquals(entities.get(1),associations.getAssociatedEntity(sailors.get(0)));
     }
     @Test
     void sailorToOarTest(){
@@ -187,8 +193,7 @@ public class CrewTest {
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         entities.add(new Rudder(0, 0));
 
-        sailors.get(0).setTargetEntity(entities.get(0));
-
+        associations.addAssociation(sailors.get(0), entities.get(0));
 
         assertEquals("[]",crew.sailorsOar().toString());
     }
@@ -198,8 +203,8 @@ public class CrewTest {
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         entities.add(new Rudder(0, 0));
         assertEquals("[]",crew.sailorsTurnWithRudder(20).toString());
-        sailors.get(0).setTargetEntity(entities.get(0));
 
+        crew.getAssociations().addAssociation(sailors.get(0), entities.get(0));
 
         assertEquals("[{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":20.0}]",crew.sailorsTurnWithRudder(20).toString());
     }

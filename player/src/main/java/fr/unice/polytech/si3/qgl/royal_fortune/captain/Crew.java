@@ -151,4 +151,8 @@ public class Crew {
                 .collect(Collectors.toList()));
     }
 
+    public Associations getAssociations() {
+        return associations;
+    }
+
 }
