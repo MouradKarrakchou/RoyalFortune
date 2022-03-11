@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class Game {
+    /*
     Ship ship;
     Cockpit cockpit;
     List<Sailor> sailors;
@@ -90,4 +91,6 @@ public class Game {
     public void setShip(Ship ship) {
         this.ship = ship;
     }
+    */
+
 }

@@ -44,7 +44,7 @@ public class Cockpit implements ICockpit {
 		ship = initGameDAO.getShip();
 		sailors = initGameDAO.getSailors();
 		goal = initGameDAO.getGoal();
-		captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(goal.getCheckPoints()), new Wind(0,0));
+		captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(goal.getCheckPoints()), initGameDAO.getWind());
 	}
 
 	public String nextRound(String round){
@@ -60,6 +60,8 @@ public class Cockpit implements ICockpit {
 		ship.setEntities(newShip.getEntities());
 		String out = "Next round input: " + round;
 		LOGGER.info(out);
+
+		captain.updateWind(nextRoundDAO.getWind());
 
 		return captain.roundDecisions();
 	}
