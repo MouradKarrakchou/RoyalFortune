@@ -8,6 +8,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 
 import java.util.List;
 import java.util.logging.Logger;

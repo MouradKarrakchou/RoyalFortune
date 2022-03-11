@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

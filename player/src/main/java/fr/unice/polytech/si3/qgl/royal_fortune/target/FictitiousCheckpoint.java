@@ -1,6 +1,6 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain;
+package fr.unice.polytech.si3.qgl.royal_fortune.target;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 

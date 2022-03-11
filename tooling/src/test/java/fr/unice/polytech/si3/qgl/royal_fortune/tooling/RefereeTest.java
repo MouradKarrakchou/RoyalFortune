@@ -1,30 +1,9 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
-import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
-import fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation.Referee;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class RefereeTest{
     /*

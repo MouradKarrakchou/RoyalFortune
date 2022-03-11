@@ -2,7 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.dao;
 
 import java.util.List;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
