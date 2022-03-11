@@ -2,7 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
@@ -10,7 +10,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.List;
 //
@@ -100,7 +99,8 @@ public class Referee {
                 .filter(sailor -> isOnARudder(sailor))
                 .count()>0)
             return rudderAction.getRotation();
-        else return 0;
+        else
+            throw new ExceptionInInitializerError();
     }
 
     public void useOar(OarAction oarAction) {
@@ -135,6 +135,8 @@ public class Referee {
                 .filter(sailor -> isOnSail(sailor))
                 .count()>0)
             sailOpenned = true;
+        else
+            throw new ExceptionInInitializerError();
     }
 
     private void useLiftSail(LiftSailAction action) {
@@ -143,6 +145,9 @@ public class Referee {
                 .filter(sailor -> isOnSail(sailor))
                 .count()>0)
             sailOpenned = false;
+        else
+            throw new ExceptionInInitializerError();
+
     }
 
     private boolean isOnSail(Sailor sailor){

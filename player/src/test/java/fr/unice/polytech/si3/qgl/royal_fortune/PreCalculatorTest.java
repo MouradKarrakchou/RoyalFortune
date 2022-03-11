@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.SeaMap;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -11,7 +12,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 import java.util.List;

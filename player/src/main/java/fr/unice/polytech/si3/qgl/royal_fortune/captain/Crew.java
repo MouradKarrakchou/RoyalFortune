@@ -38,23 +38,6 @@ public class Crew {
         return (actions);
     }
 
-    /**
-     * Captain will associate the best number of sailors to proceed a rotation of the given angle.
-     *
-     * @param numberOfSailors The rotation of the given angle.
-     * @param whereToTurn     1 to turn right/ -1 to turn left
-     */
-    public void associateSailorToOar(int numberOfSailors, int whereToTurn) {
-        //whereToTurn is always !=0
-        List<Oar> oarList = ship.getOarList(whereToTurn > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT, associations);
-        int i = 0;
-
-        // We continue associating until we run out of sailors or oars
-        while (i < numberOfSailors) {
-            associations.addAssociation(sailors.get(i),oarList.get(i));
-            i++;
-        }
-    }
 
     /**
      * Associate the same amount of sailors to the left oars and the right oars of the ship.
