@@ -19,10 +19,11 @@ public class Main {
 		Game game = new Game(jsonWeek5);
 		StringBuilder textForOutput = new StringBuilder(game.getAllCheckpointsForOutput() + "---\n");
 		int tour=0;
-		while (!game.isFinished()) {
+		while (!game.isFinished()&&tour<100) {
 			game.nextRound(wind);
 			logger.info(String.valueOf(game));
 			textForOutput.append(game);
+			tour++;
 		}
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
