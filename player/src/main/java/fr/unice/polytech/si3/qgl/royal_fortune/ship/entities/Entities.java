@@ -75,6 +75,8 @@ public class Entities {
 		return(this instanceof Rudder);
 	}
 
+	public boolean isSail() {return(this instanceof Sail);}
+
 	/**
 	 * For a given range (included), will return the list of unassigned sailors.
 	 * @param sailors The list of all the sailors.
@@ -94,4 +96,6 @@ public class Entities {
 				.filter(sailor -> sailor.getDistanceToEntity(this) <= range)
 				.min(Comparator.comparingInt(sailor -> sailor.getDistanceToEntity(this)));
 	}
+
+
 }

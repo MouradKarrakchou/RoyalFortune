@@ -5,7 +5,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.SailAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.LiftSailAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.LowerSailAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
@@ -127,7 +128,11 @@ public class Captain {
 
         if(strategyAnswer.hasSail()) {
             Sailor sailorOfSail = associations.getAssociatedSailor(ship.getSail());
-            roundActions.add(new SailAction(sailorOfSail.getId(), takeWind));
+            if(takeWind)
+                roundActions.add(new LowerSailAction(sailorOfSail.getId()));
+            else
+                roundActions.add(new LiftSailAction(sailorOfSail.getId()));
+
         }
     }
 
@@ -163,5 +168,9 @@ public class Captain {
 
     public SeaMap getSeaMap() {
         return seaMap;
+    }
+
+    public Associations getAssociations() {
+        return associations;
     }
 }
