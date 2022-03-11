@@ -1,9 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
-import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
-import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
@@ -15,7 +12,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class Game {
-    /*
     Ship ship;
     Cockpit cockpit;
     List<Sailor> sailors;
@@ -24,20 +20,18 @@ public class Game {
     final Logger logger = Logger.getLogger(Game.class.getName());
     int i=0;
     public Game(String initialiser){
-    	
     	InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
-        sailors = initGameDAO.getSailors();
-        goal = initGameDAO.getGoal();
-        cockpit = new Cockpit();
-        cockpit.initGame(initialiser);
-        goal=cockpit.getGoal();
-        ship = new Ship(cockpit.getShip());
-        referee=new Referee(cockpit,ship,sailors);
-
+        this.sailors = initGameDAO.getSailors();
+        this.goal = initGameDAO.getGoal();
+        this.cockpit = new Cockpit();
+        this.cockpit.initGame(initialiser);
+        this.goal=cockpit.getGoal();
+        this.ship = new Ship(cockpit.getShip());
+        this.referee=new Referee(cockpit,ship,sailors);
     }
 
-    void nextRound(){
-        String jsonNextRound=createJson();
+    void nextRound(Wind wind){
+        String jsonNextRound=createJson(wind);
         logger.info("-----------------------");
         String out = "jsonNextRound="+jsonNextRound;
         logger.info(out);
@@ -55,8 +49,8 @@ public class Game {
 
     }
 
-    public String createJson() {
-        return "{\"ship\":"+ cockpit.getShip().toString()+"}";
+    public String createJson(Wind wind) {
+        return "{\"ship\":"+ cockpit.getShip().toString()+",\n \"wind\":"+wind.toString()+"}";
     }
 
     @Override
@@ -91,6 +85,5 @@ public class Game {
     public void setShip(Ship ship) {
         this.ship = ship;
     }
-    */
 
 }
