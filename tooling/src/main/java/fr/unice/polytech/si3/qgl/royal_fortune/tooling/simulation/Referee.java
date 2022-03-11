@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.*;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
@@ -12,19 +13,21 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.List;
 //
-public class Referee {/*
+public class Referee {
     private final Cockpit cockpit;
     private final List<Sailor> sailors;
     private Ship ship;
-    int rightPush;
-    int leftPush;
-    double rudderRotation = 0.0;
-    boolean sailOpenned = false;
+    private Captain captain;
+    private int rightPush;
+    private int leftPush;
+    private double rudderRotation = 0.0;
+    private boolean sailOpenned = false;
 
     public Referee(Cockpit cockpit, Ship ship, List<Sailor> sailors) {
         this.cockpit = cockpit;
         this.ship=ship;
         this.sailors=sailors;
+        this.captain = cockpit.getCaptain();
     }
 
     public Ship makeAdvance(Cockpit cockpit, List<Action> actions) {
@@ -83,17 +86,25 @@ public class Referee {/*
             useOar((OarAction)action);
         else if (action instanceof RudderAction)
             rudderRotation = useRudder((RudderAction)action);
-        else if (action instanceof SailAction)
-            useSail((SailAction)action);
+        else if (action instanceof LiftSailAction)
+            useLiftSail((LiftSailAction)action);
+        else if (action instanceof LowerSailAction)
+            useLowerSail((LowerSailAction)action);
     }
 
-    private void useSail(SailAction sailAction) {
-        if (sailors.stream()
-                .filter(sailor -> sailor.getId() == sailAction.getSailorId())
-                .filter(sailor -> isOnASail(sailor))
-                .count()>0)
-                sailOpenned = sailAction.getAction().equals(SailAction.LOWER)?true:false;
+    private void useLowerSail(LowerSailAction action) {
+
     }
+
+    private void useLiftSail(LiftSailAction action) {
+        if (sailors.stream()
+                .filter(sailor -> sailor.getId() == action.getSailorId())
+                .filter(sailor -> captain.getAssociations().getAssociatedEntity(sailor).isSail())
+                .filter(sailor -> sailor.isOnTheTargetEntity(captain.getAssociations()))
+                .count()>0)
+            sailOpenned = action.getType().equals(LowerSailAction.LOWER)?true:false;
+    }
+
 
 
 
@@ -112,11 +123,11 @@ public class Referee {/*
         }
     }
 
-    /*
     public double useRudder(RudderAction rudderAction) {
         if (sailors.stream()
                 .filter(sailor -> sailor.getId() == rudderAction.getSailorId())
-                .filter(sailor -> isOnARudder(sailor))
+                .filter(sailor -> captain.getAssociations().getAssociatedEntity(sailor).isRudder())
+                .filter(sailor -> sailor.isOnTheTargetEntity(captain.getAssociations()))
                 .count()>0)
         return rudderAction.getRotation();
         else return 0;
@@ -125,7 +136,7 @@ public class Referee {/*
     public void useOar(OarAction oarAction) {
         sailors.stream()
                 .filter(sailor -> sailor.getId() == oarAction.getSailorId())
-                .filter(sailor -> isOnAOar(sailor))
+                .filter(sailor -> captain.getAssociations().getAssociatedEntity(sailor).isOar())
                 .forEach(sailor -> {
                     if (sailor.getY() > 0) rightPush += 1;
                     else leftPush += 1;
@@ -181,5 +192,4 @@ public class Referee {/*
         this.rudderRotation = rudderRotation;
     }
 
-    */
 }
