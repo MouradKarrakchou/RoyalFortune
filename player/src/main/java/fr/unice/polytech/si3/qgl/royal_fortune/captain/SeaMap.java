@@ -10,6 +10,7 @@ public class SeaMap {
     private final Goal goal;
     private FictitiousCheckpoint fictitiousCheckpoints;
     private final Position shipPosition;
+
     public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition){
         this.goal=goal;
         this.fictitiousCheckpoints=fictitiousCheckpoints;

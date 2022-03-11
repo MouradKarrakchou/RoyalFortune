@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class Mathematician {
-    public Mathematician(){}
+    private Geometre geometre;
+    public Mathematician(){
+        this.geometre = new Geometre();
+    }
 
     /**
      * Compute the best path to reach the next checkpoint through a beacon or empty to follow th checkpoint
@@ -20,6 +23,7 @@ public class Mathematician {
     public Optional<Beacon> computeTrajectory(HashMap<Stream, List<Beacon>> hashStreamBeacon, List<Reef> listReefs){
         //getHashBeaconOfListStream()
         //for each beacon on list<Beacon> use computeDistance()
+        //compare distance of best balise et distance avec checkpoint
         return null;
     }
 
@@ -29,15 +33,8 @@ public class Mathematician {
      * @return Return a Hashmap that link streams with their lists of beacons
      */
     public HashMap<Stream, List<Beacon>> getHashBeaconOfListStream(List<Stream> listStream){
+        //utilise les beacon générés par les formes elles même
         return null;
     }
 
-    /**
-     * Call the Geometer to compute the distance of a route
-     * @param beacon
-     * @return distance of the route from the ship to the checkpoint, through the beacon
-     */
-    public double computeDistance(Beacon beacon) {
-        return 0;
-    }
 }

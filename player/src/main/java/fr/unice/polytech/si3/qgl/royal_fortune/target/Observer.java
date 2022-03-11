@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.target;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
@@ -9,13 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class Observer {
-    List<SeaEntities> currentSeaEntities;
-    Position shipPosition;
-    int RANGE=40;
+    private List<SeaEntities> currentSeaEntities;
+    private Position shipPosition;
+    private Mathematician mathematician;
+    private int RANGE=40;
 
     public Observer(Position shipPosition){
         this.shipPosition=shipPosition;
-        currentSeaEntities=new ArrayList<>();
+        this.currentSeaEntities=new ArrayList<>();
+        this.mathematician = new Mathematician();
     }
 
     /**
@@ -27,8 +30,8 @@ public class Observer {
         return null;
     }
 
-    /**If there is new Entities in RANGE ask Mathematician to find the best path through a beacon.
-     *
+    /**
+     *If there is new Entities in RANGE ask Mathematician to find the best path through a beacon.
      * @param newSeaEntities
      * @return If return empty we target the checkpoint else we target the Beacon
      */

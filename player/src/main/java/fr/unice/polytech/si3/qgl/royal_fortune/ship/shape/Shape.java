@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,6 +48,12 @@ public class Shape {
 		}
 		return "";
 	}
+
+	/**
+	 * Generate somes beacon all around the shape
+	 * @return the list of beacon of the shape
+	 */
+	public List<Beacon> generateBeacon(){return null;}
 	
 	
 }
