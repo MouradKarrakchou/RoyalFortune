@@ -90,4 +90,10 @@ public class PreCalculatorTest {
         PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap);
         assertFalse(preCalculator.needSailorToOarToCheckpoint(ship.getNbrOar()));
     }
+
+    @Test
+    void numberOfSailorToOarToCheckPointTest() {
+        Ship ship = new Ship(null, 100, null, null, null, null, null);
+        SeaMap seaMap = new SeaMap(null, null, null);
+    }
 }
