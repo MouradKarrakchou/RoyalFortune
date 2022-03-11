@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.LiftSailAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.LowerSailAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,8 +107,16 @@ public class Captain {
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
-
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
+        System.out.println(strategyAnswer);
+
+        Rudder rudder = ship.getRudder();
+        Sailor rudderSailor = associations.getAssociatedSailor(rudder);
+        if(rudderSailor != null){
+            System.out.println("Sailor: " + rudderSailor.getX() + ", " + rudderSailor.getY());
+        }
+        System.out.println("Rudder: " + rudder.getX() + ", " + rudder.getY());
+
         double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
         roundActions.addAll(crew.sailorsMove());
 
@@ -166,5 +175,9 @@ public class Captain {
 
     public Associations getAssociations() {
         return associations;
+    }
+
+    public void setWind(Wind wind) {
+        this.wind = wind;
     }
 }

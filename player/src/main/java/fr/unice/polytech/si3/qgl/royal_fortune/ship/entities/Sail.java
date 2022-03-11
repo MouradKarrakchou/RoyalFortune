@@ -15,4 +15,8 @@ public class Sail extends Entities{
     public boolean isOpenned() {
         return openned;
     }
+
+    public void setOpenned(boolean openned) {
+        this.openned = openned;
+    }
 }

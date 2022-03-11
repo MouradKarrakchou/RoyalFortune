@@ -51,13 +51,13 @@ public class Game {
     }
 
     public String createJson(Wind wind) {
-        return "{\"ship\":"+ cockpit.getShip().toString()+",\n \"wind\":"+wind.toString()+"}";
+        return "{\"ship\":"+ ship.toString()+",\n \"wind\":"+wind.toString()+"}";
     }
 
     @Override
     public String toString() {
         //"Orientation: "+ship.getPosition().getOrientation()+'\n';
-        return cockpit.getShip().getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
+        return ship.getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
     }
 
     public boolean isFinished() {

@@ -33,6 +33,7 @@ public class Referee {
     }
 
     public Ship makeAdvance(Cockpit cockpit, List<Action> actions) {
+        associations.dissociateAll();
         rightPush = 0;
         leftPush = 0;
         actions.forEach(this::doAction);
@@ -133,8 +134,10 @@ public class Referee {
         if (sailors.stream()
                 .filter(sailor -> sailor.getId() == action.getSailorId())
                 .filter(sailor -> isOnSail(sailor))
-                .count()>0)
+                .count()>0) {
             sailOpenned = true;
+            ship.getSail().setOpenned(true);
+        }
         else
             throw new ExceptionInInitializerError();
     }
@@ -144,7 +147,9 @@ public class Referee {
                 .filter(sailor -> sailor.getId() == action.getSailorId())
                 .filter(sailor -> isOnSail(sailor))
                 .count()>0)
-            sailOpenned = false;
+        {sailOpenned = false;
+            ship.getSail().setOpenned(false);
+            }
         else
             throw new ExceptionInInitializerError();
 

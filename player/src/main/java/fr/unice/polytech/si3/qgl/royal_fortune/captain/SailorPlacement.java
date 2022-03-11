@@ -87,4 +87,14 @@ public class SailorPlacement {
     public void incrementOarWeight(int incrementation){
         this.oarWeight += incrementation;
     }
+
+    @Override
+    public String toString() {
+        return "SailorPlacement{" +
+                "rudder=" + rudder +
+                ", sail=" + sail +
+                ", nbLeftSailors=" + nbLeftSailors +
+                ", nbRightSailors=" + nbRightSailors +
+                '}';
+    }
 }

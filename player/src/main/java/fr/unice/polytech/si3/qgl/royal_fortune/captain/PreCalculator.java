@@ -10,7 +10,7 @@ public class PreCalculator {
     private final Ship ship;
     private final List<Sailor> sailors;
     private final SeaMap seaMap;
-    private final Wind wind;
+    private  Wind wind;
 
     public PreCalculator(Ship ship, List<Sailor> sailors, SeaMap seaMap, Wind wind) {
         this.ship = ship;
@@ -68,5 +68,9 @@ public class PreCalculator {
         int nbUnassignedSailorsCanOar = 2 * (nbUnassignedSailors / 2);
         int numberOfSailorToCheckPoint = numberOfSailorToOarToCheckPoint();
         return Math.min(Math.min(leftOarList, rightOarList), Math.min(nbUnassignedSailorsCanOar, numberOfSailorToCheckPoint));
+    }
+
+    public void setWind(Wind wind) {
+        this.wind = wind;
     }
 }

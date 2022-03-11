@@ -62,6 +62,7 @@ public class Cockpit implements ICockpit {
 		LOGGER.info(out);
 
 		captain.updateWind(nextRoundDAO.getWind());
+		captain.getPreCalculator().setWind(captain.getWind());
 
 		return captain.roundDecisions();
 	}
