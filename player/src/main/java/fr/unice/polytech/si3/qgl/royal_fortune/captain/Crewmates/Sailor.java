@@ -79,7 +79,6 @@ public class Sailor{
 
 		// If there is a target entity and the sailor can not go to in one turn (> 5 cases).
 		else{
-			System.out.println("C'est chelou");
 			movingAction = targetEntityFarAway(associations);
 		}
 

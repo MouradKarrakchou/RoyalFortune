@@ -57,7 +57,7 @@ public class Captain {
         directionsManager.update();
         roundProceed();
         roundActions.addAll(crew.makeBoatMove());
-
+        System.out.println(roundActions.size());
         String out = createAction();
         return "[" + out + "]";
     }
