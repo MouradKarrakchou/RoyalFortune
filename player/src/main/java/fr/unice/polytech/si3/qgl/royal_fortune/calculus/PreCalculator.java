@@ -42,7 +42,7 @@ public class PreCalculator {
      * @return if with this numberOfSailors we are in the checkpoint or not
      */
     public boolean needSailorToOarToCheckpoint(int numberOfSailors) {
-        double norm = 165 * numberOfSailors / ship.getNbrOar();
+        double norm = 165 * numberOfSailors / (double) ship.getNbrOar();
         double newX = ship.getPosition().getX();
         double newY = ship.getPosition().getY();
         double angle = ship.getPosition().getOrientation();

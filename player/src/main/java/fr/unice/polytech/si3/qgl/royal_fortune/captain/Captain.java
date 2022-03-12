@@ -59,8 +59,11 @@ public class Captain {
         directionsManager.update();
         roundProceed();
         roundActions.addAll(crew.makeBoatMove());
-        String out = createAction();
-        System.out.println(roundActions);
+
+
+        String out = "";
+        if (!roundActions.isEmpty())
+            out = createAction();
 
         return "[" + out + "]";
     }
@@ -110,14 +113,9 @@ public class Captain {
         System.out.println(strategyAnswer);
 
         if(strategyAnswer.hasSail())
-            crew.sailorsUseSail(optionalSailDecision.get());
+            roundActions.addAll(crew.sailorsUseSail(optionalSailDecision.get()));
 
         Rudder rudder = ship.getRudder();
-        Sailor rudderSailor = associations.getAssociatedSailor(rudder);
-        if(rudderSailor != null){
-            System.out.println("Sailor: " + rudderSailor.getX() + ", " + rudderSailor.getY());
-        }
-        System.out.println("Rudder: " + rudder.getX() + ", " + rudder.getY());
 
         double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
         roundActions.addAll(crew.sailorsMove());
