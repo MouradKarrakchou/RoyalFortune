@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.logging.Level;
 @JsonIgnoreProperties(value = {
 		"type"
 })
-public class Rectangle<list> extends Shape{
+public class Rectangle extends Shape{
 
 	private double width;
 	private double height;
@@ -46,20 +47,26 @@ public class Rectangle<list> extends Shape{
 		Position HD = rectangleCorner.get(1);
 		Position BD = rectangleCorner.get(2);
 		Position BG = rectangleCorner.get(3);
-		for(int i = 0; i < 4; i++) {
-			rectangleSegment.add(new Segment(HG, HD));
-			rectangleSegment.add(new Segment(HD, BD));
-			rectangleSegment.add(new Segment(BD, BG));
-			rectangleSegment.add(new Segment(BG, HG));
-		}
+		rectangleSegment.add(new Segment(HG, HD));
+		rectangleSegment.add(new Segment(HD, BD));
+		rectangleSegment.add(new Segment(BD, BG));
+		rectangleSegment.add(new Segment(BG, HG));
 		return rectangleSegment;
 	}
 
 	/**
 	 * Compute the 4 corners of the rectangle
-	 * @return a list that contain the 4 corner of the rectangle [HG, HD, BG, BD]
+	 * @return a list that contain the 4 corner of the rectangle [HG, HD, BD, BG]
 	 */
-	private List<Position> computeCorner() {return null;}
+	private List<Position> computeCorner() {
+		List<Position> listOfPosition=new ArrayList<>();
+		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,height/2));
+		listOfPosition.add(Mathematician.changeBase(this.position,width/2,height/2));
+		listOfPosition.add(Mathematician.changeBase(this.position,width/2,-height/2));
+		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,-height/2));
+		return listOfPosition;
+	}
+
 
 	/**
 	 * Compute the intersection between the current shape and a segment
@@ -83,6 +90,7 @@ public class Rectangle<list> extends Shape{
 	 */
 	public void setPosition(Position position) {
 		this.position = position;
+		this.position.setOrientation(orientation);
 		this.segmentList = computeSegments();
 	}
 
