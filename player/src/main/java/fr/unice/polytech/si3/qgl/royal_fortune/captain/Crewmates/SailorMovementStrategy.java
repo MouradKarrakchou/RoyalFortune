@@ -76,14 +76,6 @@ public class SailorMovementStrategy {
             associateSailorsToOarEvenly();
         }
 
-        System.out.println("Unused Sailor" +
-                (sailors.size()
-                        - currentSailorPlacement.getNbLeftSailors()
-                        - currentSailorPlacement.getNbRightSailors()
-                        - (currentSailorPlacement.hasSail() ? 1 : 0)
-                        - (currentSailorPlacement.hasRudder() ? 1 : 0)
-                ));
-
         return currentSailorPlacement;
     }
 
@@ -375,6 +367,6 @@ public class SailorMovementStrategy {
 
     private boolean canContinueToOarEvenly(){
         return preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                currentSailorPlacement.getNbRightSailors()) *2 + 2);
+                currentSailorPlacement.getNbRightSailors()) * 2 + 2);
     }
 }

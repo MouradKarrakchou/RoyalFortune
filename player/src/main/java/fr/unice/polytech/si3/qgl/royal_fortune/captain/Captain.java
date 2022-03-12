@@ -51,14 +51,16 @@ public class Captain {
      * @return The json file of the round actions
      */
     public String roundDecisions() {
+        System.out.println(ship.getSail().isOpenned());
         associations.dissociateAll();
         roundActions.clear();
         seaMap.updateCheckPoint();
         directionsManager.update();
         roundProceed();
         roundActions.addAll(crew.makeBoatMove());
-        System.out.println(roundActions.size());
         String out = createAction();
+        System.out.println(roundActions);
+
         return "[" + out + "]";
     }
 
