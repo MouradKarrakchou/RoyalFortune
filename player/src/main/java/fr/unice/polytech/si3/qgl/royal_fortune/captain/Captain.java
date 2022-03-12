@@ -53,7 +53,7 @@ public class Captain {
      * @return The json file of the round actions
      */
     public String roundDecisions() {
-        System.out.println(ship.getSail().isOpenned());
+        System.out.println(ship.getSail().isOpened());
         associations.dissociateAll();
         roundActions.clear();
         seaMap.updateCheckPoint(seaEntities);
@@ -115,8 +115,8 @@ public class Captain {
 
     /**
      *
-     * @param angleMove
-     * @param angleMadeBySailors
+     * @param angleMove angle the ship has to make to be in the right orientation
+     * @param angleMadeBySailors angle made by sailors when they oar
      * @return the angle to turn to with the rudder
      */
     public double computeAngleToTurnRudder(double angleMove, double angleMadeBySailors) {
@@ -134,8 +134,8 @@ public class Captain {
 
     /**
      *
-     * @param angleMove
-     * @param angleSailorsShouldMake
+     * @param angleMove angle the ship has to make to be in the right orientation
+     * @param angleSailorsShouldMake ideal angle the sailors should make by oaring
      * @return true if we need to use rudder, false in other case
      */
     public boolean getRudderDecision(double angleMove, double angleSailorsShouldMake) {
@@ -144,13 +144,13 @@ public class Captain {
     }
         /**
          * If we need to use the sail return the action to do, in the other case return optional.empty
-         * @return
+         * @return eventually true if we need the sail
          */
     public Optional<Boolean> getSailDecision() {
         if(wind.getStrength() == 0.0)return Optional.empty();
 
         boolean windGoodForUs =  (ship.getPosition().getOrientation()) < (wind.getOrientation() + Math.PI/2) && (ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2));
-        boolean sailOpenned = ship.getSail().isOpenned();
+        boolean sailOpenned = ship.getSail().isOpened();
         Optional<Boolean> openSail = Optional.empty();
 
         if(windGoodForUs && !sailOpenned){

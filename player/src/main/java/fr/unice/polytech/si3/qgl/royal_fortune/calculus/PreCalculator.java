@@ -44,12 +44,12 @@ public class PreCalculator {
     }
     public int howManySailorsNeeded(){
         int numberOfSailors=0;
-        double norm = 0;
+        double norm;
         double newX = ship.getPosition().getX();
         double newY = ship.getPosition().getY();
         double angle = ship.getPosition().getOrientation();
 
-        if(ship.getSail().isOpenned()) {
+        if(ship.getSail().isOpened()) {
             Wind theWind = wind;
             double windNorm = theWind.getStrength() * Math.cos(theWind.getOrientation() - angle);
 

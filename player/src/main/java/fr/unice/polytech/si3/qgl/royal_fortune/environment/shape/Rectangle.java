@@ -28,7 +28,7 @@ public class Rectangle extends Shape{
 	private List<Segment> segmentList;
 	Position position;
 	int PRECISION=50;
-	int RADIUSOFBEACON=50;
+	int RADIUS_OF_BEACON = 50;
 
 	public Rectangle() {}
 	
@@ -71,7 +71,7 @@ public class Rectangle extends Shape{
 	}
 	@Override
 	/**
-	 *
+	 * Generate beacons
 	 * @return a list of Beacon
 	 */
 	public List<Beacon> generateBeacon() {
@@ -79,17 +79,17 @@ public class Rectangle extends Shape{
 		double widthUnit=width/PRECISION;
 		double heightUnit=height/PRECISION;
 		for (int k=-PRECISION/5;k<PRECISION+PRECISION/5;k++){
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2),new Circle("circle",RADIUSOFBEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*heightUnit),new Circle("circle",RADIUSOFBEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2),new Circle("circle",RADIUSOFBEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*heightUnit),new Circle("circle",RADIUSOFBEACON)));}
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2),new Circle("circle", RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*heightUnit),new Circle("circle", RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2),new Circle("circle", RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*heightUnit),new Circle("circle", RADIUS_OF_BEACON)));}
 		return listOfPosition;
 	}
 
 
 	/**
 	 * Compute the intersection between the current shape and a segment
-	 * @param segment
+	 * @param segment a segment
 	 * @return the 2 positions of the intersection
 	 */
 	public List<Position> computeIntersectionWith(Segment segment){
@@ -97,15 +97,15 @@ public class Rectangle extends Shape{
 		Optional<Position> intersection;
 		for(Segment seg : segmentList) {
 			 intersection = segment.computeIntersectionWith(seg);
-			 if(!intersection.isEmpty()) intersectionsPosition.add(intersection.get());
+			intersection.ifPresent(intersectionsPosition::add);
 		}
 		return intersectionsPosition;
 	}
 
 	/**
 	 * check if the given Position is in the rectangle
-	 * @return
-	 * @param pointA
+	 * @return true if the point is in the rectangle
+	 * @param pointA a point
 	 */
 	public boolean positionIsInTheRectangle(Position pointA) {
 		List<Position> cornersList = computeCorner();
@@ -127,9 +127,7 @@ public class Rectangle extends Shape{
 		boolean calculusBGHGx = (x - HG.getX()) * BGHGx + (y - HG.getY()) * BGHGy < 0;
 		boolean calculusBGHGy = (x - BG.getX()) * BGHGx + (y - BG.getY()) * BGHGy > 0;
 
-		if(calculusHDHGx || calculusHDHGy || calculusBGHGx || calculusBGHGy) return false;
-
-		return true;
+		return !calculusHDHGx && !calculusHDHGy && !calculusBGHGx && !calculusBGHGy;
 	}
 
 	@Override

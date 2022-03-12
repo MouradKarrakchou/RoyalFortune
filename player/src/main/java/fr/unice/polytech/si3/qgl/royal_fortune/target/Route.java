@@ -21,7 +21,7 @@ public class Route implements Comparable{
      * Create a route using a single segment
      * We try to slice the segment by its intersection with SeaEntities.<br>
      * If no intersection the route is a leaf route else we distribute the segment list between the first and the second route.
-     * @param segment
+     * @param segment a segment
      */
     public Route(Segment segment,Cartologue cartologue){
         this.cartologue = cartologue;
@@ -39,8 +39,8 @@ public class Route implements Comparable{
 
     /**
      * Create a route using a list of segment, we distribute all the segment between the two lower route of the current route to build other route
-     * @param listSegment
-     * @param cartologue
+     * @param listSegment a list of segments
+     * @param cartologue a cartologue
      */
     public Route(List<Segment> listSegment, Cartologue cartologue) {
         this.cartologue = cartologue;
@@ -53,7 +53,7 @@ public class Route implements Comparable{
      * Cut the segment list in two part by using /2.<br>
      * If we have a list like <strong>{AB,BC,CD}</strong> the first segment AB will go in firstRoute and the other <strong>(BC,CD)</strong> in the second.<br>
      * If we have a list like <strong>{AB,BC,CD,DE}</strong> the two first segment AB and BC will go in firstRoute and the other <strong>(CD,DE)</strong> in the second.<br>
-     * @param listSegment
+     * @param listSegment list of segments
      */
     private void distributeSegments(List<Segment> listSegment) {
         List<Segment> segmentFirstRoute = new ArrayList<>();
@@ -73,7 +73,7 @@ public class Route implements Comparable{
 
     /**
      * slice the segment by intersection between seaEntities using the cartologue
-     * @return
+     * @return list of segments
      */
     private List<Segment> sliceSegment(Segment segment) {
         //use cartologue to slice segment

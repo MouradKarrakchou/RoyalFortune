@@ -4,19 +4,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(value = {"type"})
 public class Sail extends Entities{
-    private boolean openned;
+    private boolean opened;
 
     public Sail(){}
-    public Sail(int x, int y, boolean openned) {
+    public Sail(int x, int y, boolean opened) {
         super("sail", x, y);
-        this.openned = openned;
+        this.opened = opened;
     }
 
-    public boolean isOpenned() {
-        return openned;
+    public boolean isOpened() {
+        return opened;
     }
 
-    public void setOpenned(boolean openned) {
-        this.openned = openned;
+    public void setOpened(boolean opened) {
+        this.opened = opened;
     }
 }

@@ -2,8 +2,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;

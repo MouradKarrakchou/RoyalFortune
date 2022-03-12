@@ -3,8 +3,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune.environment.shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
-import javax.swing.plaf.basic.BasicOptionPaneUI;
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public class Segment {
@@ -25,8 +23,8 @@ public class Segment {
     }
 
     /**
-     * Compute the intersection between this segment and an other segment
-     * @param segment
+     * Compute the intersection between this segment and another segment
+     * @param segment a segment
      * @return the position of the intersection
      */
     public Optional<Position> computeIntersectionWith(Segment segment){
@@ -41,7 +39,7 @@ public class Segment {
 
     /**
      * Calculate the angle between the segment and the orientation of a rectangle
-     * @param rectangle
+     * @param rectangle a rectangle
      * @return the angle between the segment and the orientation of a rectangle
      */
     public double angleIntersectionBetweenSegmentAndRectangle(Rectangle rectangle) {

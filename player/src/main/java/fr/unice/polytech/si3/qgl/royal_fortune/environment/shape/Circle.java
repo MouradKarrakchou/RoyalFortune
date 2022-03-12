@@ -33,7 +33,7 @@ public class Circle extends Shape{
 
     /**
      * check if the rectangle is in the circle
-     * @return
+     * @return true if the rectangle is the circle
      */
     public boolean rectangleIsInCircle(Rectangle rectangle){
         List<Position> positionList=rectangle.computeCorner();

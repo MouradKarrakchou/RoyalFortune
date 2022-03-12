@@ -113,8 +113,8 @@ public class Sailor{
 	public RudderAction turnWithRudder(double rotationRudder) {
 		return new RudderAction(this.getId(), rotationRudder);
 	}
-	public SailAction useSail(boolean openned) {
-		if(openned == true)
+	public SailAction useSail(boolean opened) {
+		if(opened)
 			return new LiftSailAction(this.getId());
 		else
 			return new LowerSailAction(this.getId());

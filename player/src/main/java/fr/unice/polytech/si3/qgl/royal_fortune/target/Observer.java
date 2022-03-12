@@ -36,7 +36,7 @@ public class Observer {
     }
     /**
      * Check in half-circle all the seaEntities in RANGE. If newSeaEntities is different from currentSeaEntities return true.
-     * @param newSeaEntities
+     * @param newSeaEntities a potential new sea entity
      * @return boolean
      */
     public Boolean checkIfNewSeaEntities(List<SeaEntities> newSeaEntities){
@@ -45,7 +45,7 @@ public class Observer {
 
     /**
      *If there is new Entities in RANGE ask Mathematician to find the best path through a beacon.
-     * @param newSeaEntities
+     * @param newSeaEntities a potential new sea entity
      * @return If return empty we target the checkpoint else we target the Beacon
      */
     public Optional<Beacon> watchSea(List<SeaEntities> newSeaEntities){

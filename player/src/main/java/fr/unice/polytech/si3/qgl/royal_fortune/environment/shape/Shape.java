@@ -56,7 +56,7 @@ public class Shape {
 	}
 
 	/**
-	 * Generate somes beacon all around the shape
+	 * Generate some beacons all around the shape
 	 * @return the list of beacon of the shape
 	 */
 	public List<Beacon> generateBeacon(){return null;}

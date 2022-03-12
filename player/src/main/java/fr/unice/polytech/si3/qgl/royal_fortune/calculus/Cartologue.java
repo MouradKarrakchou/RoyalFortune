@@ -25,7 +25,7 @@ public class Cartologue {
     }
     /**
      * Compute the distance of a route
-     * @param segment
+     * @param segment a segment
      * @return distance of the route from the ship to the checkpoint, through the beacon
      */
     public double computeDistance(Segment segment) {
@@ -42,7 +42,7 @@ public class Cartologue {
 
     /**
      * Slice the segment by collision with seaEntities
-     * @param path
+     * @param path a path
      * @return a list of segment that represent intersection
      */
     public List<Segment> sliceSegmentByInteraction (Segment path){
@@ -51,14 +51,13 @@ public class Cartologue {
 
     /**
      * We check where we cross a stream and we return the segments
-     * @param path
+     * @param path a path
      * @return list of segments
      */
     private List<Segment> cutSegment(Segment path,Boolean isOnStream){
         List<Segment> segments=new ArrayList<>();
         for (Stream stream:listStream){
-            List<Position> intersections=new ArrayList<>();
-            intersections.addAll(((Rectangle) stream.getShape()).computeIntersectionWith(path));
+            List<Position> intersections = new ArrayList<>(((Rectangle) stream.getShape()).computeIntersectionWith(path));
             if (intersections.size()==1)
             {
                 segments.add(new Segment(path.getPointA(),intersections.get(0)));
@@ -85,8 +84,8 @@ public class Cartologue {
 
     /**
      * check if the point is on a Stream
-     * @return
-     * @param pointA
+     * @return true if the point is in the rectangle
+     * @param pointA a point
      */
     private boolean positionIsOnAStream(Position pointA) {
         for (Stream stream:listStream){

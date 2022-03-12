@@ -136,7 +136,7 @@ public class Referee {
                 .filter(sailor -> isOnSail(sailor))
                 .count()>0) {
             sailOpenned = true;
-            ship.getSail().setOpenned(true);
+            ship.getSail().setOpened(true);
         }
         else
             throw new ExceptionInInitializerError();
@@ -148,7 +148,7 @@ public class Referee {
                 .filter(sailor -> isOnSail(sailor))
                 .count()>0)
         {sailOpenned = false;
-            ship.getSail().setOpenned(false);
+            ship.getSail().setOpened(false);
             }
         else
             throw new ExceptionInInitializerError();
