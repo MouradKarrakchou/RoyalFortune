@@ -580,16 +580,20 @@ public class SailorMovementStrategyTest {
         SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT, false, false);
 
         SailorPlacement answer = sailorMovementStrategy.askPlacement(requestedPlacement);
+        sailorMovementStrategy.continueAssociatingStarvingEntities(requestedPlacement);
+        sailorMovementStrategy.associateSpecialistSailorToOarEvenly();
+        sailorMovementStrategy.associateSailorsToOarEvenly();
+        sailorMovementStrategy.associateStarvingOar(DirectionsManager.LEFT);
+        sailorMovementStrategy.associateStarvingOar(DirectionsManager.RIGHT);
+        sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly();
+
         assertEquals(0, answer.getNbLeftSailors());
         assertEquals(0, answer.getNbRightSailors());
         assertFalse(answer.hasRudder());
         assertFalse(answer.hasSail());
 
-        answer = sailorMovementStrategy.askPlacement(requestedPlacement);
-        assertEquals(0, answer.getNbLeftSailors());
-        assertEquals(0, answer.getNbRightSailors());
-        assertFalse(answer.hasRudder());
-        assertFalse(answer.hasSail());
+
+
 
     }
 }

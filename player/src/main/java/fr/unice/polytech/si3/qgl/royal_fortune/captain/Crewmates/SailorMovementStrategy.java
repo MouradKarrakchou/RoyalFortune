@@ -237,7 +237,7 @@ public class SailorMovementStrategy {
             Sailor specialistSailor = sailorsCanOnlyGoLeft.get(0);
             Oar nearestLeftOar = specialistSailor.getNearestOar(ship.getOarList(DirectionsManager.LEFT, associations), associations);
             Sailor normalSailor = sailorsCanGoBoth.get(0);
-            Oar nearestRightOar = specialistSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT, associations), associations);
+            Oar nearestRightOar = normalSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT, associations), associations);
 
             associations.addAssociation(normalSailor, nearestRightOar);
             associations.addAssociation(specialistSailor, nearestLeftOar);
@@ -254,7 +254,7 @@ public class SailorMovementStrategy {
             Sailor specialistSailor = sailorsCanOnlyGoRight.get(0);
             Oar nearestRightOar = specialistSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT, associations), associations);
             Sailor normalSailor = sailorsCanGoBoth.get(0);
-            Oar nearestLeftOar = specialistSailor.getNearestOar(ship.getOarList(DirectionsManager.LEFT, associations), associations);
+            Oar nearestLeftOar = normalSailor.getNearestOar(ship.getOarList(DirectionsManager.LEFT, associations), associations);
 
             associations.addAssociation(specialistSailor, nearestRightOar);
             associations.addAssociation(normalSailor, nearestLeftOar);
