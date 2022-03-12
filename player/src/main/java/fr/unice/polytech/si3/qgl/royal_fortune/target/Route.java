@@ -25,7 +25,7 @@ public class Route {
      */
     public Route(Segment segment){
         this.listSegment.add(segment);
-        List<Segment> slicedSegments = sliceSegment();
+        List<Segment> slicedSegments = sliceSegment(segment);
         if(slicedSegments.size() > 0){
             listSegment = slicedSegments;
             distributeSegments(listSegment);
@@ -59,9 +59,13 @@ public class Route {
     }
 
 
-    private List<Segment> sliceSegment() {
+    /**
+     * slice the segment by intersection between seaEntities using the cartologue
+     * @return
+     */
+    private List<Segment> sliceSegment(Segment segment) {
         //use cartologue to slice segment
-        return null;
+        return cartologue.sliceSegmentByInteraction(segment);
     }
 
     public List<Segment> getListSegment() {
