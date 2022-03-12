@@ -17,6 +17,5 @@ public class RectangleTest {
     @Test
     void rectangleInitialisionTest(){
         rectangle.setPosition(new Position(50,50,Math.PI/2));
-        assertTrue(true);
     }
 }
