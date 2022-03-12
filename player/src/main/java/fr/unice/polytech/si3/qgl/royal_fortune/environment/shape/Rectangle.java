@@ -22,6 +22,7 @@ public class Rectangle<list> extends Shape{
 	private double height;
 	private double orientation;
 	private List<Segment> segmentlist;
+	Position position;
 	
 	public Rectangle() {}
 	
@@ -30,7 +31,6 @@ public class Rectangle<list> extends Shape{
 		this.width = width;
 		this.height = height;
 		this.orientation = orientation;
-		this.segmentlist = computeSegments();
 	}
 
 	/**
@@ -51,6 +51,15 @@ public class Rectangle<list> extends Shape{
 	 * @return the 2 positions of the intersection
 	 */
 	private Position[] computeIntersectionWith(Segment segment){return null;}
+
+	/**
+	 * When we set the position the rectangle create his segments
+	 * @param position
+	 */
+	public void setPosition(Position position) {
+		this.position = position;
+		this.segmentlist = computeSegments();
+	}
 
 	public double getWidth() {
 		return width;
