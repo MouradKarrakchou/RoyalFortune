@@ -29,4 +29,8 @@ public class SeaEntities {
     public Position getPosition() {
         return position;
     }
+
+    public Shape getShape() {
+        return shape;
+    }
 }

@@ -10,4 +10,5 @@ public class Stream extends SeaEntities{
         this.strength=strength;
     }
 
+
 }

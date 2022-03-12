@@ -60,6 +60,6 @@ public class Shape {
 	 * @return the list of beacon of the shape
 	 */
 	public List<Beacon> generateBeacon(){return null;}
-	
-	
+
+
 }
