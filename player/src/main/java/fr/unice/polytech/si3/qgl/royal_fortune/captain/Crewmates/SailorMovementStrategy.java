@@ -64,21 +64,15 @@ public class SailorMovementStrategy {
         // We are associating (if possible) the left or right oar to the nearest sailor according to the oarWeight.
         associateNearestSailorToOars(requestedSailorPlacement);
 
-        if (preCalculator.needSailorToOarToCheckpoint(
-                Math.min(currentSailorPlacement.getNbLeftSailors(),
-                        currentSailorPlacement.getNbLeftSailors()) *2+2)){
+        if (canContinueToOarEvenly()){
             associateSpecialistSailorToOarEvenly();
         }
 
-        if (preCalculator.needSailorToOarToCheckpoint(
-                Math.min(currentSailorPlacement.getNbLeftSailors(),
-                        currentSailorPlacement.getNbLeftSailors()) *2+2)){
+        if (canContinueToOarEvenly()){
             associateSpecialistSailorAndSailorToOarEvenly();
         }
 
-        if (preCalculator.needSailorToOarToCheckpoint(
-                Math.min(currentSailorPlacement.getNbLeftSailors(),
-                        currentSailorPlacement.getNbLeftSailors()) *2+2)){
+        if (canContinueToOarEvenly()){
             associateSailorsToOarEvenly();
         }
 
@@ -258,8 +252,7 @@ public class SailorMovementStrategy {
             currentSailorPlacement.incrementNbRightSailor(1);
             currentSailorPlacement.incrementNbLeftSailor(1);
 
-            if (preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                    currentSailorPlacement.getNbLeftSailors()) *2+2)){
+            if (canContinueToOarEvenly()){
                 associateSpecialistSailorAndSailorToOarEvenly();
             }
             return;
@@ -276,8 +269,7 @@ public class SailorMovementStrategy {
             currentSailorPlacement.incrementNbRightSailor(1);
             currentSailorPlacement.incrementNbLeftSailor(1);
 
-            if (preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                    currentSailorPlacement.getNbLeftSailors()) *2+2)){
+            if (canContinueToOarEvenly()){
                 associateSpecialistSailorAndSailorToOarEvenly();
             }
         }
@@ -309,8 +301,7 @@ public class SailorMovementStrategy {
             associations.addAssociation(leftSailor, bestLeftOar);
             currentSailorPlacement.incrementNbLeftSailor(1);
 
-            if (preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                    currentSailorPlacement.getNbLeftSailors()) *2+2)){
+            if (canContinueToOarEvenly()){
                 associateSailorsToOarEvenly();
             }
         }
@@ -346,8 +337,7 @@ public class SailorMovementStrategy {
             currentSailorPlacement.incrementNbLeftSailor(1);
 
             // If the pre-calculator thinks adding two more sailor is not worth.
-            if (preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                    currentSailorPlacement.getNbLeftSailors()) *2+2)){
+            if (canContinueToOarEvenly()){
                 associateSpecialistSailorToOarEvenly();
             }
         }
@@ -381,5 +371,10 @@ public class SailorMovementStrategy {
                 .sorted(Comparator.comparingInt(entity ->
                     entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).get().getDistanceToEntity(entity)))
                 .toList();
+    }
+
+    private boolean canContinueToOarEvenly(){
+        return preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
+                currentSailorPlacement.getNbRightSailors()) *2 + 2);
     }
 }
