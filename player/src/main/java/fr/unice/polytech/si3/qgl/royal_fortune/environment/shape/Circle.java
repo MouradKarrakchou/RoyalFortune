@@ -26,6 +26,10 @@ public class Circle extends Shape{
         super(type);
         this.radius = radius;
     }
+    public Circle(Position position, double radius) {
+        super.position=position;
+        this.radius = radius;
+    }
 
     /**
      * check if the rectangle is in the circle
