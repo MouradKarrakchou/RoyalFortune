@@ -53,8 +53,8 @@ public class PreCalculator {
             Wind theWind = wind;
             double windNorm = theWind.getStrength() * Math.cos(theWind.getOrientation() - angle);
 
-            newX += windNorm * Math.cos(angle)*0.99;
-            newY += windNorm * Math.sin(angle)*0.99;
+            newX += windNorm * Math.cos(angle)*0.90;
+            newY += windNorm * Math.sin(angle)*0.90;
         }
 
         return !seaMap.isInCheckpointShipPos(seaMap.getCurrentFictitiousCheckPoint(), newX, newY);
