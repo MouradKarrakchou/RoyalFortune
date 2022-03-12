@@ -49,6 +49,8 @@ class CaptainTest {
                 new Deck(3, 4),
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
+        captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10));
+
     }
 
     @Test
@@ -87,6 +89,54 @@ class CaptainTest {
         assertFalse(res.get());
     }
 
+    @Test
+    void getRudderDecisionNoNeedRudderTest(){
+        double angleMove = 0.0;
+        double angleSailorShouldMake = 0.0;
+
+        boolean angleIsZero = captain.getRudderDecision(angleMove, angleSailorShouldMake);
+        assertFalse(angleIsZero);
+
+        angleMove = Math.PI/3;
+        angleSailorShouldMake = Math.PI/3;
+
+        angleIsZero = captain.getRudderDecision(angleMove, angleSailorShouldMake);
+        assertFalse(angleIsZero);
+    }
+
+    @Test
+    void getRudderDecisionNeedRudderTest(){
+        double angleMove = Math.PI/3;
+        double angleSailorShouldMake = 0.0;
+        boolean angleIsZero = captain.getRudderDecision(angleMove, angleSailorShouldMake);
+        assertTrue(angleIsZero);
+
+        angleMove = Math.PI;
+        angleSailorShouldMake = Math.PI/4;
+
+        angleIsZero = captain.getRudderDecision(angleMove, angleSailorShouldMake);
+        assertTrue(angleIsZero);
+    }
+
+    @Test
+    void computeAngleToTurnRudderTest(){
+        double angleMove = Math.PI/5;
+        double angleMadeBySailors = 0.0;
+        double angleToTurn = captain.computeAngleToTurnRudder(angleMove, angleMadeBySailors);
+        assertEquals(Math.PI/5, angleToTurn);
+    }
+
+    @Test
+    void computeAngleToTurnRudderMaxTest(){
+        double angleMove = Math.PI;
+        double angleMadeBySailors = 0.0;
+        double angleToTurn = captain.computeAngleToTurnRudder(angleMove, angleMadeBySailors);
+        assertEquals(Math.PI/4, angleToTurn);
+    }
+
+
+
+/*
 
     @Test
     void numberOfSailorToTurnTest(){
