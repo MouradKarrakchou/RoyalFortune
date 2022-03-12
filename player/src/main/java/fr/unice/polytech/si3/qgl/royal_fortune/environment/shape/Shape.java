@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
         @JsonSubTypes.Type(value = Rectangle.class, name = "rectangle")
 })
 public class Shape {
+	Position position;
 	private String type;
 	final Logger logger = Logger.getLogger(Shape.class.getName());
 
@@ -47,6 +49,10 @@ public class Shape {
 			logger.log(Level.INFO, "Exception");
 		}
 		return "";
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 	/**

@@ -52,6 +52,7 @@ public class Rectangle<list> extends Shape{
 	 */
 	private Position[] computeIntersectionWith(Segment segment){return null;}
 
+	@Override
 	/**
 	 * When we set the position the rectangle create his segments
 	 * @param position

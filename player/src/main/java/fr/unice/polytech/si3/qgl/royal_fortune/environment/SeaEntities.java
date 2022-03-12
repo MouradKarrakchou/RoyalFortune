@@ -19,6 +19,7 @@ public class SeaEntities {
         this.position=position;
         this.type=type;
         this.shape=shape;
+        shape.setPosition(position);
     }
 
     public String getType() {
