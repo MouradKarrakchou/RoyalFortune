@@ -136,34 +136,21 @@ public class Captain {
      * If we need to use the sail return the action to do, in the other case return optional.empty
      * @return
      */
-    private Optional<Boolean> getSailDecision() {
-        boolean takeWind = false;
+    public Optional<Boolean> getSailDecision() {
+        if(wind.getStrength() == 0.0)return Optional.empty();
 
-        boolean first = (wind.getOrientation() + Math.PI/2) > ship.getPosition().getOrientation();
-        boolean second = ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2);
-        boolean third = !ship.getSail().isOpenned();
+        boolean windGoodForUs =  (ship.getPosition().getOrientation()) < (wind.getOrientation() + Math.PI/2) && (ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2));
+        boolean sailOpenned = ship.getSail().isOpenned();
+        Optional<Boolean> openSail = Optional.empty();
 
-        boolean four = (ship.getPosition().getOrientation() > (wind.getOrientation() + Math.PI/2));
-        boolean five = (wind.getOrientation() - Math.PI/2) > ship.getPosition().getOrientation();
-        boolean six = ship.getSail().isOpenned();
-
-        if( (wind.getOrientation() + Math.PI/2) > ship.getPosition().getOrientation()
-                && ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2)
-                && !ship.getSail().isOpenned() ) {
-            takeWind = true;
+        if(windGoodForUs && !sailOpenned){
+            openSail = Optional.of(true);
+        }
+        else if(!windGoodForUs && sailOpenned){
+            openSail = Optional.of(false);
         }
 
-
-        else if( (ship.getPosition().getOrientation() > (wind.getOrientation() + Math.PI/2)
-                || (wind.getOrientation() - Math.PI/2) > ship.getPosition().getOrientation())
-                && ship.getSail().isOpenned() ) {
-            takeWind = false;
-        }
-
-        boolean windGoodForUs = true;
-        boolean sailOpenned = false;
-
-        return takeWind?Optional.of(takeWind):Optional.empty();
+        return openSail;
     }
 
     /**

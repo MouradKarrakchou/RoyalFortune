@@ -53,24 +53,11 @@ public class PreCalculator {
             Wind theWind = wind;
             double windNorm = theWind.getStrength() * Math.cos(theWind.getOrientation() - angle);
 
-            newX += windNorm * Math.cos(angle)*0.5;
-            newY += windNorm * Math.sin(angle)*0.5;
+            newX += windNorm * Math.cos(angle);
+            newY += windNorm * Math.sin(angle);
         }
 
         return !seaMap.isInCheckpointShipPos(seaMap.getCurrentFictitiousCheckPoint(), newX, newY);
-    }
-
-    /**
-     * Give the number Of Sailor needed
-     *
-     * @return number of Sailor that will oar evenly
-     */
-    public int numberOfSailorToOarEvenly(int nbUnassignedSailors, Associations associations) {
-        int leftOarList = 2 * ship.getOarList(DirectionsManager.LEFT, associations).size();
-        int rightOarList = 2 * ship.getOarList(DirectionsManager.RIGHT, associations).size();
-        int nbUnassignedSailorsCanOar = 2 * (nbUnassignedSailors / 2);
-        int numberOfSailorToCheckPoint = numberOfSailorToOarToCheckPoint();
-        return Math.min(Math.min(leftOarList, rightOarList), Math.min(nbUnassignedSailorsCanOar, numberOfSailorToCheckPoint));
     }
 
     public void setWind(Wind wind) {
