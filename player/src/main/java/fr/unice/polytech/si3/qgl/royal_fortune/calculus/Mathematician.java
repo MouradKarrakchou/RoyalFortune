@@ -42,8 +42,8 @@ public class Mathematician {
      */
     public static Position changeBase(Position position,double x,double y){
         Position newPosition=new Position();
-        newPosition.setX(Math.sqrt(Math.pow(Math.cos(position.getOrientation())*x,2)+Math.pow((Math.sin(position.getOrientation())*y),2)));
-        newPosition.setY(Math.sqrt(Math.pow(-Math.sin(position.getOrientation())*x,2)+Math.pow((Math.cos(position.getOrientation())*y),2)));
+        newPosition.setX(Math.cos(position.getOrientation())*x-Math.sin(position.getOrientation())*y);
+        newPosition.setY(Math.sin(position.getOrientation())*x+Math.cos(position.getOrientation())*y);
         newPosition.setX(newPosition.getX()+position.getX());
         newPosition.setY(newPosition.getY()+position.getY());
         return newPosition;
