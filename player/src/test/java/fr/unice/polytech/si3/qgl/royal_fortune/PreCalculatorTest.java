@@ -56,7 +56,7 @@ public class PreCalculatorTest {
         List<Checkpoint> checkpoints = new ArrayList<>();
         checkpoints.add(new Checkpoint(new Position(100, 0, 0), new Circle("Circle", 10)));
 
-        SeaMap seaMap = new SeaMap(new Goal("",checkpoints), new FictitiousCheckpoint(checkpoints), ship.getPosition(),null);
+        SeaMap seaMap = new SeaMap(new Goal("",checkpoints), new FictitiousCheckpoint(checkpoints), ship.getPosition(),null, null);
 
         PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap, new Wind(0, 0));
         assertTrue(preCalculator.needSailorToOarToCheckpoint(ship.getNbrOar()));
@@ -93,7 +93,7 @@ public class PreCalculatorTest {
         List<Checkpoint> checkpoints = new ArrayList<>();
         checkpoints.add(new Checkpoint(new Position(100, 0, 0), new Circle("Circle", 100)));
 
-        SeaMap seaMap = new SeaMap(new Goal("",checkpoints), new FictitiousCheckpoint(checkpoints), ship.getPosition(),null);
+        SeaMap seaMap = new SeaMap(new Goal("",checkpoints), new FictitiousCheckpoint(checkpoints), ship.getPosition(),null, null);
 
         PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap, new Wind(0, 0));
         assertFalse(preCalculator.needSailorToOarToCheckpoint(ship.getNbrOar()));
@@ -102,6 +102,6 @@ public class PreCalculatorTest {
     @Test
     void numberOfSailorToOarToCheckPointTest() {
         Ship ship = new Ship(null, 100, null, null, null, null, null);
-        SeaMap seaMap = new SeaMap(null, null, null,null);
+        SeaMap seaMap = new SeaMap(null, null, null,null, null);
     }
 }
