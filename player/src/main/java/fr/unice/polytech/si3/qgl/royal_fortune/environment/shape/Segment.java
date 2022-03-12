@@ -38,6 +38,16 @@ public class Segment {
             return Optional.empty();
     }
 
+    /**
+     * Calculate the angle between the segment and the orientation of a rectangle
+     * @param rectangle
+     * @return the angle between the segment and the orientation of a rectangle
+     */
+    public double angleIntersectionBetweenTwoLines(Rectangle rectangle) {
+
+        return 0;
+    }
+
     public Position getPointA() {
         return pointA;
     }
