@@ -1,7 +1,34 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 class CaptainTest {
-    /*private Ship basicShip;
+    private Ship basicShip;
     private Captain captain;
     private Checkpoint checkpoint;
     private List<Sailor> sailors;
@@ -12,6 +39,7 @@ class CaptainTest {
     void init(){
         sailors = new ArrayList<>();
         entities = new ArrayList<>();
+        entities.add(new Sail());
 
         basicShip = new Ship(
                 "ship",
@@ -22,6 +50,43 @@ class CaptainTest {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
     }
+
+    @Test
+    void getSailDecisionNoWindTest(){
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(0,0));
+        Optional<Boolean> res = captain.getSailDecision();
+        assertEquals(Optional.empty(), res);
+    }
+    @Test
+    void getSailDecisionWindForUsSailCloseTest(){
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(0,10));
+        Optional<Boolean> res = captain.getSailDecision();
+        assertTrue(res.get());
+    }
+    @Test
+    void getSailDecisionWindForUsSailOpenTest(){
+        basicShip.getSail().setOpenned(false);
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10));
+        Optional<Boolean> res = captain.getSailDecision();
+        assertEquals(Optional.empty(), res);
+    }
+
+
+    @Test
+    void getSailDecisionWindNotForUsSailCloseTest(){
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10));
+        Optional<Boolean> res = captain.getSailDecision();
+        assertEquals(Optional.empty(), res);
+    }
+
+    @Test
+    void getSailDecisionWindNotForUsSailOpenTest(){
+        basicShip.getSail().setOpenned(true);
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10));
+        Optional<Boolean> res = captain.getSailDecision();
+        assertFalse(res.get());
+    }
+
 
     @Test
     void numberOfSailorToTurnTest(){
@@ -235,7 +300,7 @@ class CaptainTest {
         assertEquals("{\"sailorId\":0,\"type\":\"MOVING\",\"xdistance\":0,\"ydistance\":1},{\"sailorId\":1,\"type\":\"MOVING\",\"xdistance\":1,\"ydistance\":0},{\"sailorId\":0,\"type\":\"OAR\"},{\"sailorId\":1,\"type\":\"OAR\"}", captain.createAction());
     }
 
-    @Test
+    /*@Test
     void askSailorToMoveToRudderTest(){
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
@@ -273,6 +338,8 @@ class CaptainTest {
         assertTrue(sailors.get(0).getTargetEntity() != null);
         captain.disassociate();
         assertTrue(sailors.get(0).getTargetEntity() == null);
-    }*/
+    }
+*/
+
 
 }
