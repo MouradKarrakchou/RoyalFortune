@@ -7,7 +7,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 public class Observer {
@@ -49,7 +48,7 @@ public class Observer {
      * @param newSeaEntities
      * @return If return empty we target the checkpoint else we target the Beacon
      */
-    public Optional<Beacon> watchSea(Set<SeaEntities> newSeaEntities){
+    public Optional<Beacon> watchSea(List<SeaEntities> newSeaEntities){
         List<Beacon> beacons=new ArrayList<>();
         for (Stream stream:getStream()){
             beacons.addAll(stream.getShape().generateBeacon());
