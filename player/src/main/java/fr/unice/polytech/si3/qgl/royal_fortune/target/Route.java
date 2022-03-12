@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Route {
+public class Route implements Comparable{
     private Route firstRoute;
     private Route secondRoute;
     private double value;
@@ -23,7 +23,8 @@ public class Route {
      * If no intersection the route is a leaf route else we distribute the segment list between the first and the second route.
      * @param segment
      */
-    public Route(Segment segment){
+    public Route(Segment segment,Cartologue cartologue){
+        this.cartologue = cartologue;
         this.listSegment.add(segment);
         List<Segment> slicedSegments = sliceSegment(segment);
         if(slicedSegments.size() > 0){
@@ -54,8 +55,14 @@ public class Route {
         List<Segment> segmentSecondRoute = new ArrayList<>();
         for(int i = 0 ; i < listSegment.size()/2;i++)segmentFirstRoute.add(listSegment.get(i));
         for(int i = listSegment.size()/2 ; i <listSegment.size() ;i++)segmentSecondRoute.add(listSegment.get(i));
-        firstRoute = new Route(segmentFirstRoute, cartologue);
-        secondRoute = new Route(segmentSecondRoute, cartologue);
+        if (segmentFirstRoute.size()==1)
+            firstRoute = new Route(segmentFirstRoute.get(0), cartologue);
+        else
+            firstRoute = new Route(segmentFirstRoute, cartologue);
+        if (segmentSecondRoute.size()==1)
+            secondRoute = new Route(segmentFirstRoute.get(0), cartologue);
+        else
+            secondRoute = new Route(segmentSecondRoute, cartologue);
     }
 
 
@@ -94,5 +101,14 @@ public class Route {
 
     public Boolean getReefCollision() {
         return reefCollision;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(this.value>((Route)o).getValue())
+            return 1;
+        else if(this.value==((Route)o).getValue())
+            return 0;
+        else return -1;
     }
 }

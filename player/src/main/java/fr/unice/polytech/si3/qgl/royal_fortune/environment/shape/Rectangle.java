@@ -26,6 +26,7 @@ public class Rectangle extends Shape{
 	private double orientation;
 	private List<Segment> segmentList;
 	Position position;
+	int PRECISION=50;
 
 	public Rectangle() {}
 	
@@ -64,6 +65,21 @@ public class Rectangle extends Shape{
 		listOfPosition.add(Mathematician.changeBase(this.position,width/2,height/2));
 		listOfPosition.add(Mathematician.changeBase(this.position,width/2,-height/2));
 		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,-height/2));
+		return listOfPosition;
+	}
+	/**
+	 * Compute the 4 corners of the rectangle
+	 * @return a list that contain the 4 corner of the rectangle [HG, HD, BD, BG]
+	 */
+	private List<Position> computeBeacon() {
+		List<Position> listOfPosition=new ArrayList<>();
+		double widthUnit=width/PRECISION;
+		double heightUnit=height/PRECISION;
+		for (int k=-PRECISION/5;k<PRECISION+PRECISION/5;k++){
+		listOfPosition.add(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2));
+		listOfPosition.add(Mathematician.changeBase(this.position,width/2,height/2-k*widthUnit));
+		listOfPosition.add(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2));
+		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,-height/2+k*widthUnit));}
 		return listOfPosition;
 	}
 
