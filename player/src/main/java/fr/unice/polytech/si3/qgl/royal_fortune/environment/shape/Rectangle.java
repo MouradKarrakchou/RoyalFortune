@@ -89,6 +89,25 @@ public class Rectangle extends Shape{
 	 * @param pointA
 	 */
 	public boolean positionIsInTheRectangle(Position pointA) {
+		List<Position> cornersList = computeCorner();
+		Position HG = cornersList.get(0);
+		Position HD = cornersList.get(1);
+		Position BD = cornersList.get(2);
+		Position BG = cornersList.get(3);
+
+		double x = pointA.getX();
+		double y = pointA.getY();
+
+		double HDHGx = HD.getX() - HG.getX();
+		double HDHGy = HD.getY() - HG.getY();
+		double BGHGx = BG.getX() - HG.getX();
+		double BGHGy = BG.getY() - HG.getY();
+
+		boolean calculusHDHGx = (x - HG.getX()) * HDHGx + (y - HG.getY()) * ;
+		boolean calculusHDHGy = true;
+		boolean calculusBGHGx = true;
+		boolean calculusBGHGy = true;
+
 		return true;
 	}
 
