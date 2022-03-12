@@ -2,9 +2,12 @@ package fr.unice.polytech.si3.qgl.royal_fortune.environment.shape;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
+import java.util.Optional;
+
 public class Segment {
     private Position pointA;
     private Position pointB;
+    private double taille;
     //equation of the line
     private double a;
     private double b;
@@ -13,6 +16,8 @@ public class Segment {
         this.pointA = pointA;
         this.pointB = pointB;
         a=(pointA.getY()-pointB.getY())/(pointA.getX()-pointB.getX());
+        b=pointA.getY()-a*pointA.getX();
+        taille=0;
     }
 
     /**
@@ -20,8 +25,9 @@ public class Segment {
      * @param segment
      * @return the position of the intersection
      */
-    public Position computeIntersectionWith(Segment segment){
-        double x=b+segment.getB();
+    public Optional<Position> computeIntersectionWith(Segment segment){
+        double x=(b-segment.getB())/(a-segment.getA());
+        double y=a*x+b;
         return null;
     }
 
