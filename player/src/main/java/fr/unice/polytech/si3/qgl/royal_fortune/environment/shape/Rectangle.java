@@ -33,7 +33,6 @@ public class Rectangle<list> extends Shape{
 		this.width = width;
 		this.height = height;
 		this.orientation = orientation;
-		this.segmentList = computeSegments();
 	}
 
 	/**
