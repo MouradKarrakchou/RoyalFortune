@@ -53,4 +53,8 @@ public class Segment {
     public double getB() {
         return b;
     }
+
+    public double getLength() {
+        return length;
+    }
 }
