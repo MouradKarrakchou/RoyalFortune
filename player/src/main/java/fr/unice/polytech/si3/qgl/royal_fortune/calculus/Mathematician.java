@@ -35,7 +35,13 @@ public class Mathematician {
         return null;
     }
 
-
+    /**
+     * Given a position of our Base and our movement (x,y) in this base return the new Position in the real Base.
+     * @param position
+     * @param x
+     * @param y
+     * @return
+     */
     public static Position changeBase(Position position,double x,double y){
         Position newPosition=new Position();
         newPosition.setX(Math.sqrt(Math.pow(Math.cos(position.getOrientation()),2)*x+Math.pow((Math.sin(position.getOrientation())*y),2)));
