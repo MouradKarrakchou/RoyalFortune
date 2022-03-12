@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.target;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 
 import java.util.List;
 

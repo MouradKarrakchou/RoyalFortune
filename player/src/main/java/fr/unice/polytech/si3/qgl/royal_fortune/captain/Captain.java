@@ -6,15 +6,12 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorMovementStrategy;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.LiftSailAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.LowerSailAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

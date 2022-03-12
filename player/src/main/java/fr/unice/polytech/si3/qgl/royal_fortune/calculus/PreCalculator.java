@@ -1,9 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.SeaMap;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 

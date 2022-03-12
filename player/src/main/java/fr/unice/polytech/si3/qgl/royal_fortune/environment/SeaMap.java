@@ -1,9 +1,5 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain;
+package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Checkpoint;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
