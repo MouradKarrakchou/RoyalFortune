@@ -16,6 +16,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class Captain {
@@ -51,14 +52,16 @@ public class Captain {
      * @return The json file of the round actions
      */
     public String roundDecisions() {
+        System.out.println(ship.getSail().isOpenned());
         associations.dissociateAll();
         roundActions.clear();
         seaMap.updateCheckPoint();
         directionsManager.update();
         roundProceed();
         roundActions.addAll(crew.makeBoatMove());
-
         String out = createAction();
+        System.out.println(roundActions);
+
         return "[" + out + "]";
     }
 
@@ -71,7 +74,7 @@ public class Captain {
         StringBuilder actionsToDo = new StringBuilder();
         for (Action action : roundActions)
             actionsToDo.append(action.toString()).append(",");
-        return (actionsToDo.substring(0, actionsToDo.length() - 1));
+        return (actionsToDo.substring(0, actionsToDo.length()-1));
     }
 
 
@@ -96,24 +99,18 @@ public class Captain {
             needRudder = true;
         }
 
-        if( (wind.getOrientation() + Math.PI/2) > ship.getPosition().getOrientation()
-                && ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2)
-                && !ship.getSail().isOpenned() ) {
-            needSail = true;
-            takeWind = true;
-        }
+        Optional<Boolean> optionalSailDecision = getSailDecision();
+        boolean useSail = optionalSailDecision.isPresent();
 
-        if( (ship.getPosition().getOrientation() > (wind.getOrientation() + Math.PI/2)
-                || (wind.getOrientation() - Math.PI/2) > ship.getPosition().getOrientation())
-                && ship.getSail().isOpenned() ) {
-            needSail = true;
-            takeWind = false;
-        }
 
-        SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, needSail);
+
+        SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
         System.out.println(strategyAnswer);
+
+        if(strategyAnswer.hasSail())
+            crew.sailorsUseSail(optionalSailDecision.get());
 
         Rudder rudder = ship.getRudder();
         Sailor rudderSailor = associations.getAssociatedSailor(rudder);
@@ -133,15 +130,27 @@ public class Captain {
         } else if ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake) && strategyAnswer.hasRudder()) {
             roundActions.addAll(crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4));
         }
+    }
 
-        if(strategyAnswer.hasSail()) {
-            Sailor sailorOfSail = associations.getAssociatedSailor(ship.getSail());
-            if(takeWind)
-                roundActions.add(new LowerSailAction(sailorOfSail.getId()));
-            else
-                roundActions.add(new LiftSailAction(sailorOfSail.getId()));
+    /**
+     * If we need to use the sail return the action to do, in the other case return optional.empty
+     * @return
+     */
+    public Optional<Boolean> getSailDecision() {
+        if(wind.getStrength() == 0.0)return Optional.empty();
 
+        boolean windGoodForUs =  (ship.getPosition().getOrientation()) < (wind.getOrientation() + Math.PI/2) && (ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2));
+        boolean sailOpenned = ship.getSail().isOpenned();
+        Optional<Boolean> openSail = Optional.empty();
+
+        if(windGoodForUs && !sailOpenned){
+            openSail = Optional.of(true);
         }
+        else if(!windGoodForUs && sailOpenned){
+            openSail = Optional.of(false);
+        }
+
+        return openSail;
     }
 
     /**

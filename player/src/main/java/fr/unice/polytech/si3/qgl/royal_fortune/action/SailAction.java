@@ -7,16 +7,16 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LiftSailAction extends SailAction{
+public class SailAction extends Action{
     public static String LIFT = "LIFT_SAIL";
 
     final Logger logger = Logger.getLogger(RudderAction.class.getName());
-    public LiftSailAction(int sailorId) {
-        super(sailorId, LIFT);
-        this.type = LIFT;
+    public SailAction(int sailorId, String type) {
+        super(sailorId, type);
+        this.type = type;
     }
 
-    public LiftSailAction(){}
+    public SailAction(){}
 
     @Override
     public String toString() {

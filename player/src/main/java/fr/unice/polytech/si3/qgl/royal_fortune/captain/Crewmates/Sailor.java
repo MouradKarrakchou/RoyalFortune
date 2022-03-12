@@ -1,8 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
@@ -79,7 +77,6 @@ public class Sailor{
 
 		// If there is a target entity and the sailor can not go to in one turn (> 5 cases).
 		else{
-			System.out.println("C'est chelou");
 			movingAction = targetEntityFarAway(associations);
 		}
 
@@ -116,6 +113,12 @@ public class Sailor{
 	public RudderAction turnWithRudder(double rotationRudder) {
 		return new RudderAction(this.getId(), rotationRudder);
 	}
+	public SailAction useSail(boolean openned) {
+		if(openned == true)
+			return new LiftSailAction(this.getId());
+		else
+			return new LowerSailAction(this.getId());
+	}
 
 	public Oar getNearestOar(List<Oar> oars,Associations associations){
 		return oars.stream()
@@ -135,5 +138,6 @@ public class Sailor{
 	public void setX(int x) {
 		this.x = x;
 	}
+
 
 }

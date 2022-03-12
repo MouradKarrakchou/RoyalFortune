@@ -21,6 +21,9 @@ public class Associations {
     }
 
     public void addAssociation(Sailor sailor, Entities entity){
+        if(sailor.getDistanceToEntity(entity) > 5)
+            throw new IllegalArgumentException();
+
         sailorAssociations.put(sailor, entity);
         entityAssociations.put(entity, sailor);
     }

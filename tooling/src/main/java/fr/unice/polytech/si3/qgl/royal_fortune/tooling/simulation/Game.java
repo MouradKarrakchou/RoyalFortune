@@ -42,6 +42,7 @@ public class Game {
         i++;
         if (i==45)
             i++;
+            i++;
         String jsonverif=cockpit.nextRound(jsonNextRound);
         out = "jsonverif="+jsonverif;
         logger.info(out);

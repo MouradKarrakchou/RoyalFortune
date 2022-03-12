@@ -537,6 +537,63 @@ public class SailorMovementStrategyTest {
         assertEquals(1, answer.getNbRightSailors());
         assertEquals(3, answer.getNbLeftSailors());
         assertEquals(1, answer.getNbRightSailors());
+    }
+
+    @Test
+    void outOfRangeTest(){
+        List<Sailor> sailors = new ArrayList<>();
+        // Sailor
+        Sailor sailor = new Sailor(0, 6, 6, "sailor");
+        sailors.add(sailor);
+
+        List<Entities> entities = new ArrayList<>();
+        // Left oar
+        Oar leftOar = new Oar(6, 0);
+        entities.add(leftOar);
+
+        // Right oar
+        Oar rightOar = new Oar(6, 6);
+        entities.add(rightOar);
+
+        // Rudder
+        Rudder rudder = new Rudder(0, 6);
+        entities.add(rudder);
+
+        // Sail
+        Sail sail = new Sail(6, 6, false);
+        entities.add(sail);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(13, 13),
+                entities,
+                new Rectangle("rectangle", 13, 13, 0));
+
+        Associations associations = new Associations();
+        PreCalculator mockPreCalculator = mock(PreCalculator.class);
+        when(mockPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(true);
+
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockPreCalculator);
+        SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT, false, false);
+
+        SailorPlacement answer = sailorMovementStrategy.askPlacement(requestedPlacement);
+        sailorMovementStrategy.continueAssociatingStarvingEntities(requestedPlacement);
+        sailorMovementStrategy.associateSpecialistSailorToOarEvenly();
+        sailorMovementStrategy.associateSailorsToOarEvenly();
+        sailorMovementStrategy.associateStarvingOar(DirectionsManager.LEFT);
+        sailorMovementStrategy.associateStarvingOar(DirectionsManager.RIGHT);
+        sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly();
+
+        assertEquals(0, answer.getNbLeftSailors());
+        assertEquals(0, answer.getNbRightSailors());
+        assertFalse(answer.hasRudder());
+        assertFalse(answer.hasSail());
+
+
+
 
     }
 }
