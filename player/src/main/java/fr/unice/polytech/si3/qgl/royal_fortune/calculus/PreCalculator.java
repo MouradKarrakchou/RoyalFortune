@@ -42,13 +42,14 @@ public class PreCalculator {
      * @return if with this numberOfSailors we are in the checkpoint or not
      */
     public boolean needSailorToOarToCheckpoint(int numberOfSailors) {
-        double norm = 165 * numberOfSailors / (double) ship.getNbrOar();
+        return (numberOfSailors<howManySailorsNeeded());
+    }
+    public int howManySailorsNeeded(){
+        int numberOfSailors=0;
+        double norm = 0;
         double newX = ship.getPosition().getX();
         double newY = ship.getPosition().getY();
         double angle = ship.getPosition().getOrientation();
-        newX += norm * Math.cos(angle);
-        newY += norm * Math.sin(angle);
-
         if(ship.getSail().isOpenned()) {
             Wind theWind = wind;
             double windNorm = theWind.getStrength() * Math.cos(theWind.getOrientation() - angle);
@@ -56,8 +57,12 @@ public class PreCalculator {
             newX += windNorm * Math.cos(angle);
             newY += windNorm * Math.sin(angle);
         }
-
-        return !seaMap.isInCheckpointShipPos(seaMap.getCurrentFictitiousCheckPoint(), newX, newY);
+        while(!seaMap.isInCheckpointShipPos(seaMap.getCurrentFictitiousCheckPoint(), newX, newY))
+            norm = 165 * numberOfSailors / (double) ship.getNbrOar();
+            newX += norm * Math.cos(angle);
+            newY += norm * Math.sin(angle);
+            numberOfSailors+=2;
+        return numberOfSailors;
     }
 
     public void setWind(Wind wind) {
