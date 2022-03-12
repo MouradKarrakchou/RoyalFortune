@@ -51,7 +51,7 @@ public class PreCalculator {
 
         if(ship.getSail().isOpenned()) {
             Wind theWind = wind;
-            double windNorm = Math.abs(theWind.getStrength() * Math.cos(theWind.getOrientation() - angle));
+            double windNorm = theWind.getStrength() * Math.cos(theWind.getOrientation() - angle);
 
             newX += windNorm * Math.cos(angle);
             newY += windNorm * Math.sin(angle);
