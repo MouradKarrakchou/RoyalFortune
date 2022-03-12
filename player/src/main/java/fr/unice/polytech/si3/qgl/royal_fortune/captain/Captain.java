@@ -81,27 +81,17 @@ public class Captain {
     public void roundProceed() {
         double angleMove = directionsManager.getAngleMove();
         double angleSailorsShouldMake = 0;
-        double signOfAngleMove = (angleMove / Math.abs(angleMove));
 
         int oarWeight = 0;
-        boolean needRudder = false;
-        boolean needSail = false;
-
-        boolean takeWind = false;
 
         if (!directionsManager.isConeTooSmall() && !directionsManager.isInCone()){
             oarWeight = oarWeight(angleMove);
             angleSailorsShouldMake = oarWeight * (Math.PI / ship.getNbrOar());
         }
 
-        if ((-Math.PI / 4 <= angleMove - angleSailorsShouldMake && angleMove - angleSailorsShouldMake <= Math.PI / 4 && Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3)) || ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake)))
-        {
-            needRudder = true;
-        }
-
         Optional<Boolean> optionalSailDecision = getSailDecision();
         boolean useSail = optionalSailDecision.isPresent();
-
+        boolean needRudder = getRudderDecision(angleMove, angleSailorsShouldMake);
 
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail);
@@ -112,30 +102,49 @@ public class Captain {
         if(strategyAnswer.hasSail())
             crew.sailorsUseSail(optionalSailDecision.get());
 
-        Rudder rudder = ship.getRudder();
-        Sailor rudderSailor = associations.getAssociatedSailor(rudder);
-        if(rudderSailor != null){
-            System.out.println("Sailor: " + rudderSailor.getX() + ", " + rudderSailor.getY());
+        if(strategyAnswer.hasRudder()){
+            double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
+            double angleToTurnRudder = computeAngleToTurnRudder(angleMove, angleMadeBySailors);
+            roundActions.addAll(crew.sailorsTurnWithRudder(angleToTurnRudder));
         }
-        System.out.println("Rudder: " + rudder.getX() + ", " + rudder.getY());
-
-        double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
         roundActions.addAll(crew.sailorsMove());
 
-        if (-Math.PI / 4 <= angleMove - angleMadeBySailors
-                && angleMove - angleMadeBySailors <= Math.PI / 4
-                && Math.abs(angleMove - angleMadeBySailors) > Math.pow(10, -3)
-                && strategyAnswer.hasRudder()) {
-            roundActions.addAll(crew.sailorsTurnWithRudder(angleMove - angleMadeBySailors));
-        } else if ((angleMove - angleSailorsShouldMake < -Math.PI / 4 || Math.PI / 4 < angleMove - angleSailorsShouldMake) && strategyAnswer.hasRudder()) {
-            roundActions.addAll(crew.sailorsTurnWithRudder(signOfAngleMove * Math.PI/4));
+
+    }
+
+    /**
+     *
+     * @param angleMove
+     * @param angleMadeBySailors
+     * @return the angle to turn to with the rudder
+     */
+    public double computeAngleToTurnRudder(double angleMove, double angleMadeBySailors) {
+        boolean angleRemainingIsValid = (-Math.PI / 4 <= angleMove - angleMadeBySailors && angleMove - angleMadeBySailors <= Math.PI / 4);
+        boolean angleIsNotZero = Math.abs(angleMove - angleMadeBySailors) > Math.pow(10, -3);
+
+        if(angleRemainingIsValid && angleIsNotZero){
+            return angleMove - angleMadeBySailors;
+        }
+        else{
+            int signOfAngleMove = (int) (angleMove/Math.abs(angleMove));
+            return signOfAngleMove * Math.PI/4;
         }
     }
 
     /**
-     * If we need to use the sail return the action to do, in the other case return optional.empty
-     * @return
+     * 
+     * @param angleMove
+     * @param angleSailorsShouldMake
+     * @return true if we need to use rudder, false in other case
      */
+    public boolean getRudderDecision(double angleMove, double angleSailorsShouldMake) {
+        boolean angleIsNotZero = Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3);
+        return angleIsNotZero;
+    }
+        /**
+         * If we need to use the sail return the action to do, in the other case return optional.empty
+         * @return
+         */
     public Optional<Boolean> getSailDecision() {
         if(wind.getStrength() == 0.0)return Optional.empty();
 
