@@ -51,4 +51,20 @@ public class Mathematician {
         return newPosition;
     }
 
+    /**
+     * Calculate the distance between two given positions.
+     * @param a the starting position
+     * @param b the ending position
+     * @return The distance between the starting and ending position (double)
+     */
+    static double distanceFormula(Position a, Position b) {
+        double aX = a.getX();
+        double aY = a.getY();
+
+        double bX = b.getX();
+        double bY = b.getY();
+
+        return Math.sqrt( Math.pow(bX - aX, 2) + Math.pow(bY - aY, 2) );
+    }
+
 }

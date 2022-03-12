@@ -29,7 +29,8 @@ public class Cartologue {
      * @return distance of the route from the ship to the checkpoint, through the beacon
      */
     public static double computeDistance(Beacon beacon, Position start, Position end) {
-        return 0;
+        Position beaconPosition = beacon.getPosition();
+        return Mathematician.distanceFormula(start, beaconPosition) + Mathematician.distanceFormula(beaconPosition, end);
     }
 
     /**
@@ -48,7 +49,7 @@ public class Cartologue {
      * @param listSeaEntities
      * @return a hashmap that
      */
-    private static HashMap<SeaEntities, Segment> detectIntesection(Segment path, List<SeaEntities> listSeaEntities){
+    private static HashMap<SeaEntities, Segment> detectIntersection(Segment path, List<SeaEntities> listSeaEntities){
         //use rectangle intersection method
         return null;
     }
