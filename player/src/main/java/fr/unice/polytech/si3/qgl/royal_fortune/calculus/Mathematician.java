@@ -1,28 +1,42 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Route;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Mathematician {
-    public Mathematician(){}
+    HashMap<Route, Beacon> beaconHashMap;
+    Cartologue cartologue;
+    public Mathematician(Cartologue cartologue){
+        this.cartologue=cartologue;
+    }
 
     /**
      * Compute the best path to reach the next checkpoint through a beacon or empty to follow th checkpoint
-     * @param listReefs
+     * @param listBeacon
      * @return the best beacon to go through or empty
      */
-    public Optional<Beacon> computeTrajectory(List<Beacon> listBeacon, List<Reef> listReefs){
+    public Optional<Beacon> computeTrajectory(List<Beacon> listBeacon,Position departure,Position arrival){
         //getHashBeaconOfListStream()
         //for each beacon on list<Beacon> use computeDistance() of geometer
         //compare distance of best balise et distance avec checkpoint
-        return null;
+        ArrayList<Route> roads=new ArrayList<>();
+        for (Beacon beacon :listBeacon){
+            List<Segment> segments=new ArrayList<>();
+            segments.add(new Segment(departure,beacon.getPosition()));
+            segments.add(new Segment(beacon.getPosition(), arrival));
+            Route route=new Route(segments,cartologue);
+            roads.add(route);
+            beaconHashMap.put(route,beacon);
+        }
+        Route route=Collections.max(roads);
+        if (route!=null)
+            return Optional.of(beaconHashMap.get(route));
+        else return Optional.empty();
     }
 
     /**

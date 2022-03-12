@@ -26,34 +26,23 @@ public class Cartologue {
     }
     /**
      * Compute the distance of a route
-     * @param beacon
-     * @param start
-     * @param end
+     * @param segment
      * @return distance of the route from the ship to the checkpoint, through the beacon
      */
-    public static double computeDistance(Beacon beacon, Position start, Position end) {
-        Position beaconPosition = beacon.getPosition();
-        return Mathematician.distanceFormula(start, beaconPosition) + Mathematician.distanceFormula(beaconPosition, end);
+    public double computeDistance(Segment segment) {
+        //IL FAUT RAJOUTER LA PUISSANCE DU COURANT
+        return Mathematician.distanceFormula(segment.getPointA(),segment.getPointB());
     }
 
     /**
      * Slice the segment by collision with seaEntities
-     *@param segment
+     * @param path
      * @return a list of segment that represent intersection
      */
-    public static List<Segment> sliceSegmentByInteraction (Segment segment){
-        //use detect intersection
-        return null;
-    }
-
-    /**
-     *
-     * @param path
-     * @return list of segments
-     */
-    private List<Segment> detectIntersection(Segment path){
+    public List<Segment> sliceSegmentByInteraction (Segment path){
         return(cutSegment(path,positionIsOnAStream(path.getPointA())));
     }
+
     /**
      * We check where we cross a stream and we return the segments
      * @param path
