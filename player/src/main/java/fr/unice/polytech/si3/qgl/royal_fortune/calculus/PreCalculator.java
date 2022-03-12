@@ -57,7 +57,7 @@ public class PreCalculator {
             newX += windNorm * Math.cos(angle);
             newY += windNorm * Math.sin(angle);
         }
-        while(!seaMap.isInCheckpointShipPos(seaMap.getCurrentFictitiousCheckPoint(), newX, newY))
+        while(!seaMap.isInCheckpointShipPos(seaMap.getCurrentFictitiousCheckPoint(), newX, newY)&&(numberOfSailors<=sailors.size()))
             norm = 165 * numberOfSailors / (double) ship.getNbrOar();
             newX += norm * Math.cos(angle);
             newY += norm * Math.sin(angle);
