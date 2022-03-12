@@ -22,11 +22,11 @@ public class Observer {
         this.nextCheckPointPosition=nextCheckPointPosition;
         this.shipPosition=shipPosition;
         this.currentSeaEntities=new ArrayList<>();
-        cartologue=new Cartologue(getStream(),null,wind);
+        cartologue=new Cartologue(getStream(currentSeaEntities),null,wind);
         this.mathematician = new Mathematician(cartologue);
     }
 
-    private List<Stream> getStream(){
+    private List<Stream> getStream(List<SeaEntities> newSeaEntities){
         List<Stream> listOfStream=new ArrayList<>();
         for(SeaEntities seaEntities:currentSeaEntities){
             if (seaEntities instanceof Stream)
@@ -50,7 +50,7 @@ public class Observer {
      */
     public Optional<Beacon> watchSea(List<SeaEntities> newSeaEntities){
         List<Beacon> beacons=new ArrayList<>();
-        for (Stream stream:getStream()){
+        for (Stream stream:getStream(newSeaEntities)){
             beacons.addAll(stream.getShape().generateBeacon());
         }
         return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);

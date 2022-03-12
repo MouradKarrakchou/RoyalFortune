@@ -49,26 +49,26 @@ class CaptainTest {
                 new Deck(3, 4),
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
-        captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10));
+        captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10),null);
 
     }
 
     @Test
     void getSailDecisionNoWindTest(){
-        Captain captain = new Captain(basicShip, null, null, null, new Wind(0,0));
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(0,0),null);
         Optional<Boolean> res = captain.getSailDecision();
         assertEquals(Optional.empty(), res);
     }
     @Test
     void getSailDecisionWindForUsSailCloseTest(){
-        Captain captain = new Captain(basicShip, null, null, null, new Wind(0,10));
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(0,10),null);
         Optional<Boolean> res = captain.getSailDecision();
         assertTrue(res.get());
     }
     @Test
     void getSailDecisionWindForUsSailOpenTest(){
         basicShip.getSail().setOpenned(false);
-        Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10));
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10),null);
         Optional<Boolean> res = captain.getSailDecision();
         assertEquals(Optional.empty(), res);
     }
@@ -76,7 +76,7 @@ class CaptainTest {
 
     @Test
     void getSailDecisionWindNotForUsSailCloseTest(){
-        Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10));
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10),null);
         Optional<Boolean> res = captain.getSailDecision();
         assertEquals(Optional.empty(), res);
     }
@@ -84,7 +84,7 @@ class CaptainTest {
     @Test
     void getSailDecisionWindNotForUsSailOpenTest(){
         basicShip.getSail().setOpenned(true);
-        Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10));
+        Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10),null);
         Optional<Boolean> res = captain.getSailDecision();
         assertFalse(res.get());
     }
