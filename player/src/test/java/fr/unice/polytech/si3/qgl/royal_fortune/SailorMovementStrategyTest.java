@@ -441,20 +441,22 @@ public class SailorMovementStrategyTest {
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
 
         SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, false, false);
+
         sailorMovementStrategy.associateNearestSailorToOars(requestedPlacement);
         assertEquals(0, requestedPlacement.getOarWeight());
-        assertNull(associations.getAssociatedEntity(sailor02));
-        assertEquals(leftOar00, associations.getAssociatedEntity(sailor00));
-        assertEquals(leftOar01, associations.getAssociatedEntity(sailor01));
+
+        assertNull(associations.getAssociatedSailor(leftOar00));
+        assertEquals(sailor01, associations.getAssociatedSailor(leftOar01));
+        assertEquals(sailor00, associations.getAssociatedSailor(leftOar02));
 
         associations.dissociateAll();
 
         requestedPlacement = new SailorPlacement(DirectionsManager.RIGHT * 4, false, false);
         sailorMovementStrategy.associateNearestSailorToOars(requestedPlacement);
-        assertEquals(1, requestedPlacement.getOarWeight());
-        assertEquals(rightOar00, associations.getAssociatedEntity(sailor00));
+        assertEquals(2, requestedPlacement.getOarWeight());
+        assertEquals(rightOar02, associations.getAssociatedEntity(sailor00));
         assertEquals(rightOar01, associations.getAssociatedEntity(sailor01));
-        assertEquals(rightOar02, associations.getAssociatedEntity(sailor02));
+        assertNull(associations.getAssociatedEntity(sailor02));
     }
 
     @Test

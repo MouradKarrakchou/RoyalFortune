@@ -79,6 +79,14 @@ public class SailorMovementStrategy {
             associateSailorsToOarEvenly();
         }
 
+        System.out.println("Unused Sailor" +
+                (sailors.size()
+                        - currentSailorPlacement.getNbLeftSailors()
+                        - currentSailorPlacement.getNbRightSailors()
+                        - (currentSailorPlacement.hasSail() ? 1 : 0)
+                        - (currentSailorPlacement.hasRudder() ? 1 : 0)
+                ));
+
         return currentSailorPlacement;
     }
 
@@ -125,7 +133,7 @@ public class SailorMovementStrategy {
      * @return If a sailor has been associated.
      */
     public boolean associateStarvingOar(int direction){
-        List<Oar> oarList = ship.getOarList(direction, associations);
+        List<Oar> oarList = sortEntitiesByDistanceToNearestSailor(ship.getOarList(direction, associations));
         int oarIndex = 0;
 
         while(oarIndex < oarList.size()){
@@ -137,6 +145,7 @@ public class SailorMovementStrategy {
     }
 
     /**
+     * RECURSIVE
      * Associating (if possible) the nearest sailor from the oars until the number of requested sailor is reached or
      * until the list of oar is reached.
      *
@@ -144,20 +153,19 @@ public class SailorMovementStrategy {
      */
     public void associateNearestSailorToOars(SailorPlacement requestedSailorPlacement){
         int direction = requestedSailorPlacement.getOarWeight() > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT;
-        List<Oar> oarList = ship.getOarList(direction, associations);
-        int i = 0;
+        List<Oar> oarList = sortEntitiesByDistanceToNearestSailor(ship.getOarList(direction, associations));
 
-        while (i < oarList.size() && requestedSailorPlacement.getOarWeight() != 0) {
-            Optional<Sailor> possibleSailor = oarList.get(i).getNearestSailor(sailors, MAX_MOVING_RANGE, associations);
+        if (!oarList.isEmpty() && requestedSailorPlacement.getOarWeight() != 0) {
+            Optional<Sailor> possibleSailor = oarList.get(0).getNearestSailor(sailors, MAX_MOVING_RANGE, associations);
             if (possibleSailor.isPresent()) {
-                associations.addAssociation(possibleSailor.get(), oarList.get(i));
+                associations.addAssociation(possibleSailor.get(), oarList.get(0));
                 if (direction == DirectionsManager.LEFT)
                     currentSailorPlacement.incrementNbLeftSailor(1);
                 else
                     currentSailorPlacement.incrementNbRightSailor(1);
                 requestedSailorPlacement.incrementOarWeight(-direction);
+                associateNearestSailorToOars(requestedSailorPlacement);
             }
-            i++;
         }
     }
 
@@ -357,5 +365,18 @@ public class SailorMovementStrategy {
      */
     public void continueAssociatingStarvingEntities(SailorPlacement requestedSailorPlacement){
         while(associateStarvingEntities(requestedSailorPlacement));
+    }
+
+    /**
+     * For a given list of Oar, will sort the entities of sailor by the distance from their nearest sailor.
+     * @param oar -
+     * @return The list of sorted oar.
+     */
+    private List<Oar> sortEntitiesByDistanceToNearestSailor(List<Oar> oar){
+        return oar.stream()
+                .filter(entity -> entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).isPresent())
+                .sorted(Comparator.comparingInt(entity ->
+                    entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).get().getDistanceToEntity(entity)))
+                .toList();
     }
 }
