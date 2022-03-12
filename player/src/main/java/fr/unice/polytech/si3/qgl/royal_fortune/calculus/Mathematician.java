@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.HashMap;
@@ -32,6 +33,22 @@ public class Mathematician {
     public List<Beacon> getHashBeaconOfListStream(List<Stream> listStream){
         //utilise les beacon générés par les formes elles même
         return null;
+    }
+
+    /**
+     * Calculate the distance between two given positions.
+     * @param a the starting position
+     * @param b the ending position
+     * @return The distance between the starting and ending position (double)
+     */
+    static double distanceFormula(Position a, Position b) {
+        double aX = a.getX();
+        double aY = a.getY();
+
+        double bX = b.getX();
+        double bY = b.getY();
+
+        return Math.sqrt( Math.pow(bX - aX, 2) + Math.pow(bY - aY, 2) );
     }
 
 }
