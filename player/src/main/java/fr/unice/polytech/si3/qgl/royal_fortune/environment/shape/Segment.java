@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.environment.shape;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import javax.swing.plaf.basic.BasicOptionPaneUI;
@@ -44,7 +45,14 @@ public class Segment {
      * @return the angle between the segment and the orientation of a rectangle
      */
     public double angleIntersectionBetweenTwoLines(Rectangle rectangle) {
+        double distanceSegmentExtremityX = pointB.getX() - pointA.getX();
+        double distanceSegmentExtremityY = pointB.getY() - pointA.getY();
+        double distanceSegmentExtremity = Mathematician.distanceFormula(pointA, pointB);
+        double num = distanceSCX * Math.cos(angleShip) + distanceSCY * Math.sin(angleShip);
 
+        double angleCone = Math.atan(radius / distanceSC);
+
+        double angleMove = Math.acos(num / distanceSC);
         return 0;
     }
 
