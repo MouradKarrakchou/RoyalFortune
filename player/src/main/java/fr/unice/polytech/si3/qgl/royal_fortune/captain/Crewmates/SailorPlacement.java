@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain;
+package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
 
 public class SailorPlacement {
     private int oarWeight;

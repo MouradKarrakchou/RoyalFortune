@@ -1,11 +1,13 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 public class Stream extends SeaEntities{
-
-    public Stream(Position position){
-        super(position,"stream");
+    int strength;
+    public Stream(Position position, Shape shape,int strength){
+        super(position,"stream",shape);
+        this.strength=strength;
     }
 
 }

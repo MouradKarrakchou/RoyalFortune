@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.SeaMap;
@@ -10,8 +11,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.Test;

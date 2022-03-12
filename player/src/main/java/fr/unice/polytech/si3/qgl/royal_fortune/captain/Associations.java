@@ -1,10 +1,9 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Associations {

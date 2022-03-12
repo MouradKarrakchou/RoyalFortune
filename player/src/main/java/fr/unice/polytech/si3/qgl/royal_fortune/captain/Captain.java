@@ -1,9 +1,12 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Crew;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorMovementStrategy;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.LiftSailAction;
