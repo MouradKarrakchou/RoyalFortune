@@ -64,19 +64,33 @@ public class SailorMovementStrategy {
         // We are associating (if possible) the left or right oar to the nearest sailor according to the oarWeight.
         associateNearestSailorToOars(requestedSailorPlacement);
 
-        if (canContinueToOarEvenly()){
-            associateSpecialistSailorToOarEvenly();
-        }
+        continueAssociatingSailorsToOarEvenly();
 
-        if (canContinueToOarEvenly()){
-            associateSpecialistSailorAndSailorToOarEvenly();
-        }
-
-        if (canContinueToOarEvenly()){
-            associateSailorsToOarEvenly();
-        }
+        System.out.println(associations.size());
 
         return currentSailorPlacement;
+    }
+
+    /**
+     * RECURSIVE
+     * Will do all the different "AssociateSailorsToOarEvenly" cycle until no newer association are made.
+     */
+    public void continueAssociatingSailorsToOarEvenly(){
+        boolean newAssociationMade = false;
+        if (canContinueToOarEvenly()){
+            newAssociationMade = associateSpecialistSailorToOarEvenly();
+        }
+
+        if (canContinueToOarEvenly()){
+            newAssociationMade = associateSpecialistSailorAndSailorToOarEvenly();
+        }
+
+        if (canContinueToOarEvenly()){
+            newAssociationMade = associateSailorsToOarEvenly();
+        }
+
+        if(newAssociationMade)
+            continueAssociatingSailorsToOarEvenly();
     }
 
     /**
@@ -215,7 +229,7 @@ public class SailorMovementStrategy {
      *
      * If there is no two more specialist or normal sailor, the recursive call stops.
      */
-    public void associateSpecialistSailorAndSailorToOarEvenly(){
+    public boolean associateSpecialistSailorAndSailorToOarEvenly(){
         Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
         Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
 
@@ -224,7 +238,7 @@ public class SailorMovementStrategy {
                 .toList();
 
         if (sailorsCanGoBoth.isEmpty())
-            return;
+            return false;
 
         List<Sailor> sailorsCanOnlyGoLeft = new ArrayList<>(sailorsCanGoLeft);
         sailorsCanOnlyGoLeft.removeAll(sailorsCanGoRight);
@@ -247,7 +261,7 @@ public class SailorMovementStrategy {
             if (canContinueToOarEvenly()){
                 associateSpecialistSailorAndSailorToOarEvenly();
             }
-            return;
+            return true;
         }
 
         if (!sailorsCanOnlyGoRight.isEmpty()){
@@ -264,14 +278,16 @@ public class SailorMovementStrategy {
             if (canContinueToOarEvenly()){
                 associateSpecialistSailorAndSailorToOarEvenly();
             }
+            return true;
         }
+        return false;
     }
 
     /**
      * RECURSIVE
      * Will associate two sailors until we run out of sailors.
      */
-    public void associateSailorsToOarEvenly(){
+    public boolean associateSailorsToOarEvenly(){
         Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
         Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
 
@@ -280,7 +296,7 @@ public class SailorMovementStrategy {
                 .toList();
 
         if (sailorsCanGoBoth.isEmpty())
-            return;
+            return false;
 
         if (sailorsCanGoBoth.size() >= 2){
             Sailor rightSailor = sailorsCanGoBoth.get(0);
@@ -296,7 +312,9 @@ public class SailorMovementStrategy {
             if (canContinueToOarEvenly()){
                 associateSailorsToOarEvenly();
             }
+            return true;
         }
+        return false;
     }
 
     /**
@@ -305,7 +323,7 @@ public class SailorMovementStrategy {
      * specific oar and call the associateSpecialistSailorToOar again.
      * If there is no two opposite sailors are specialist the recursive method stops.
      */
-    public void associateSpecialistSailorToOarEvenly(){
+    public boolean associateSpecialistSailorToOarEvenly(){
         Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
         Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
 
@@ -332,7 +350,9 @@ public class SailorMovementStrategy {
             if (canContinueToOarEvenly()){
                 associateSpecialistSailorToOarEvenly();
             }
+            return true;
         }
+        return false;
     }
 
     public Set<Sailor> getSailorNearToOar(int direction){

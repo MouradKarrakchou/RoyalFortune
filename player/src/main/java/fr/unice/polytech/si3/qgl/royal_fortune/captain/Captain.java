@@ -132,7 +132,7 @@ public class Captain {
     }
 
     /**
-     * 
+     *
      * @param angleMove
      * @param angleSailorsShouldMake
      * @return true if we need to use rudder, false in other case

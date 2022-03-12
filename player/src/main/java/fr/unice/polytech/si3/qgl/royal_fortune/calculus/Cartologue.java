@@ -4,10 +4,12 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Cartologue {
     private List<Stream> listStream;
     private List<Reef> listReef;
     private Wind wind;
+    HashMap<Segment,SeaEntities> hashMap;
 
     public Cartologue(List<Stream> listStream, List<Reef> listReef, Wind wind) {
         this.listStream = listStream;
@@ -46,11 +49,55 @@ public class Cartologue {
     /**
      *
      * @param path
-     * @param listSeaEntities
-     * @return a hashmap that
+     * @return list of segments
      */
-    private static HashMap<SeaEntities, Segment> detectIntersection(Segment path, List<SeaEntities> listSeaEntities){
-        //use rectangle intersection method
-        return null;
+    private List<Segment> detectIntersection(Segment path){
+        return(cutSegment(path,positionIsOnAStream(path.getPointA())));
+    }
+    /**
+     * We check where we cross a stream and we return the segments
+     * @param path
+     * @return list of segments
+     */
+    private List<Segment> cutSegment(Segment path,Boolean isOnStream){
+        List<Segment> segments=new ArrayList<>();
+        for (Stream stream:listStream){
+            List<Position> intersections=new ArrayList<>();
+            intersections.addAll(((Rectangle) stream.getShape()).computeIntersectionWith(path));
+            if (intersections.size()==1)
+            {
+                segments.add(new Segment(path.getPointA(),intersections.get(0)));
+                segments.add(new Segment(intersections.get(0),path.getPointB()));
+                if(isOnStream)
+                    hashMap.put(segments.get(0),stream);
+                else
+                    hashMap.put(segments.get(1),stream);
+                break;
+            }
+            else if (intersections.size()==2)
+            {
+                segments.add(new Segment(path.getPointA(),intersections.get(0)));
+                segments.add(new Segment(intersections.get(0),intersections.get(1)));
+                segments.add(new Segment(intersections.get(1),intersections.get(2)));
+                hashMap.put(segments.get(1),stream);
+                break;
+            }
+        }
+        return (segments);
+    }
+
+
+
+    /**
+     * check if the point is on a Stream
+     * @return
+     * @param pointA
+     */
+    private boolean positionIsOnAStream(Position pointA) {
+        for (Stream stream:listStream){
+            if (((Rectangle)stream.getShape()).positionIsInTheRectangle(pointA))
+                return true;
+        }
+        return false;
     }
 }
