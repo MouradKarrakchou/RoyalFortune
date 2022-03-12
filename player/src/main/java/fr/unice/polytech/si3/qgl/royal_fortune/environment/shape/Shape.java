@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.ship.shape;
+package fr.unice.polytech.si3.qgl.royal_fortune.environment.shape;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
