@@ -19,7 +19,7 @@ import java.util.logging.Level;
 @JsonIgnoreProperties(value = {
 		"type"
 })
-public class Rectangle<list> extends Shape{
+public class Rectangle extends Shape{
 
 	private double width;
 	private double height;
@@ -47,12 +47,10 @@ public class Rectangle<list> extends Shape{
 		Position HD = rectangleCorner.get(1);
 		Position BD = rectangleCorner.get(2);
 		Position BG = rectangleCorner.get(3);
-		for(int i = 0; i < 4; i++) {
-			rectangleSegment.add(new Segment(HG, HD));
-			rectangleSegment.add(new Segment(HD, BD));
-			rectangleSegment.add(new Segment(BD, BG));
-			rectangleSegment.add(new Segment(BG, HG));
-		}
+		rectangleSegment.add(new Segment(HG, HD));
+		rectangleSegment.add(new Segment(HD, BD));
+		rectangleSegment.add(new Segment(BD, BG));
+		rectangleSegment.add(new Segment(BG, HG));
 		return rectangleSegment;
 	}
 
@@ -92,6 +90,7 @@ public class Rectangle<list> extends Shape{
 	 */
 	public void setPosition(Position position) {
 		this.position = position;
+		this.position.setOrientation(orientation);
 		this.segmentList = computeSegments();
 	}
 
