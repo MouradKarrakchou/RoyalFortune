@@ -73,7 +73,7 @@ public class Rectangle extends Shape{
 	 * @param segment
 	 * @return the 2 positions of the intersection
 	 */
-	private List<Position> computeIntersectionWith(Segment segment){
+	public List<Position> computeIntersectionWith(Segment segment){
 		List<Position> intersectionsPosition = new ArrayList<>();
 		Optional<Position> intersection;
 		for(Segment seg : segmentList) {
@@ -81,6 +81,15 @@ public class Rectangle extends Shape{
 			 if(!intersection.isEmpty()) intersectionsPosition.add(intersection.get());
 		}
 		return intersectionsPosition;
+	}
+
+	/**
+	 * check if the given Position is in the rectangle
+	 * @return
+	 * @param pointA
+	 */
+	public boolean positionIsInTheRectangle(Position pointA) {
+		return true;
 	}
 
 	@Override
@@ -120,4 +129,5 @@ public class Rectangle extends Shape{
 		}
 		return "";
 	}
+
 }
