@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 
 /**
@@ -21,7 +23,7 @@ public class Rectangle<list> extends Shape{
 	private double width;
 	private double height;
 	private double orientation;
-	private List<Segment> segmentlist;
+	private List<Segment> segmentList;
 	
 	public Rectangle() {}
 	
@@ -30,14 +32,14 @@ public class Rectangle<list> extends Shape{
 		this.width = width;
 		this.height = height;
 		this.orientation = orientation;
-		this.segmentlist = computeSegments();
+		this.segmentList = computeSegments();
 	}
 
 	/**
 	 * Compute the 4 segments of the rectangle
 	 * @return a list that contain the 4 segment of the rectangle [H, D, B, G]
 	 */
-	private List<Segment> computeSegments() {return null;}
+	private List<Segment> computeSegments() { return null; }
 
 	/**
 	 * Compute the 4 corners of the rectangle
@@ -50,7 +52,15 @@ public class Rectangle<list> extends Shape{
 	 * @param segment
 	 * @return the 2 positions of the intersection
 	 */
-	private Position[] computeIntersectionWith(Segment segment){return null;}
+	private List<Position> computeIntersectionWith(Segment segment){
+		List<Position> intersectionsPosition = new ArrayList<>();
+		Optional<Position> intersection;
+		for(Segment seg : segmentList) {
+			 intersection = segment.computeIntersectionWith(seg);
+			 if(!intersection.isEmpty()) intersectionsPosition.add(intersection.get());
+		}
+		return intersectionsPosition;
+	}
 
 	public double getWidth() {
 		return width;
