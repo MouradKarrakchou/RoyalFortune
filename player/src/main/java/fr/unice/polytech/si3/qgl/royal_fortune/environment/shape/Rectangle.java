@@ -40,7 +40,21 @@ public class Rectangle<list> extends Shape{
 	 * Compute the 4 segments of the rectangle
 	 * @return a list that contain the 4 segment of the rectangle [H, D, B, G]
 	 */
-	private List<Segment> computeSegments() { return null; }
+	private List<Segment> computeSegments() {
+		List<Segment> rectangleSegment = new ArrayList<>();
+		List<Position> rectangleCorner = computeCorner();
+		Position HG = rectangleCorner.get(0);
+		Position HD = rectangleCorner.get(1);
+		Position BD = rectangleCorner.get(2);
+		Position BG = rectangleCorner.get(3);
+		for(int i = 0; i < 4; i++) {
+			rectangleSegment.add(new Segment(HG, HD));
+			rectangleSegment.add(new Segment(HD, BD));
+			rectangleSegment.add(new Segment(BD, BG));
+			rectangleSegment.add(new Segment(BG, HG));
+		}
+		return rectangleSegment;
+	}
 
 	/**
 	 * Compute the 4 corners of the rectangle
