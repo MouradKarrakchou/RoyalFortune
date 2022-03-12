@@ -59,7 +59,7 @@ public class Rectangle extends Shape{
 	 * Compute the 4 corners of the rectangle
 	 * @return a list that contain the 4 corner of the rectangle [HG, HD, BD, BG]
 	 */
-	private List<Position> computeCorner() {
+	public List<Position> computeCorner() {
 		List<Position> listOfPosition=new ArrayList<>();
 		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,height/2));
 		listOfPosition.add(Mathematician.changeBase(this.position,width/2,height/2));

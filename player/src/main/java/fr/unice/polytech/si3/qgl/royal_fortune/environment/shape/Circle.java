@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -22,6 +25,19 @@ public class Circle extends Shape{
     public Circle(String type, double radius) {
         super(type);
         this.radius = radius;
+    }
+
+    /**
+     * check if the rectangle is in the circle
+     * @return
+     */
+    public boolean rectangleIsInCircle(Rectangle rectangle){
+        List<Position> positionList=rectangle.computeCorner();
+        for(Position position:positionList){
+            if(Mathematician.distanceFormula(super.position,position)<=radius)
+                return true;
+        }
+        return false;
     }
 
     public double getRadius() { return radius; }

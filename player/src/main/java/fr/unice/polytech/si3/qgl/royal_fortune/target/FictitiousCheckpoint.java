@@ -60,7 +60,7 @@ public class FictitiousCheckpoint {
         Circle fictitiousCheckpointShape = new Circle("Circle", fictitiousCheckpointRadius);
         Position fictitiousCheckpointPosition = new Position(currentCheckpointX + fictitiousCheckpointRadius * unitX,
                 currentCheckpointY + fictitiousCheckpointRadius * unitY, 0);
-
+        fictitiousCheckpointShape.setPosition(fictitiousCheckpointPosition);
         return new Checkpoint(fictitiousCheckpointPosition, fictitiousCheckpointShape);
     }
 

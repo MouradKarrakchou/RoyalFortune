@@ -8,9 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import javax.swing.text.html.Option;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Observer {
     private final int MAX_RANGE = 1000;
@@ -18,9 +16,11 @@ public class Observer {
     private Position shipPosition;
     private Mathematician mathematician;
     private Cartologue cartologue;
+    private Position nextCheckPointPosition;
     private int RANGE=40;
 
-    public Observer(Position shipPosition, Wind wind){
+    public Observer(Position shipPosition, Wind wind,Position nextCheckPointPosition){
+        this.nextCheckPointPosition=nextCheckPointPosition;
         this.shipPosition=shipPosition;
         this.currentSeaEntities=new ArrayList<>();
         cartologue=new Cartologue(getStream(),null,wind);
@@ -41,7 +41,7 @@ public class Observer {
      * @return boolean
      */
     public Boolean checkIfNewSeaEntities(List<SeaEntities> newSeaEntities){
-        return null;
+        return true;
     }
 
     /**
@@ -49,8 +49,12 @@ public class Observer {
      * @param newSeaEntities
      * @return If return empty we target the checkpoint else we target the Beacon
      */
-    public Optional<Beacon> watchSea(List<SeaEntities> newSeaEntities){
-        return null;
+    public Optional<Beacon> watchSea(Set<SeaEntities> newSeaEntities){
+        List<Beacon> beacons=new ArrayList<>();
+        for (Stream stream:getStream()){
+            beacons.addAll(stream.getShape().generateBeacon());
+        }
+        return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);
     }
 
 }

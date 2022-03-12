@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Crew;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorMovementStrategy;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
@@ -13,6 +14,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.LiftSailAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.LowerSailAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +31,17 @@ public class Captain {
     private SeaMap seaMap;
     private Wind wind;
     private Associations associations;
+    private List<SeaEntities> seaEntities;
 
-    public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints, Wind wind) {
+    public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints, Wind wind,List<SeaEntities> seaEntities) {
         this.ship = ship;
         this.sailors = sailors;
         this.wind = wind;
+        this.seaEntities=seaEntities;
         associations = new Associations();
         roundActions = new ArrayList<>();
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
-        seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
+        seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(),wind,seaEntities);
         preCalculator = new PreCalculator(ship, sailors, seaMap,wind);
         crew = new Crew(sailors, ship, preCalculator, associations);
 
