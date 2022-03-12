@@ -45,7 +45,7 @@ public class SeaMap {
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
         fictitiousCheckpoint=new FictitiousCheckpoint(checkpoints);
-        captain=new Captain(basicShip,sailors,goal,fictitiousCheckpoint, new Wind(0,0));
+        captain=new Captain(basicShip,sailors,goal,fictitiousCheckpoint, new Wind(0,0),null);
 
         seaMap=captain.getSeaMap();
     }
@@ -56,7 +56,7 @@ public class SeaMap {
         assertEquals(false,seaMap.isInCheckpoint(checkpoint));
         fictitiousCheckpoint=new FictitiousCheckpoint(checkpoints);
         seaMap.setFictitiousCheckpoints(fictitiousCheckpoint);
-        seaMap.updateCheckPoint();
+        seaMap.updateCheckPoint(null);
         assertEquals(1,checkpoints.size());
         assertEquals(1,fictitiousCheckpoint.getFictitiousCheckpoints().size());
     }
@@ -68,7 +68,7 @@ public class SeaMap {
         checkpoints.add(new Checkpoint(new Position(500,500,0),new Circle("",100)));
         fictitiousCheckpoint=new FictitiousCheckpoint(checkpoints);
         seaMap.setFictitiousCheckpoints(fictitiousCheckpoint);
-        seaMap.updateCheckPoint();
+        seaMap.updateCheckPoint(null);
         assertEquals(1,checkpoints.size());
         assertEquals(1,fictitiousCheckpoint.getFictitiousCheckpoints().size());
     }

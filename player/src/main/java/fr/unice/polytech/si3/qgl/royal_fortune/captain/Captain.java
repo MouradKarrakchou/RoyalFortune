@@ -59,7 +59,7 @@ public class Captain {
         System.out.println(ship.getSail().isOpenned());
         associations.dissociateAll();
         roundActions.clear();
-        seaMap.updateCheckPoint();
+        seaMap.updateCheckPoint(seaEntities);
         directionsManager.update();
         roundProceed();
         roundActions.addAll(crew.makeBoatMove());

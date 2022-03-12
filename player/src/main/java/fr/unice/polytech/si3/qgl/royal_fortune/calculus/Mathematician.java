@@ -24,9 +24,6 @@ public class Mathematician {
      * @return the best beacon to go through or empty
      */
     public Optional<Beacon> computeTrajectory(List<Beacon> listBeacon,Position departure,Position arrival){
-        //getHashBeaconOfListStream()
-        //for each beacon on list<Beacon> use computeDistance() of geometer
-        //compare distance of best balise et distance avec checkpoint
         ArrayList<Route> roads=new ArrayList<>();
         for (Beacon beacon :listBeacon){
             List<Segment> segments=new ArrayList<>();

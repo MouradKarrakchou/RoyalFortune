@@ -25,7 +25,7 @@ public class SeaMap {
         this.wind=wind;
         this.seaEntities=seaEntities;
     }
-    public void updateCheckPoint(SeaEntities newSeaEntities) {
+    public void updateCheckPoint(List<SeaEntities> newSeaEntities) {
         if (isInCheckpoint(goal.getCurrentCheckPoint()))
         {goal.nextCheckPoint();
             fictitiousCheckpoints.nextCheckPoint();}
