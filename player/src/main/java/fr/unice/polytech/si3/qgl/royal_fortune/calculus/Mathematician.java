@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.HashMap;
@@ -32,6 +33,16 @@ public class Mathematician {
     public List<Beacon> getHashBeaconOfListStream(List<Stream> listStream){
         //utilise les beacon générés par les formes elles même
         return null;
+    }
+
+
+    public static Position changeBase(Position position,double x,double y){
+        Position newPosition=new Position();
+        newPosition.setX(Math.sqrt(Math.pow(Math.cos(position.getOrientation()),2)*x+Math.pow((Math.sin(position.getOrientation())*y),2)));
+        newPosition.setY(Math.sqrt(Math.pow(-Math.sin(position.getOrientation()),2)*x+Math.pow((Math.cos(position.getOrientation())*y),2)));
+        newPosition.setX(newPosition.getX()+position.getX());
+        newPosition.setY(newPosition.getY()+position.getY());
+        return newPosition;
     }
 
 }

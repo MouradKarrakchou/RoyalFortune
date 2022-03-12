@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.util.ArrayList;
@@ -43,9 +44,17 @@ public class Rectangle<list> extends Shape{
 
 	/**
 	 * Compute the 4 corners of the rectangle
-	 * @return a list that contain the 4 corner of the rectangle [HG, HD, BG, BD]
+	 * @return a list that contain the 4 corner of the rectangle [HG, HD, BD, BG]
 	 */
-	private List<Position> computeCorner() {return null;}
+	private List<Position> computeCorner() {
+		List<Position> listOfPosition=new ArrayList<>();
+		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,height/2));
+		listOfPosition.add(Mathematician.changeBase(this.position,width/2,height/2));
+		listOfPosition.add(Mathematician.changeBase(this.position,width/2,-height/2));
+		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,-height/2));
+		return listOfPosition;
+	}
+
 
 	/**
 	 * Compute the intersection between the current shape and a segment
