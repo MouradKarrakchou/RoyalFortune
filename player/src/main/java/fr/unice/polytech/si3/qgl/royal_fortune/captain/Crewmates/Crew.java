@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -78,6 +79,20 @@ public class Crew {
                 .filter(sailor -> associations.getAssociatedEntity(sailor) instanceof Rudder)
                 .filter(sailor -> sailor.isOnTheTargetEntity(associations))
                 .map(sailor -> sailor.turnWithRudder(rotationRudder))
+                .toList());
+    }
+
+    /**
+     * Ask a sailor to use the sail
+     * This method update list of Action (roundActions)
+     *
+     * @param openned
+     */
+    public List<Action> sailorsUseSail(boolean openned) {
+        return new ArrayList<>(sailors.stream()
+                .filter(sailor -> associations.getAssociatedEntity(sailor) instanceof Sail)
+                .filter(sailor -> sailor.isOnTheTargetEntity(associations))
+                .map(sailor -> sailor.useSail(openned))
                 .toList());
     }
 }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LowerSailAction extends Action{
+public class LowerSailAction extends SailAction{
     public static String LOWER = "LOWER_SAIL";
 
     final Logger logger = Logger.getLogger(RudderAction.class.getName());
