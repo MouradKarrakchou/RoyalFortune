@@ -20,6 +20,15 @@ public class Associations {
         sailorAssociations.clear();
     }
 
+    public int size(){
+        return sailorAssociations.size();
+    }
+
+    @Override
+    public String toString() {
+        return sailorAssociations.toString();
+    }
+
     public void addAssociation(Sailor sailor, Entities entity){
         if(sailor.getDistanceToEntity(entity) > 5)
             throw new IllegalArgumentException();
