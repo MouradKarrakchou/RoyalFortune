@@ -34,11 +34,11 @@ public class Cartologue {
     }
 
     /**
-     * Slice the segment in
+     * Slice the segment by collision with seaEntities
      *@param segment
      * @return a list of segment that represent intersection
      */
-    public static List<Segment> sliceSegmentByInteraction (Segment segment, Position firstPosition, Position secondPosition){
+    public static List<Segment> sliceSegmentByInteraction (Segment segment){
         //use detect intersection
         return null;
     }

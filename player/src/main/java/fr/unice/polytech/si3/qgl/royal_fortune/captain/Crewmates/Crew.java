@@ -34,52 +34,9 @@ public class Crew {
      */
     public List<Action> makeBoatMove() {
         List<Action> actions = new ArrayList<>();
-        associateSailorToOarEvenly();
         actions.addAll(sailorsMove());
         actions.addAll(sailorsOar());
         return (actions);
-    }
-
-
-    /**
-     * Associate the same amount of sailors to the left oars and the right oars of the ship.
-     */
-    public void associateSailorToOarEvenly() {
-        List<Oar> leftOarList = ship.getOarList(DirectionsManager.LEFT, associations);
-        List<Oar> rightOarList = ship.getOarList(DirectionsManager.RIGHT, associations);
-        int oarIndex = 0;
-        int sailorIndex = 0;
-        List<Sailor> listOfUnassignedSailors = getListOfUnassignedSailors();
-        int numberOfSailorNeeded = preCalculator.numberOfSailorToOarEvenly(getListOfUnassignedSailors().size(), associations);
-        // We continue associating until we run out of sailors or oars
-        while (sailorIndex < numberOfSailorNeeded) {
-            Oar leftOar = leftOarList.get(oarIndex);
-            Oar rightOar = rightOarList.get(oarIndex);
-            associations.addAssociation(listOfUnassignedSailors.get(sailorIndex++),leftOar);
-            associations.addAssociation(listOfUnassignedSailors.get(sailorIndex++),rightOar);
-            oarIndex++;
-        }
-    }
-
-    /**
-     * Will ask the nearest sailor to the rudder to move to.
-     */
-    public List<Action> sailorMoveToRudder() {
-        List<Action> roundActions = new ArrayList<>();
-        Rudder rudder = ship.getRudder();
-        if (rudder == null)
-            return Collections.emptyList();
-
-        Optional<Sailor> sailorToMove = sailors.stream()
-                .filter(sailor -> associations.getAssociatedEntity(sailor) == null)
-                .min(Comparator.comparingInt(sailor -> sailor.getDistanceToEntity(rudder)));
-
-        if (sailorToMove.isPresent()) {
-            Sailor s = sailorToMove.get();
-            associations.addAssociation(s,rudder);
-            roundActions.add(s.moveToTarget(associations));
-        }
-        return roundActions;
     }
 
     /**
@@ -122,22 +79,5 @@ public class Crew {
                 .filter(sailor -> sailor.isOnTheTargetEntity(associations))
                 .map(sailor -> sailor.turnWithRudder(rotationRudder))
                 .toList());
-
     }
-
-    /**
-     * Give The list of Sailors that are not assigned to an entitie;
-     *
-     * @return
-     */
-    public List<Sailor> getListOfUnassignedSailors() {
-        return ((ArrayList<Sailor>) sailors.stream()
-                .filter(sailor -> associations.isFree(sailor))
-                .collect(Collectors.toList()));
-    }
-
-    public Associations getAssociations() {
-        return associations;
-    }
-
 }
