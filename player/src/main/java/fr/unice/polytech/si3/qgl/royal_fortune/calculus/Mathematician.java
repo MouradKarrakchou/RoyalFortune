@@ -33,7 +33,9 @@ public class Mathematician {
             roads.add(route);
             beaconHashMap.put(route,beacon);
         }
-        Route route=Collections.max(roads);
+        Route route = null;
+        if (!roads.isEmpty())
+                route=Collections.max(roads);
         if (route!=null)
             return Optional.of(beaconHashMap.get(route));
         else return Optional.empty();
