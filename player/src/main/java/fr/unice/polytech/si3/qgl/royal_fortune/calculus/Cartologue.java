@@ -33,9 +33,11 @@ public class Cartologue {
         double dist;
         //we considerate that numberOfSailors/numberOfOar=1
         if (hashMap.containsKey(segment))
-            dist=(165)/segment.getLength();
+        {   Stream stream= (Stream) hashMap.get(segment);
+            double angle=segment.angleIntersectionBetweenTwoLines((Rectangle)stream.getShape());
+            dist=segment.getLength()/(165+stream.getStrength()*Math.cos(angle));}
         else
-            dist=165/segment.getLength();
+            dist=segment.getLength()/165;
         return dist;
     }
 
