@@ -1,23 +1,16 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Checkpoint;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

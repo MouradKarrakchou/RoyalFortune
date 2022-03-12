@@ -30,8 +30,15 @@ public class Cartologue {
      * @return distance of the route from the ship to the checkpoint, through the beacon
      */
     public double computeDistance(Segment segment) {
-        //IL FAUT RAJOUTER LA PUISSANCE DU COURANT
-        return Mathematician.distanceFormula(segment.getPointA(),segment.getPointB());
+        double dist;
+        //we considerate that numberOfSailors/numberOfOar=1
+        if (hashMap.containsKey(segment))
+        {   Stream stream= (Stream) hashMap.get(segment);
+            double angle=segment.angleIntersectionBetweenTwoLines((Rectangle)stream.getShape());
+            dist=segment.getLength()/(165+stream.getStrength()*Math.cos(angle));}
+        else
+            dist=segment.getLength()/165;
+        return dist;
     }
 
     /**

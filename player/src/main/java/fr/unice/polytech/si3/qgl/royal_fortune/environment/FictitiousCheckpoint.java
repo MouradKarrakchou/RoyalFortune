@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.target;
+package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;

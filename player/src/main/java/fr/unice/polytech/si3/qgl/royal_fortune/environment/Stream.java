@@ -10,5 +10,7 @@ public class Stream extends SeaEntities{
         this.strength=strength;
     }
 
-
+    public int getStrength() {
+        return strength;
+    }
 }

@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -12,7 +12,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 
 import java.util.ArrayList;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

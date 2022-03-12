@@ -30,6 +30,10 @@ public class Route implements Comparable{
         if(slicedSegments.size() > 0){
             listSegment = slicedSegments;
             distributeSegments(listSegment);
+            value=firstRoute.getValue()+ secondRoute.getValue();
+        }
+        else{
+            value=cartologue.computeDistance(segment);
         }
     }
 
@@ -42,6 +46,7 @@ public class Route implements Comparable{
         this.cartologue = cartologue;
         this.listSegment = listSegment;
         distributeSegments(listSegment);
+        value=firstRoute.getValue()+ secondRoute.getValue();
     }
 
     /**
