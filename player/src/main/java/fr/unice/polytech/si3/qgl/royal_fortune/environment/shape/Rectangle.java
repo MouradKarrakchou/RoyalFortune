@@ -80,9 +80,9 @@ public class Rectangle extends Shape{
 		double heightUnit=height/PRECISION;
 		for (int k=-PRECISION/5;k<PRECISION+PRECISION/5;k++){
 		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2),new Circle("circle",RADIUSOFBEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*widthUnit),new Circle("circle",RADIUSOFBEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*heightUnit),new Circle("circle",RADIUSOFBEACON)));
 		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2),new Circle("circle",RADIUSOFBEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*widthUnit),new Circle("circle",RADIUSOFBEACON)));}
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*heightUnit),new Circle("circle",RADIUSOFBEACON)));}
 		return listOfPosition;
 	}
 
