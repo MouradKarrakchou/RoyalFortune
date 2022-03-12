@@ -7,7 +7,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +33,7 @@ public class Cartologue {
         //we considerate that numberOfSailors/numberOfOar=1
         if (hashMap.containsKey(segment))
         {   Stream stream= (Stream) hashMap.get(segment);
-            double angle=segment.angleIntersectionBetweenTwoLines((Rectangle)stream.getShape());
+            double angle=segment.angleIntersectionBetweenSegmentAndRectangle((Rectangle)stream.getShape());
             dist=segment.getLength()/(165+stream.getStrength()*Math.cos(angle));}
         else
             dist=segment.getLength()/165;

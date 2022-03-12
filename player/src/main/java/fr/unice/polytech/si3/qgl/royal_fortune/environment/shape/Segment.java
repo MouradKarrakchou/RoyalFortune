@@ -44,16 +44,17 @@ public class Segment {
      * @param rectangle
      * @return the angle between the segment and the orientation of a rectangle
      */
-    public double angleIntersectionBetweenTwoLines(Rectangle rectangle) {
+    public double angleIntersectionBetweenSegmentAndRectangle(Rectangle rectangle) {
         double distanceSegmentExtremityX = pointB.getX() - pointA.getX();
         double distanceSegmentExtremityY = pointB.getY() - pointA.getY();
         double distanceSegmentExtremity = Mathematician.distanceFormula(pointA, pointB);
-        double num = distanceSCX * Math.cos(angleShip) + distanceSCY * Math.sin(angleShip);
 
-        double angleCone = Math.atan(radius / distanceSC);
+        double rectangleOrientation = rectangle.getOrientation();
+        double num = distanceSegmentExtremityX * Math.cos(rectangleOrientation) + distanceSegmentExtremityY * Math.sin(rectangleOrientation);
 
-        double angleMove = Math.acos(num / distanceSC);
-        return 0;
+        double intersectionAngle = Math.acos(num / distanceSegmentExtremity);
+
+        return intersectionAngle;
     }
 
     public Position getPointA() {
