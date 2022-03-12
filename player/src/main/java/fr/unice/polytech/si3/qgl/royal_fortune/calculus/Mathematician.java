@@ -1,12 +1,10 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
