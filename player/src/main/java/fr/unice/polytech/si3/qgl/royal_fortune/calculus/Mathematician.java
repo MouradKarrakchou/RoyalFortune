@@ -35,6 +35,16 @@ public class Mathematician {
         return null;
     }
 
+
+    public static Position changeBase(Position position,double x,double y){
+        Position newPosition=new Position();
+        newPosition.setX(Math.sqrt(Math.pow(Math.cos(position.getOrientation()),2)*x+Math.pow((Math.sin(position.getOrientation())*y),2)));
+        newPosition.setY(Math.sqrt(Math.pow(-Math.sin(position.getOrientation()),2)*x+Math.pow((Math.cos(position.getOrientation())*y),2)));
+        newPosition.setX(newPosition.getX()+position.getX());
+        newPosition.setY(newPosition.getY()+position.getY());
+        return newPosition;
+    }
+
     /**
      * Calculate the distance between two given positions.
      * @param a the starting position

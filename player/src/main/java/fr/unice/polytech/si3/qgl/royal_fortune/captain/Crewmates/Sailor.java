@@ -71,11 +71,6 @@ public class Sailor{
 		if (targetEntity == null)
 			return null;
 
-		if(targetEntity.isRudder()){
-			System.out.println("Sailor before: " + this.getX() + ", " + this.getY());
-			System.out.println("Rudder before: " + targetEntity.getX() + ", " + targetEntity.getY());
-		}
-
 		// If there is a target entity and the sailor can go to in one turn (>= 5 cases).
 		MovingAction movingAction;
 		if(getDistanceToEntity(targetEntity) <= 5){
@@ -90,11 +85,6 @@ public class Sailor{
 
 		this.x += movingAction.getXdistance();
 		this.y += movingAction.getYdistance();
-
-		if(targetEntity.isRudder()){
-			System.out.println("Sailor after: " + this.getX() + ", " + this.getY());
-			System.out.println("Rudder after: " + targetEntity.getX() + ", " + targetEntity.getY());
-		}
 
 		return movingAction;
 	}
