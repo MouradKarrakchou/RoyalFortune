@@ -74,7 +74,7 @@ public class Mathematician {
      * @param b the ending position
      * @return The distance between the starting and ending position (double)
      */
-    static double distanceFormula(Position a, Position b) {
+    public static double distanceFormula(Position a, Position b) {
         double aX = a.getX();
         double aY = a.getY();
 

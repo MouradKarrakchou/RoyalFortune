@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Observer {
-    private final int MAX_RANGE = 1000;
+    public static final int MAX_RANGE = 1000;
     private List<SeaEntities> currentSeaEntities;
     private Position shipPosition;
     private Mathematician mathematician;

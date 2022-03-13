@@ -22,6 +22,9 @@ public class SeaEntities {
         shape.setPosition(position);
     }
 
+    public SeaEntities() {
+    }
+
     public String getType() {
         return type;
     }
