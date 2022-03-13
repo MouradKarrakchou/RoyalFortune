@@ -60,7 +60,7 @@ class CaptainTest {
     }
     @Test
     void getSailDecisionWindForUsSailOpenTest(){
-        basicShip.getSail().setOpened(false);
+        basicShip.getSail().setOpenned(false);
         Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10),null);
         Optional<Boolean> res = captain.getSailDecision();
         assertEquals(Optional.empty(), res);
@@ -76,7 +76,7 @@ class CaptainTest {
 
     @Test
     void getSailDecisionWindNotForUsSailOpenTest(){
-        basicShip.getSail().setOpened(true);
+        basicShip.getSail().setOpenned(true);
         Captain captain = new Captain(basicShip, null, null, null, new Wind(Math.PI,10),null);
         Optional<Boolean> res = captain.getSailDecision();
         assertFalse(res.get());

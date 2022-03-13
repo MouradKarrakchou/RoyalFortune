@@ -135,8 +135,8 @@ public class Referee {
                 .filter(sailor -> sailor.getId() == action.getSailorId())
                 .filter(sailor -> isOnSail(sailor))
                 .count()>0) {
-            sailOpenned = false;
-            ship.getSail().setOpened(false);
+            sailOpenned = true;
+            ship.getSail().setOpenned(true);
         }
         else
             throw new ExceptionInInitializerError();
@@ -146,10 +146,10 @@ public class Referee {
         if (sailors.stream()
                 .filter(sailor -> sailor.getId() == action.getSailorId())
                 .filter(sailor -> isOnSail(sailor))
-                .count()>0){
-            sailOpenned = true;
-            ship.getSail().setOpened(true);
-        }
+                .count()>0)
+        {sailOpenned = false;
+            ship.getSail().setOpenned(false);
+            }
         else
             throw new ExceptionInInitializerError();
 
