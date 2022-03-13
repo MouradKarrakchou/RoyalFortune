@@ -70,7 +70,7 @@ public class Game {
     public String createJson(Wind wind) {
         checkVisibleEntities();
         System.out.println(JsonManagerTool.convertListToJson(visibleEntities));
-        return "{\"ship\":"+ ship.toString()+",\n \"wind\":"+wind.toString()+","+JsonManagerTool.convertListToJson(visibleEntities)+"}";
+        return "{\"ship\":"+ ship.toString()+",\n \"wind\":"+wind.toString()+",\n \"visibleEntities\":"+JsonManagerTool.convertListToJson(visibleEntities)+"}";
     }
 
     private void checkVisibleEntities() {
