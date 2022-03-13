@@ -17,14 +17,13 @@ public class InitGameDAO {
 	List<SeaEntities> seaEntities;
 	
 	public InitGameDAO() {}
-	public InitGameDAO(Goal goal, Ship ship, List<Sailor> sailors, int shipCount, Wind wind, List<SeaEntities> seaEntities) {
+	public InitGameDAO(Goal goal, Ship ship, List<Sailor> sailors, int shipCount, Wind wind) {
 		super();
 		this.goal = goal;
 		this.ship = ship;
 		this.sailors = sailors;
 		this.shipCount = shipCount;
 		this.wind = wind;
-		this.seaEntities=seaEntities;
 	}
 	
 	public Goal getGoal() {

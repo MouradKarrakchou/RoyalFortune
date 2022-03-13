@@ -60,7 +60,7 @@ public class Cockpit implements ICockpit {
 		Ship newShip = nextRoundDAO.getShip();
 		ship.updatePos(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
-		captain.updateSeaEntities(nextRoundDAO.getSeaEntities());
+		captain.updateSeaEntities(nextRoundDAO.getVisibleEntities());
 		String out = "Next round input: " + round;
 		LOGGER.info(out);
 
