@@ -9,19 +9,16 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 public class NextRoundDAO {
 	Ship ship;
-	List<Entities> visibleEntities;
+	List<SeaEntities> visibleEntities;
 	Wind wind;
-	List<SeaEntities> seaEntities;
-
 
 
 	public NextRoundDAO() {}
-	public NextRoundDAO(Ship ship, List<Entities> visibleEntities, Wind wind,List<SeaEntities> seaEntities) {
+	public NextRoundDAO(Ship ship, List<SeaEntities> visibleEntities, Wind wind) {
 		super();
 		this.ship = ship;
 		this.visibleEntities = visibleEntities;
 		this.wind = wind;
-		this.seaEntities=seaEntities;
 	}
 	
 	public Ship getShip() {
@@ -30,11 +27,7 @@ public class NextRoundDAO {
 
 	public Wind getWind() { return wind; }
 
-	public List<SeaEntities> getSeaEntities() {
-		return seaEntities;
-	}
-
-	public List<Entities> getVisibleEntities() {
+	public List<SeaEntities> getVisibleEntities() {
 		return visibleEntities;
 	}
 	

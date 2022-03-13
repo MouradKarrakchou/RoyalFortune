@@ -1,9 +1,13 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.*;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -11,27 +15,36 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class Game {
-    Ship ship;
-    Cockpit cockpit;
-    List<Sailor> sailors;
-    Goal goal;
-    Referee referee;
+    private Ship ship;
+    private Cockpit cockpit;
+    private List<Sailor> sailors;
+    private Goal goal;
+    private Referee referee;
+    private List<SeaEntities> seaEntities;
+    private List<SeaEntities> visibleEntities;
+
+
     final Logger logger = Logger.getLogger(Game.class.getName());
     int i=0;
     public Game(String initialiser){
-    	InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
-        this.sailors = initGameDAO.getSailors();
-        this.goal = initGameDAO.getGoal();
+    	InitGameToolDAO initGameToolDAO = JsonManagerTool.readInitGameToolDAOJson(initialiser);
+        this.sailors = initGameToolDAO.getSailors();
+        this.goal = initGameToolDAO.getGoal();
+        this.seaEntities = initGameToolDAO.getSeaEntities();
         this.cockpit = new Cockpit();
         this.cockpit.initGame(initialiser);
         this.goal=cockpit.getGoal();
         this.ship = new Ship(cockpit.getShip());
         this.referee=new Referee(cockpit,ship,sailors);
+        visibleEntities = new ArrayList<>();
     }
 
     void nextRound(Wind wind){
@@ -55,7 +68,20 @@ public class Game {
     }
 
     public String createJson(Wind wind) {
-        return "{\"ship\":"+ ship.toString()+",\n \"wind\":"+wind.toString()+"}";
+        checkVisibleEntities();
+        System.out.println(JsonManagerTool.convertListToJson(visibleEntities));
+        return "{\"ship\":"+ ship.toString()+",\n \"wind\":"+wind.toString()+","+JsonManagerTool.convertListToJson(visibleEntities)+"}";
+    }
+
+    private void checkVisibleEntities() {
+        visibleEntities.clear();
+        for(SeaEntities currentSeaEntitie : seaEntities){
+            Position shipPosition = ship.getPosition();
+            Position currentEntitiePosition = currentSeaEntitie.getPosition();
+            Double distance = Mathematician.distanceFormula(shipPosition, currentEntitiePosition);
+            if(distance < Observer.MAX_RANGE)
+                visibleEntities.add(currentSeaEntitie);
+        }
     }
 
     @Override
