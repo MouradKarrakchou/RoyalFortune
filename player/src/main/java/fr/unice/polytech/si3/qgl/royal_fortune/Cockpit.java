@@ -50,6 +50,7 @@ public class Cockpit implements ICockpit {
 	}
 
 	public String nextRound(String round){
+		System.out.println(round);
 		NextRoundDAO nextRoundDAO = null;
 		try {
 			nextRoundDAO = createNextRoundDAO(round);

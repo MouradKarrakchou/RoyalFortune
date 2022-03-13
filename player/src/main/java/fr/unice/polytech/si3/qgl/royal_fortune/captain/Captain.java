@@ -53,7 +53,7 @@ public class Captain {
      * @return The json file of the round actions
      */
     public String roundDecisions() {
-        System.out.println("Sail is opened : " + ship.getSail().isOpened());
+        System.out.println("Sail is opened : " + ship.getSail().isOpenned());
         associations.dissociateAll();
         roundActions.clear();
         seaMap.updateCheckPoint(seaEntities);
@@ -150,7 +150,7 @@ public class Captain {
         if(wind.getStrength() == 0.0)return Optional.empty();
 
         boolean windGoodForUs =  (ship.getPosition().getOrientation()) < (wind.getOrientation() + Math.PI/2) && (ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2));
-        boolean sailOpenned = ship.getSail().isOpened();
+        boolean sailOpenned = ship.getSail().isOpenned();
         Optional<Boolean> openSail = Optional.empty();
 
         if(windGoodForUs && !sailOpenned){
