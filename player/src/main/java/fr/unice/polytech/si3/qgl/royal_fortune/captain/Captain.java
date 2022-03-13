@@ -53,7 +53,7 @@ public class Captain {
      * @return The json file of the round actions
      */
     public String roundDecisions() {
-        System.out.println(ship.getSail().isOpened());
+        System.out.println("Sail is opened : " + ship.getSail().isOpened());
         associations.dissociateAll();
         roundActions.clear();
         seaMap.updateCheckPoint(seaEntities);
@@ -101,7 +101,7 @@ public class Captain {
         System.out.println(strategyAnswer);
 
         if(strategyAnswer.hasSail())
-            crew.sailorsUseSail(optionalSailDecision.get());
+            roundActions.addAll(crew.sailorsUseSail(optionalSailDecision.get()));
 
         if(strategyAnswer.hasRudder()){
             double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
