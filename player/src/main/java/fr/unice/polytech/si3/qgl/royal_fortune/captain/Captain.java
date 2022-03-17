@@ -60,8 +60,10 @@ public class Captain {
         directionsManager.update();
         roundProceed();
         roundActions.addAll(crew.makeBoatMove());
-        String out = createAction();
-        System.out.println(roundActions);
+
+        String out = "";
+        if (roundActions.isEmpty())
+            out = createAction();
 
         return "[" + out + "]";
     }
