@@ -57,8 +57,8 @@ public class Cockpit implements ICockpit {
 		} catch (EmptyDaoException e) {
 			e.printStackTrace();
 		}
-
 		Ship newShip = nextRoundDAO.getShip();
+		System.out.println("New ship = "+newShip);
 		ship.updatePos(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
 		captain.updateSeaEntities(nextRoundDAO.getVisibleEntities());
@@ -67,8 +67,9 @@ public class Cockpit implements ICockpit {
 
 		captain.updateWind(nextRoundDAO.getWind());
 		captain.getPreCalculator().setWind(captain.getWind());
-
-		return captain.roundDecisions();
+		String actions  =captain.roundDecisions();
+		System.out.println("Actions = "+actions);
+		return actions;
 	}
 
 	public InitGameDAO createInitGameDAO(String json)throws EmptyDaoException{

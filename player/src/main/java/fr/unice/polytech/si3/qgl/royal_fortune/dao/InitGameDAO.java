@@ -46,4 +46,8 @@ public class InitGameDAO {
 	public List<SeaEntities> getSeaEntities() {
 		return seaEntities;
 	}
+
+	public void setSailors(List<Sailor> sailorList){
+		this.sailors = sailorList;
+	}
 }
