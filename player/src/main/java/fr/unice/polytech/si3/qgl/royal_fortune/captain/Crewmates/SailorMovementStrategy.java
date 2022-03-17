@@ -379,7 +379,7 @@ public class SailorMovementStrategy {
         return oar.stream()
                 .filter(entity -> entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).isPresent())
                 .sorted(Comparator.comparingInt(entity ->
-                    entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).get().getDistanceToEntity(entity)))
+                        entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).get().getDistanceToEntity(entity)))
                 .toList();
     }
 
