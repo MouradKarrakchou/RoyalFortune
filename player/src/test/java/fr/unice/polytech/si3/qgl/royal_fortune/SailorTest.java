@@ -1,7 +1,11 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.exception.ToFarAssociationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,12 +13,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 class SailorTest {
-	/*Sailor sailor;
+	Sailor sailor;
 	Entities targetEntitiesInRange;
 	Entities targetEntitiesOutOfRange;
 	Entities targetEntitiesIn00;
-
-
 
 	@BeforeEach
 	void init() {
@@ -35,18 +37,19 @@ class SailorTest {
 		assertEquals(0, sailor.getX());
 		assertEquals(0, sailor.getY());
 
-		sailor.setTargetEntity(targetEntitiesInRange);
-		sailor.moveToTarget();
+        Associations associations = new Associations();
+        associations.addAssociation(sailor, targetEntitiesInRange);
+		sailor.moveToTarget(associations);
 
 		assertEquals(targetEntitiesInRange.getX(), sailor.getX());
 		assertEquals(targetEntitiesInRange.getY(), sailor.getY());
-		
-		sailor.setTargetEntity(targetEntitiesIn00);
-		sailor.moveToTarget();
+
+        associations.dissociateAll();
+        associations.addAssociation(sailor, targetEntitiesIn00);
+		sailor.moveToTarget(associations);
 		
 		assertEquals(targetEntitiesIn00.getX(), sailor.getX());
 		assertEquals(targetEntitiesIn00.getY(), sailor.getY());
-		
 	}
 
 	@Test
@@ -54,11 +57,11 @@ class SailorTest {
 		assertEquals(0, sailor.getX());
 		assertEquals(0, sailor.getY());
 
-		sailor.setTargetEntity(targetEntitiesOutOfRange);
-		MovingAction movingActionResult = sailor.moveToTarget();
+        Associations associations = new Associations();
+        assertThrows(ToFarAssociationException.class, () -> {
+			associations.checkForTargetOutOfRange(sailor, targetEntitiesOutOfRange);
+		});
 
-		assertEquals(targetEntitiesOutOfRange.getX(), movingActionResult.getXdistance());
-		assertEquals(2, movingActionResult.getYdistance());
-	}*/
+	}
 
 }
