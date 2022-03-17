@@ -1,7 +1,13 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation.Game;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class GameTest {
-/*
+
     @Test
     void isFinishedTest() {
         String json = "{\n" +
@@ -65,5 +71,5 @@ public class GameTest {
 
         assertFalse(game.isFinished());
     }
-    */
+
 }

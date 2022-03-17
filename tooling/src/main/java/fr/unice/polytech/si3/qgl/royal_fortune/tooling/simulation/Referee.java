@@ -100,8 +100,7 @@ public class Referee {
                 .filter(sailor -> isOnARudder(sailor))
                 .count()>0)
             return rudderAction.getRotation();
-        else
-            throw new ExceptionInInitializerError();
+        return 0;
     }
 
     public void useOar(OarAction oarAction) {
@@ -138,8 +137,6 @@ public class Referee {
             sailOpenned = true;
             ship.getSail().setOpenned(true);
         }
-        else
-            throw new ExceptionInInitializerError();
     }
 
     private void useLiftSail(LiftSailAction action) {
@@ -150,8 +147,6 @@ public class Referee {
         {sailOpenned = false;
             ship.getSail().setOpenned(false);
             }
-        else
-            throw new ExceptionInInitializerError();
 
     }
 
@@ -228,6 +223,10 @@ public class Referee {
 
     public void setRudderRotation(double rudderRotation) {
         this.rudderRotation = rudderRotation;
+
     }
 
+    public Associations getAssociations() {
+        return associations;
+    }
 }
