@@ -90,6 +90,22 @@ class CaptainTest {
     }
 
     @Test
+    void getSailDecisionWindForUsSailCloseLimitTest(){
+        basicShip.getSail().setOpenned(false);
+        basicShip.setPosition(new Position(0,0,-0.9));
+        Captain captain = new Captain(basicShip, null, null, null, new Wind((Math.PI/2)-1,10),null);
+        Optional<Boolean> res = captain.getSailDecision();
+        assertTrue(res.get());
+    }
+
+
+
+
+
+
+
+
+    @Test
     void getRudderDecisionNoNeedRudderTest(){
         double angleMove = 0.0;
         double angleSailorShouldMake = 0.0;
