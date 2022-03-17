@@ -4,7 +4,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Crew;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CrewTest {
     private Ship basicShip;
@@ -34,7 +32,7 @@ public class CrewTest {
     private List<Entities> entities;
     private Crew crew;
     Goal goal;
-    Associations associations = new Associations();
+    Associations associations;
 
     @BeforeEach
     void init(){
@@ -53,19 +51,21 @@ public class CrewTest {
                 new Rectangle("rectangle", 3, 4, 0));
         captain=new Captain(basicShip,sailors,goal,new FictitiousCheckpoint(checkpoints), new Wind(0,0), null);
         crew=captain.getCrew();
+        associations = captain.getAssociations();
     }
 
     @Test
     void sailorToTurnWithRudderTest(){
-        // Initialize 4 sailors
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         entities.add(new Rudder(0, 0));
-        assertEquals("[]",crew.sailorsTurnWithRudder(20).toString());
+        String action = crew.sailorsTurnWithRudder(20).toString();
+        assertEquals("[]", action);
 
-        crew.getAssociations().addAssociation(sailors.get(0), entities.get(0));
-
-        assertEquals("[{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":20.0}]",crew.sailorsTurnWithRudder(20).toString());
+        associations.addAssociation(sailors.get(0), entities.get(0));
+        action = crew.sailorsTurnWithRudder(20).toString();
+        assertEquals("[{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":20.0}]", action);
     }
+
     @Test
     void sailorToTurnWithRudderTest2(){
         // Initialize 4 sailors
