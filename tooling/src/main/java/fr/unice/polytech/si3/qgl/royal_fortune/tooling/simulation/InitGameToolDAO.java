@@ -15,23 +15,29 @@ import java.util.Random;
 public class InitGameToolDAO extends InitGameDAO {
 
     private List<SeaEntities> seaEntities;
+    private int minumumCrewSize;
+    private int maximumCrewSize;
+    private Ship ship;
+    private Position startingPositions;
 
     public InitGameToolDAO() {}
-
-    //maxRound
-    //minumumCrewSize
-    //maximumCrewSize
-    //startingPositions
     public InitGameToolDAO(Goal goal, Ship ship, int shipCount, Wind wind, List<SeaEntities> seaEntities, int maxRound,int minumumCrewSize, int maximumCrewSize, Position startingPositions) {
         super(goal, ship, new ArrayList<>(), shipCount, wind);
+        this.ship = ship;
         this.seaEntities = seaEntities;
-        int crewSize = countCrew(minumumCrewSize, maximumCrewSize);
-        try {
-            setSailors(genSailors(crewSize, ship));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.maximumCrewSize = maximumCrewSize;
+        this.minumumCrewSize = minumumCrewSize;
+        this.startingPositions = startingPositions;
     }
+     public void configDao(){
+         int crewSize = countCrew(minumumCrewSize, maximumCrewSize);
+         try {
+             setSailors(genSailors(crewSize, ship));
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+         super.getShip().setPosition(startingPositions);
+     }
 
     public int countCrew(int minumumCrewSize, int maximumCrewSize){
         int crewSize = 0;

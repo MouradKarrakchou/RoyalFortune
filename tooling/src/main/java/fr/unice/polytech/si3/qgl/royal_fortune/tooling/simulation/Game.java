@@ -36,6 +36,7 @@ public class Game {
     int i=0;
     public Game(String initialiser){
     	InitGameToolDAO initGameToolDAO = JsonManagerTool.readInitGameToolDAOJson(initialiser);
+        initGameToolDAO.configDao();
         this.sailors = initGameToolDAO.getSailors();
         this.goal = initGameToolDAO.getGoal();
         this.seaEntities = initGameToolDAO.getSeaEntities();
