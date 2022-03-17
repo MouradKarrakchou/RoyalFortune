@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.exception.ToFarAssociationException;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 import java.util.HashMap;
@@ -30,8 +31,12 @@ public class Associations {
     }
 
     public void addAssociation(Sailor sailor, Entities entity){
-        if(sailor.getDistanceToEntity(entity) > 5)
-            throw new IllegalArgumentException();
+
+        try {
+            checkForTargetOutOfRange(sailor, entity);
+        } catch (ToFarAssociationException e) {
+            e.printStackTrace();
+        }
 
         sailorAssociations.put(sailor, entity);
         entityAssociations.put(entity, sailor);
@@ -51,5 +56,10 @@ public class Associations {
 
     public Entities getAssociatedEntity(Sailor sailor){
         return sailorAssociations.get(sailor);
+    }
+
+    public void checkForTargetOutOfRange(Sailor sailor, Entities entity) throws ToFarAssociationException {
+        if (sailor.getDistanceToEntity(entity) > 5)
+            throw new ToFarAssociationException("Sailor to far from target");
     }
 }
