@@ -1,16 +1,23 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -129,7 +136,7 @@ class CaptainTest {
 
 
 
-/*
+
 
     @Test
     void numberOfSailorToTurnTest(){
@@ -149,7 +156,7 @@ class CaptainTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
-        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0));
+        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0),null);
         assertEquals(6, basicShip.getNbrOar());
         assertEquals(3, captain.oarWeight(Math.PI));
     }
@@ -172,7 +179,7 @@ class CaptainTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
-        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0));
+        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0),null);
         assertEquals(6, basicShip.getNbrOar());
         assertEquals(1, captain.oarWeight(Math.PI / 6));
     }
@@ -193,7 +200,7 @@ class CaptainTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
-        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0));
+        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0),null);
         assertEquals(6, basicShip.getNbrOar());
         assertEquals(2, captain.oarWeight(Math.PI));
     }
@@ -214,7 +221,7 @@ class CaptainTest {
         // Right oars
         entities.add(new Oar(0, 3));
 
-        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0));
+        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0),null);
         assertEquals(4, basicShip.getNbrOar());
         assertEquals(1, captain.oarWeight(Math.PI));
     }
@@ -235,7 +242,7 @@ class CaptainTest {
         entities.add(new Oar(1, 3));
         entities.add(new Oar(2, 3));
 
-        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0));
+        Captain captain = new Captain(basicShip, sailors, null, null, new Wind(0,0),null);
         assertEquals(4, basicShip.getNbrOar());
         assertEquals(1, captain.oarWeight(- Math.PI));
     }
@@ -268,7 +275,7 @@ class CaptainTest {
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
-        captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(checkpointArrayList), new Wind(0,0));
+        captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(checkpointArrayList), new Wind(0,0),null);
         captain.roundDecisions();
 
         assertEquals(4, captain.getRoundActions().size());
@@ -292,7 +299,7 @@ class CaptainTest {
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
-        captain = new Captain(basicShip, sailors, goal, new FictitiousCheckpoint(checkpointArrayList), new Wind(0,0));
+        captain = new Captain(basicShip, sailors, goal, new FictitiousCheckpoint(checkpointArrayList), new Wind(0,0),null);
         captain.roundDecisions();
 
         assertEquals(4, captain.getRoundActions().size());
@@ -315,7 +322,7 @@ class CaptainTest {
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
-        captain = new Captain(basicShip, sailors, goal, new FictitiousCheckpoint(checkpointArrayList), new Wind(0,0));
+        captain = new Captain(basicShip, sailors, goal, new FictitiousCheckpoint(checkpointArrayList), new Wind(0,0),null);
 
         assertEquals("[{\"sailorId\":0,\"type\":\"MOVING\",\"xdistance\":0,\"ydistance\":1},{\"sailorId\":1,\"type\":\"MOVING\",\"xdistance\":1,\"ydistance\":0},{\"sailorId\":0,\"type\":\"OAR\"},{\"sailorId\":1,\"type\":\"OAR\"}]", captain.roundDecisions());
     }
@@ -337,52 +344,13 @@ class CaptainTest {
         checkpointArrayList.add(checkpoint);
         Goal goal = new Goal("REGATTA", checkpointArrayList);
 
-        captain = new Captain(basicShip, sailors, goal, new FictitiousCheckpoint(checkpointArrayList), new Wind(0,0));
+        captain = new Captain(basicShip, sailors, goal, new FictitiousCheckpoint(checkpointArrayList), new Wind(0,0),null);
         captain.roundDecisions();
 
         assertEquals("{\"sailorId\":0,\"type\":\"MOVING\",\"xdistance\":0,\"ydistance\":1},{\"sailorId\":1,\"type\":\"MOVING\",\"xdistance\":1,\"ydistance\":0},{\"sailorId\":0,\"type\":\"OAR\"},{\"sailorId\":1,\"type\":\"OAR\"}", captain.createAction());
     }
 
-    /*@Test
-    void askSailorToMoveToRudderTest(){
-        sailors.add(new Sailor(0, 0, 0, "sailor0"));
-        sailors.add(new Sailor(1, 0, 1, "sailor1"));
-        sailors.add(new Sailor(2, 1, 0, "sailor2"));
-        sailors.add(new Sailor(3, 1, 1, "sailor3"));
-        sailors.add(new Sailor(4, 1, 2, "sailor4"));
-        Sailor nearestSailor = new Sailor(5, 3, 3, "sailor5");
-        sailors.add(nearestSailor);
 
-        entities.add(new Oar(0, 0));
-        entities.add(new Oar(0, 1));
-        entities.add(new Oar(1, 0));
-        entities.add(new Oar(1, 1));
-
-        captain = new Captain(basicShip, sailors, null, null, new Wind(0,0));
-        assertEquals(4, basicShip.getEntities().size());
-        captain.getCrew().sailorMoveToRudder();
-        assertEquals(0, captain.getRoundActions().size());
-
-        entities.add(new Rudder(3, 4));
-        assertEquals(5, basicShip.getEntities().size());
-        List<Action> actions=captain.getCrew().sailorMoveToRudder();
-        assertEquals(1, actions.size());
-
-        assertEquals(new MovingAction(nearestSailor.getId(), 0, 1).toString(),actions.get(0).toString());
-    }
-
-    @Test
-    void disassociateTest() {
-        List<Sailor> sailors = new ArrayList<>();
-        sailors.add(new Sailor(0, 0, 0, "Sogeking"));
-        sailors.get(0).setTargetEntity(new Oar(0, 0));
-        Captain captain = new Captain(new Ship(null, 1, null, null, null, null, null), sailors, null, null, new Wind(0,0));
-
-        assertTrue(sailors.get(0).getTargetEntity() != null);
-        captain.disassociate();
-        assertTrue(sailors.get(0).getTargetEntity() == null);
-    }
-*/
 
 
 }
