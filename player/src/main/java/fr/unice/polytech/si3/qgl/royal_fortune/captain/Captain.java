@@ -62,7 +62,7 @@ public class Captain {
         roundActions.addAll(crew.makeBoatMove());
 
         String out = "";
-        if (roundActions.isEmpty())
+        if (!roundActions.isEmpty())
             out = createAction();
 
         return "[" + out + "]";
