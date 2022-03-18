@@ -28,24 +28,37 @@ public class Game {
     private List<Sailor> sailors;
     private Goal goal;
     private Referee referee;
-    private List<SeaEntities> seaEntities;
+    private List<SeaEntities> allSeaEntities;
     private List<SeaEntities> visibleEntities;
 
 
     final Logger logger = Logger.getLogger(Game.class.getName());
     int i=0;
-    public Game(String initialiser){
-    	InitGameToolDAO initGameToolDAO = JsonManagerTool.readInitGameToolDAOJson(initialiser);
-        initGameToolDAO.configDao();
-        this.sailors = initGameToolDAO.getSailors();
-        this.goal = initGameToolDAO.getGoal();
-        this.seaEntities = initGameToolDAO.getSeaEntities();
+
+    public Game(String initialiser, String allSeaEntities){
+        InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
+        this.allSeaEntities = JsonManagerTool.readListSeaEntitiesJson(allSeaEntities);
+        this.sailors = initGameDAO.getSailors();
+        this.goal = initGameDAO.getGoal();
         this.cockpit = new Cockpit();
         this.cockpit.initGame(initialiser);
         this.goal=cockpit.getGoal();
         this.ship = new Ship(cockpit.getShip());
         this.referee=new Referee(cockpit,ship,sailors);
         visibleEntities = new ArrayList<>();
+    }
+
+    public Game(String initialiser){
+    	InitGameDAO initGameToolDAO = JsonManager.readInitGameDAOJson(initialiser);
+        this.sailors = initGameToolDAO.getSailors();
+        this.goal = initGameToolDAO.getGoal();
+        this.cockpit = new Cockpit();
+        this.cockpit.initGame(initialiser);
+        this.goal=cockpit.getGoal();
+        this.ship = new Ship(cockpit.getShip());
+        this.referee=new Referee(cockpit,ship,sailors);
+        visibleEntities = new ArrayList<>();
+        allSeaEntities= new ArrayList<>();
     }
 
     void nextRound(Wind wind){
@@ -76,7 +89,7 @@ public class Game {
 
     private void checkVisibleEntities() {
         visibleEntities.clear();
-        for(SeaEntities currentSeaEntitie : seaEntities){
+        for(SeaEntities currentSeaEntitie : allSeaEntities){
             Position shipPosition = ship.getPosition();
             Position currentEntitiePosition = currentSeaEntitie.getPosition();
             Double distance = Mathematician.distanceFormula(shipPosition, currentEntitiePosition);
@@ -114,8 +127,31 @@ public class Game {
     	return out;
     }
 
+    public List<SeaEntities> getAllSeaEntities() {
+        return allSeaEntities;
+    }
+
+    public StringBuilder getAllSeaEntitiesForOutput() {
+        StringBuilder out = new StringBuilder();
+        List<SeaEntities> list = allSeaEntities;
+        for(SeaEntities seaEntities : list) {
+            Position pos = seaEntities.getPosition();
+            double x = pos.getX();
+            double y = pos.getY();
+            out.append(x).append(";").append(y).append(";");
+            if(seaEntities.isStream().isPresent()){
+                out.append(seaEntities.isStream().get().getStrength());
+            }
+            out.append("\n");
+        }
+        return out;
+    }
+    
+
     public void setShip(Ship ship) {
         this.ship = ship;
     }
 
+
+    
 }
