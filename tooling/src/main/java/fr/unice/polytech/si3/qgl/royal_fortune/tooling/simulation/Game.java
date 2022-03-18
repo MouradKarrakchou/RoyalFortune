@@ -9,6 +9,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -131,19 +132,50 @@ public class Game {
         return allSeaEntities;
     }
 
-    public StringBuilder getAllSeaEntitiesForOutput() {
+    public StringBuilder getAllSeaEntitiesForOutput() throws Exception {
         StringBuilder out = new StringBuilder();
         List<SeaEntities> list = allSeaEntities;
         for(SeaEntities seaEntities : list) {
-            Position pos = seaEntities.getPosition();
-            double x = pos.getX();
-            double y = pos.getY();
-            out.append(x).append(";").append(y).append(";");
             if(seaEntities.isStream().isPresent()){
-                out.append(seaEntities.isStream().get().getStrength());
+                out = createOutForStream(seaEntities.isStream().get(), out);
+            }
+            else if(seaEntities.isReef().isPresent()){
+                out = createOutForReef(seaEntities.isReef().get(), out);
             }
             out.append("\n");
         }
+        return out;
+    }
+
+    public StringBuilder createOutForStream(Stream stream, StringBuilder out) throws Exception {
+        Position streamPos = stream.getPosition();
+        out.append("stream").append(";");
+        if(stream.getShape().isRectangle().isPresent()){
+            Rectangle rect = stream.getShape().isRectangle().get();
+            out.append(rect.getHeight()).append(";").append(rect.getWidth()).append(";");
+            out.append(stream.getStrength()).append(";");
+            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
+        }
+        else
+            throw new Exception("Stream with other shape than rectangle");
+        return out;
+    }
+
+    public StringBuilder createOutForReef(Reef reef, StringBuilder out) throws Exception {
+        Position streamPos = reef.getPosition();
+        out.append("reef").append(";");
+        if(reef.getShape().isRectangle().isPresent()){
+            Rectangle rect = reef.getShape().isRectangle().get();
+            out.append("rect").append(";").append(rect.getHeight()).append(";").append(rect.getWidth()).append(";");
+            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
+        }
+        else if(reef.getShape().isCircle().isPresent()){
+            Circle circle = reef.getShape().isCircle().get();
+            out.append("circle").append(";").append(circle.getRadius()).append(";");
+            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
+        }
+        else
+            throw new Exception("Stream with other shape than rectangle");
         return out;
     }
     
