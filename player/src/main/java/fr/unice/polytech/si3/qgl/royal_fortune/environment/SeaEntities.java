@@ -10,17 +10,18 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.Optional;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", include = JsonTypeInfo.As.EXTERNAL_PROPERTY)
-@JsonSubTypes(value = {
-        @JsonSubTypes.Type(value = Reef.class, name = "reef"),
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
         @JsonSubTypes.Type(value = Stream.class, name = "stream"),
+        @JsonSubTypes.Type(value = Reef.class, name = "reef")
 })
 public class SeaEntities {
-    String type;
     Position position;
     Shape shape;
-    public SeaEntities(String type, Position position, Shape shape){
-        this.type  =type;
+    public SeaEntities(Position position, Shape shape){
         this.position=position;
         this.shape=shape;
         shape.setPosition(position);
@@ -37,9 +38,6 @@ public class SeaEntities {
         return shape;
     }
 
-    public String getType() {
-        return type;
-    }
 
     public Optional<Stream> isStream() {
         if(this instanceof Stream){

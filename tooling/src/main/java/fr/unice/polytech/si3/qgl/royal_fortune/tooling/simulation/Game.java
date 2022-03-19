@@ -5,6 +5,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.ListSeaEntitiesDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
@@ -84,8 +86,8 @@ public class Game {
 
     public String createJson(Wind wind) {
         checkVisibleEntities();
-        System.out.println(JsonManagerTool.convertListToJson(visibleEntities));
-        return "{\"ship\":"+ ship.toString()+",\n \"wind\":"+wind.toString()+",\n \"visibleEntities\":"+JsonManagerTool.convertListToJson(visibleEntities)+"}";
+        NextRoundDAO next = new NextRoundDAO(ship, visibleEntities, wind);
+        return next.toString();
     }
 
     private void checkVisibleEntities() {
