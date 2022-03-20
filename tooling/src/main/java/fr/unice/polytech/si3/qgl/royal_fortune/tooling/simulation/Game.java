@@ -5,10 +5,13 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.ListSeaEntitiesDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -28,23 +31,37 @@ public class Game {
     private List<Sailor> sailors;
     private Goal goal;
     private Referee referee;
-    private List<SeaEntities> seaEntities;
+    private List<SeaEntities> allSeaEntities;
     private List<SeaEntities> visibleEntities;
 
 
     final Logger logger = Logger.getLogger(Game.class.getName());
     int i=0;
-    public Game(String initialiser){
-    	InitGameToolDAO initGameToolDAO = JsonManagerTool.readInitGameToolDAOJson(initialiser);
-        this.sailors = initGameToolDAO.getSailors();
-        this.goal = initGameToolDAO.getGoal();
-        this.seaEntities = initGameToolDAO.getSeaEntities();
+
+    public Game(String initialiser, String allSeaEntities){
+        InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(initialiser);
+        this.allSeaEntities = JsonManagerTool.readListSeaEntitiesJson(allSeaEntities);
+        this.sailors = initGameDAO.getSailors();
+        this.goal = initGameDAO.getGoal();
         this.cockpit = new Cockpit();
         this.cockpit.initGame(initialiser);
         this.goal=cockpit.getGoal();
         this.ship = new Ship(cockpit.getShip());
         this.referee=new Referee(cockpit,ship,sailors);
         visibleEntities = new ArrayList<>();
+    }
+
+    public Game(String initialiser){
+    	InitGameDAO initGameToolDAO = JsonManager.readInitGameDAOJson(initialiser);
+        this.sailors = initGameToolDAO.getSailors();
+        this.goal = initGameToolDAO.getGoal();
+        this.cockpit = new Cockpit();
+        this.cockpit.initGame(initialiser);
+        this.goal=cockpit.getGoal();
+        this.ship = new Ship(cockpit.getShip());
+        this.referee=new Referee(cockpit,ship,sailors);
+        visibleEntities = new ArrayList<>();
+        allSeaEntities= new ArrayList<>();
     }
 
     void nextRound(Wind wind){
@@ -69,13 +86,13 @@ public class Game {
 
     public String createJson(Wind wind) {
         checkVisibleEntities();
-        System.out.println(JsonManagerTool.convertListToJson(visibleEntities));
-        return "{\"ship\":"+ ship.toString()+",\n \"wind\":"+wind.toString()+",\n \"visibleEntities\":"+JsonManagerTool.convertListToJson(visibleEntities)+"}";
+        NextRoundDAO next = new NextRoundDAO(ship, visibleEntities, wind);
+        return next.toString();
     }
 
     private void checkVisibleEntities() {
         visibleEntities.clear();
-        for(SeaEntities currentSeaEntitie : seaEntities){
+        for(SeaEntities currentSeaEntitie : allSeaEntities){
             Position shipPosition = ship.getPosition();
             Position currentEntitiePosition = currentSeaEntitie.getPosition();
             Double distance = Mathematician.distanceFormula(shipPosition, currentEntitiePosition);
@@ -113,8 +130,62 @@ public class Game {
     	return out;
     }
 
+    public List<SeaEntities> getAllSeaEntities() {
+        return allSeaEntities;
+    }
+
+    public StringBuilder getAllSeaEntitiesForOutput() throws Exception {
+        StringBuilder out = new StringBuilder();
+        List<SeaEntities> list = allSeaEntities;
+        for(SeaEntities seaEntities : list) {
+            if(seaEntities.isStream().isPresent()){
+                out = createOutForStream(seaEntities.isStream().get(), out);
+            }
+            else if(seaEntities.isReef().isPresent()){
+                out = createOutForReef(seaEntities.isReef().get(), out);
+            }
+            out.append("\n");
+        }
+        return out;
+    }
+
+    public StringBuilder createOutForStream(Stream stream, StringBuilder out) throws Exception {
+        Position streamPos = stream.getPosition();
+        out.append("stream").append(";");
+        if(stream.getShape().isRectangle().isPresent()){
+            Rectangle rect = stream.getShape().isRectangle().get();
+            out.append(rect.getHeight()).append(";").append(rect.getWidth()).append(";");
+            out.append(stream.getStrength()).append(";");
+            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
+        }
+        else
+            throw new Exception("Stream with other shape than rectangle");
+        return out;
+    }
+
+    public StringBuilder createOutForReef(Reef reef, StringBuilder out) throws Exception {
+        Position streamPos = reef.getPosition();
+        out.append("reef").append(";");
+        if(reef.getShape().isRectangle().isPresent()){
+            Rectangle rect = reef.getShape().isRectangle().get();
+            out.append("rect").append(";").append(rect.getHeight()).append(";").append(rect.getWidth()).append(";");
+            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
+        }
+        else if(reef.getShape().isCircle().isPresent()){
+            Circle circle = reef.getShape().isCircle().get();
+            out.append("circle").append(";").append(circle.getRadius()).append(";");
+            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
+        }
+        else
+            throw new Exception("Stream with other shape than rectangle");
+        return out;
+    }
+    
+
     public void setShip(Ship ship) {
         this.ship = ship;
     }
 
+
+    
 }

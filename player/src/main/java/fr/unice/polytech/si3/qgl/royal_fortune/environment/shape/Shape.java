@@ -11,6 +11,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,5 +62,19 @@ public class Shape {
 	 */
 	public List<Beacon> generateBeacon(){return null;}
 
+	public Optional<Circle> isCircle(){
+		if(this instanceof Circle){
+			Circle current = (Circle) this;
+			return Optional.of(current);
+		}
+		return Optional.empty();
+	}
+	public Optional<Rectangle> isRectangle(){
+		if(this instanceof Rectangle){
+			Rectangle current = (Rectangle) this;
+			return Optional.of(current);
+		}
+		return Optional.empty();
+	}
 
 }
