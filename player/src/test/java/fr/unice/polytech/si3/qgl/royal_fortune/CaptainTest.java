@@ -67,4 +67,22 @@ public class CaptainTest {
         entities.add(new Sail(0, 0, true));
         assertEquals(Optional.of(false), captain.getSailDecision());
     }
+
+    @Test
+    void getSailDecisionUpperLimitTest() {
+        basicShip.setPosition(new Position(0, 0, Math.PI/2));
+        captain.setWind(new Wind(0, 50));
+        entities.clear();
+        entities.add(new Sail(0, 0, true));
+        assertEquals(Optional.of(false), captain.getSailDecision());
+    }
+
+    @Test
+    void getSailDecisionLowerLimitTest() {
+        basicShip.setPosition(new Position(0, 0, -Math.PI/2));
+        captain.setWind(new Wind(0, 50));
+        entities.clear();
+        entities.add(new Sail(0, 0, false));
+        assertEquals(Optional.empty(), captain.getSailDecision());
+    }
 }
