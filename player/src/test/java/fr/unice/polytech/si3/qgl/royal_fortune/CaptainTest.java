@@ -13,6 +13,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
@@ -124,17 +125,27 @@ public class CaptainTest {
     }
 
     @Test
+    void oarWeight5Test() {
+        sailors.clear();
+        entities.clear();
+        sailors.add(new Sailor(1, 0, 0, "sailor1"));
+        sailors.add(new Sailor(2, 1, 0, "sailor2"));
+        sailors.add(new Sailor(1, 0, 0, "sailor1"));
+        sailors.add(new Sailor(2, 1, 0, "sailor2"));
+        sailors.add(new Sailor(1, 0, 0, "sailor1"));
+        sailors.add(new Sailor(2, 1, 0, "sailor2"));
+        entities.add(new Oar(0, 0));
+        entities.add(new Oar(0, 1));
+        entities.add(new Oar(1  , 0));
+        assertEquals(4, captain.oarWeight(5));
+    }
+
+    @Test
     void getWindTest() {
         Wind wind = new Wind(0, 0);
         assertEquals(wind.getOrientation(), captain.getWind().getOrientation());
         assertEquals(wind.getStrength(), captain.getWind().getStrength());
 
-    }
-
-    @Test
-    void getRoundActionTest() {
-        List<Action> list = new ArrayList<>();
-        assertEquals(list, captain.getRoundActions());
     }
 
     @Test
@@ -151,6 +162,17 @@ public class CaptainTest {
 
     @Test
     void computeAngleToTurnRudderTest() {
+        assertEquals(-Math.PI / 4, captain.computeAngleToTurnRudder(0, Math.PI / 4));
+        assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(Math.PI / 4, 0));
+        assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(Math.PI, Math.PI / 2));
+        assertEquals(-Math.PI / 4, captain.computeAngleToTurnRudder(-Math.PI, -Math.PI / 2));
+        assertEquals(Math.PI / 5 - Math.PI / 6, captain.computeAngleToTurnRudder(Math.PI / 5, Math.PI / 6));
+        assertEquals(-Math.PI / 5 + Math.PI / 6, captain.computeAngleToTurnRudder(-Math.PI / 5, -Math.PI / 6));
+        assertEquals(0, captain.computeAngleToTurnRudder(0, 0));
+        assertEquals(Math.pow(10, -4) - Math.pow(10, -1), captain.computeAngleToTurnRudder(Math.pow(10, -4), Math.pow(10, -1)));
+        assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(1, 1));
+        assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(Math.pow(10, -3), 0));
+
 
     }
 

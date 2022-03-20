@@ -53,7 +53,7 @@ public class Captain {
      * @return The json file of the round actions
      */
     public String roundDecisions() {
-        System.out.println("Sail is opened : " + ship.getSail().isOpenned());
+        //System.out.println("Sail is opened : " + ship.getSail().isOpenned());
         associations.dissociateAll();
         roundActions.clear();
         seaMap.updateCheckPoint(seaEntities);
