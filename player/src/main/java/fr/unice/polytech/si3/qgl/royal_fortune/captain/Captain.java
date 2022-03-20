@@ -149,7 +149,7 @@ public class Captain {
          * @return eventually true if we need the sail
          */
     public Optional<Boolean> getSailDecision() {
-        if(wind.getStrength() == 0.0)return Optional.empty();
+        if(wind.getStrength() == 0.0) return Optional.empty();
 
         boolean windGoodForUs =  (ship.getPosition().getOrientation()) < (wind.getOrientation() + Math.PI/2) && (ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2));
         boolean sailOpenned = ship.getSail().isOpenned();
@@ -173,10 +173,6 @@ public class Captain {
      */
     public int oarWeight(double orientation) {
         return Math.min((int) ((orientation * ship.getNbrOar()) / Math.PI), sailors.size());
-    }
-
-    public void updateWind(Wind wind) {
-        this.wind = wind;
     }
 
     public Wind getWind() {

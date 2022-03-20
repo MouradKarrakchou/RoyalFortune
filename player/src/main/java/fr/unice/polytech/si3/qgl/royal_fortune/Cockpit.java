@@ -69,7 +69,7 @@ public class Cockpit implements ICockpit {
 		ship.updatePos(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
 		captain.updateSeaEntities(nextRoundDAO.getVisibleEntities());
-		captain.updateWind(nextRoundDAO.getWind());
+		captain.setWind(nextRoundDAO.getWind());
 		captain.getPreCalculator().setWind(captain.getWind());
 	}
 
