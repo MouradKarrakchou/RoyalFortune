@@ -20,8 +20,9 @@ class Boat {
 
 class Checkpoint {
     constructor(x, y, radius) {
-        this.position = new Position(x, y, 0);
-        this.radius = radius;
+        this.position = getCalcPosition(x, y, radius);
+        //this.position = new Position(x, y, 0);
+        this.radius = (radius * 0.5);
     }
 }
 class Position {
@@ -59,14 +60,14 @@ class Stream {
 
 class Rectangle {
     constructor(width, height) {
-        this.width = width;
-        this.height = height;
+        this.width = width * 0.5;
+        this.height = height * 0.5;
     }
 }
 
 class Circle {
     constructor(radius) {
-        this.radius = radius;
+        this.radius = radius * 0.5;
     }
 }
 
@@ -272,4 +273,17 @@ function removeEmpty(list) {
         if (list[i] != "") array.push(list[i]);
     }
     return array;
+}
+
+function getCalcPosition(x, y, radius) {
+    let vectorX = /*translateX(0)*/ -parseInt(x);
+    let vectorY = /*translateY(0)*/ -parseInt(y);
+    let norm = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
+
+    let unitX = vectorX / norm;
+    let unitY = vectorY / norm;
+    let newX = parseInt(x) + (radius * 0.5) * unitX;
+    let newY = parseInt(y) + (radius * 0.5) * unitY;
+    let fictiousPosition = new Position(newX, newY, 0);
+    return fictiousPosition;
 }
