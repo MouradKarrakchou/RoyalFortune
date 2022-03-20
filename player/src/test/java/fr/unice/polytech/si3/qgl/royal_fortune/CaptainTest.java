@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
@@ -11,6 +12,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CaptainTest {
     private Ship basicShip;
@@ -85,4 +87,71 @@ public class CaptainTest {
         entities.add(new Sail(0, 0, false));
         assertEquals(Optional.empty(), captain.getSailDecision());
     }
+
+    @Test
+    void oarWeightTest() {
+        sailors.clear();
+        entities.clear();
+        assertEquals(0, captain.oarWeight(0));
+    }
+
+    @Test
+    void oarWeight2Test() {
+        sailors.clear();
+        entities.clear();
+        entities.add(new Oar(0, 0));
+        assertEquals(0, captain.oarWeight(Math.PI));
+    }
+
+    @Test
+    void oarWeight3Test() {
+        sailors.clear();
+        entities.clear();
+        sailors.add(new Sailor(1, 0, 0, "sailor1"));
+        sailors.add(new Sailor(2, 1, 0, "sailor2"));
+        entities.add(new Oar(0, 0));
+        assertEquals(1, captain.oarWeight(Math.PI));
+    }
+
+    @Test
+    void oarWeight4Test() {
+        sailors.clear();
+        entities.clear();
+        sailors.add(new Sailor(1, 0, 0, "sailor1"));
+        sailors.add(new Sailor(2, 1, 0, "sailor2"));
+        entities.add(new Oar(0, 0));
+        assertEquals(2, captain.oarWeight(2*Math.PI));
+    }
+
+    @Test
+    void getWindTest() {
+        Wind wind = new Wind(0, 0);
+        assertEquals(wind.getOrientation(), captain.getWind().getOrientation());
+        assertEquals(wind.getStrength(), captain.getWind().getStrength());
+
+    }
+
+    @Test
+    void getRoundActionTest() {
+        List<Action> list = new ArrayList<>();
+        assertEquals(list, captain.getRoundActions());
+    }
+
+    @Test
+    void getRudderDecisionTest() {
+        boolean angleIsNotZero = captain.getRudderDecision(Math.pow(10, -3), 0);
+        assertFalse(angleIsNotZero);
+    }
+
+    @Test
+    void getRudderDecision2Test() {
+        boolean angleIsNotZero = captain.getRudderDecision(Math.pow(10, -3), -Math.pow(10, -3));
+        assertTrue(angleIsNotZero);
+    }
+
+    @Test
+    void computeAngleToTurnRudderTest() {
+
+    }
+
 }
