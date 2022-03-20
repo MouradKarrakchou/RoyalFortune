@@ -55,4 +55,48 @@ public class RectangleTest {
         boolean isInRectangle = rectangle.positionIsInTheRectangle(new Position(1.6,0, 0));
         assertFalse(isInRectangle);
     }
+    @Test
+    void positionIsInTheRectangleTest1() {
+        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        rectangle.setPosition(new Position(0, 0, 0));
+
+        boolean isInRectangle = rectangle.positionIsInTheRectangle(new Position(1.5,1.5, 0));
+        assertTrue(isInRectangle);
+    }
+    @Test
+    void positionIsInTheRectangleTest2() {
+        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        rectangle.setPosition(new Position(0, 0, 0));
+
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(1.5,2.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,-2.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,0, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(0,-2.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(0,2.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(1.5,0, 0)));
+    }
+    @Test
+    void positionIsInTheRectangleTest4() {
+        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        rectangle.setPosition(new Position(-1, -1, 0));
+
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(0.5,1.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-2.5,-3.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-2.5,-1, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1,-3.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1,1.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(0.5,-1, 0)));
+    }
+    /**@Test
+    void positionIsInTheRectangleTest3() {
+        Rectangle rectangle = new Rectangle("Rectangle", 5, 3, Math.PI/2);
+        rectangle.setPosition(new Position(0, 0, Math.PI/2));
+
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(1.5,2.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,-2.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,0, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(0,-2.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(0,2.5, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(1.5,0, 0)));
+    }**/
 }
