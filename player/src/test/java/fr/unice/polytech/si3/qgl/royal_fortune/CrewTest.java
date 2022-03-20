@@ -15,6 +15,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,5 +74,21 @@ public class CrewTest {
         entities.add(new Oar(1, 0));
         entities.add(new Rudder(0, 0));
 
-        assertEquals(new ArrayList<>(),crew.sailorsTurnWithRudder(20));}
+        assertEquals(new ArrayList<>(),crew.sailorsTurnWithRudder(20));
+    }
+
+    @Test
+    void sailorsUseSailTest(){
+        sailors.add(new Sailor(0, 0, 0, "sailor0"));
+        entities.add(new Sail(0, 0, false));
+        String action = crew.sailorsUseSail(true).toString();
+        assertEquals("[]", action);
+
+        associations.addAssociation(sailors.get(0), entities.get(0));
+        action = crew.sailorsUseSail(true).toString();
+        assertEquals("[{\"sailorId\":0,\"type\":\"LIFT_SAIL\"}]", action);
+
+        action = crew.sailorsUseSail(false).toString();
+        assertEquals("[{\"sailorId\":0,\"type\":\"LOWER_SAIL\"}]", action);
+    }
 }
