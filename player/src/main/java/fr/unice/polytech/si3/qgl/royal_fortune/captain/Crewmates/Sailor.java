@@ -69,41 +69,14 @@ public class Sailor{
 		if (targetEntity == null)
 			return null;
 
-		// If there is a target entity and the sailor can go to in one turn (>= 5 cases).
 		MovingAction movingAction;
-		if(getDistanceToEntity(targetEntity) <= 5){
-			movingAction = new MovingAction(this.getId(), targetEntity.getX() - x, targetEntity.getY() - y);
-		}
 
-		// If there is a target entity and the sailor can not go to in one turn (> 5 cases).
-		else{
-			movingAction = targetEntityFarAway(associations);
-		}
+		movingAction = new MovingAction(this.getId(), targetEntity.getX() - x, targetEntity.getY() - y);
 
 		this.x += movingAction.getXdistance();
 		this.y += movingAction.getYdistance();
 
 		return movingAction;
-	}
-
-	MovingAction targetEntityFarAway(Associations associations) {
-		Entities targetEntity = associations.getAssociatedEntity(this);
-		int posX = 0;
-		int posY = 0;
-		int vectX = (targetEntity.getX()-this.x)<0 ? -1 : 1;
-		int vectY = (targetEntity.getY()-this.y)<0 ? -1 : 1;
-
-		//tant que this.x+Deplacement < target.x || i < 5
-		while(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()) && posX < 5) {
-			System.out.println(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()));
-			posX+=vectX;
-		}
-		if(posX<5)
-			while(Math.abs(this.y+posX) < Math.abs(targetEntity.getY()) && posY+posX < 5) {
-				posY+=vectY;
-			}
-
-		return new MovingAction(this.getId(), posX - x, posY - y);
 	}
 
 	public OarAction oar(){
