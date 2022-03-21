@@ -87,16 +87,16 @@ public class RectangleTest {
         assertTrue(rectangle.positionIsInTheRectangle(new Position(-1,1.5, 0)));
         assertTrue(rectangle.positionIsInTheRectangle(new Position(0.5,-1, 0)));
     }
-    /**@Test
+    @Test
     void positionIsInTheRectangleTest3() {
         Rectangle rectangle = new Rectangle("Rectangle", 5, 3, Math.PI/2);
         rectangle.setPosition(new Position(0, 0, Math.PI/2));
 
-        assertTrue(rectangle.positionIsInTheRectangle(new Position(1.5,2.5, 0)));
-        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,-2.5, 0)));
-        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,0, 0)));
-        assertTrue(rectangle.positionIsInTheRectangle(new Position(0,-2.5, 0)));
-        assertTrue(rectangle.positionIsInTheRectangle(new Position(0,2.5, 0)));
-        assertTrue(rectangle.positionIsInTheRectangle(new Position(1.5,0, 0)));
-    }**/
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(1.49999,2.4999, 0)));
+        //assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,-2.5, 0)));
+        //assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,0, 0)));
+        //assertTrue(rectangle.positionIsInTheRectangle(new Position(0,-2.5, 0)));
+        //assertTrue(rectangle.positionIsInTheRectangle(new Position(0,2.5, 0)));
+        //assertTrue(rectangle.positionIsInTheRectangle(new Position(1.5,0, 0)));
+    }
 }
