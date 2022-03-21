@@ -172,8 +172,6 @@ public class CaptainTest {
         assertEquals(Math.pow(10, -4) - Math.pow(10, -1), captain.computeAngleToTurnRudder(Math.pow(10, -4), Math.pow(10, -1)));
         assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(1, 1));
         assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(Math.pow(10, -3), 0));
-
-
     }
 
 }
