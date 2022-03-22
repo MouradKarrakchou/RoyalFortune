@@ -50,4 +50,9 @@ public class ShapeTest {
         s = new Rectangle(5.,2.,0.);
         assertFalse(s.isCircle().isPresent());
     }
+
+    @Test
+    void generateBeaconTest(){
+        assertEquals(null, s.generateBeacon());
+    }
 }
