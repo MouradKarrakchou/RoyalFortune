@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,8 +61,20 @@ public class SegmentTest {
     void computeIntersectionWith_IntersectionTest(){
         Segment other = new Segment(new Position(25,-25,-Math.PI/2),new Position(25,25,-Math.PI/2));
         Optional<Position> res = s.computeIntersectionWith(other);
-        //assertTrue(res.isPresent());----------> A VERIFIER
+        assertTrue(res.isPresent());
     }
 
+    @Test
+    void angleIntersectionBetweenSegmentAndRectangleTest(){
+        Rectangle r = new Rectangle(10.,10.,0.);
+        r.setPosition(new Position(20,0,0));
+        double res = s.angleIntersectionBetweenSegmentAndRectangle(r);
+        assertEquals(0., res);
+
+        r = new Rectangle(10.,10.,Math.PI/2);
+        r.setPosition(new Position(20,0,0));
+        res = s.angleIntersectionBetweenSegmentAndRectangle(r);
+        assertEquals(Math.PI/2, res);
+    }
 
 }

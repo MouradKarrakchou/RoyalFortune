@@ -164,6 +164,8 @@ public class RectangleTest {
 
         Segment s = new Segment(pointA, pointB);
         List<Position> res = rectangle.computeIntersectionWith(s);
-        //assertEquals(2, res.size());----------------------------------------> NE MARCHE PAS IL FAUT FIX CETTE ISSUE
+        //assertEquals(2, res.size());//----------------------------------------> NE MARCHE PAS IL FAUT FIX CETTE ISSUE
     }
+
+
 }
