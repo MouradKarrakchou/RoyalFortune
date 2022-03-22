@@ -27,7 +27,7 @@ public class Cartologue {
     /**
      * Compute the distance of a route
      * @param segment a segment
-     * @return distance of the route from the ship to the checkpoint, through the beacon
+     * @return number of turn to do the road from the ship to the checkpoint, through the beacon
      */
     public double computeNumberOfRoundsNeeded(Segment segment) {
         double dist;
@@ -55,7 +55,7 @@ public class Cartologue {
      * @param path a path
      * @return list of segments
      */
-    private List<Segment> cutSegment(Segment path,Boolean isOnStream){
+    public List<Segment> cutSegment(Segment path,Boolean isOnStream){
         List<Segment> segments=new ArrayList<>();
         for (Stream stream:listStream){
             List<Position> intersections = new ArrayList<>(((Rectangle) stream.getShape()).computeIntersectionWith(path));
@@ -73,7 +73,7 @@ public class Cartologue {
             {
                 segments.add(new Segment(path.getPointA(),intersections.get(0)));
                 segments.add(new Segment(intersections.get(0),intersections.get(1)));
-                segments.add(new Segment(intersections.get(1),intersections.get(2)));
+                segments.add(new Segment(intersections.get(1),path.getPointB()));
                 hashMap.put(segments.get(1),stream);
                 break;
             }
