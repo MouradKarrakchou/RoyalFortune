@@ -99,7 +99,19 @@ public class Rectangle extends Shape{
 			 intersection = segment.computeIntersectionWith(seg);
 			intersection.ifPresent(intersectionsPosition::add);
 		}
-		return intersectionsPosition;
+		return ordered(intersectionsPosition,segment);
+	}
+
+	private List<Position> ordered(List<Position> intersectionsPosition, Segment segment) {
+		List<Position> intersectionsPositionOrdered= new ArrayList<>();
+		while (!intersectionsPositionOrdered.isEmpty()){
+			Position pointToCompare=intersectionsPositionOrdered.get(intersectionsPositionOrdered.size()-1);
+			Position min=intersectionsPosition.get(0);
+			for (Position position :intersectionsPosition){
+
+			}
+		}
+		return null;
 	}
 
 	/**
