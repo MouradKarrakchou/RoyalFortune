@@ -9,6 +9,7 @@ public class Stream extends SeaEntities{
     public Stream(Position position, Shape shape,int strength){
         super(position,shape);
         this.strength=strength;
+        shape.setPosition(position);
     }
 
     public int getStrength() {
