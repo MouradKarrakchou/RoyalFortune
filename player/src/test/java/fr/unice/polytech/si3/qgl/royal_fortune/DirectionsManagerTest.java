@@ -2,7 +2,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -42,9 +41,9 @@ class DirectionsManagerTest {
                 "ShipTest",
                 new Deck(3, 4),
                 entities,
-                new Rectangle("rectangle", 3, 4, 0));
+                new Rectangle(3, 4, 0));
 
-        Checkpoint checkpoint = new Checkpoint(new Position(0, 50, 0), new Circle("Circle", 50));
+        Checkpoint checkpoint = new Checkpoint(new Position(0, 50, 0), new Circle(50));
 
         ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
         checkpointArrayList.add(checkpoint);
@@ -70,9 +69,9 @@ class DirectionsManagerTest {
                 "ShipTest",
                 new Deck(3, 4),
                 entities,
-                new Rectangle("rectangle", 3, 4, 0));
+                new Rectangle(3, 4, 0));
 
-        Checkpoint checkpoint = new Checkpoint(new Position(0, 50, 0), new Circle("Circle", 50));
+        Checkpoint checkpoint = new Checkpoint(new Position(0, 50, 0), new Circle(50));
 
         ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
         checkpointArrayList.add(checkpoint);
@@ -99,7 +98,7 @@ class DirectionsManagerTest {
                 "ShipTest",
                 new Deck(3, 4),
                 entities,
-                new Rectangle("rectangle", 3, 4, 0));
+                new Rectangle(3, 4, 0));
 
         dirMan = new DirectionsManager(ship, null);
         assertTrue(dirMan.isConeTooSmall());

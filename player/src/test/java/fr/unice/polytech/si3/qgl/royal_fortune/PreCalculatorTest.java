@@ -51,10 +51,10 @@ public class PreCalculatorTest {
                 "ShipTest",
                 new Deck(3, 4),
                 entities,
-                new Rectangle("rectangle", 3, 4, 0));
+                new Rectangle(3, 4, 0));
 
         List<Checkpoint> checkpoints = new ArrayList<>();
-        checkpoints.add(new Checkpoint(new Position(100, 0, 0), new Circle("Circle", 10)));
+        checkpoints.add(new Checkpoint(new Position(100, 0, 0), new Circle(10)));
 
         SeaMap seaMap = new SeaMap(new Goal("",checkpoints), new FictitiousCheckpoint(checkpoints), ship.getPosition(),null, null);
 
@@ -88,10 +88,10 @@ public class PreCalculatorTest {
                 "ShipTest",
                 new Deck(3, 4),
                 entities,
-                new Rectangle("rectangle", 3, 4, 0));
+                new Rectangle(3, 4, 0));
 
         List<Checkpoint> checkpoints = new ArrayList<>();
-        checkpoints.add(new Checkpoint(new Position(100, 0, 0), new Circle("Circle", 100)));
+        checkpoints.add(new Checkpoint(new Position(100, 0, 0), new Circle(100)));
 
         SeaMap seaMap = new SeaMap(new Goal("",checkpoints), new FictitiousCheckpoint(checkpoints), ship.getPosition(),null, null);
 

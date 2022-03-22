@@ -13,7 +13,7 @@ public class RectangleTest {
 
     @BeforeEach
     void init() {
-        rectangle=new Rectangle("rectangle", 50, 50, Math.PI/2);
+        rectangle=new Rectangle(50, 50, Math.PI/2);
     }
     @Test
     void rectangleInitialisionTest(){
@@ -22,7 +22,7 @@ public class RectangleTest {
 
     @Test
     void positionIsInTheRectangleTest() {
-        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        Rectangle rectangle = new Rectangle(3, 5, 0);
         rectangle.setPosition(new Position(0, 0, 0));
 
         boolean isInRectangle = rectangle.positionIsInTheRectangle(new Position(0,0, 0));
@@ -31,7 +31,7 @@ public class RectangleTest {
 
     @Test
     void positionIsOnSideOfTheRectangleTest() {
-        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        Rectangle rectangle = new Rectangle(3, 5, 0);
         rectangle.setPosition(new Position(0, 0, 0));
 
         boolean isInRectangle = rectangle.positionIsInTheRectangle(new Position(1.5,0, 0));
@@ -40,7 +40,7 @@ public class RectangleTest {
 
     @Test
     void positionIsOnCornerOfTheRectangleTest() {
-        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        Rectangle rectangle = new Rectangle(3, 5, 0);
         rectangle.setPosition(new Position(0, 0, 0));
 
         boolean isInRectangle = rectangle.positionIsInTheRectangle(new Position(1.5,2.5, 0));
@@ -49,7 +49,7 @@ public class RectangleTest {
 
     @Test
     void positionIsNotInTheRectangleTest() {
-        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        Rectangle rectangle = new Rectangle(3, 5, 0);
         rectangle.setPosition(new Position(0, 0, 0));
 
         boolean isInRectangle = rectangle.positionIsInTheRectangle(new Position(1.6,0, 0));
@@ -57,7 +57,7 @@ public class RectangleTest {
     }
     @Test
     void positionIsInTheRectangleTest1() {
-        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        Rectangle rectangle = new Rectangle(3, 5, 0);
         rectangle.setPosition(new Position(0, 0, 0));
 
         boolean isInRectangle = rectangle.positionIsInTheRectangle(new Position(1.5,1.5, 0));
@@ -65,7 +65,7 @@ public class RectangleTest {
     }
     @Test
     void positionIsInTheRectangleTest2() {
-        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        Rectangle rectangle = new Rectangle(3, 5, 0);
         rectangle.setPosition(new Position(0, 0, 0));
 
         assertTrue(rectangle.positionIsInTheRectangle(new Position(1.5,2.5, 0)));
@@ -77,7 +77,7 @@ public class RectangleTest {
     }
     @Test
     void positionIsInTheRectangleTest4() {
-        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        Rectangle rectangle = new Rectangle(3, 5, 0);
         rectangle.setPosition(new Position(-1, -1, 0));
 
         assertTrue(rectangle.positionIsInTheRectangle(new Position(0.5,1.5, 0)));
@@ -89,7 +89,7 @@ public class RectangleTest {
     }
     @Test
     void positionIsInTheRectangleTest3() {
-        Rectangle rectangle = new Rectangle("Rectangle", 5, 3, Math.PI/2);
+        Rectangle rectangle = new Rectangle(5, 3, Math.PI/2);
         rectangle.setPosition(new Position(0, 0, Math.PI/2));
 
         assertTrue(rectangle.positionIsInTheRectangle(new Position(1.49999,2.4999, 0)));

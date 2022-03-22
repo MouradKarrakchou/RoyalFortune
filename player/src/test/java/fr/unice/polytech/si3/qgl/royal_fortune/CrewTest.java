@@ -40,7 +40,7 @@ public class CrewTest {
         sailors = new ArrayList<>();
         entities = new ArrayList<>();
         checkpoints=new ArrayList<>();
-        checkpoints.add(new Checkpoint(new Position(5000,5000,0),new Circle("",100)));
+        checkpoints.add(new Checkpoint(new Position(5000,5000,0),new Circle(100)));
         goal=new Goal("",(ArrayList<Checkpoint>) checkpoints);
         basicShip = new Ship(
                 "ship",
@@ -49,7 +49,7 @@ public class CrewTest {
                 "ShipTest",
                 new Deck(3, 4),
                 entities,
-                new Rectangle("rectangle", 3, 4, 0));
+                new Rectangle(3, 4, 0));
         captain=new Captain(basicShip,sailors,goal,new FictitiousCheckpoint(checkpoints), new Wind(0,0));
         crew=captain.getCrew();
         associations = captain.getAssociations();

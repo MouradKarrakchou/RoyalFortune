@@ -63,7 +63,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -109,7 +109,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -152,7 +152,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -189,7 +189,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -232,7 +232,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -269,7 +269,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(5, 5),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -321,7 +321,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(5, 5),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -372,7 +372,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(5, 5),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -438,7 +438,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(5, 5),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -521,7 +521,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(7, 9),
                 entities,
-                new Rectangle("rectangle", 7, 9, 0));
+                new Rectangle(7, 9, 0));
 
         PreCalculator mockPreCalculator = mock(PreCalculator.class);
         when(mockPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(true);
@@ -570,7 +570,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(13, 13),
                 entities,
-                new Rectangle("rectangle", 13, 13, 0));
+                new Rectangle(13, 13, 0));
 
         Associations associations = new Associations();
         PreCalculator mockPreCalculator = mock(PreCalculator.class);
@@ -627,7 +627,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(6, 4),
                 entities,
-                new Rectangle("rectangle", 6, 4, 0));
+                new Rectangle(6, 4, 0));
 
         PreCalculator mockPreCalculator = mock(PreCalculator.class);
         when(mockPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(true);

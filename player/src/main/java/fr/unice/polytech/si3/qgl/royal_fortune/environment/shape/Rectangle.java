@@ -32,8 +32,8 @@ public class Rectangle extends Shape{
 
 	public Rectangle() {}
 	
-	public Rectangle(String type, double width, double height, double orientation) {
-		super(type);
+	public Rectangle(double width, double height, double orientation) {
+		super("rectangle");
 		this.width = width;
 		this.height = height;
 		this.orientation = orientation;
@@ -79,10 +79,10 @@ public class Rectangle extends Shape{
 		double widthUnit=width/PRECISION;
 		double heightUnit=height/PRECISION;
 		for (int k=-PRECISION/5;k<PRECISION+PRECISION/5;k++){
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2),new Circle("circle", RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*heightUnit),new Circle("circle", RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2),new Circle("circle", RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*heightUnit),new Circle("circle", RADIUS_OF_BEACON)));}
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*heightUnit),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*heightUnit),new Circle(RADIUS_OF_BEACON)));}
 		return listOfPosition;
 	}
 
