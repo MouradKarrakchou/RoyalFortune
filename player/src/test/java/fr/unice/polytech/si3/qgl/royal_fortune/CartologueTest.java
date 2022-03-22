@@ -42,6 +42,6 @@ public class CartologueTest {
         Stream stream= new Stream(new Position(0,0),new Rectangle("rectangle",1000,1000,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(1000,0));
         hashMap.put(segment,stream);
-        //assertEquals(6,cartologue.computeNumberOfRoundsNeeded(segment));
+        assertTrue(cartologue.computeNumberOfRoundsNeeded(segment)-4.65<0.01);
     }
 }
