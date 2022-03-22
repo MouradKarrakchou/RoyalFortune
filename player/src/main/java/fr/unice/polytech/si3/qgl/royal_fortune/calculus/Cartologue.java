@@ -19,6 +19,7 @@ public class Cartologue {
     HashMap<Segment,SeaEntities> hashMap;
 
     public Cartologue(List<Stream> listStream, List<Reef> listReef, Wind wind) {
+        this.hashMap=new HashMap<>();
         this.listStream = listStream;
         this.listReef = listReef;
         this.wind = wind;
@@ -28,7 +29,7 @@ public class Cartologue {
      * @param segment a segment
      * @return distance of the route from the ship to the checkpoint, through the beacon
      */
-    public double computeDistance(Segment segment) {
+    public double computeNumberOfRoundsNeeded(Segment segment) {
         double dist;
         //we considerate that numberOfSailors/numberOfOar=1
         if (hashMap.containsKey(segment))
@@ -93,5 +94,9 @@ public class Cartologue {
                 return true;
         }
         return false;
+    }
+
+    public HashMap<Segment, SeaEntities> getHashMap() {
+        return hashMap;
     }
 }
