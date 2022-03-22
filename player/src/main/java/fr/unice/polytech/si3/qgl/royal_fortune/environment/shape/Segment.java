@@ -42,7 +42,7 @@ public class Segment {
         }
         else if (Math.abs(a)==Float.POSITIVE_INFINITY){
             double intersectionY=segment.getA()*pointA.getX()+segment.getB();
-            boolean rightY=segment.pointInSegment(new Position(pointA.getX(),intersectionY));
+            boolean rightY=this.pointInSegment(new Position(pointA.getX(),intersectionY));
             boolean rightX=pointA.getX()<=Math.max(segment.getPointA().getX(),segment.getPointB().getX())
                     &&pointA.getX()>=Math.min(segment.getPointA().getX(),segment.getPointB().getX());
             if (rightX&& rightY) return (Optional.of(new Position(pointA.getX(),intersectionY)));
@@ -62,7 +62,7 @@ public class Segment {
     }
 
     public boolean pointInSegment(Position point){
-        if (a==Float.POSITIVE_INFINITY)
+        if (Math.abs(a)==Float.POSITIVE_INFINITY)
             return (point.getX()==pointA.getX());
         return(a*point.getX()-b==point.getY());
     }
@@ -94,7 +94,7 @@ public class Segment {
     }
 
     public double computeA(Position pointA, Position pointB){ return (pointA.getY()-pointB.getY())/(pointA.getX()-pointB.getX());}
-    public double computeB(Position pointA, Position pointB){ return (pointA.getY()-pointB.getY())/(pointA.getX()-pointB.getX());}
+    public double computeB(Position pointA, Position pointB){ return (pointA.getY()-a*pointA.getX());}
 
 
     public double getA() {

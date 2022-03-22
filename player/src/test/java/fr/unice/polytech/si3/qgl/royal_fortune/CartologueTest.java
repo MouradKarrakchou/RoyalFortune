@@ -91,7 +91,7 @@ public class CartologueTest {
         assertFalse(hashMap.containsKey(cartoCut.get(0)));
         assertFalse(hashMap.containsKey(cartoCut.get(2)));
     }
-    /**@Test
+    @Test
     void testCutSegment2(){
         Stream stream= new Stream(new Position(0,200),new Rectangle(100,100,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(0,1000));
@@ -107,5 +107,5 @@ public class CartologueTest {
         assertEquals(stream,hashMap.get(cartoCut.get(1)));
         assertFalse(hashMap.containsKey(cartoCut.get(0)));
         assertFalse(hashMap.containsKey(cartoCut.get(2)));
-    }**/
+    }
 }
