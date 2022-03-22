@@ -96,7 +96,6 @@ public class Captain {
         boolean useSail = optionalSailDecision.isPresent();
         boolean needRudder = getRudderDecision(angleMove, angleSailorsShouldMake);
 
-
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
@@ -110,9 +109,8 @@ public class Captain {
             double angleToTurnRudder = computeAngleToTurnRudder(angleMove, angleMadeBySailors);
             roundActions.addAll(crew.sailorsTurnWithRudder(angleToTurnRudder));
         }
+
         roundActions.addAll(crew.sailorsMove());
-
-
     }
 
     /**
