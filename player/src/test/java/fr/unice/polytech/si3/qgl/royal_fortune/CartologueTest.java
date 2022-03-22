@@ -39,35 +39,35 @@ public class CartologueTest {
     }
     @Test
     void testComputeDistance2(){
-        Stream stream= new Stream(new Position(0,0),new Rectangle("rectangle",1000,1000,0),50);
+        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(1000,0));
         hashMap.put(segment,stream);
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-4.65)<0.01);
     }
     @Test
     void testComputeDistance3(){
-        Stream stream= new Stream(new Position(0,0),new Rectangle("rectangle",1000,1000,-Math.PI),50);
+        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(1000,0));
         hashMap.put(segment,stream);
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-8.69)<0.01);
     }
     @Test
     void testComputeDistance4(){
-        Stream stream= new Stream(new Position(0,0),new Rectangle("rectangle",1000,1000,0),50);
+        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(0,1000));
         hashMap.put(segment,stream);
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-6.06)<0.01);
     }
     @Test
     void testComputeDistance5(){
-        Stream stream= new Stream(new Position(0,0),new Rectangle("rectangle",1000,1000,0),50);
+        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(0,1000));
         hashMap.put(segment,stream);
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-6.06)<0.01);
     }
     @Test
     void testComputeDistance6(){
-        Stream stream= new Stream(new Position(0,0),new Rectangle("rectangle",1000,1000,0),50);
+        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(500,500));
         hashMap.put(segment,stream);
         double dist=segment.getLength()/(165+stream.getStrength()*Math.cos(Math.PI/4));

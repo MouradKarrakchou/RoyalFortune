@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NextRoundDaoTest {
 
@@ -30,5 +31,22 @@ public class NextRoundDaoTest {
         assertEquals(1, nextDao.getVisibleEntities().size());
     }
 
+    @Test
+    void toStringTest(){
+        assertTrue(nextDao.toString() != "");
+    }
+
+
+    @Test
+    void toStringNullCatchTest(){
+        boolean catchError = false;
+        nextDao = null;
+        try{
+            nextDao.toString();
+        }catch(NullPointerException e){
+            catchError = true;
+        }
+        assertTrue(catchError);
+    }
 }
 

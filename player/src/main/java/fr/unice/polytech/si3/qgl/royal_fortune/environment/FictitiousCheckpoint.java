@@ -57,7 +57,7 @@ public class FictitiousCheckpoint {
         double unitY = vectorY/norm;
 
         double fictitiousCheckpointRadius = ((Circle) currentCheckpoint.getShape()).getRadius() / 2;
-        Circle fictitiousCheckpointShape = new Circle("Circle", fictitiousCheckpointRadius);
+        Circle fictitiousCheckpointShape = new Circle(fictitiousCheckpointRadius);
         Position fictitiousCheckpointPosition = new Position(currentCheckpointX + fictitiousCheckpointRadius * unitX,
                 currentCheckpointY + fictitiousCheckpointRadius * unitY, 0);
         fictitiousCheckpointShape.setPosition(fictitiousCheckpointPosition);

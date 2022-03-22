@@ -20,7 +20,8 @@ import java.util.logging.Level;
 @JsonIgnoreProperties(value = {
 		"type"
 })
-public class Rectangle extends Shape{
+public class
+Rectangle extends Shape{
 
 	private double width;
 	private double height;
@@ -32,8 +33,8 @@ public class Rectangle extends Shape{
 
 	public Rectangle() {}
 	
-	public Rectangle(String type, double width, double height, double orientation) {
-		super(type);
+	public Rectangle(double width, double height, double orientation) {
+		super("rectangle");
 		this.width = width;
 		this.height = height;
 		this.orientation = orientation;
@@ -43,7 +44,7 @@ public class Rectangle extends Shape{
 	 * Compute the 4 segments of the rectangle
 	 * @return a list that contain the 4 segment of the rectangle [H, D, B, G]
 	 */
-	private List<Segment> computeSegments() {
+	public List<Segment> computeSegments() {
 		List<Segment> rectangleSegment = new ArrayList<>();
 		List<Position> rectangleCorner = computeCorner();
 		Position HG = rectangleCorner.get(0);
@@ -79,10 +80,10 @@ public class Rectangle extends Shape{
 		double widthUnit=width/PRECISION;
 		double heightUnit=height/PRECISION;
 		for (int k=-PRECISION/5;k<PRECISION+PRECISION/5;k++){
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2),new Circle("circle", RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*heightUnit),new Circle("circle", RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2),new Circle("circle", RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*heightUnit),new Circle("circle", RADIUS_OF_BEACON)));}
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*heightUnit),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*heightUnit),new Circle(RADIUS_OF_BEACON)));}
 		return listOfPosition;
 	}
 
@@ -144,7 +145,7 @@ public class Rectangle extends Shape{
 
 	@Override
 	/**
-	 * When we set the position the rectangle create his segments
+	 * Update the x and y position but keep the same orientation. When we set the position the rectangle create his segments
 	 * @param position
 	 */
 	public void setPosition(Position position) {

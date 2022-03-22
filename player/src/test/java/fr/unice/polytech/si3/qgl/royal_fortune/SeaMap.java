@@ -43,7 +43,7 @@ public class SeaMap {
                 "ShipTest",
                 new Deck(3, 4),
                 entities,
-                new Rectangle("rectangle", 3, 4, 0));
+                new Rectangle(3, 4, 0));
         fictitiousCheckpoint=new FictitiousCheckpoint(checkpoints);
         captain=new Captain(basicShip,sailors,goal,fictitiousCheckpoint, new Wind(0,0));
 
@@ -51,7 +51,7 @@ public class SeaMap {
     }
     @Test
     void updateCheckPointTest(){
-        Checkpoint checkpoint=new Checkpoint(new Position(5000,5000,0),new Circle("",100));
+        Checkpoint checkpoint=new Checkpoint(new Position(5000,5000,0),new Circle(100));
         checkpoints.add(checkpoint);
         assertEquals(false,seaMap.isInCheckpoint(checkpoint));
         fictitiousCheckpoint=new FictitiousCheckpoint(checkpoints);
@@ -62,10 +62,10 @@ public class SeaMap {
     }
     @Test
     void updateCheckPointTest2(){
-        Checkpoint checkpoint=new Checkpoint(new Position(0,0,0),new Circle("",100));
+        Checkpoint checkpoint=new Checkpoint(new Position(0,0,0),new Circle(100));
         checkpoints.add(checkpoint);
         assertEquals(true,seaMap.isInCheckpoint(checkpoint));
-        checkpoints.add(new Checkpoint(new Position(500,500,0),new Circle("",100)));
+        checkpoints.add(new Checkpoint(new Position(500,500,0),new Circle(100)));
         fictitiousCheckpoint=new FictitiousCheckpoint(checkpoints);
         seaMap.setFictitiousCheckpoints(fictitiousCheckpoint);
         seaMap.updateCheckPoint(null);
@@ -74,7 +74,7 @@ public class SeaMap {
     }
     @Test
     void isInCheckPointPosTest() {
-        Checkpoint checkpoint = new Checkpoint(new Position(1, 0, 0), new Circle("", 100));
+        Checkpoint checkpoint = new Checkpoint(new Position(1, 0, 0), new Circle(100));
         assertEquals(true, seaMap.isInCheckpointShipPos(checkpoint,0,0));
         assertEquals(true, seaMap.isInCheckpointShipPos(checkpoint,101,0));
         assertEquals(false, seaMap.isInCheckpointShipPos(checkpoint,102,0));
@@ -82,7 +82,7 @@ public class SeaMap {
     }
     @Test
     void isInCheckPointPosTest2() {
-        Checkpoint checkpoint = new Checkpoint(new Position(0, 1, 0), new Circle("", 100));
+        Checkpoint checkpoint = new Checkpoint(new Position(0, 1, 0), new Circle(100));
         assertEquals(true, seaMap.isInCheckpointShipPos(checkpoint,0,0));
         assertEquals(true, seaMap.isInCheckpointShipPos(checkpoint,0,101));
         assertEquals(false, seaMap.isInCheckpointShipPos(checkpoint,0,102));

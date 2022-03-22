@@ -83,14 +83,8 @@ public class Captain {
 
     public void roundProceed() {
         double angleMove = directionsManager.getAngleMove();
-        double angleSailorsShouldMake = 0;
-
-        int oarWeight = 0;
-
-        if (!directionsManager.isConeTooSmall() && !directionsManager.isInCone()){
-            oarWeight = oarWeight(angleMove);
-            angleSailorsShouldMake = oarWeight * (Math.PI / ship.getNbrOar());
-        }
+        int oarWeight = oarWeightNeeded(angleMove);
+        double angleSailorsShouldMake = angleSailorsShouldMakeNeeded(oarWeight);
 
         Optional<Boolean> optionalSailDecision = getSailDecision();
         boolean useSail = optionalSailDecision.isPresent();
@@ -99,18 +93,58 @@ public class Captain {
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
-        System.out.println(strategyAnswer);
 
         if(strategyAnswer.hasSail())
             roundActions.addAll(crew.sailorsUseSail(optionalSailDecision.get()));
 
+        turnWithRudderRoundAction(strategyAnswer, angleMove);
+
+        roundActions.addAll(crew.sailorsMove());
+    }
+
+    /**
+     * Oar weight needed to calculate the angle sailors should make
+     * @param angleMove the ship needs to turn to
+     * @return oar weight
+     */
+    int oarWeightNeeded(double angleMove) {
+        if (coneNotTooSmallAndNotInCone())
+            return oarWeight(angleMove);
+
+        return 0;
+    }
+
+    /**
+     * Calculate the angle the sailors should make needed
+     * @param oarWeight oar weight
+     * @return the angle the sailors should make
+     */
+    public double angleSailorsShouldMakeNeeded(int oarWeight) {
+        if (coneNotTooSmallAndNotInCone())
+            return oarWeight * (Math.PI / ship.getNbrOar());
+
+        return 0;
+    }
+
+    /**
+     * Check if the cone is not too small and if we are not already in the cone (so we can turn)
+     * @return true if we can turn in the cone
+     */
+    public boolean coneNotTooSmallAndNotInCone() {
+        return !directionsManager.isConeTooSmall() && !directionsManager.isInCone();
+    }
+
+    /**
+     * If there is a usable rudder,
+     * @param strategyAnswer
+     * @param angleMove
+     */
+    void turnWithRudderRoundAction(SailorPlacement strategyAnswer, double angleMove) {
         if(strategyAnswer.hasRudder()){
             double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
             double angleToTurnRudder = computeAngleToTurnRudder(angleMove, angleMadeBySailors);
             roundActions.addAll(crew.sailorsTurnWithRudder(angleToTurnRudder));
         }
-
-        roundActions.addAll(crew.sailorsMove());
     }
 
     /**
