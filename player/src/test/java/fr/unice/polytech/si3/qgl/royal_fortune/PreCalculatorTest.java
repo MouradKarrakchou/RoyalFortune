@@ -104,4 +104,5 @@ public class PreCalculatorTest {
         Ship ship = new Ship(null, 100, null, null, null, null, null);
         SeaMap seaMap = new SeaMap(null, null, null,null, null);
     }
+
 }
