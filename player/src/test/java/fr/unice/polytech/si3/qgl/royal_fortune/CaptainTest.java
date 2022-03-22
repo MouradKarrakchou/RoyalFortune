@@ -164,6 +164,7 @@ public class CaptainTest {
     void computeAngleToTurnRudderTest() {
         assertEquals(-Math.PI / 4, captain.computeAngleToTurnRudder(0, Math.PI / 4));
         assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(Math.PI / 4, 0));
+        assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(0, -Math.PI / 4));
         assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(Math.PI, Math.PI / 2));
         assertEquals(-Math.PI / 4, captain.computeAngleToTurnRudder(-Math.PI, -Math.PI / 2));
         assertEquals(Math.PI / 5 - Math.PI / 6, captain.computeAngleToTurnRudder(Math.PI / 5, Math.PI / 6));
