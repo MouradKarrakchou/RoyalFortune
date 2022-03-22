@@ -33,7 +33,7 @@ public class Route implements Comparable{
             value=firstRoute.getValue()+ secondRoute.getValue();
         }
         else{
-            value=cartologue.computeDistance(segment);
+            value=cartologue.computeNumberOfRoundsNeeded(segment);
         }
     }
 
