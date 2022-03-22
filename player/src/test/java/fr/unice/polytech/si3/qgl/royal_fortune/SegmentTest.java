@@ -17,20 +17,20 @@ public class SegmentTest {
     @Test
     void angleIntersectionBetweenSegmentAndRectangleTest() {
         Segment segment = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
-        Rectangle rectangle = new Rectangle("Rectangle", 3, 5, Math.PI/4);
+        Rectangle rectangle = new Rectangle(3, 5, Math.PI/4);
         double angle = segment.angleIntersectionBetweenSegmentAndRectangle(rectangle);
         assertEquals(Math.PI/4, angle);
 
-        rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        rectangle = new Rectangle(3, 5, 0);
         angle = segment.angleIntersectionBetweenSegmentAndRectangle(rectangle);
         assertEquals(0, angle);
 
         segment = new Segment(new Position(0, 0, 0), new Position(0.5, Math.sqrt(3)/2, 0));
-        rectangle = new Rectangle("Rectangle", 3, 5, 0);
+        rectangle = new Rectangle(3, 5, 0);
         angle = segment.angleIntersectionBetweenSegmentAndRectangle(rectangle);
         assertEquals(Math.PI/3, angle);
 
-        rectangle = new Rectangle("Rectangle", 3, 5, Math.PI);
+        rectangle = new Rectangle(3, 5, Math.PI);
         angle = segment.angleIntersectionBetweenSegmentAndRectangle(rectangle);
         assertEquals(2*Math.PI/3, angle);
     }
