@@ -127,7 +127,7 @@ class DirectionsManagerTest {
         Position p1 = new Position(100,100,0);
         Position p2 = new Position(0,0,0);
         double computeDistance = dirMan.computeDistanceBetweenTwoPosition(p1,p2);
-        assertEquals("141.42",df.format(computeDistance));
+        assertTrue(Math.abs(141.42-computeDistance)<0.01);
     }
 
     @Test
