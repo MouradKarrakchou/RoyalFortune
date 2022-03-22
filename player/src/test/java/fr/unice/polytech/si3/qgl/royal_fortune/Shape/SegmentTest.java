@@ -54,7 +54,7 @@ public class SegmentTest {
     }
     @Test
     void computeBTest(){
-        assertEquals(-0., s.computeB(p1, p2));
+        assertEquals(0., s.computeB(p1));
     }
 
     @Test

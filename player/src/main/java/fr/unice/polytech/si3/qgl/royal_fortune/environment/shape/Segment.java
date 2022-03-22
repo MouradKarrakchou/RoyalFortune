@@ -18,7 +18,7 @@ public class Segment {
         this.pointA = pointA;
         this.pointB = pointB;
         a = computeA(pointA, pointB);
-        b = computeB(pointA, pointB);
+        b = computeB(pointA);
         length= Mathematician.distanceFormula(pointA,pointB);
     }
 
@@ -94,7 +94,7 @@ public class Segment {
     }
 
     public double computeA(Position pointA, Position pointB){ return (pointA.getY()-pointB.getY())/(pointA.getX()-pointB.getX());}
-    public double computeB(Position pointA, Position pointB){ return (pointA.getY()-pointB.getY())/(pointA.getX()-pointB.getX());}
+    public double computeB(Position pointA){ return pointA.getY()-a*pointA.getX();}
 
 
     public double getA() {
