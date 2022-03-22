@@ -93,10 +93,10 @@ public class RectangleTest {
         rectangle.setPosition(new Position(0, 0, Math.PI/2));
 
         assertTrue(rectangle.positionIsInTheRectangle(new Position(1.49999,2.4999, 0)));
-        //assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,-2.5, 0)));
-        //assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.5,0, 0)));
-        //assertTrue(rectangle.positionIsInTheRectangle(new Position(0,-2.5, 0)));
-        //assertTrue(rectangle.positionIsInTheRectangle(new Position(0,2.5, 0)));
-        //assertTrue(rectangle.positionIsInTheRectangle(new Position(1.5,0, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.49999,-2.4999, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(-1.49999,0, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(0,-2.4999, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(0,2.4999, 0)));
+        assertTrue(rectangle.positionIsInTheRectangle(new Position(1.49999,0, 0)));
     }
 }
