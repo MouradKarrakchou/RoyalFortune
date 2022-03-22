@@ -273,7 +273,6 @@ class JsonManagerTest {
     			+ "}";
     	InitGameDAO init;
     	init = JsonManager.readInitGameDAOJson(json);
-    	assertEquals(1, init.getShipCount());
     	assertEquals(4, init.getSailors().size());
     	assertEquals(4, init.getShip().getEntities().size());
     }

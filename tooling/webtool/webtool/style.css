@@ -27,8 +27,8 @@ body {
     position: relative;
     height: fit-content;
     width: fit-content;
-    min-width: 200vw;
-    min-height: 200vh;
+    min-width: 400vw;
+    min-height: 400vh;
 }
 
 #boat {
@@ -47,6 +47,25 @@ body {
     border-radius: 50%;
     background-color: brown;
     z-index: 0;
+}
+
+.seaEntitie {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    z-index: 0;
+}
+
+.Reef {
+    background-color: rgb(39, 39, 39);
+}
+
+.Reef_Circle {
+    border-radius: 50%;
+}
+
+.Stream {
+    background-color: rgba(41, 68, 189, 0.445);
 }
 
 .absolute {

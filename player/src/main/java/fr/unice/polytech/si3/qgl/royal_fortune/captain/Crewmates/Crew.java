@@ -4,15 +4,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
 
 public class Crew {
     private final List<Sailor> sailors;
@@ -72,7 +68,7 @@ public class Crew {
      * Ask a sailor to turn with the rudder
      * This method update list of Action (roundActions)
      *
-     * @param rotationRudder
+     * @param rotationRudder angle the sailor has to make with the rudder
      */
     public List<Action> sailorsTurnWithRudder(double rotationRudder) {
         return new ArrayList<>(sailors.stream()
@@ -86,13 +82,13 @@ public class Crew {
      * Ask a sailor to use the sail
      * This method update list of Action (roundActions)
      *
-     * @param openned
+     * @param opened true if the sail is opened
      */
-    public List<Action> sailorsUseSail(boolean openned) {
+    public List<Action> sailorsUseSail(boolean opened) {
         return new ArrayList<>(sailors.stream()
                 .filter(sailor -> associations.getAssociatedEntity(sailor) instanceof Sail)
                 .filter(sailor -> sailor.isOnTheTargetEntity(associations))
-                .map(sailor -> sailor.useSail(openned))
+                .map(sailor -> sailor.useSail(opened))
                 .toList());
     }
 }

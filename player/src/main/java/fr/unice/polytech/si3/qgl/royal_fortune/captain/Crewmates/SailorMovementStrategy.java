@@ -2,8 +2,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
@@ -381,7 +379,7 @@ public class SailorMovementStrategy {
         return oar.stream()
                 .filter(entity -> entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).isPresent())
                 .sorted(Comparator.comparingInt(entity ->
-                    entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).get().getDistanceToEntity(entity)))
+                        entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).get().getDistanceToEntity(entity)))
                 .toList();
     }
 

@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
@@ -50,23 +50,27 @@ public class Cockpit implements ICockpit {
 	}
 
 	public String nextRound(String round){
+		System.out.println(round);
 		NextRoundDAO nextRoundDAO = null;
 		try {
 			nextRoundDAO = createNextRoundDAO(round);
 		} catch (EmptyDaoException e) {
 			e.printStackTrace();
 		}
-
+		LOGGER.info("Next round input: " + round);
+		updateWithNextRound(nextRoundDAO);
+		String actions  =captain.roundDecisions();
+		System.out.println("Actions = "+actions);
+		return actions;
+	}
+	public void updateWithNextRound(NextRoundDAO nextRoundDAO){
 		Ship newShip = nextRoundDAO.getShip();
+		//System.out.println("New ship = "+newShip);
 		ship.updatePos(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
-		String out = "Next round input: " + round;
-		LOGGER.info(out);
-
-		captain.updateWind(nextRoundDAO.getWind());
+		captain.updateSeaEntities(nextRoundDAO.getVisibleEntities());
+		captain.setWind(nextRoundDAO.getWind());
 		captain.getPreCalculator().setWind(captain.getWind());
-
-		return captain.roundDecisions();
 	}
 
 	public InitGameDAO createInitGameDAO(String json)throws EmptyDaoException{

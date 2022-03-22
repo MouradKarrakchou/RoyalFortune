@@ -1,9 +1,9 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.target.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,12 +25,12 @@ public class FictitiousCheckpointTest {
     void createFictitiousCheckpointTestVertically(){
         // CurrentCheckpoint is located in (0,0) and has a radius of 100
         Position currentCheckpointPosition = new Position(0, 0, 0);
-        Circle currentCheckpointShape= new Circle("Circle", 100);
+        Circle currentCheckpointShape= new Circle(100);
         Checkpoint currentCheckpoint = new Checkpoint(currentCheckpointPosition, currentCheckpointShape);
 
         // NextCheckpoint is located in (0,1000) and has a radius of 100
         Position nextCheckpointPosition = new Position(0, 1000, 0);
-        Circle nextCheckpointShape = new Circle("Circle", 100);
+        Circle nextCheckpointShape = new Circle(100);
         Checkpoint nextCheckpoint = new Checkpoint(nextCheckpointPosition, nextCheckpointShape);
 
         Checkpoint fictitiousCheckpoint = emptyFictitiousCheckpoints.createFictitiousCheckpoint(currentCheckpoint, nextCheckpoint);
@@ -43,12 +43,12 @@ public class FictitiousCheckpointTest {
     void createFictitiousCheckpointTestHorizontally(){
         // CurrentCheckpoint is located in (0,0) and has a radius of 100
         Position currentCheckpointPosition = new Position(0, 0, 0);
-        Circle currentCheckpointShape= new Circle("Circle", 100);
+        Circle currentCheckpointShape= new Circle(100);
         Checkpoint currentCheckpoint = new Checkpoint(currentCheckpointPosition, currentCheckpointShape);
 
         // NextCheckpoint is located in (1000,0) and has a radius of 100
         Position nextCheckpointPosition = new Position(1000, 0, 0);
-        Circle nextCheckpointShape = new Circle("Circle", 100);
+        Circle nextCheckpointShape = new Circle(100);
         Checkpoint nextCheckpoint = new Checkpoint(nextCheckpointPosition, nextCheckpointShape);
 
         Checkpoint fictitiousCheckpoint = emptyFictitiousCheckpoints.createFictitiousCheckpoint(currentCheckpoint, nextCheckpoint);
@@ -61,12 +61,12 @@ public class FictitiousCheckpointTest {
     void createFictitiousCheckpointTestDiagonally(){
         // CurrentCheckpoint is located in (0,0) and has a radius of 100
         Position currentCheckpointPosition = new Position(0, 0, 0);
-        Circle currentCheckpointShape= new Circle("Circle", 100);
+        Circle currentCheckpointShape= new Circle(100);
         Checkpoint currentCheckpoint = new Checkpoint(currentCheckpointPosition, currentCheckpointShape);
 
         // NextCheckpoint is located in (1000,1000) and has a radius of 100
         Position nextCheckpointPosition = new Position(1000, 1000, 0);
-        Circle nextCheckpointShape = new Circle("Circle", 100);
+        Circle nextCheckpointShape = new Circle(100);
         Checkpoint nextCheckpoint = new Checkpoint(nextCheckpointPosition, nextCheckpointShape);
 
         Checkpoint fictitiousCheckpoint = emptyFictitiousCheckpoints.createFictitiousCheckpoint(currentCheckpoint, nextCheckpoint);
@@ -79,12 +79,12 @@ public class FictitiousCheckpointTest {
     void createFictitiousCheckpointTest(){
         // CurrentCheckpoint is located in (0,0) and has a radius of 100
         Position currentCheckpointPosition = new Position(0, 0, 0);
-        Circle currentCheckpointShape= new Circle("Circle", 100);
+        Circle currentCheckpointShape= new Circle(100);
         Checkpoint currentCheckpoint = new Checkpoint(currentCheckpointPosition, currentCheckpointShape);
 
         // NextCheckpoint is located in (120,-90) and has a radius of 20
         Position nextCheckpointPosition = new Position(120, -90, 0);
-        Circle nextCheckpointShape = new Circle("Circle", 20);
+        Circle nextCheckpointShape = new Circle(20);
         Checkpoint nextCheckpoint = new Checkpoint(nextCheckpointPosition, nextCheckpointShape);
 
         Checkpoint fictitiousCheckpoint = emptyFictitiousCheckpoints.createFictitiousCheckpoint(currentCheckpoint, nextCheckpoint);
@@ -99,19 +99,19 @@ public class FictitiousCheckpointTest {
 
         // CurrentCheckpoint is located in (0,0) and has a radius of 100
         Position currentCheckpointPosition = new Position(0, 0, 0);
-        Circle currentCheckpointShape= new Circle("Circle", 100);
+        Circle currentCheckpointShape= new Circle(100);
         Checkpoint currentCheckpoint = new Checkpoint(currentCheckpointPosition, currentCheckpointShape);
         originalCheckpoints.add(currentCheckpoint);
 
         // NextCheckpoint is located in (120,-90) and has a radius of 20
         Position secondCheckpointPosition = new Position(120, -90, 0);
-        Circle secondCheckpointShape = new Circle("Circle", 20);
+        Circle secondCheckpointShape = new Circle(20);
         Checkpoint secondCheckpoint = new Checkpoint(secondCheckpointPosition, secondCheckpointShape);
         originalCheckpoints.add(secondCheckpoint);
 
         // NextCheckpoint is located in (200,-90) and has a radius of 30
         Position thirdCheckpointPosition = new Position(200, -90, 0);
-        Circle thirdCheckpointShape = new Circle("Circle", 30);
+        Circle thirdCheckpointShape = new Circle(30);
         Checkpoint thirdCheckpoint = new Checkpoint(thirdCheckpointPosition, thirdCheckpointShape);
         originalCheckpoints.add(thirdCheckpoint);
 

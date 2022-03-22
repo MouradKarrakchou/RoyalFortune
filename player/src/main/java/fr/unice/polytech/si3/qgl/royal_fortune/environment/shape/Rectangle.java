@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,8 @@ import java.util.logging.Level;
 @JsonIgnoreProperties(value = {
 		"type"
 })
-public class Rectangle extends Shape{
+public class
+Rectangle extends Shape{
 
 	private double width;
 	private double height;
@@ -27,11 +29,12 @@ public class Rectangle extends Shape{
 	private List<Segment> segmentList;
 	Position position;
 	int PRECISION=50;
+	int RADIUS_OF_BEACON = 50;
 
 	public Rectangle() {}
 	
-	public Rectangle(String type, double width, double height, double orientation) {
-		super(type);
+	public Rectangle(double width, double height, double orientation) {
+		super("rectangle");
 		this.width = width;
 		this.height = height;
 		this.orientation = orientation;
@@ -41,7 +44,7 @@ public class Rectangle extends Shape{
 	 * Compute the 4 segments of the rectangle
 	 * @return a list that contain the 4 segment of the rectangle [H, D, B, G]
 	 */
-	private List<Segment> computeSegments() {
+	public List<Segment> computeSegments() {
 		List<Segment> rectangleSegment = new ArrayList<>();
 		List<Position> rectangleCorner = computeCorner();
 		Position HG = rectangleCorner.get(0);
@@ -59,7 +62,7 @@ public class Rectangle extends Shape{
 	 * Compute the 4 corners of the rectangle
 	 * @return a list that contain the 4 corner of the rectangle [HG, HD, BD, BG]
 	 */
-	private List<Position> computeCorner() {
+	public List<Position> computeCorner() {
 		List<Position> listOfPosition=new ArrayList<>();
 		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,height/2));
 		listOfPosition.add(Mathematician.changeBase(this.position,width/2,height/2));
@@ -67,26 +70,27 @@ public class Rectangle extends Shape{
 		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,-height/2));
 		return listOfPosition;
 	}
+	@Override
 	/**
-	 * Compute the 4 corners of the rectangle
-	 * @return a list that contain the 4 corner of the rectangle [HG, HD, BD, BG]
+	 * Generate beacons
+	 * @return a list of Beacon
 	 */
-	private List<Position> computeBeacon() {
-		List<Position> listOfPosition=new ArrayList<>();
+	public List<Beacon> generateBeacon() {
+		List<Beacon> listOfPosition=new ArrayList<>();
 		double widthUnit=width/PRECISION;
 		double heightUnit=height/PRECISION;
 		for (int k=-PRECISION/5;k<PRECISION+PRECISION/5;k++){
-		listOfPosition.add(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2));
-		listOfPosition.add(Mathematician.changeBase(this.position,width/2,height/2-k*widthUnit));
-		listOfPosition.add(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2));
-		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,-height/2+k*widthUnit));}
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*heightUnit),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*heightUnit),new Circle(RADIUS_OF_BEACON)));}
 		return listOfPosition;
 	}
 
 
 	/**
 	 * Compute the intersection between the current shape and a segment
-	 * @param segment
+	 * @param segment a segment
 	 * @return the 2 positions of the intersection
 	 */
 	public List<Position> computeIntersectionWith(Segment segment){
@@ -94,15 +98,35 @@ public class Rectangle extends Shape{
 		Optional<Position> intersection;
 		for(Segment seg : segmentList) {
 			 intersection = segment.computeIntersectionWith(seg);
-			 if(!intersection.isEmpty()) intersectionsPosition.add(intersection.get());
+			intersection.ifPresent(intersectionsPosition::add);
 		}
-		return intersectionsPosition;
+		return ordered(intersectionsPosition,segment);
+	}
+
+	private List<Position> ordered(List<Position> intersectionsPosition, Segment segment) {
+		List<Position> intersectionsPositionOrdered= new ArrayList<>();
+		intersectionsPositionOrdered.add(segment.getPointA());
+		while (!intersectionsPosition.isEmpty()){
+			Position pointToCompare=intersectionsPositionOrdered.get(intersectionsPositionOrdered.size()-1);
+			Position min=intersectionsPosition.get(0);
+			double distMin=Mathematician.distanceFormula(position,pointToCompare);
+			for (Position position :intersectionsPosition){
+				if (Mathematician.distanceFormula(position,pointToCompare)<distMin){
+					distMin=Mathematician.distanceFormula(position,pointToCompare);
+					min=position;
+				}
+			}
+			intersectionsPositionOrdered.add(min);
+			intersectionsPosition.remove(min);
+		}
+		intersectionsPositionOrdered.add(segment.getPointB());
+		return intersectionsPositionOrdered;
 	}
 
 	/**
 	 * check if the given Position is in the rectangle
-	 * @return
-	 * @param pointA
+	 * @return true if the point is in the rectangle
+	 * @param pointA a point
 	 */
 	public boolean positionIsInTheRectangle(Position pointA) {
 		List<Position> cornersList = computeCorner();
@@ -124,14 +148,12 @@ public class Rectangle extends Shape{
 		boolean calculusBGHGx = (x - HG.getX()) * BGHGx + (y - HG.getY()) * BGHGy < 0;
 		boolean calculusBGHGy = (x - BG.getX()) * BGHGx + (y - BG.getY()) * BGHGy > 0;
 
-		if(calculusHDHGx || calculusHDHGy || calculusBGHGx || calculusBGHGy) return false;
-
-		return true;
+		return !calculusHDHGx && !calculusHDHGy && !calculusBGHGx && !calculusBGHGy;
 	}
 
 	@Override
 	/**
-	 * When we set the position the rectangle create his segments
+	 * Update the x and y position but keep the same orientation. When we set the position the rectangle create his segments
 	 * @param position
 	 */
 	public void setPosition(Position position) {
