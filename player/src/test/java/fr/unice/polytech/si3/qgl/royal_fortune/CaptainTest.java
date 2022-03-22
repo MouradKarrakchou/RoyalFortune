@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
@@ -13,7 +12,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +47,7 @@ public class CaptainTest {
                 new Deck(3, 4),
                 entities,
                 new Rectangle("rectangle", 3, 4, 0));
-        captain=new Captain(basicShip,sailors,goal,new FictitiousCheckpoint(checkpoints), new Wind(0,0), null);
+        captain=new Captain(basicShip,sailors,goal,new FictitiousCheckpoint(checkpoints), new Wind(0,0));
     }
 
     @Test

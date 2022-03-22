@@ -30,11 +30,11 @@ public class Captain {
     private Associations associations;
     private List<SeaEntities> seaEntities;
 
-    public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints, Wind wind,List<SeaEntities> seaEntities) {
+    public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints, Wind wind) {
         this.ship = ship;
         this.sailors = sailors;
         this.wind = wind;
-        this.seaEntities=seaEntities;
+        this.seaEntities= new ArrayList<>();
         associations = new Associations();
         roundActions = new ArrayList<>();
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);

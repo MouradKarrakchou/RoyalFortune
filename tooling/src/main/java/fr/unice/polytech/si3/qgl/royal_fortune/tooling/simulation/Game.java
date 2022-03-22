@@ -5,7 +5,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
-import fr.unice.polytech.si3.qgl.royal_fortune.dao.ListSeaEntitiesDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
@@ -21,7 +20,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
