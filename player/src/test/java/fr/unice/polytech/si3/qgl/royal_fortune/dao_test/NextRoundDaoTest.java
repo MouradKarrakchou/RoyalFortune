@@ -36,5 +36,17 @@ public class NextRoundDaoTest {
         assertTrue(nextDao.toString() != "");
     }
 
+
+    @Test
+    void toStringNullCatchTest(){
+        boolean catchError = false;
+        nextDao = null;
+        try{
+            nextDao.toString();
+        }catch(NullPointerException e){
+            catchError = true;
+        }
+        assertTrue(catchError);
+    }
 }
 
