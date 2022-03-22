@@ -46,9 +46,10 @@ public class CartologueTest {
     }
     @Test
     void testComputeDistance3(){
-        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
+        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,Math.PI),50);
         Segment segment=new Segment(new Position(0,0),new Position(1000,0));
         hashMap.put(segment,stream);
+        System.out.println(cartologue.computeNumberOfRoundsNeeded(segment));
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-8.69)<0.01);
     }
     @Test
@@ -73,22 +74,38 @@ public class CartologueTest {
         double dist=segment.getLength()/(165+stream.getStrength()*Math.cos(Math.PI/4));
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)- dist)<0.01);
     }
-    /**@Test
-    void testCutSegment(){
-        Stream stream= new Stream(new Position(200,0),new Rectangle("rectangle",100,100,0),50);
+    @Test
+    void testCutSegment1(){
+        Stream stream= new Stream(new Position(200,0),new Rectangle(100,100,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(1000,0));
         listStream.add(stream);
-        assertEquals(3,cartologue.cutSegment(segment,false).size());
-        assertEquals(0,cartologue.cutSegment(segment,false).get(0).getPointA().getX());
-        assertEquals(150,cartologue.cutSegment(segment,false).get(0).getPointB().getX());
-        assertEquals(150,cartologue.cutSegment(segment,false).get(1).getPointA().getX());
-        assertEquals(250,cartologue.cutSegment(segment,false).get(1).getPointB().getX());
-        assertEquals(250,cartologue.cutSegment(segment,false).get(2).getPointA().getX());
-        assertEquals(1000,cartologue.cutSegment(segment,false).get(3).getPointB().getX());
-
-
-
-        assertEquals(new Segment(new Position(100,0),new Position(300,0)),cartologue.cutSegment(segment,false).get(1));
-
+        List<Segment> cartoCut = cartologue.cutSegment(segment, false);
+        assertEquals(3,cartoCut.size());
+        assertEquals(0,cartoCut.get(0).getPointA().getX());
+        assertEquals(150,cartoCut.get(0).getPointB().getX());
+        assertEquals(150,cartoCut.get(1).getPointA().getX());
+        assertEquals(250,cartoCut.get(1).getPointB().getX());
+        assertEquals(250,cartoCut.get(2).getPointA().getX());
+        assertEquals(1000,cartoCut.get(2).getPointB().getX());
+        assertEquals(stream,hashMap.get(cartoCut.get(1)));
+        assertFalse(hashMap.containsKey(cartoCut.get(0)));
+        assertFalse(hashMap.containsKey(cartoCut.get(2)));
+    }
+    /**@Test
+    void testCutSegment2(){
+        Stream stream= new Stream(new Position(0,200),new Rectangle(100,100,0),50);
+        Segment segment=new Segment(new Position(0,0),new Position(0,1000));
+        listStream.add(stream);
+        List<Segment> cartoCut = cartologue.cutSegment(segment, false);
+        assertEquals(3,cartoCut.size());
+        assertEquals(0,cartoCut.get(0).getPointA().getY());
+        assertEquals(150,cartoCut.get(0).getPointB().getY());
+        assertEquals(150,cartoCut.get(1).getPointA().getY());
+        assertEquals(250,cartoCut.get(1).getPointB().getY());
+        assertEquals(250,cartoCut.get(2).getPointA().getY());
+        assertEquals(1000,cartoCut.get(2).getPointB().getY());
+        assertEquals(stream,hashMap.get(cartoCut.get(1)));
+        assertFalse(hashMap.containsKey(cartoCut.get(0)));
+        assertFalse(hashMap.containsKey(cartoCut.get(2)));
     }**/
 }

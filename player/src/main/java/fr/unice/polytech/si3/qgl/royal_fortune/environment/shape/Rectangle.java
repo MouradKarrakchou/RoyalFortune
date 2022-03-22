@@ -105,14 +105,22 @@ Rectangle extends Shape{
 
 	private List<Position> ordered(List<Position> intersectionsPosition, Segment segment) {
 		List<Position> intersectionsPositionOrdered= new ArrayList<>();
-		while (!intersectionsPositionOrdered.isEmpty()){
+		intersectionsPositionOrdered.add(segment.getPointA());
+		while (!intersectionsPosition.isEmpty()){
 			Position pointToCompare=intersectionsPositionOrdered.get(intersectionsPositionOrdered.size()-1);
 			Position min=intersectionsPosition.get(0);
+			double distMin=Mathematician.distanceFormula(position,pointToCompare);
 			for (Position position :intersectionsPosition){
-
+				if (Mathematician.distanceFormula(position,pointToCompare)<distMin){
+					distMin=Mathematician.distanceFormula(position,pointToCompare);
+					min=position;
+				}
 			}
+			intersectionsPositionOrdered.add(min);
+			intersectionsPosition.remove(min);
 		}
-		return null;
+		intersectionsPositionOrdered.add(segment.getPointB());
+		return intersectionsPositionOrdered;
 	}
 
 	/**
