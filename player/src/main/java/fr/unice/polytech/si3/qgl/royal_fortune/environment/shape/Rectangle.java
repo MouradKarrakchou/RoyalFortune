@@ -20,7 +20,8 @@ import java.util.logging.Level;
 @JsonIgnoreProperties(value = {
 		"type"
 })
-public class Rectangle extends Shape{
+public class
+Rectangle extends Shape{
 
 	private double width;
 	private double height;
@@ -43,7 +44,7 @@ public class Rectangle extends Shape{
 	 * Compute the 4 segments of the rectangle
 	 * @return a list that contain the 4 segment of the rectangle [H, D, B, G]
 	 */
-	private List<Segment> computeSegments() {
+	public List<Segment> computeSegments() {
 		List<Segment> rectangleSegment = new ArrayList<>();
 		List<Position> rectangleCorner = computeCorner();
 		Position HG = rectangleCorner.get(0);

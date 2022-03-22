@@ -1,12 +1,15 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RectangleTest {
     Rectangle rectangle;
@@ -98,5 +101,34 @@ public class RectangleTest {
         assertTrue(rectangle.positionIsInTheRectangle(new Position(0,-2.4999, 0)));
         assertTrue(rectangle.positionIsInTheRectangle(new Position(0,2.4999, 0)));
         assertTrue(rectangle.positionIsInTheRectangle(new Position(1.49999,0, 0)));
+    }
+
+    @Test
+    void computeSegmentTest(){
+        rectangle.setPosition(new Position(0,0,0));
+        List<Segment> res = rectangle.computeSegments();
+        assertTrue(res.size() > 0);
+    }
+
+    @Test
+    void generateBeaconTest(){
+        rectangle.setPosition(new Position(0,0,0));
+        List<Beacon> res = rectangle.generateBeacon();
+        assertTrue((Math.abs(res.get(0).getPosition().getX()-(-25)))<0.2);
+        assertTrue((Math.abs(res.get(0).getPosition().getY()-(-35)))<0.2);
+        assertTrue((Math.abs(res.get(0).getPosition().getOrientation()-0))<0.2);
+
+        assertTrue((Math.abs(res.get(1).getPosition().getX()-(-35)))<0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getY()-(25)))<0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getOrientation()-0))<0.2);
+
+        assertTrue((Math.abs(res.get(2).getPosition().getX()-(25)))<0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getY()-(35)))<0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getOrientation()-0))<0.2);
+
+        assertTrue((Math.abs(res.get(3).getPosition().getX()-(35)))<0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getY()-(-25)))<0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
+
     }
 }
