@@ -18,7 +18,7 @@ public class Segment {
         this.pointA = pointA;
         this.pointB = pointB;
         a = computeA(pointA, pointB);
-        b = computeB(pointA, pointB);
+        b = computeB(pointA);
         length= Mathematician.distanceFormula(pointA,pointB);
     }
 
