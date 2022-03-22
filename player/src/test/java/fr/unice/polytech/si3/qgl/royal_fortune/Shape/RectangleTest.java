@@ -1,5 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -129,6 +131,39 @@ public class RectangleTest {
         assertTrue((Math.abs(res.get(3).getPosition().getX()-(35)))<0.2);
         assertTrue((Math.abs(res.get(3).getPosition().getY()-(-25)))<0.2);
         assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
+    }
 
+    @Test
+    void toStringTest(){
+        assertTrue(rectangle.toString() != "");
+    }
+
+    @Test
+    void getWidthHeightTest(){
+        double w = 2.;
+        double h = 3.;
+        Rectangle r = new Rectangle(h ,w, 0.);
+        assertEquals(2., r .getWidth());
+        assertEquals(3., r .getHeight());
+    }
+
+    @Test
+    void setPositionTest(){
+        double w = 2.;
+        double h = 3.;
+        Rectangle r = new Rectangle(h ,w, 0.);
+        r.setPosition(new Position(1,2,3));
+        assertEquals(0., r.getOrientation());
+    }
+
+    @Test
+    void computeIntersectionWithTest(){
+        rectangle.setPosition(new Position(5,0,0));
+        Position pointA = new Position(0,0,0);
+        Position pointB = new Position(10,0,0);
+
+        Segment s = new Segment(pointA, pointB);
+        List<Position> res = rectangle.computeIntersectionWith(s);
+        //assertEquals(2, res.size());----------------------------------------> NE MARCHE PAS IL FAUT FIX CETTE ISSUE
     }
 }

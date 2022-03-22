@@ -133,7 +133,7 @@ Rectangle extends Shape{
 
 	@Override
 	/**
-	 * When we set the position the rectangle create his segments
+	 * Update the x and y position but keep the same orientation. When we set the position the rectangle create his segments
 	 * @param position
 	 */
 	public void setPosition(Position position) {
