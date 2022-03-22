@@ -14,8 +14,7 @@ public class InitGameDAO {
 	List<Sailor> sailors;
 	int shipCount;
 	Wind wind;
-	List<SeaEntities> seaEntities;
-	
+
 	public InitGameDAO() {}
 	public InitGameDAO(Goal goal, Ship ship, List<Sailor> sailors, int shipCount, Wind wind) {
 		super();
@@ -41,10 +40,6 @@ public class InitGameDAO {
 
 	public Wind getWind() {
 		return wind;
-	}
-
-	public List<SeaEntities> getSeaEntities() {
-		return seaEntities;
 	}
 
 	public void setSailors(List<Sailor> sailorList){

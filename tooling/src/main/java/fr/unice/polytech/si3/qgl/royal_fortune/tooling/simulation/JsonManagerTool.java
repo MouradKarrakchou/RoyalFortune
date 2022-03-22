@@ -4,10 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
-import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
-import fr.unice.polytech.si3.qgl.royal_fortune.dao.ListSeaEntitiesDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 
@@ -30,17 +26,6 @@ public class JsonManagerTool {
             return mapper.readValue(jsonSeaEntities, new TypeReference<List<SeaEntities>>(){});
         } catch (JsonProcessingException e) {
             LOGGER.log(Level.INFO, exception);
-        }
-        return null;
-    }
-
-        public static String convertListToJson(ListSeaEntitiesDAO listDao){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        try {
-            return  mapper.writeValueAsString(listDao);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
         }
         return null;
     }
