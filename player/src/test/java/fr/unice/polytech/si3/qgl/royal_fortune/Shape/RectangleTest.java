@@ -142,7 +142,7 @@ public class RectangleTest {
     void getWidthHeightTest(){
         double w = 2.;
         double h = 3.;
-        Rectangle r = new Rectangle(h ,w, 0.);
+        Rectangle r = new Rectangle(w, h, 0.);
         assertEquals(2., r .getWidth());
         assertEquals(3., r .getHeight());
     }
