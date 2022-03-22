@@ -11,6 +11,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.when;
 class DirectionsManagerTest {
     private DirectionsManager dirMan;
     private ArrayList<Entities> entities;
+    private final DecimalFormat df = new DecimalFormat("#.##");
 
     @BeforeEach
     public void init(){
@@ -125,7 +127,7 @@ class DirectionsManagerTest {
         Position p1 = new Position(100,100,0);
         Position p2 = new Position(0,0,0);
         double computeDistance = dirMan.computeDistanceBetweenTwoPosition(p1,p2);
-        assertEquals("141,42",String.format("%.2f", computeDistance));
+        assertEquals("141.42",df.format(computeDistance));
     }
 
     @Test
@@ -133,7 +135,7 @@ class DirectionsManagerTest {
         Position p1 = new Position(-100,100,0);
         Position p2 = new Position(0,0,0);
         double computeDistance = dirMan.computeDistanceBetweenTwoPosition(p1,p2);
-        assertEquals("141,42",String.format("%.2f", computeDistance));
+        assertEquals("141.42",df.format(computeDistance));
     }
 
     @Test
@@ -141,7 +143,7 @@ class DirectionsManagerTest {
         Position p1 = new Position(-100,-100,0);
         Position p2 = new Position(0,0,0);
         double computeDistance = dirMan.computeDistanceBetweenTwoPosition(p1,p2);
-        assertEquals("141,42",String.format("%.2f", computeDistance));
+        assertEquals("141.42",df.format(computeDistance));
     }
 
     @Test
@@ -149,7 +151,7 @@ class DirectionsManagerTest {
         Position p1 = new Position(-100,100,0);
         Position p2 = new Position(0,0,0);
         double computeDistance = dirMan.computeDistanceBetweenTwoPosition(p1,p2);
-        assertEquals("141,42",String.format("%.2f", computeDistance));
+        assertEquals("141.42",df.format(computeDistance));
     }
 
     @Test
@@ -157,7 +159,7 @@ class DirectionsManagerTest {
         Position p1 = new Position(-100,100,0);
         Position p2 = new Position(0,0,0);
         double computeNumerateur = dirMan.computeNumerateur(p1,p2);
-        assertEquals("-100,00",String.format("%.2f", computeNumerateur));
+        assertEquals("-100",df.format(computeNumerateur));
     }
 
     @Test
@@ -174,7 +176,7 @@ class DirectionsManagerTest {
         Position p2 = new Position(0,0,0);
         Checkpoint checkpoint = new Checkpoint(p1, new Circle(p1,500));
         double computeAngleCone = dirMan.computeAngleCone(checkpoint,p2);
-        assertEquals("1,56",String.format("%.2f", computeAngleCone));
+        assertEquals("1.56",df.format(computeAngleCone));
     }
 
     @Test
@@ -196,12 +198,12 @@ class DirectionsManagerTest {
         Position p1 = new Position(0,5,-Math.PI/3);
         Position p2 = new Position(0,0,0);
         double computeAngleMove = dirMan.computeAngleMove(p1,p2);
-        assertEquals("1,57",String.format("%.2f", computeAngleMove));
+        assertEquals("1.57",df.format(computeAngleMove));
 
         p1 = new Position(74,5,-Math.PI/3);
         p2 = new Position(435,-74,-2);
         computeAngleMove = dirMan.computeAngleMove(p1,p2);
-        assertEquals("1,36",String.format("%.2f", computeAngleMove));
+        assertEquals("1.36",df.format(computeAngleMove));
     }
 
 
@@ -248,13 +250,13 @@ class DirectionsManagerTest {
         Position shipPosition = new Position(0,0,0);
         double angle = Math.PI;
         double computeDistance = dirMan.distToCheckPoint(angle,checkpointPosition,shipPosition);
-        assertEquals("140,72",String.format("%.2f", computeDistance));
+        assertEquals("140.72",df.format(computeDistance));
 
         checkpointPosition = new Position(-100,10,9);
         shipPosition = new Position(-999,85,-74);
         angle = Math.PI;
         computeDistance = dirMan.distToCheckPoint(angle,checkpointPosition,shipPosition);
-        assertEquals("902,21",String.format("%.2f", computeDistance));
+        assertEquals("902.21",df.format(computeDistance));
     }
 
     @Test
@@ -272,13 +274,13 @@ class DirectionsManagerTest {
         Position shipPosition = new Position(0,0,0);
         double angle = 17*Math.PI;
         double computeDistance = dirMan.checkSign(angle,checkpointPosition,shipPosition);
-        assertEquals("-53,41",String.format("%.2f", computeDistance));
+        assertEquals("-53.41",df.format(computeDistance));
 
         checkpointPosition = new Position(-100,10,0.18*Math.PI);
         shipPosition = new Position(-999,85,-74);
         angle = -Math.PI;
         computeDistance = dirMan.checkSign(angle,checkpointPosition,shipPosition);
-        assertEquals("3,14",String.format("%.2f", computeDistance));
+        assertEquals("3.14",df.format(computeDistance));
     }
 
     @Test
