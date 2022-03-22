@@ -97,11 +97,7 @@ public class Captain {
         if(strategyAnswer.hasSail())
             roundActions.addAll(crew.sailorsUseSail(optionalSailDecision.get()));
 
-        if(strategyAnswer.hasRudder()){
-            double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
-            double angleToTurnRudder = computeAngleToTurnRudder(angleMove, angleMadeBySailors);
-            roundActions.addAll(crew.sailorsTurnWithRudder(angleToTurnRudder));
-        }
+        turnWithRudderRoundAction(strategyAnswer, angleMove);
 
         roundActions.addAll(crew.sailorsMove());
     }
@@ -112,7 +108,7 @@ public class Captain {
      * @return oar weight
      */
     int oarWeightNeeded(double angleMove) {
-        if (!directionsManager.isConeTooSmall() && !directionsManager.isInCone())
+        if (coneNotTooSmallAndNotInCone())
             return oarWeight(angleMove);
 
         return 0;
@@ -123,11 +119,19 @@ public class Captain {
      * @param oarWeight oar weight
      * @return the angle the sailors should make
      */
-    double angleSailorsShouldMakeNeeded(int oarWeight) {
-        if (!directionsManager.isConeTooSmall() && !directionsManager.isInCone())
+    public double angleSailorsShouldMakeNeeded(int oarWeight) {
+        if (coneNotTooSmallAndNotInCone())
             return oarWeight * (Math.PI / ship.getNbrOar());
 
         return 0;
+    }
+
+    /**
+     * Check if the cone is not too small and if we are not already in the cone (so we can turn)
+     * @return true if we can turn in the cone
+     */
+    public boolean coneNotTooSmallAndNotInCone() {
+        return !directionsManager.isConeTooSmall() && !directionsManager.isInCone();
     }
 
     /**

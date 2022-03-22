@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
@@ -22,6 +23,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CaptainTest {
     private Ship basicShip;
@@ -38,7 +41,7 @@ public class CaptainTest {
         entities.add(new Sail(0, 0, false));
         checkpoints=new ArrayList<>();
         checkpoints.add(new Checkpoint(new Position(5000,5000,0),new Circle(100)));
-        goal=new Goal("",(ArrayList<Checkpoint>) checkpoints);
+        goal=new Goal("", checkpoints);
         basicShip = new Ship(
                 "ship",
                 100,
@@ -171,6 +174,11 @@ public class CaptainTest {
         assertEquals(Math.pow(10, -4) - Math.pow(10, -1), captain.computeAngleToTurnRudder(Math.pow(10, -4), Math.pow(10, -1)));
         assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(1, 1));
         assertEquals(Math.PI / 4, captain.computeAngleToTurnRudder(Math.pow(10, -3), 0));
+    }
+
+    @Test
+    void coneNotTooSmallAndNotInConeFalseTest() {
+        assertFalse(captain.coneNotTooSmallAndNotInCone());
     }
 
 }
