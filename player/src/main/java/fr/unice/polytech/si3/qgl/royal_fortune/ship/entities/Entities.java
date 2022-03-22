@@ -5,10 +5,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 
-import javax.swing.text.html.Option;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -75,6 +74,8 @@ public class Entities {
 		return(this instanceof Rudder);
 	}
 
+	public boolean isSail() {return(this instanceof Sail);}
+
 	/**
 	 * For a given range (included), will return the list of unassigned sailors.
 	 * @param sailors The list of all the sailors.
@@ -94,4 +95,6 @@ public class Entities {
 				.filter(sailor -> sailor.getDistanceToEntity(this) <= range)
 				.min(Comparator.comparingInt(sailor -> sailor.getDistanceToEntity(this)));
 	}
+
+
 }

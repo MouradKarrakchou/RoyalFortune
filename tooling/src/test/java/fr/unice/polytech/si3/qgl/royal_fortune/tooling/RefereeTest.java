@@ -1,18 +1,19 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
-import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation.Referee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,12 +28,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class RefereeTest{
-    /*
+
     Cockpit cockpit;
     Referee referee;
     Ship mockShip;
     ArrayList<Sailor> sailors;
     ArrayList<Entities> entities;
+    Associations associations;
 
     @BeforeEach
     void init(){
@@ -41,6 +43,7 @@ public class RefereeTest{
         cockpit = new Cockpit(mockShip, sailors, new Goal(), new Captain());
         referee = new Referee(cockpit, mockShip, sailors);
         entities=new ArrayList<>();
+        associations=referee.getAssociations();
 
 
     }
@@ -239,12 +242,12 @@ public class RefereeTest{
         assertEquals(true,referee.isOnARudder(sailors.get(0)));
         referee.useOar(new OarAction(0));
         assertEquals(true,referee.getLeftPush()+referee.getRightPush()==0);
-        entities.get(0).setSailor(new Sailor());
+        referee.getAssociations().addAssociation(new Sailor(),entities.get(0));
         assertEquals(true,referee.isOnARudder(sailors.get(0)));
         assertEquals(false,referee.isOnARudder(sailors.get(1)));
         assertEquals(false,referee.isOnARudder(sailors.get(2)));
-        assertEquals(true,entities.get(0).getSailor()!=null);
-        assertEquals(true,sailors.get(0).getTargetEntity()!=null);
+        assertEquals(true,associations.getAssociatedSailor(entities.get(0))!=null);
+        assertEquals(true,associations.getAssociatedEntity(sailors.get(0))!=null);
 
     }
     @Test
@@ -263,7 +266,7 @@ public class RefereeTest{
         assertEquals(false,referee.isOnAOar(sailors.get(0)));
         referee.doAction(new MovingAction(0, 0,1));
         assertEquals(true,referee.isOnAOar(sailors.get(0)));
-        entities.get(0).setSailor(new Sailor());
+        associations.addAssociation(new Sailor(),entities.get(0));
         assertEquals(true,referee.isOnAOar(sailors.get(0)));
         assertEquals(false,referee.isOnAOar(sailors.get(1)));
     }
@@ -290,12 +293,9 @@ public class RefereeTest{
         sailors.add(new Sailor(1,0,0,"sailor1"));
 
         referee.useRudder(new RudderAction(0,1.2));
-        assertEquals(true,sailors.get(1).getTargetEntity()==null);
-
-
-        assertEquals(true,sailors.get(0).getTargetEntity()!=null);
-        assertEquals(true,entities.get(0).getSailor()!=null);
-
+        assertEquals(true,associations.getAssociatedSailor(entities.get(0))!=null);
+        assertEquals(true,associations.getAssociatedEntity(sailors.get(1))==null);
+        assertEquals(true,associations.getAssociatedSailor(entities.get(0))!=null);
 
         assertEquals(0, referee.getRudderRotation());
         referee.doAction(new RudderAction(0, 1.2));
@@ -320,8 +320,8 @@ public class RefereeTest{
         referee.useRudder(new RudderAction(0,1.2));
         referee.useRudder(new RudderAction(1,1.2));
 
-        assertEquals(true,sailors.get(0).getTargetEntity()==null);
-        assertEquals(true,entities.get(0).getSailor()==null);
+        assertEquals(true,associations.getAssociatedSailor(entities.get(0))==null);
+        assertEquals(true,associations.getAssociatedEntity(sailors.get(0))==null);
     }
-    */
+
 }

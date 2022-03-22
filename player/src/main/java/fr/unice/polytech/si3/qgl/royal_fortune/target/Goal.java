@@ -1,6 +1,7 @@
-package fr.unice.polytech.si3.qgl.royal_fortune;
+package fr.unice.polytech.si3.qgl.royal_fortune.target;
 
-import java.util.ArrayList;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
+
 import java.util.List;
 
 public class Goal {

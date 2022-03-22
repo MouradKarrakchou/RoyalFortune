@@ -2,9 +2,10 @@ package fr.unice.polytech.si3.qgl.royal_fortune.dao;
 
 import java.util.List;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 public class InitGameDAO {
@@ -13,7 +14,7 @@ public class InitGameDAO {
 	List<Sailor> sailors;
 	int shipCount;
 	Wind wind;
-	
+
 	public InitGameDAO() {}
 	public InitGameDAO(Goal goal, Ship ship, List<Sailor> sailors, int shipCount, Wind wind) {
 		super();
@@ -39,5 +40,9 @@ public class InitGameDAO {
 
 	public Wind getWind() {
 		return wind;
+	}
+
+	public void setSailors(List<Sailor> sailorList){
+		this.sailors = sailorList;
 	}
 }

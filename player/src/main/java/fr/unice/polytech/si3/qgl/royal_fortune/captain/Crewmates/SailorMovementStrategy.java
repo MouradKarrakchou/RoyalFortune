@@ -1,6 +1,8 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain;
+package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
@@ -10,10 +12,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import java.util.*;
 
 public class SailorMovementStrategy {
-    private List<Sailor> sailors;
-    private Ship ship;
-    private Associations associations;
-    private PreCalculator preCalculator;
+    private final List<Sailor> sailors;
+    private final Ship ship;
+    private final Associations associations;
+    private final PreCalculator preCalculator;
 
     private SailorPlacement currentSailorPlacement;
 
@@ -60,25 +62,33 @@ public class SailorMovementStrategy {
         // We are associating (if possible) the left or right oar to the nearest sailor according to the oarWeight.
         associateNearestSailorToOars(requestedSailorPlacement);
 
-        if (preCalculator.needSailorToOarToCheckpoint(
-                Math.min(currentSailorPlacement.getNbLeftSailors(),
-                        currentSailorPlacement.getNbLeftSailors()) *2+2)){
-            associateSpecialistSailorToOarEvenly();
-        }
+        continueAssociatingSailorsToOarEvenly();
 
-        if (preCalculator.needSailorToOarToCheckpoint(
-                Math.min(currentSailorPlacement.getNbLeftSailors(),
-                        currentSailorPlacement.getNbLeftSailors()) *2+2)){
-            associateSpecialistSailorAndSailorToOarEvenly();
-        }
-
-        if (preCalculator.needSailorToOarToCheckpoint(
-                Math.min(currentSailorPlacement.getNbLeftSailors(),
-                        currentSailorPlacement.getNbLeftSailors()) *2+2)){
-            associateSailorsToOarEvenly();
-        }
+        System.out.println(associations.size());
 
         return currentSailorPlacement;
+    }
+
+    /**
+     * RECURSIVE
+     * Will do all the different "AssociateSailorsToOarEvenly" cycle until no newer association are made.
+     */
+    public void continueAssociatingSailorsToOarEvenly(){
+        boolean newAssociationMade = false;
+        if (canContinueToOarEvenly()){
+            newAssociationMade = associateSpecialistSailorToOarEvenly();
+        }
+
+        if (canContinueToOarEvenly()){
+            newAssociationMade = associateSpecialistSailorAndSailorToOarEvenly();
+        }
+
+        if (canContinueToOarEvenly()){
+            newAssociationMade = associateSailorsToOarEvenly();
+        }
+
+        if(newAssociationMade)
+            continueAssociatingSailorsToOarEvenly();
     }
 
     /**
@@ -124,7 +134,7 @@ public class SailorMovementStrategy {
      * @return If a sailor has been associated.
      */
     public boolean associateStarvingOar(int direction){
-        List<Oar> oarList = ship.getOarList(direction, associations);
+        List<Oar> oarList = sortEntitiesByDistanceToNearestSailor(ship.getOarList(direction, associations));
         int oarIndex = 0;
 
         while(oarIndex < oarList.size()){
@@ -136,25 +146,26 @@ public class SailorMovementStrategy {
     }
 
     /**
+     * RECURSIVE
      * Associating (if possible) the nearest sailor from the oars until the number of requested sailor is reached or
      * until the list of oar is reached.
      *
      * @param requestedSailorPlacement the requested sailor placement.
      */
     public void associateNearestSailorToOars(SailorPlacement requestedSailorPlacement){
-        int direction = requestedSailorPlacement.getOarWeight() > 0 ? DirectionsManager.LEFT : DirectionsManager.RIGHT;
-        List<Oar> oarList = ship.getOarList(direction, associations);
-        int i = 0;
+        int direction = requestedSailorPlacement.getOarWeight() > 0 ? DirectionsManager.RIGHT : DirectionsManager.LEFT;
+        List<Oar> oarList = sortEntitiesByDistanceToNearestSailor(ship.getOarList(direction, associations));
 
-        while (i < oarList.size() && requestedSailorPlacement.getOarWeight() != 0) {
-            Optional<Sailor> possibleSailor = oarList.get(i).getNearestSailor(sailors, MAX_MOVING_RANGE, associations);
+        if (!oarList.isEmpty() && requestedSailorPlacement.getOarWeight() != 0) {
+            Optional<Sailor> possibleSailor = oarList.get(0).getNearestSailor(sailors, MAX_MOVING_RANGE, associations);
             if (possibleSailor.isPresent()) {
-                associations.addAssociation(possibleSailor.get(), oarList.get(i));
+                associations.addAssociation(possibleSailor.get(), oarList.get(0));
                 if (direction == DirectionsManager.LEFT)
                     currentSailorPlacement.incrementNbLeftSailor(1);
                 else
                     currentSailorPlacement.incrementNbRightSailor(1);
                 requestedSailorPlacement.incrementOarWeight(-direction);
+                associateNearestSailorToOars(requestedSailorPlacement);
             }
         }
     }
@@ -216,7 +227,7 @@ public class SailorMovementStrategy {
      *
      * If there is no two more specialist or normal sailor, the recursive call stops.
      */
-    public void associateSpecialistSailorAndSailorToOarEvenly(){
+    public boolean associateSpecialistSailorAndSailorToOarEvenly(){
         Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
         Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
 
@@ -225,7 +236,7 @@ public class SailorMovementStrategy {
                 .toList();
 
         if (sailorsCanGoBoth.isEmpty())
-            return;
+            return false;
 
         List<Sailor> sailorsCanOnlyGoLeft = new ArrayList<>(sailorsCanGoLeft);
         sailorsCanOnlyGoLeft.removeAll(sailorsCanGoRight);
@@ -238,43 +249,43 @@ public class SailorMovementStrategy {
             Sailor specialistSailor = sailorsCanOnlyGoLeft.get(0);
             Oar nearestLeftOar = specialistSailor.getNearestOar(ship.getOarList(DirectionsManager.LEFT, associations), associations);
             Sailor normalSailor = sailorsCanGoBoth.get(0);
-            Oar nearestRightOar = specialistSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT, associations), associations);
+            Oar nearestRightOar = normalSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT, associations), associations);
 
             associations.addAssociation(normalSailor, nearestRightOar);
             associations.addAssociation(specialistSailor, nearestLeftOar);
             currentSailorPlacement.incrementNbRightSailor(1);
             currentSailorPlacement.incrementNbLeftSailor(1);
 
-            if (preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                    currentSailorPlacement.getNbLeftSailors()) *2+2)){
+            if (canContinueToOarEvenly()){
                 associateSpecialistSailorAndSailorToOarEvenly();
             }
-            return;
+            return true;
         }
 
         if (!sailorsCanOnlyGoRight.isEmpty()){
             Sailor specialistSailor = sailorsCanOnlyGoRight.get(0);
             Oar nearestRightOar = specialistSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT, associations), associations);
             Sailor normalSailor = sailorsCanGoBoth.get(0);
-            Oar nearestLeftOar = specialistSailor.getNearestOar(ship.getOarList(DirectionsManager.LEFT, associations), associations);
+            Oar nearestLeftOar = normalSailor.getNearestOar(ship.getOarList(DirectionsManager.LEFT, associations), associations);
 
             associations.addAssociation(specialistSailor, nearestRightOar);
             associations.addAssociation(normalSailor, nearestLeftOar);
             currentSailorPlacement.incrementNbRightSailor(1);
             currentSailorPlacement.incrementNbLeftSailor(1);
 
-            if (preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                    currentSailorPlacement.getNbLeftSailors()) *2+2)){
+            if (canContinueToOarEvenly()){
                 associateSpecialistSailorAndSailorToOarEvenly();
             }
+            return true;
         }
+        return false;
     }
 
     /**
      * RECURSIVE
      * Will associate two sailors until we run out of sailors.
      */
-    public void associateSailorsToOarEvenly(){
+    public boolean associateSailorsToOarEvenly(){
         Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
         Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
 
@@ -283,9 +294,9 @@ public class SailorMovementStrategy {
                 .toList();
 
         if (sailorsCanGoBoth.isEmpty())
-            return;
+            return false;
 
-        if (sailorsCanGoBoth.size() > 2){
+        if (sailorsCanGoBoth.size() >= 2){
             Sailor rightSailor = sailorsCanGoBoth.get(0);
             Oar bestRightOar = rightSailor.getNearestOar(ship.getOarList(DirectionsManager.RIGHT,associations), associations);
             associations.addAssociation(rightSailor, bestRightOar);
@@ -296,11 +307,12 @@ public class SailorMovementStrategy {
             associations.addAssociation(leftSailor, bestLeftOar);
             currentSailorPlacement.incrementNbLeftSailor(1);
 
-            if (preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                    currentSailorPlacement.getNbLeftSailors()) *2+2)){
+            if (canContinueToOarEvenly()){
                 associateSailorsToOarEvenly();
             }
+            return true;
         }
+        return false;
     }
 
     /**
@@ -309,7 +321,7 @@ public class SailorMovementStrategy {
      * specific oar and call the associateSpecialistSailorToOar again.
      * If there is no two opposite sailors are specialist the recursive method stops.
      */
-    public void associateSpecialistSailorToOarEvenly(){
+    public boolean associateSpecialistSailorToOarEvenly(){
         Set<Sailor> sailorsCanGoLeft = getSailorNearToOar(DirectionsManager.LEFT);
         Set<Sailor> sailorsCanGoRight = getSailorNearToOar(DirectionsManager.RIGHT);
 
@@ -333,11 +345,12 @@ public class SailorMovementStrategy {
             currentSailorPlacement.incrementNbLeftSailor(1);
 
             // If the pre-calculator thinks adding two more sailor is not worth.
-            if (preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                    currentSailorPlacement.getNbLeftSailors()) *2+2)){
+            if (canContinueToOarEvenly()){
                 associateSpecialistSailorToOarEvenly();
             }
+            return true;
         }
+        return false;
     }
 
     public Set<Sailor> getSailorNearToOar(int direction){
@@ -355,5 +368,23 @@ public class SailorMovementStrategy {
      */
     public void continueAssociatingStarvingEntities(SailorPlacement requestedSailorPlacement){
         while(associateStarvingEntities(requestedSailorPlacement));
+    }
+
+    /**
+     * For a given list of Oar, will sort the entities of sailor by the distance from their nearest sailor.
+     * @param oar -
+     * @return The list of sorted oar.
+     */
+    private List<Oar> sortEntitiesByDistanceToNearestSailor(List<Oar> oar){
+        return oar.stream()
+                .filter(entity -> entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).isPresent())
+                .sorted(Comparator.comparingInt(entity ->
+                        entity.getNearestSailor(sailors, MAX_MOVING_RANGE , associations).get().getDistanceToEntity(entity)))
+                .toList();
+    }
+
+    private boolean canContinueToOarEvenly(){
+        return preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
+                currentSailorPlacement.getNbRightSailors()) * 2 + 2);
     }
 }

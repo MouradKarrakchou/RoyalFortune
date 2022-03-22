@@ -1,18 +1,12 @@
-package fr.unice.polytech.si3.qgl.royal_fortune;
+package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.OarAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
+import fr.unice.polytech.si3.qgl.royal_fortune.action.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.Comparator;
 import java.util.List;
-
-import static fr.unice.polytech.si3.qgl.royal_fortune.captain.SailorMovementStrategy.MAX_MOVING_RANGE;
 
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
@@ -75,40 +69,14 @@ public class Sailor{
 		if (targetEntity == null)
 			return null;
 
-		// If there is a target entity and the sailor can go to in one turn (>= 5 cases).
 		MovingAction movingAction;
-		if(getDistanceToEntity(targetEntity) <= 5){
-			movingAction = new MovingAction(this.getId(), targetEntity.getX() - x, targetEntity.getY() - y);
-		}
 
-		// If there is a target entity and the sailor can not go to in one turn (> 5 cases).
-		else{
-			movingAction = targetEntityFarAway(associations);
-		}
+		movingAction = new MovingAction(this.getId(), targetEntity.getX() - x, targetEntity.getY() - y);
 
 		this.x += movingAction.getXdistance();
 		this.y += movingAction.getYdistance();
+
 		return movingAction;
-	}
-
-	MovingAction targetEntityFarAway(Associations associations) {
-		Entities targetEntity = associations.getAssociatedEntity(this);
-		int posX = 0;
-		int posY = 0;
-		int vectX = (targetEntity.getX()-this.x)<0 ? -1 : 1;
-		int vectY = (targetEntity.getY()-this.y)<0 ? -1 : 1;
-
-		//tant que this.x+Deplacement < target.x || i < 5
-		while(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()) && posX < 5) {
-			System.out.println(Math.abs(this.x+posX) < Math.abs(targetEntity.getX()));
-			posX+=vectX;
-		}
-		if(posX<5)
-			while(Math.abs(this.y+posX) < Math.abs(targetEntity.getY()) && posY+posX < 5) {
-				posY+=vectY;
-			}
-
-		return new MovingAction(this.getId(), posX - x, posY - y);
 	}
 
 	public OarAction oar(){
@@ -117,6 +85,12 @@ public class Sailor{
 
 	public RudderAction turnWithRudder(double rotationRudder) {
 		return new RudderAction(this.getId(), rotationRudder);
+	}
+	public SailAction useSail(boolean opened) {
+		if(opened)
+			return new LiftSailAction(this.getId());
+		else
+			return new LowerSailAction(this.getId());
 	}
 
 	public Oar getNearestOar(List<Oar> oars,Associations associations){
@@ -137,5 +111,6 @@ public class Sailor{
 	public void setX(int x) {
 		this.x = x;
 	}
+
 
 }

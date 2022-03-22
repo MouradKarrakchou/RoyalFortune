@@ -1,7 +1,7 @@
-package fr.unice.polytech.si3.qgl.royal_fortune;
+package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 
 public class Checkpoint {
     private Position position;
@@ -10,6 +10,7 @@ public class Checkpoint {
     public Checkpoint(Position position, Shape shape) {
         this.position = position;
         this.shape = shape;
+        shape.setPosition(position);
     }
 
     Checkpoint(){}

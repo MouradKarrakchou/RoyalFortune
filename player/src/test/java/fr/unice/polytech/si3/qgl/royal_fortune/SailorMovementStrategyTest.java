@@ -1,9 +1,10 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.SailorMovementStrategy;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.SailorPlacement;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.*;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorMovementStrategy;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -11,13 +12,16 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Rectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class SailorMovementStrategyTest {
 
@@ -59,7 +63,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -105,7 +109,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -148,7 +152,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -185,7 +189,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -228,7 +232,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(10, 10),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -265,7 +269,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(5, 5),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -317,7 +321,7 @@ public class SailorMovementStrategyTest {
                 "ShipTest",
                 new Deck(5, 5),
                 entities,
-                new Rectangle("rectangle", 10, 10, 0));
+                new Rectangle(10, 10, 0));
 
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
@@ -337,5 +341,306 @@ public class SailorMovementStrategyTest {
         requestedPlacement = new SailorPlacement(DirectionsManager.RIGHT, false, true);
         sailorMovementStrategy.associateStarvingEntities(requestedPlacement);
         assertEquals(sail, associations.getAssociatedEntity(sailor00));
+    }
+
+    @Test
+    void continueAssociatingStarvingEntitiesTest(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        // Sailor00 is close enough to all entities.
+        Sailor sailor00 = new Sailor(0, 3, 3, "sailor0");
+        sailors.add(sailor00);
+
+        // Sailor01 is close enough to rudder entity.
+        Sailor sailor01 = new Sailor(1, 4, 5, "sailor1");
+        sailors.add(sailor01);
+
+        List<Entities> entities = new ArrayList<>();
+        Oar leftOar = new Oar(1, 0);
+        entities.add(leftOar);
+
+        Oar rightOar = new Oar(0, 3);
+        entities.add(rightOar);
+
+        Rudder rudder = new Rudder(2, 2);
+        entities.add(rudder);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(5, 5),
+                entities,
+                new Rectangle(10, 10, 0));
+
+        Associations associations = new Associations();
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
+
+        SailorPlacement requestedPlacement = new SailorPlacement(0, true, false);
+        sailorMovementStrategy.continueAssociatingStarvingEntities(requestedPlacement);
+        assertNull(associations.getAssociatedSailor(rudder));
+        assertNull(associations.getAssociatedSailor(rightOar));
+        assertNull(associations.getAssociatedSailor(leftOar));
+
+        requestedPlacement = new SailorPlacement(DirectionsManager.RIGHT, true, false);
+        sailorMovementStrategy.continueAssociatingStarvingEntities(requestedPlacement);
+        assertEquals(sailor00, associations.getAssociatedSailor(rightOar));
+        assertEquals(sailor01, associations.getAssociatedSailor(rudder));
+        assertNull(associations.getAssociatedSailor(leftOar));
+    }
+
+    @Test
+    void associateNearestSailorToOarsTest(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        // Sailor00
+        Sailor sailor00 = new Sailor(0, 3, 3, "sailor0");
+        sailors.add(sailor00);
+
+        // Sailor01
+        Sailor sailor01 = new Sailor(1, 4, 3, "sailor1");
+        sailors.add(sailor01);
+
+        // Sailor02
+        Sailor sailor02 = new Sailor(1, 5, 3, "sailor1");
+        sailors.add(sailor02);
+
+        List<Entities> entities = new ArrayList<>();
+        // LeftOar00
+        Oar leftOar00 = new Oar(1, 0);
+        entities.add(leftOar00);
+
+        // LeftOar01
+        Oar leftOar01 = new Oar(2, 0);
+        entities.add(leftOar01);
+
+        // LeftOar02
+        Oar leftOar02 = new Oar(3, 0);
+        entities.add(leftOar02);
+
+        // RightOar00
+        Oar rightOar00 = new Oar(0, 5);
+        entities.add(rightOar00);
+
+        // RightOar01
+        Oar rightOar01 = new Oar(1, 5);
+        entities.add(rightOar01);
+
+        // RightOar02
+        Oar rightOar02 = new Oar(2, 5);
+        entities.add(rightOar02);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(5, 5),
+                entities,
+                new Rectangle(10, 10, 0));
+
+        Associations associations = new Associations();
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, null);
+
+        SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, false, false);
+
+        sailorMovementStrategy.associateNearestSailorToOars(requestedPlacement);
+        assertEquals(0, requestedPlacement.getOarWeight());
+
+        assertNull(associations.getAssociatedSailor(leftOar00));
+        assertEquals(sailor01, associations.getAssociatedSailor(leftOar01));
+        assertEquals(sailor00, associations.getAssociatedSailor(leftOar02));
+
+        associations.dissociateAll();
+
+        requestedPlacement = new SailorPlacement(DirectionsManager.RIGHT * 4, false, false);
+        sailorMovementStrategy.associateNearestSailorToOars(requestedPlacement);
+        assertEquals(2, requestedPlacement.getOarWeight());
+        assertEquals(rightOar02, associations.getAssociatedEntity(sailor00));
+        assertEquals(rightOar01, associations.getAssociatedEntity(sailor01));
+        assertNull(associations.getAssociatedEntity(sailor02));
+    }
+
+    @Test
+    void askPlacementTest(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        // Sailor00
+        Sailor sailor00 = new Sailor(0, 0, 1, "sailor0");
+        sailors.add(sailor00);
+
+        // Sailor01
+        Sailor sailor01 = new Sailor(1, 3, 4, "sailor1");
+        sailors.add(sailor01);
+
+        // Sailor02
+        Sailor sailor02 = new Sailor(1, 4, 1, "sailor2");
+        sailors.add(sailor02);
+
+        // Sailor03
+        Sailor sailor03 = new Sailor(1, 5, 4, "sailor3");
+        sailors.add(sailor03);
+
+        // Sailor04
+        Sailor sailor04 = new Sailor(1, 7, 2, "sailor4");
+        sailors.add(sailor04);
+
+        List<Entities> entities = new ArrayList<>();
+        Oar oar00 = new Oar(1, 0);
+        entities.add(oar00);
+
+        Oar oar01 = new Oar(0, 6);
+        entities.add(oar01);
+
+        Oar oar02 = new Oar(3, 0);
+        entities.add(oar02);
+
+        Oar oar03 = new Oar(3, 6);
+        entities.add(oar03);
+
+        Oar oar04 = new Oar(5, 0);
+        entities.add(oar04);
+
+        Oar oar05 = new Oar(5, 6);
+        entities.add(oar05);
+
+        Oar oar06 = new Oar(7, 0);
+        entities.add(oar06);
+
+        Oar oar07 = new Oar(7, 6);
+        entities.add(oar07);
+
+        Rudder rudder = new Rudder(1, 2);
+        entities.add(rudder);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(7, 9),
+                entities,
+                new Rectangle(7, 9, 0));
+
+        PreCalculator mockPreCalculator = mock(PreCalculator.class);
+        when(mockPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(true);
+
+        Associations associations = new Associations();
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockPreCalculator);
+
+        SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, true, false);
+        SailorPlacement answer = sailorMovementStrategy.askPlacement(requestedPlacement);
+        assertTrue(answer.hasRudder());
+        assertFalse(answer.hasSail());
+        assertEquals(sailor00, associations.getAssociatedSailor(rudder));
+        assertEquals(1, answer.getNbRightSailors());
+        assertEquals(3, answer.getNbLeftSailors());
+        assertEquals(1, answer.getNbRightSailors());
+    }
+
+    @Test
+    void outOfRangeTest(){
+        List<Sailor> sailors = new ArrayList<>();
+        // Sailor
+        Sailor sailor = new Sailor(0, 6, 6, "sailor");
+        sailors.add(sailor);
+
+        List<Entities> entities = new ArrayList<>();
+        // Left oar
+        Oar leftOar = new Oar(6, 0);
+        entities.add(leftOar);
+
+        // Right oar
+        Oar rightOar = new Oar(6, 6);
+        entities.add(rightOar);
+
+        // Rudder
+        Rudder rudder = new Rudder(0, 6);
+        entities.add(rudder);
+
+        // Sail
+        Sail sail = new Sail(6, 6, false);
+        entities.add(sail);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(13, 13),
+                entities,
+                new Rectangle(13, 13, 0));
+
+        Associations associations = new Associations();
+        PreCalculator mockPreCalculator = mock(PreCalculator.class);
+        when(mockPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(true);
+
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockPreCalculator);
+        SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT, false, false);
+
+        SailorPlacement answer = sailorMovementStrategy.askPlacement(requestedPlacement);
+        sailorMovementStrategy.continueAssociatingStarvingEntities(requestedPlacement);
+        sailorMovementStrategy.associateSpecialistSailorToOarEvenly();
+        sailorMovementStrategy.associateSailorsToOarEvenly();
+        sailorMovementStrategy.associateStarvingOar(DirectionsManager.LEFT);
+        sailorMovementStrategy.associateStarvingOar(DirectionsManager.RIGHT);
+        sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly();
+
+        assertEquals(0, answer.getNbLeftSailors());
+        assertEquals(0, answer.getNbRightSailors());
+        assertFalse(answer.hasRudder());
+        assertFalse(answer.hasSail());
+    }
+
+    @Test
+    void askPlacementTestStarving(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        // Sailor00
+        Sailor sailor00 = new Sailor(0, 0, 0, "sailor0");
+        sailors.add(sailor00);
+
+        // Sailor01
+        Sailor sailor01 = new Sailor(1, 6, 1, "sailor1");
+        sailors.add(sailor01);
+
+        // Sailor02
+        Sailor sailor02 = new Sailor(2, 3, 4, "sailor2");
+        sailors.add(sailor02);
+
+        List<Entities> entities = new ArrayList<>();
+        Oar oar00 = new Oar(1, 0);
+        entities.add(oar00);
+
+        Oar oar01 = new Oar(5, 4);
+        entities.add(oar01);
+
+
+        Sail sail = new Sail(0, 2, false);
+        entities.add(sail);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(6, 4),
+                entities,
+                new Rectangle(6, 4, 0));
+
+        PreCalculator mockPreCalculator = mock(PreCalculator.class);
+        when(mockPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(true);
+
+        Associations associations = new Associations();
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockPreCalculator);
+
+        SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, false, true);
+        sailorMovementStrategy.askPlacement(requestedPlacement);
+
+        assertEquals(sailor00, associations.getAssociatedSailor(oar00));
+        assertEquals(sailor02, associations.getAssociatedSailor(sail));
+        assertNull(associations.getAssociatedSailor(oar01));
+
     }
 }

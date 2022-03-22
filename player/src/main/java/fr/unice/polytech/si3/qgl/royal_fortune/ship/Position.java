@@ -23,6 +23,12 @@ public class Position {
 		this.y = y;
 		this.orientation = orientation;
 	}
+
+	public Position(double x, double y) {
+		this.x = x;
+		this.y = y;
+		this.orientation = 0.0;
+	}
 	
 	public double getX() {
 		return x;

@@ -1,8 +1,7 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain;
+package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,10 +57,10 @@ public class FictitiousCheckpoint {
         double unitY = vectorY/norm;
 
         double fictitiousCheckpointRadius = ((Circle) currentCheckpoint.getShape()).getRadius() / 2;
-        Circle fictitiousCheckpointShape = new Circle("Circle", fictitiousCheckpointRadius);
+        Circle fictitiousCheckpointShape = new Circle(fictitiousCheckpointRadius);
         Position fictitiousCheckpointPosition = new Position(currentCheckpointX + fictitiousCheckpointRadius * unitX,
                 currentCheckpointY + fictitiousCheckpointRadius * unitY, 0);
-
+        fictitiousCheckpointShape.setPosition(fictitiousCheckpointPosition);
         return new Checkpoint(fictitiousCheckpointPosition, fictitiousCheckpointShape);
     }
 
@@ -74,6 +73,9 @@ public class FictitiousCheckpoint {
         if (fictitiousCheckpoints.isEmpty())
             return null;
         return fictitiousCheckpoints.get(0);
+    }
+    public void addFictitiousCheckpoint(Checkpoint checkpoint){
+        fictitiousCheckpoints.add(0,checkpoint);
     }
 
     public List<Checkpoint> getFictitiousCheckpoints() {

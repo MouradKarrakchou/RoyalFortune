@@ -1,23 +1,35 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain;
+package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Checkpoint;
-import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
+
+import java.util.List;
+import java.util.Optional;
 
 public class SeaMap {
     private final Goal goal;
     private FictitiousCheckpoint fictitiousCheckpoints;
     private final Position shipPosition;
-    public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition){
+    private Wind wind;
+    private List<SeaEntities> seaEntities;
+
+    public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition,Wind wind,List<SeaEntities> seaEntities){
         this.goal=goal;
         this.fictitiousCheckpoints=fictitiousCheckpoints;
         this.shipPosition=shipPosition;
+        this.wind=wind;
+        this.seaEntities=seaEntities;
     }
-    public void updateCheckPoint() {
+    public void updateCheckPoint(List<SeaEntities> newSeaEntities) {
         if (isInCheckpoint(goal.getCurrentCheckPoint()))
         {goal.nextCheckPoint();
             fictitiousCheckpoints.nextCheckPoint();}
+        //Observer observer=new Observer(shipPosition, wind,fictitiousCheckpoints.getCurrentCheckPoint().getPosition());
+        //Optional<Beacon> beaconOptional=observer.watchSea(newSeaEntities);
+        //beaconOptional.ifPresent(beacon -> fictitiousCheckpoints.addFictitiousCheckpoint(beacon));
     }
     public boolean isInCheckpoint(Checkpoint checkpoint) {
         return(isInCheckpointShipPos(checkpoint,shipPosition.getX(),shipPosition.getY()));

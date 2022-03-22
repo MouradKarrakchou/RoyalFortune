@@ -7,7 +7,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes(value = {
 		@JsonSubTypes.Type(value = MovingAction.class, name = "MOVING"),
 		@JsonSubTypes.Type(value = OarAction.class, name = "OAR"),
-		@JsonSubTypes.Type(value = RudderAction.class, name = "TURN")
+		@JsonSubTypes.Type(value = RudderAction.class, name = "TURN"),
+		@JsonSubTypes.Type(value = LowerSailAction.class, name = "LOWER_SAIL"),
+		@JsonSubTypes.Type(value = LiftSailAction.class, name = "LIFT_SAIL")
+
 })
 public class Action  {
 	protected int sailorId;

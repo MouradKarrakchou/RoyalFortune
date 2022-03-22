@@ -8,15 +8,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SailAction extends Action{
-    public static String LOWER = "LOWER_SAIL";
     public static String LIFT = "LIFT_SAIL";
 
     final Logger logger = Logger.getLogger(RudderAction.class.getName());
-    public String action;
-    public SailAction(int sailorId, boolean takeWind) {
-        super(sailorId, takeWind?"LOWER_SAIL":"LIFT_SAIL");
-        this.type = takeWind?"LOWER_SAIL":"LIFT_SAIL";
-        action = takeWind?"LOWER_SAIL":"LIFT_SAIL";
+    public SailAction(int sailorId, String type) {
+        super(sailorId, type);
+        this.type = type;
     }
 
     public SailAction(){}
@@ -26,7 +23,7 @@ public class SailAction extends Action{
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode rudderActionJSON = mapper.createObjectNode();
         rudderActionJSON.put("sailorId", sailorId);
-        rudderActionJSON.put("type", action);
+        rudderActionJSON.put("type", type);
 
         try {
             return mapper.writeValueAsString(rudderActionJSON);
@@ -36,7 +33,7 @@ public class SailAction extends Action{
         return "";
     }
 
-    public String getAction() {
-        return action;
+    public String getType() {
+        return type;
     }
 }

@@ -1,206 +1,54 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
-	/*
+
 	static final Logger logger = Logger.getLogger(Main.class.getName());
 	public static void main(String[] args) throws IOException {
 		String json= "{\"goal\":{\"mode\":\"REGATTA\",\"checkpoints\":[{\"position\":{\"x\":1000,\"y\":100,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":100.0}},{\"position\":{\"x\":-200.0,\"y\":1000.0,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":80.0}}]},\"ship\":{\"type\":\"ship\",\"position\":{\"x\":0.0,\"y\":0.0,\"orientation\":0.0},\"name\":\"royal_fortune\",\"deck\":{\"width\":2,\"length\":4},\"entities\":[{\"x\":1,\"y\":0,\"type\":\"oar\"},{\"x\":1,\"y\":1,\"type\":\"oar\"},{\"x\":2,\"y\":0,\"type\":\"oar\"},{\"x\":2,\"y\":1,\"type\":\"oar\"},{\"x\":3,\"y\":0,\"type\":\"oar\"},{\"x\":3,\"y\":1,\"type\":\"oar\"}],\"life\":300,\"shape\":{\"type\":\"rectangle\",\"width\":2.0,\"height\":4.0,\"orientation\":0.0}},\"sailors\":[{\"x\":0,\"y\":0,\"id\":0,\"name\":\"Jack Teach\"},{\"x\":0,\"y\":1,\"id\":1,\"name\":\"Jack Teach\"},{\"x\":1,\"y\":0,\"id\":2,\"name\":\"Jack Pouce\"},{\"x\":1,\"y\":1,\"id\":3,\"name\":\"Luffy Pouce\"}],\"shipCount\":1}";
 		String jsonTest = "{\"goal\":{\"mode\":\"REGATTA\",\"checkpoints\":[{\"position\":{\"x\":1000,\"y\":100,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":100}},{\"position\":{\"x\":-200,\"y\":1000,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":80}}]},\"ship\":{\"type\":\"ship\",\"position\":{\"x\":0,\"y\":0,\"orientation\":0},\"name\":\"royal_fortune\",\"deck\":{\"width\":4,\"length\":3},\"entities\":[{\"x\":1,\"y\":0,\"type\":\"oar\"},{\"x\":1,\"y\":1,\"type\":\"oar\"},{\"x\":2,\"y\":0,\"type\":\"oar\"},{\"x\":2,\"y\":1,\"type\":\"oar\"},{\"x\":3,\"y\":0,\"type\":\"oar\"},{\"x\":3,\"y\":1,\"type\":\"rudder\"},{\"x\":3,\"y\":2,\"type\":\"sail\"},{\"x\":3,\"y\":1,\"type\":\"oar\"}],\"life\":300,\"shape\":{\"type\":\"rectangle\",\"width\":2,\"height\":4,\"orientation\":0}},\"sailors\":[{\"x\":0,\"y\":0,\"id\":0,\"name\":\"Jack Teach\"},{\"x\":0,\"y\":1,\"id\":1,\"name\":\"Jack Teach\"},{\"x\":1,\"y\":0,\"id\":2,\"name\":\"Jack Pouce\"},{\"x\":1,\"y\":1,\"id\":3,\"name\":\"Luffy Pouce\"},{\"x\":1,\"y\":3,\"id\":4,\"name\":\"Luffy olala\"},{\"x\":1,\"y\":2,\"id\":5,\"name\":\"Luffy siuuuu\"}],\"shipCount\":1}";
-		String jsonWeek4 = "{\n" +
-				"  \"goal\": {\n" +
-				"    \"mode\": \"REGATTA\",\n" +
-				"    \"checkpoints\": [\n" +
-				"      {\n" +
-				"        \"type\": \"checkpoint\",\n" +
-				"        \"position\": {\n" +
-				"          \"x\": 2279.6317218053687,\n" +
-				"          \"y\": 2879.047015765768\n" +
-				"        },\n" +
-				"        \"shape\": {\n" +
-				"          \"type\": \"circle\",\n" +
-				"          \"radius\": 100\n" +
-				"        }\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"checkpoint\",\n" +
-				"        \"position\": {\n" +
-				"          \"x\": 2256.4589017735334,\n" +
-				"          \"y\": 1352.1959459459492\n" +
-				"        },\n" +
-				"        \"shape\": {\n" +
-				"          \"type\": \"circle\",\n" +
-				"          \"radius\": 100\n" +
-				"        }\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"checkpoint\",\n" +
-				"        \"position\": {\n" +
-				"          \"x\": 3590.3073840382,\n" +
-				"          \"y\": 2221.734234234234\n" +
-				"        },\n" +
-				"        \"shape\": {\n" +
-				"          \"type\": \"circle\",\n" +
-				"          \"radius\": \"80\"\n" +
-				"        }\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"checkpoint\",\n" +
-				"        \"position\": {\n" +
-				"          \"x\": 2241.8126847430635,\n" +
-				"          \"y\": 1345.6855292792793\n" +
-				"        },\n" +
-				"        \"shape\": {\n" +
-				"          \"type\": \"circle\",\n" +
-				"          \"radius\": 100\n" +
-				"        }\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"checkpoint\",\n" +
-				"        \"position\": {\n" +
-				"          \"x\": 1132.5943610732181,\n" +
-				"          \"y\": 2342.236768018018\n" +
-				"        },\n" +
-				"        \"shape\": {\n" +
-				"          \"type\": \"circle\",\n" +
-				"          \"radius\": \"80\"\n" +
-				"        }\n" +
-				"      }\n" +
-				"    ]\n" +
-				"  },\n" +
-				"  \"ship\": {\n" +
-				"    \"name\": \"Péquod\",\n" +
-				"    \"life\": 300,\n" +
-				"    \"deck\": {\n" +
-				"      \"length\": 4,\n" +
-				"      \"width\": 3\n" +
-				"    },\n" +
-				"    \"position\": {\n" +
-				"      \"x\": 2185.3061761027725,\n" +
-				"      \"y\": -227.86458333333408,\n" +
-				"      \"orientation\": -1.5582496193148399\n" +
-				"    },\n" +
-				"    \"entities\": [\n" +
-				"      {\n" +
-				"        \"type\": \"oar\",\n" +
-				"        \"x\": 0,\n" +
-				"        \"y\": 0\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"oar\",\n" +
-				"        \"x\": 0,\n" +
-				"        \"y\": 2\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"oar\",\n" +
-				"        \"x\": 1,\n" +
-				"        \"y\": 0\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"oar\",\n" +
-				"        \"x\": 1,\n" +
-				"        \"y\": 2\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"oar\",\n" +
-				"        \"x\": 2,\n" +
-				"        \"y\": 0\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"oar\",\n" +
-				"        \"x\": 2,\n" +
-				"        \"y\": 2\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"type\": \"rudder\",\n" +
-				"        \"x\": 3,\n" +
-				"        \"y\": 1\n" +
-				"      }\n" +
-				"    ]\n" +
-				"  },\n" +
-				"  \"startingPositions\": [\n" +
-				"    {\n" +
-				"      \"x\": 2185.3061761027725,\n" +
-				"      \"y\": -227.86458333333408,\n" +
-				"      \"orientation\": 1.5882496193148399\n" +
-				"    }\n" +
-				"  ],\n" +
-				"  \"wind\": {\n" +
-				"    \"direction\": 0,\n" +
-				"    \"strength\": 0\n" +
-				"  },\n" +
-				"  \"sailors\": [\n" +
-				"    {\n" +
-				"      \"x\": 0,\n" +
-				"      \"y\": 0,\n" +
-				"      \"id\": 0,\n" +
-				"      \"name\": \"Jack Teach\"\n" +
-				"    },\n" +
-				"    {\n" +
-				"      \"x\": 0,\n" +
-				"      \"y\": 1,\n" +
-				"      \"id\": 1,\n" +
-				"      \"name\": \"Jack Teach\"\n" +
-				"    },\n" +
-				"    {\n" +
-				"      \"x\": 1,\n" +
-				"      \"y\": 0,\n" +
-				"      \"id\": 8,\n" +
-				"      \"name\": \"Jack Pouce\"\n" +
-				"    },\n" +
-				" 	{\n" +
-				"      \"x\": 1,\n" +
-				"      \"y\": 0,\n" +
-				"      \"id\": 9,\n" +
-				"      \"name\": \"Jack Pouce\"\n" +
-				"    },\n" +
-				"	{\n" +
-				"      \"x\": 1,\n" +
-				"      \"y\": 0,\n" +
-				"      \"id\": 10,\n" +
-				"      \"name\": \"Jack Pouce\"\n" +
-				"    },\n" +
-				"	{\n" +
-				"      \"x\": 1,\n" +
-				"      \"y\": 0,\n" +
-				"      \"id\": 11,\n" +
-				"      \"name\": \"Jack Pouce\"\n" +
-				"    },\n" +
-				"    {\n" +
-				"      \"x\": 1,\n" +
-				"      \"y\": 1,\n" +
-				"      \"id\": 3,\n" +
-				"      \"name\": \"Luffy Pouce\"\n" +
-				"    }\n" +
-				"  ],\n" +
-				"  \"seaEntities\": [],\n" +
-				"  \"maxRound\": 300,\n" +
-				"  \"minumumCrewSize\": 5,\n" +
-				"  \"maximumCrewSize\": 5\n" +
-				"}";
-		Game game = new Game(jsonWeek4);
+		String jsonWeek5 = "{\"goal\":{\"mode\":\"REGATTA\",\"checkpoints\":[{\"position\":{\"x\":-5586.701434159062,\"y\":-195.31249999999972,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":200}},{\"position\":{\"x\":-3259.452411994781,\"y\":1835.937500000001,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":200}},{\"position\":{\"x\":-1401.564537157755,\"y\":4108.072916666667,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":200}},{\"position\":{\"x\":-3650.5867014341584,\"y\":1529.9479166666674,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":200}},{\"position\":{\"x\":-5495.436766623214,\"y\":4127.604166666669,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":200}},{\"position\":{\"x\":-1140.8083441981753,\"y\":-273.43749999999847,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":200}},{\"position\":{\"x\":-3604.9543676662297,\"y\":2154.9479166666674,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":200}},{\"position\":{\"x\":3337.6792698826616,\"y\":1809.8958333333335,\"orientation\":0},\"shape\":{\"type\":\"circle\",\"radius\":200}}]},\"ship\":{\"type\":\"ship\",\"position\":{\"x\":-3650.58670143416,\"y\":1842.4479166666663,\"orientation\":-2.740166925631097},\"name\":\"royal_fortune\",\"deck\":{\"width\":3,\"length\":7},\"entities\":[{\"x\":6,\"y\":1,\"type\":\"rudder\"},{\"x\":3,\"y\":1,\"type\":\"sail\",\"openned\":false},{\"x\":1,\"y\":2,\"type\":\"oar\"},{\"x\":2,\"y\":2,\"type\":\"oar\"},{\"x\":3,\"y\":2,\"type\":\"oar\"},{\"x\":4,\"y\":2,\"type\":\"oar\"},{\"x\":5,\"y\":2,\"type\":\"oar\"},{\"x\":1,\"y\":0,\"type\":\"oar\"},{\"x\":2,\"y\":0,\"type\":\"oar\"},{\"x\":3,\"y\":0,\"type\":\"oar\"},{\"x\":4,\"y\":0,\"type\":\"oar\"},{\"x\":5,\"y\":0,\"type\":\"oar\"}],\"life\":1050,\"shape\":{\"type\":\"rectangle\",\"width\":3,\"height\":7,\"orientation\":0}},\"sailors\":[{\"x\":0,\"y\":0,\"id\":0,\"name\":\"Edward Pouce\"},{\"x\":0,\"y\":1,\"id\":1,\"name\":\"Jack Teach\"},{\"x\":0,\"y\":2,\"id\":2,\"name\":\"Edward Pouce\"},{\"x\":1,\"y\":0,\"id\":3,\"name\":\"Edward Teach\"},{\"x\":1,\"y\":1,\"id\":4,\"name\":\"Luffy Pouce\"},{\"x\":1,\"y\":2,\"id\":5,\"name\":\"Luffy Pouce\"},{\"x\":2,\"y\":0,\"id\":6,\"name\":\"Edward Pouce\"},{\"x\":2,\"y\":1,\"id\":7,\"name\":\"Edward Pouce\"},{\"x\":2,\"y\":2,\"id\":8,\"name\":\"Luffy Teach\"},{\"x\":3,\"y\":0,\"id\":9,\"name\":\"Jack Teach\"},{\"x\":3,\"y\":1,\"id\":10,\"name\":\"Jack Teach\"},{\"x\":3,\"y\":2,\"id\":11,\"name\":\"Luffy Teach\"}],\"seaEntities\":[{\"position\":{\"x\":8153.389030097254,\"y\":351.1753941441404,\"orientation\":0.4537856055185257},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":\"400\",\"height\":\"1350\"}},{\"type\":\"stream\",\"position\":{\"x\":500,\"y\":0,\"orientation\":0},\"shape\":{\"type\":\"rectangle\",\"width\":50,\"height\":500,\"orientation\":0},\"strength\":40}],\"shipCount\":1}";
+		String jsonWeek6 = "{\"goal\":{\"mode\":\"REGATTA\",\"checkpoints\":[{\"position\":{\"x\":8182.608695652171,\"y\":2654.7231270358307,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":200.0}},{\"position\":{\"x\":5469.565217391305,\"y\":-1123.7785016286687,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":1500.0}},{\"position\":{\"x\":4434.7826086956475,\"y\":374.5928338762211,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":200.0}},{\"position\":{\"x\":1939.1304347826083,\"y\":5806.188925081433,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":200.0}},{\"position\":{\"x\":9573.913043478302,\"y\":5765.472312703588,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":200.0}}]},\"ship\":{\"type\":\"ship\",\"position\":{\"x\":2652.1739130434785,\"y\":2646.5798045602605,\"orientation\":0.0},\"name\":\"royal_fortune\",\"deck\":{\"width\":3,\"length\":8},\"entities\":[{\"x\":1,\"y\":1,\"type\":\"rudder\"},{\"x\":6,\"y\":0,\"type\":\"oar\"},{\"x\":6,\"y\":2,\"type\":\"oar\"},{\"x\":5,\"y\":2,\"type\":\"oar\"},{\"x\":4,\"y\":2,\"type\":\"oar\"},{\"x\":3,\"y\":2,\"type\":\"oar\"},{\"x\":3,\"y\":0,\"type\":\"oar\"},{\"x\":4,\"y\":0,\"type\":\"oar\"},{\"x\":5,\"y\":0,\"type\":\"oar\"},{\"x\":6,\"y\":1,\"type\":\"sail\",\"openned\":false},{\"x\":7,\"y\":2,\"type\":\"oar\"},{\"x\":7,\"y\":0,\"type\":\"oar\"}],\"life\":1200,\"shape\":{\"type\":\"rectangle\",\"width\":3.0,\"height\":8.0,\"orientation\":0.0}},\"sailors\":[{\"x\":0,\"y\":0,\"id\":0,\"name\":\"Luffy Teach\"},{\"x\":0,\"y\":1,\"id\":1,\"name\":\"Luffy Pouce\"},{\"x\":0,\"y\":2,\"id\":2,\"name\":\"Jack Teach\"},{\"x\":1,\"y\":0,\"id\":3,\"name\":\"Luffy Teach\"},{\"x\":1,\"y\":1,\"id\":4,\"name\":\"Jack Pouce\"},{\"x\":1,\"y\":2,\"id\":5,\"name\":\"Tom Pouce\"},{\"x\":2,\"y\":0,\"id\":6,\"name\":\"Edward Pouce\"},{\"x\":2,\"y\":1,\"id\":7,\"name\":\"Edward Pouce\"},{\"x\":2,\"y\":2,\"id\":8,\"name\":\"Edward Pouce\"},{\"x\":3,\"y\":0,\"id\":9,\"name\":\"Jack Pouce\"},{\"x\":3,\"y\":1,\"id\":10,\"name\":\"Jack Pouce\"},{\"x\":3,\"y\":2,\"id\":11,\"name\":\"Edward Pouce\"}],\"shipCount\":1}";
+		String jsonWeek6Runner = "{\"goal\":{\"mode\":\"REGATTA\",\"checkpoints\":[{\"position\":{\"x\":8182.608695652171,\"y\":2654.7231270358307,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":200.0}},{\"position\":{\"x\":5469.565217391305,\"y\":-1123.7785016286687,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":1500.0}},{\"position\":{\"x\":4434.7826086956475,\"y\":374.5928338762211,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":200.0}},{\"position\":{\"x\":1939.1304347826083,\"y\":5806.188925081433,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":200.0}},{\"position\":{\"x\":9573.913043478302,\"y\":5765.472312703588,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":200.0}}]},\"ship\":{\"type\":\"ship\",\"position\":{\"x\":2652.1739130434785,\"y\":2646.5798045602605,\"orientation\":0.0},\"name\":\"royal_fortune\",\"deck\":{\"width\":3,\"length\":8},\"entities\":[{\"x\":1,\"y\":1,\"type\":\"rudder\"},{\"x\":6,\"y\":0,\"type\":\"oar\"},{\"x\":6,\"y\":2,\"type\":\"oar\"},{\"x\":5,\"y\":2,\"type\":\"oar\"},{\"x\":4,\"y\":2,\"type\":\"oar\"},{\"x\":3,\"y\":2,\"type\":\"oar\"},{\"x\":3,\"y\":0,\"type\":\"oar\"},{\"x\":4,\"y\":0,\"type\":\"oar\"},{\"x\":5,\"y\":0,\"type\":\"oar\"},{\"x\":6,\"y\":1,\"type\":\"sail\",\"openned\":false},{\"x\":7,\"y\":2,\"type\":\"oar\"},{\"x\":7,\"y\":0,\"type\":\"oar\"}],\"life\":1200,\"shape\":{\"type\":\"rectangle\",\"width\":3.0,\"height\":8.0,\"orientation\":0.0}},\"sailors\":[{\"x\":0,\"y\":0,\"id\":0,\"name\":\"Tom Teach\"},{\"x\":0,\"y\":1,\"id\":1,\"name\":\"Jack Pouce\"},{\"x\":0,\"y\":2,\"id\":2,\"name\":\"Tom Teach\"},{\"x\":1,\"y\":0,\"id\":3,\"name\":\"Jack Teach\"},{\"x\":1,\"y\":1,\"id\":4,\"name\":\"Tom Teach\"},{\"x\":1,\"y\":2,\"id\":5,\"name\":\"Edward Teach\"},{\"x\":2,\"y\":0,\"id\":6,\"name\":\"Tom Teach\"},{\"x\":2,\"y\":1,\"id\":7,\"name\":\"Jack Pouce\"},{\"x\":2,\"y\":2,\"id\":8,\"name\":\"Luffy Pouce\"},{\"x\":3,\"y\":0,\"id\":9,\"name\":\"Edward Teach\"},{\"x\":3,\"y\":1,\"id\":10,\"name\":\"Edward Teach\"},{\"x\":3,\"y\":2,\"id\":11,\"name\":\"Jack Pouce\"}],\"shipCount\":1}";
+		//------------------
+		Wind wind = new Wind(0.0, 10.0);
+		String jsonListSeaEntitiesWeek6 = "[{\"position\":{\"x\":8153.389030097254,\"y\":351.1753941441404,\"orientation\":0.4537856055185257},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":\"400\",\"height\":\"1350\"}},{\"position\":{\"x\":6186.903137789905,\"y\":2006.7567567567567,\"orientation\":-0.17453292519943295},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":500,\"height\":\"1750\"}},{\"position\":{\"x\":6630.286493860851,\"y\":3209.4594594594596,\"orientation\":-0.24434609527920614},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":500,\"height\":\"1750\"}},{\"position\":{\"x\":7174.22818123444,\"y\":1102.9701576576585,\"orientation\":0.6981317007977318},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":\"250\",\"height\":\"1200\"}},{\"position\":{\"x\":7409.664698840839,\"y\":701.646959459459,\"orientation\":0.7330382858376184},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":\"400\",\"height\":\"1000\"},\"strength\":10},{\"position\":{\"x\":6384.720327421553,\"y\":2581.0810810810804,\"orientation\":3.0019663134302466},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":200,\"height\":1000},\"strength\":10}]";
+		String jsonListSeaEntitiesWeek7 = "[{\"position\":{\"x\":5469.361147327249,\"y\":227.86458333333337,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"circle\",\"radius\":\"250\"},\"id\":\"130042\"},{\"position\":{\"x\":8153.389030097254,\"y\":351.1753941441404,\"orientation\":0.4537856055185257},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":\"400\",\"height\":\"1350\"},\"id\":\"760433\"},{\"position\":{\"x\":6186.903137789905,\"y\":2006.7567567567567,\"orientation\":-0.17453292519943295},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":500,\"height\":\"1750\"},\"id\":\"413501\"},{\"position\":{\"x\":6630.286493860851,\"y\":3209.4594594594596,\"orientation\":-0.24434609527920614},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":500,\"height\":\"1750\"},\"id\":\"695360\"},{\"position\":{\"x\":7174.22818123444,\"y\":1102.9701576576585,\"orientation\":0.6981317007977318},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":\"250\",\"height\":\"1200\"},\"id\":\"355108\"},{\"position\":{\"x\":7409.664698840839,\"y\":701.646959459459,\"orientation\":0.7330382858376184},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":\"400\",\"height\":\"1000\"},\"strength\":10,\"id\":\"889678\"},{\"position\":{\"x\":6384.720327421553,\"y\":2581.0810810810804,\"orientation\":3.0019663134302466},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":200,\"height\":1000},\"strength\":10,\"id\":\"437503\"}]";
+		String jsonListSeaEntitiesWeek6Runner ="[{\"position\":{\"x\":3539.1304347826062,\"y\":2280.130293159613,\"orientation\":1.9896753472735356},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":\"350\",\"height\":\"3000\"},\"strength\":35,\"id\":\"66251\"},{\"position\":{\"x\":5504.347826086957,\"y\":2703.5830618892533,\"orientation\":0},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":\"500\",\"height\":\"1750\"},\"strength\":50,\"id\":\"163530\"},{\"position\":{\"x\":5400,\"y\":1172.6384364820844,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"circle\",\"radius\":\"650\"},\"id\":\"369817\"},{\"position\":{\"x\":4921.739130434786,\"y\":4096.091205211728,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":\"1000\",\"height\":\"2500\"},\"id\":\"423671\"}]";
+		//------------------
+
+		Game game = new Game(jsonWeek6Runner, jsonListSeaEntitiesWeek6Runner);
 		StringBuilder textForOutput = new StringBuilder(game.getAllCheckpointsForOutput() + "---\n");
 		int tour=0;
+		try {
+			textForOutput.append(game.getAllSeaEntitiesForOutput()+ "---\n");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		while (!game.isFinished()) {
-			game.nextRound();
+			game.nextRound(wind);
 			logger.info(String.valueOf(game));
 			textForOutput.append(game);
+			tour++;
 		}
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
 			try {
 				writer.write(String.valueOf(textForOutput));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				logger.log(Level.INFO, "Exception");
 			}
 		}
 
 	}
-	*/
 }

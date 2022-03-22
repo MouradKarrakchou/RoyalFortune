@@ -5,13 +5,15 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.exception.EmptyDaoException;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
@@ -48,22 +50,27 @@ public class Cockpit implements ICockpit {
 	}
 
 	public String nextRound(String round){
+		System.out.println(round);
 		NextRoundDAO nextRoundDAO = null;
 		try {
 			nextRoundDAO = createNextRoundDAO(round);
 		} catch (EmptyDaoException e) {
 			e.printStackTrace();
 		}
-
+		LOGGER.info("Next round input: " + round);
+		updateWithNextRound(nextRoundDAO);
+		String actions  =captain.roundDecisions();
+		System.out.println("Actions = "+actions);
+		return actions;
+	}
+	public void updateWithNextRound(NextRoundDAO nextRoundDAO){
 		Ship newShip = nextRoundDAO.getShip();
+		//System.out.println("New ship = "+newShip);
 		ship.updatePos(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
-		String out = "Next round input: " + round;
-		LOGGER.info(out);
-
-		captain.updateWind(nextRoundDAO.getWind());
-
-		return captain.roundDecisions();
+		captain.updateSeaEntities(nextRoundDAO.getVisibleEntities());
+		captain.setWind(nextRoundDAO.getWind());
+		captain.getPreCalculator().setWind(captain.getWind());
 	}
 
 	public InitGameDAO createInitGameDAO(String json)throws EmptyDaoException{

@@ -1,9 +1,11 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.Goal;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Circle;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.shape.Shape;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 
 public class DirectionsManager {
     private final Ship ship;
@@ -26,46 +28,68 @@ public class DirectionsManager {
      * @return the angle which the ship must turn, the angle in which the ship is in the right direction
      */
     public double[] angleCalculator() {
-        double angleShip = ship.getPosition().getOrientation();
-        Shape shape = fictitiousCheckpoints.getCurrentCheckPoint().getShape();
-        double radius = ((Circle) shape).getRadius();
+        Checkpoint currentCheckpoint = fictitiousCheckpoints.getCurrentCheckPoint();
+        double angleMove = computeAngleMove(currentCheckpoint.getPosition(), ship.getPosition());
+        double angleCone = computeAngleCone(currentCheckpoint, ship.getPosition());
+        angleMove = adjustAccuracy(angleMove);
+        angleMove = checkSign(angleMove,currentCheckpoint.getPosition(), ship.getPosition());
+        return new double[]{angleMove, angleCone};
+    }
 
+    public double computeDistanceBetweenTwoPosition(Position currentCheckpointPosition, Position shipPosition){
+        double distanceSCX = currentCheckpointPosition.getX() - shipPosition.getX();
+        double distanceSCY = currentCheckpointPosition.getY() - shipPosition.getY();
+        return Math.sqrt(Math.pow(distanceSCX, 2) + Math.pow(distanceSCY, 2));
+    }
 
-        double distanceSCX = fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getX() - ship.getPosition().getX();
-        double distanceSCY = fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getY() - ship.getPosition().getY();
-        double distanceSC = Math.sqrt(Math.pow(distanceSCX, 2) + Math.pow(distanceSCY, 2));
-        double num = distanceSCX * Math.cos(angleShip) + distanceSCY * Math.sin(angleShip);
+    public double computeNumerateur(Position currentCheckpointPosition, Position shipPosition){
+        double distanceSCX = currentCheckpointPosition.getX()- shipPosition.getX();
+        double distanceSCY = currentCheckpointPosition.getY() - shipPosition.getY();
+        double angleShip = shipPosition.getOrientation();
+        return distanceSCX * Math.cos(angleShip) + distanceSCY * Math.sin(angleShip);
+    }
 
-        double angleCone = Math.atan(radius / distanceSC);
+    public double computeAngleCone(Checkpoint currentCheckpoint, Position shipPosition){
+        Position currentCheckpointPosition = currentCheckpoint.getPosition();
+        double radius = ((Circle) currentCheckpoint.getShape()).getRadius();
+        double distanceShipCheckpoint = computeDistanceBetweenTwoPosition(currentCheckpointPosition, shipPosition);
+        if(distanceShipCheckpoint == 0)
+            throw new ArithmeticException();
+        return Math.atan(radius / distanceShipCheckpoint);
+    }
 
-        double angleMove = Math.acos(num / distanceSC);
+    public double computeAngleMove(Position currentCheckpointPosition, Position shipPosition){
+        double distanceShipCheckpoint = computeDistanceBetweenTwoPosition(currentCheckpointPosition, shipPosition);
+        double numerateur = computeNumerateur(currentCheckpointPosition, shipPosition);
+        if(distanceShipCheckpoint == 0)
+            throw new ArithmeticException();
+        return Math.acos(numerateur / distanceShipCheckpoint);
+    }
 
+    public double adjustAccuracy(double angleMove){
         while (angleMove > Math.PI) {
             angleMove -= 2 * Math.PI;
         }
-
         while (angleMove < -Math.PI) {
             angleMove += 2 * Math.PI;
         }
-
-        return new double[]{checkSign(angleMove), angleCone};
+        return angleMove;
     }
 
-    private double checkSign(double angleMove) {
-        if (distToCheckPoint(angleMove) < distToCheckPoint(-angleMove))
+    public double checkSign(double angleMove, Position checkpointPosition, Position shipPosition) {
+        double distanceAngleMove = distToCheckPoint(angleMove, checkpointPosition, shipPosition);
+        double distanceMinusAngleMove = distToCheckPoint(-angleMove, checkpointPosition, shipPosition);
+
+        if (distanceAngleMove < distanceMinusAngleMove)
             return angleMove;
         else return -angleMove;
     }
 
-    private double distToCheckPoint(double angleMove) {
-        double angleRot = angleMove + ship.getPosition().getOrientation();
-        double newX = ship.getPosition().getX() + Math.cos(angleRot);
-        double newY = ship.getPosition().getY() + Math.sin(angleRot);
-
-
-        double distanceSCX = fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getX() - newX;
-        double distanceSCY = fictitiousCheckpoints.getCurrentCheckPoint().getPosition().getY() - newY;
-        return (Math.sqrt(Math.pow(distanceSCX, 2) + Math.pow(distanceSCY, 2)));
+    public double distToCheckPoint(double angleMove, Position checkpointPosition, Position shipPosition) {
+        double angleToRotate = angleMove + shipPosition.getOrientation();
+        double newX = shipPosition.getX() + Math.cos(angleToRotate);
+        double newY = shipPosition.getY() + Math.sin(angleToRotate);
+        return computeDistanceBetweenTwoPosition(checkpointPosition, new Position(newX, newY,0));
     }
 
     /**

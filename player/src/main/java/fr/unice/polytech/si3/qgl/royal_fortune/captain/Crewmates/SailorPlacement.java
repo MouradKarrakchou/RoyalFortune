@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain;
+package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
 
 public class SailorPlacement {
     private int oarWeight;
@@ -86,5 +86,15 @@ public class SailorPlacement {
 
     public void incrementOarWeight(int incrementation){
         this.oarWeight += incrementation;
+    }
+
+    @Override
+    public String toString() {
+        return "SailorPlacement{" +
+                "rudder=" + rudder +
+                ", sail=" + sail +
+                ", nbLeftSailors=" + nbLeftSailors +
+                ", nbRightSailors=" + nbRightSailors +
+                '}';
     }
 }
