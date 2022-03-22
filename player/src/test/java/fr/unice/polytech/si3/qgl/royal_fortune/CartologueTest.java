@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +39,9 @@ public class CartologueTest {
     }
     @Test
     void testComputeDistance2(){
+        Stream stream= new Stream(new Position(0,0),new Rectangle("rectangle",1000,1000,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(1000,0));
-        assertTrue(cartologue.computeNumberOfRoundsNeeded(segment)-6.06<0.01);
+        hashMap.put(segment,stream);
+        assertEquals(6,cartologue.computeNumberOfRoundsNeeded(segment));
     }
 }
