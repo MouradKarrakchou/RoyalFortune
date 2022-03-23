@@ -636,7 +636,13 @@ public class SailorMovementStrategyTest {
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockPreCalculator);
 
         SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, false, true);
-        sailorMovementStrategy.askPlacement(requestedPlacement);
+        SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(requestedPlacement);
+
+        assertEquals(2, strategyAnswer.getNbLeftSailors());
+        assertEquals(0, strategyAnswer.getNbLeftSailors());
+        assertTrue(strategyAnswer.hasRudder());
+
+        assertFalse(requestedPlacement.hasRudder());
 
         assertEquals(sailor00, associations.getAssociatedSailor(oar00));
         assertEquals(sailor02, associations.getAssociatedSailor(sail));
