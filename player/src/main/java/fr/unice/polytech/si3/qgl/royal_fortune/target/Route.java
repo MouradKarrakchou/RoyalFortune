@@ -55,7 +55,7 @@ public class Route implements Comparable{
      * If we have a list like <strong>{AB,BC,CD,DE}</strong> the two first segment AB and BC will go in firstRoute and the other <strong>(CD,DE)</strong> in the second.<br>
      * @param listSegment list of segments
      */
-    private void distributeSegments(List<Segment> listSegment) {
+    public void distributeSegments(List<Segment> listSegment) {
         List<Segment> segmentFirstRoute = new ArrayList<>();
         List<Segment> segmentSecondRoute = new ArrayList<>();
         for(int i = 0 ; i < listSegment.size()/2;i++)segmentFirstRoute.add(listSegment.get(i));
@@ -75,7 +75,7 @@ public class Route implements Comparable{
      * slice the segment by intersection between seaEntities using the cartologue
      * @return list of segments
      */
-    private List<Segment> sliceSegment(Segment segment) {
+    public List<Segment> sliceSegment(Segment segment) {
         //use cartologue to slice segment
         return cartologue.sliceSegmentByInteraction(segment);
     }
@@ -130,7 +130,8 @@ public class Route implements Comparable{
         }
     }
 
-    private String indent(int j) {
+
+    public String indent(int j) {
         String out = "";
         for(int i = 0 ; i < j ; i++) out += "\t";
         return out;

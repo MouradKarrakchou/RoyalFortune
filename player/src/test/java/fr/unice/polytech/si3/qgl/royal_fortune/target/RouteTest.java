@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,33 +24,34 @@ public class RouteTest {
     Route route;
 
     @BeforeEach
-    void init(){
+    void init() {
         listStream = new ArrayList<>();
         listReef = new ArrayList<>();
         wind = new Wind(0., 5.);
         cartologue = new Cartologue(listStream, listReef);
 
-        segment = new Segment(new Position(0,0,0), new Position(10,0,0));
+        segment = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
         route = new Route(segment, cartologue);
     }
+
     @Test
-    void createLeaveRouteNotStreamNotReef(){
+    void createLeaveRouteNotStreamNotReef() {
         assertTrue(route.getFirstRoute() == null);
         assertTrue(route.getSecondRoute() == null);
     }
 
     @Test
-    void createRouteThatContainTwoLeaveRoute(){
-        Segment segment1 = new Segment(new Position(0,0,0), new Position(10,0,0));
-        Segment segment2 = new Segment(new Position(10,0,0), new Position(10,10,0));
-        Segment segment3 = new Segment(new Position(10,10,0), new Position(30,10,0));
+    void createRouteThatContainTwoLeaveRoute() {
+        Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
+        Segment segment2 = new Segment(new Position(10, 0, 0), new Position(10, 10, 0));
+        Segment segment3 = new Segment(new Position(10, 10, 0), new Position(30, 10, 0));
 
         List<Segment> listSegment = new ArrayList<>();
         listSegment.add(segment1);
         listSegment.add(segment2);
         listSegment.add(segment3);
 
-        route = new Route(listSegment, cartologue);
+        Route route = new Route(listSegment, cartologue);
         assertTrue(route.getFirstRoute().getListSegment().size() == 1);
         assertNull(route.getFirstRoute().getFirstRoute());
         assertNull(route.getFirstRoute().getSecondRoute());
@@ -60,13 +62,12 @@ public class RouteTest {
     }
 
     @Test
-    void createRouteThatContain5Route(){
-        Segment segment1 = new Segment(new Position(0,0,0), new Position(10,0,0));
-        Segment segment2 = new Segment(new Position(10,0,0), new Position(10,10,0));
-        Segment segment3 = new Segment(new Position(10,10,0), new Position(30,10,0));
-        Segment segment4 = new Segment(new Position(30,0,0), new Position(30,50,0));
-        Segment segment5 = new Segment(new Position(30,50,0), new Position(30,100,0));
-
+    void createRouteThatContain5Route() {
+        Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
+        Segment segment2 = new Segment(new Position(10, 0, 0), new Position(10, 10, 0));
+        Segment segment3 = new Segment(new Position(10, 10, 0), new Position(30, 10, 0));
+        Segment segment4 = new Segment(new Position(30, 0, 0), new Position(30, 50, 0));
+        Segment segment5 = new Segment(new Position(30, 50, 0), new Position(30, 100, 0));
 
 
         List<Segment> listSegment = new ArrayList<>();
@@ -77,14 +78,17 @@ public class RouteTest {
         listSegment.add(segment5);
 
 
-        route = new Route(listSegment, cartologue);
+        Route route = new Route(listSegment, cartologue);
         assertTrue(route.getFirstRoute().getListSegment().size() == 2);
         assertTrue(route.getSecondRoute().getListSegment().size() == 3);
         System.out.println(route);
     }
 
     @Test
-    void distributeSegmentsTest(){
-        assertTrue(true);
+    void sliceSegmentTestWithAStream(){
+        Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
+        listStream.add(stream);
+        List<Segment> res = route.sliceSegment(segment);
+        assertEquals(3, res.size());
     }
 }
