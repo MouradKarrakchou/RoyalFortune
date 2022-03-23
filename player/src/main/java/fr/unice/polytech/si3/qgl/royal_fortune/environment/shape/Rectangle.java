@@ -9,6 +9,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -100,7 +101,16 @@ Rectangle extends Shape{
 			intersection = segment.computeIntersectionWith(seg);
 			intersection.ifPresent(intersectionsPosition::add);
 		}
-		return ordered(intersectionsPosition,segment);
+		return distinct(ordered(intersectionsPosition,segment));
+	}
+
+	private List<Position> distinct(List<Position> ordered) {
+		List<Position> positionList=new ArrayList<>();
+		for (Position position:ordered){
+			if (positionList.contains(position))
+			positionList.add(position);
+		}
+		return positionList;
 	}
 
 	private List<Position> ordered(List<Position> intersectionsPosition, Segment segment) {

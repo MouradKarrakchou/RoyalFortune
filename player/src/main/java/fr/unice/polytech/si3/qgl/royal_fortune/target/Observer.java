@@ -18,7 +18,7 @@ public class Observer {
     private Position nextCheckPointPosition;
     private int RANGE=40;
 
-    public Observer(Position shipPosition, Wind wind,Position nextCheckPointPosition){
+    public Observer(Position shipPosition,Position nextCheckPointPosition){
         this.nextCheckPointPosition=nextCheckPointPosition;
         this.shipPosition=shipPosition;
         this.currentSeaEntities=new ArrayList<>();
@@ -28,7 +28,7 @@ public class Observer {
 
     private List<Stream> getStream(List<SeaEntities> newSeaEntities){
         List<Stream> listOfStream=new ArrayList<>();
-        for(SeaEntities seaEntities:currentSeaEntities){
+        for(SeaEntities seaEntities:newSeaEntities){
             if (seaEntities instanceof Stream)
                 listOfStream.add((Stream) seaEntities);
         }
@@ -53,6 +53,7 @@ public class Observer {
         for (Stream stream:getStream(newSeaEntities)){
             beacons.addAll(stream.getShape().generateBeacon());
         }
+        cartologue.setListStream(getStream(newSeaEntities));
         return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);
     }
 
