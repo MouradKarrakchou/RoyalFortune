@@ -11,7 +11,7 @@ public class PreCalculator {
     private final Ship ship;
     private final List<Sailor> sailors;
     private final SeaMap seaMap;
-    private  Wind wind;
+    private Wind wind;
 
     public PreCalculator(Ship ship, List<Sailor> sailors, SeaMap seaMap, Wind wind) {
         this.ship = ship;
@@ -50,8 +50,7 @@ public class PreCalculator {
         double angle = ship.getPosition().getOrientation();
 
         if(ship.getSail().isOpenned()) {
-            Wind theWind = wind;
-            double windNorm = theWind.getStrength() * Math.cos(theWind.getOrientation() - angle);
+            double windNorm = wind.getStrength() * Math.cos(wind.getOrientation() - angle);
 
             newX += windNorm * Math.cos(angle);
             newY += windNorm * Math.sin(angle);
