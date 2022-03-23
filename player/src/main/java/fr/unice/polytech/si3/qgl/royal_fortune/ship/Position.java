@@ -77,8 +77,7 @@ public class Position {
 
 	@Override
 	public boolean equals(Object o){
-		if(!(o instanceof Position)) return false;
-		Position p = (Position) o;
+		if(!(o instanceof Position p)) return false;
 		return p.getX() == x && p.getY() == y && p.getOrientation() == orientation;
 	}
 }

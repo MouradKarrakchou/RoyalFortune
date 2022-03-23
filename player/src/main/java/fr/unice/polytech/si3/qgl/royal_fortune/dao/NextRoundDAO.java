@@ -41,6 +41,6 @@ public class NextRoundDAO {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return "";
 	}
 }
