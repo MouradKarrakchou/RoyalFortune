@@ -94,7 +94,7 @@ public class Captain {
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
 
-        if(strategyAnswer.hasSail())
+        if(strategyAnswer.hasSail() && optionalSailDecision.isPresent())
             roundActions.addAll(crew.sailorsUseSail(optionalSailDecision.get()));
 
         turnWithRudderRoundAction(strategyAnswer, angleMove);
@@ -135,7 +135,7 @@ public class Captain {
     }
 
     /**
-     * If there is a usable rudder,
+     * If there is a usable rudder, add a rudder action
      * @param strategyAnswer
      * @param angleMove
      */
