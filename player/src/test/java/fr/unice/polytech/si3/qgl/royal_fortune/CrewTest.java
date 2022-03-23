@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Crew;
@@ -24,6 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class CrewTest {
     private Ship basicShip;
@@ -91,4 +95,25 @@ class CrewTest {
         action = crew.sailorsUseSail(false).toString();
         assertEquals("[{\"sailorId\":0,\"type\":\"LOWER_SAIL\"}]", action);
     }
+    @Test
+    void sailorsMoveTest(){
+        Associations associations=mock(Associations.class);
+        Sailor sailor=new Sailor(0,0,0,"");
+        when(associations.isFree(sailor)).thenReturn(false);
+        when(associations.getAssociatedEntity(sailor)).thenReturn(new Oar(2,2));
+        sailors.add(sailor);
+        crew=new Crew(sailors,associations);
+        assertEquals("[{\"sailorId\":0,\"type\":\"MOVING\",\"xdistance\":2,\"ydistance\":2}]", crew.sailorsMove().toString());
+        assertEquals("[{\"sailorId\":0,\"type\":\"OAR\"}]", crew.sailorsOar().toString());
+
+        when(associations.isFree(sailor)).thenReturn(true);
+        assertEquals("[]", crew.sailorsMove().toString());
+        assertEquals("[]", crew.sailorsOar().toString());
+        when(associations.isFree(sailor)).thenReturn(false);
+        when(associations.getAssociatedEntity(sailor)).thenReturn(new Rudder(2,2));
+        assertEquals("[]", crew.sailorsMove().toString());
+        assertEquals("[]", crew.sailorsOar().toString());
+
+    }
+
 }
