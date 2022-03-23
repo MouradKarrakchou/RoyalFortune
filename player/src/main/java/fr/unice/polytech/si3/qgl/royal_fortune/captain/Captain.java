@@ -40,7 +40,7 @@ public class Captain {
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
         seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(),wind,seaEntities);
         preCalculator = new PreCalculator(ship, sailors, seaMap,wind);
-        crew = new Crew(sailors, ship, preCalculator, associations);
+        crew = new Crew(sailors, associations);
 
     }
 
