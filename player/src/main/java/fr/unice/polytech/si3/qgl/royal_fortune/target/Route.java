@@ -65,7 +65,7 @@ public class Route implements Comparable{
         else
             firstRoute = new Route(segmentFirstRoute, cartologue);
         if (segmentSecondRoute.size()==1)
-            secondRoute = new Route(segmentFirstRoute.get(0), cartologue);
+            secondRoute = new Route(segmentSecondRoute.get(0), cartologue);
         else
             secondRoute = new Route(segmentSecondRoute, cartologue);
     }
@@ -113,25 +113,25 @@ public class Route implements Comparable{
         else return -1;
     }
 
-    public String toString(int i){
-        //" + listSegment.toString()+"
-        String out ="";
-        //out = indent(out, i);
-        out += i+" - Route: \n";
-        out = indent(out, i);
-        if(firstRoute!= null)
-            out += i+" - FirstRoute: \n\t" + firstRoute.toString(i+1)+"\n";
-        else
-            out+= i+" - FirstRoute: \n\t "+indent(out, i)+listSegment.toString()+"\n";
-        out = indent(out, i);
-        if(secondRoute!= null)
-            out += i+" - SecondRoute: \n\t" + secondRoute.toString(i+1)+"\n";
-        else
-            out+= i+" - SecondRoute: \n\t"+indent(out, i)+listSegment.toString()+"\n";
-        return out;
+    @Override
+    public String toString() {
+        return toString(0,0);
     }
 
-    private String indent(String out, int j) {
+
+        public String toString(int i, int indentValue){
+        if(firstRoute == null && secondRoute == null){
+            return indent(indentValue)+"R"+i+"* -> "+listSegment.toString()+"\n";
+        }
+        else {
+            return indent(indentValue)+"R"+i+":\n" +
+                    firstRoute.toString(i+1,indentValue+1)+
+                    secondRoute.toString(i+2, indentValue+1);
+        }
+    }
+
+    private String indent(int j) {
+        String out = "";
         for(int i = 0 ; i < j ; i++) out += "\t";
         return out;
     }
