@@ -112,4 +112,11 @@ class SailorTest {
 		assertFalse(incorrectSailor08.isOnTheTargetEntity(associations));
 	}
 
+	@Test
+	void nameAndIdTest() {
+		Sailor sailor = new Sailor(0, 0, 0, "King");
+		assertEquals("King", sailor.getName());
+		assertEquals(0, sailor.getId());
+	}
+
 }
