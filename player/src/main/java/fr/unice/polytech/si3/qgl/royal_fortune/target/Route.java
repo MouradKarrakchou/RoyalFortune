@@ -100,9 +100,6 @@ public class Route implements Comparable{
         return cartologue;
     }
 
-    public Boolean getReefCollision() {
-        return reefCollision;
-    }
 
     @Override
     public int compareTo(Object o) {

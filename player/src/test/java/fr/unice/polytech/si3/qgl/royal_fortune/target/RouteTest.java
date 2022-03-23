@@ -62,6 +62,44 @@ public class RouteTest {
     }
 
     @Test
+    void createRouteThatCutAStream() {
+        Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
+        Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
+        listStream.add(stream);
+
+        Route route = new Route(segment1, cartologue);
+        assertTrue(route.getListSegment().size() == 3);
+        assertTrue(route.getFirstRoute().getListSegment().size() == 1);
+        assertNull(route.getFirstRoute().getFirstRoute());
+        assertNull(route.getFirstRoute().getSecondRoute());
+        //-----------> A DECOMMENTER
+        assertEquals(route.getFirstRoute().getValue()+route.getSecondRoute().getValue(),route.getValue());
+
+        assertTrue(route.getSecondRoute().getListSegment().size() == 2);
+        assertEquals(route.getListSegment().get(1), route.getSecondRoute().getFirstRoute().getListSegment().get(0));
+        assertEquals(route.getListSegment().get(2), route.getSecondRoute().getSecondRoute().getListSegment().get(0));
+    }
+
+    @Test
+    void createRouteThatCutAStream2() {
+        Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 1, 0));
+        Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
+        listStream.add(stream);
+
+        Route route = new Route(segment1, cartologue);
+        assertTrue(route.getListSegment().size() == 3);
+        assertTrue(route.getFirstRoute().getListSegment().size() == 1);
+        assertNull(route.getFirstRoute().getFirstRoute());
+        assertNull(route.getFirstRoute().getSecondRoute());
+        assertEquals(route.getFirstRoute().getValue()+route.getSecondRoute().getValue(),route.getValue());
+
+        assertTrue(route.getSecondRoute().getListSegment().size() == 2);
+        assertEquals(route.getListSegment().get(1), route.getSecondRoute().getFirstRoute().getListSegment().get(0));
+        assertEquals(route.getListSegment().get(2), route.getSecondRoute().getSecondRoute().getListSegment().get(0));
+    }
+
+
+    @Test
     void createRouteThatContain5Route() {
         Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
         Segment segment2 = new Segment(new Position(10, 0, 0), new Position(10, 10, 0));
@@ -91,4 +129,40 @@ public class RouteTest {
         List<Segment> res = route.sliceSegment(segment);
         assertEquals(3, res.size());
     }
+
+    @Test
+    void getValueTest(){
+        assertTrue(Math.abs(route.getValue()-0.06) < 0.2);
+    }
+
+    @Test
+    void getCartolgueTest(){
+        assertTrue(route.getCartologue() != null);
+    }
+
+    @Test
+    void toStringTest(){
+        assertTrue(route.toString() != null);
+        assertTrue(route.toString(0,0) != null);
+    }
+
+    @Test
+    void indentTest(){
+        assertTrue(route.indent(2).equals("\t\t"));
+    }
+
+    @Test
+    void compareToTest(){
+        Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
+        Segment segment2 = new Segment(new Position(0, 0, 0), new Position(20, 10, 0));
+
+        Route r1 = new Route(segment1, cartologue);
+        Route r2 = new Route(segment2, cartologue);
+        assertEquals(-1, r1.compareTo(r2));
+        assertEquals(1, r2.compareTo(r1));
+        assertEquals(0, r1.compareTo(r1));
+    }
+
+
+
 }
