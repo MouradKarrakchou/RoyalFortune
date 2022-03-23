@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SeaMapTest {
+class SeaMapTest {
     private Ship basicShip;
     private Captain captain;
     private List<Checkpoint> checkpoints;

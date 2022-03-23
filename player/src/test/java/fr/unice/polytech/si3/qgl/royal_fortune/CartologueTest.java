@@ -17,7 +17,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CartologueTest {
+class CartologueTest {
     Cartologue cartologue;
     List<Stream> listStream;
     List<Reef> listReef;
@@ -42,29 +42,25 @@ public class CartologueTest {
         Segment segment=new Segment(new Position(0,0),new Position(1000,0));
         map.put(segment,stream);
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-4.65)<0.01);
-    }
-    @Test
-    void testComputeDistance3(){
-        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,Math.PI),50);
-        Segment segment=new Segment(new Position(0,0),new Position(1000,0));
+
+        stream = new Stream(new Position(0,0),new Rectangle(1000,1000,Math.PI),50);
+        segment=new Segment(new Position(0,0),new Position(1000,0));
         map.put(segment,stream);
         System.out.println(cartologue.computeNumberOfRoundsNeeded(segment));
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-8.69)<0.01);
-    }
-    @Test
-    void testComputeDistance4(){
-        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
-        Segment segment=new Segment(new Position(0,0),new Position(0,1000));
+
+        stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
+        segment=new Segment(new Position(0,0),new Position(0,1000));
+        map.put(segment,stream);
+        assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-6.06)<0.01);
+
+
+        stream = new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
+        segment = new Segment(new Position(0,0),new Position(0,1000));
         map.put(segment,stream);
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-6.06)<0.01);
     }
-    @Test
-    void testComputeDistance5(){
-        Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
-        Segment segment=new Segment(new Position(0,0),new Position(0,1000));
-        map.put(segment,stream);
-        assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-6.06)<0.01);
-    }
+
     @Test
     void testComputeDistance6(){
         Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);

@@ -6,10 +6,9 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class CircleTest {
+class CircleTest {
     @Test
     void rectangleIsInCircle(){
         double radius = 500.;
@@ -47,6 +46,6 @@ public class CircleTest {
         double radius = 50.;
         Circle c = new Circle(radius);
 
-        assertTrue(c.toString() != "");
+        assertNotEquals("", c.toString());
     }
 }

@@ -74,10 +74,5 @@ public class Position {
 		this.orientation=position.getOrientation();
     }
 
-
-	public boolean equals(Object o){
-		if(!(o instanceof Position p)) return false;
-		return p.getX() == x && p.getY() == y && p.getOrientation() == orientation;
-	}
-
+	
 }

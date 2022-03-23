@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class SailAction extends Action{
 
-    final Logger LOGGER = Logger.getLogger(SailAction.class.getName());
+    final Logger logger = Logger.getLogger(SailAction.class.getName());
     public SailAction(int sailorId, String type) {
         super(sailorId, type);
         this.type = type;
@@ -17,6 +17,7 @@ public class SailAction extends Action{
 
     public SailAction(){}
 
+    @Override
     public String getType() {
         return type;
     }
@@ -31,7 +32,7 @@ public class SailAction extends Action{
         try {
             return mapper.writeValueAsString(rudderActionJSON);
         } catch (JsonProcessingException e) {
-            LOGGER.log(Level.INFO, "Exception");
+            logger.log(Level.INFO, "Exception");
         }
         return "";
     }

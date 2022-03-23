@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CrewTest {
+class CrewTest {
     private Ship basicShip;
     private Captain captain;
     private List<Checkpoint> checkpoints;
