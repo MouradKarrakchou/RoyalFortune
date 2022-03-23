@@ -742,7 +742,7 @@ class SailorMovementStrategyTest {
         Associations associations = new Associations();
 
         PreCalculator mockedPreCalculator = mock(PreCalculator.class);
-        when(mockedPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(false);
+        when(mockedPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(true);
 
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockedPreCalculator);
         assertFalse(sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly());
@@ -760,5 +760,20 @@ class SailorMovementStrategyTest {
         assertEquals(canGoBoth, associations.getAssociatedSailor(oar01));
         assertEquals(canOnlyGoLeft, associations.getAssociatedSailor(oar00));
         assertNull(associations.getAssociatedEntity(canOnlyGoRight));
+
+        Sailor canGoBoth1 = new Sailor(1, 1, 1, "canBoth1");
+        sailors.add(canGoBoth1);
+
+        Oar oar02 = new Oar(1, 1);
+        entities.add(oar02);
+
+        Oar oar03 = new Oar(1, 0);
+        entities.add(oar03);
+
+        assertTrue(sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly());
+        assertEquals(canGoBoth1, associations.getAssociatedSailor(oar03));
+        assertEquals(canOnlyGoRight, associations.getAssociatedSailor(oar02));
+
+        assertFalse(sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly());
     }
 }
