@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
@@ -41,7 +42,7 @@ public class Cockpit implements ICockpit {
 		try {
 			initGameDAO = createInitGameDAO(game);
 		} catch (EmptyDaoException e) {
-			e.printStackTrace();
+			LOGGER.info("Empty Dao");
 		}
 		assert initGameDAO != null;
 		ship = initGameDAO.getShip();
@@ -56,7 +57,7 @@ public class Cockpit implements ICockpit {
 		try {
 			nextRoundDAO = createNextRoundDAO(round);
 		} catch (EmptyDaoException e) {
-			e.printStackTrace();
+			LOGGER.info("Empty Dao");
 		}
 		LOGGER.info("Next round input: " + round);
 		updateWithNextRound(nextRoundDAO);
