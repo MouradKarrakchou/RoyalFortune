@@ -43,6 +43,7 @@ public class Cockpit implements ICockpit {
 		} catch (EmptyDaoException e) {
 			e.printStackTrace();
 		}
+		assert initGameDAO != null;
 		ship = initGameDAO.getShip();
 		sailors = initGameDAO.getSailors();
 		goal = initGameDAO.getGoal();
