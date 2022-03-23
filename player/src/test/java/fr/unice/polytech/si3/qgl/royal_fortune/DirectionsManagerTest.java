@@ -290,7 +290,7 @@ class DirectionsManagerTest {
         Position shipPosition = new Position(0,0,0);
         double angle = Math.PI;
         double computeDistance = dirMan.checkSign(angle,checkpointPosition,shipPosition);
-        assertTrue(Math.abs(computeDistance-3.14) < 0.2);
+        assertTrue(Math.abs(computeDistance+3.14) < 0.2);
     }
 
 
