@@ -28,8 +28,8 @@ Rectangle extends Shape{
 	private double orientation;
 	private List<Segment> segmentList;
 	Position aPosition;
-	int PRECISION=50;
-	int RADIUS_OF_BEACON = 50;
+	int precision = 50;
+	int radiusOfBeacon = 50;
 
 	public Rectangle() {}
 	
@@ -47,14 +47,14 @@ Rectangle extends Shape{
 	public List<Segment> computeSegments() {
 		List<Segment> rectangleSegment = new ArrayList<>();
 		List<Position> rectangleCorner = computeCorner();
-		Position HG = rectangleCorner.get(0);
-		Position HD = rectangleCorner.get(1);
-		Position BD = rectangleCorner.get(2);
-		Position BG = rectangleCorner.get(3);
-		rectangleSegment.add(new Segment(HG, HD));
-		rectangleSegment.add(new Segment(HD, BD));
-		rectangleSegment.add(new Segment(BD, BG));
-		rectangleSegment.add(new Segment(BG, HG));
+		Position hg = rectangleCorner.get(0);
+		Position hd = rectangleCorner.get(1);
+		Position bd = rectangleCorner.get(2);
+		Position bg = rectangleCorner.get(3);
+		rectangleSegment.add(new Segment(hg, hd));
+		rectangleSegment.add(new Segment(hd, bd));
+		rectangleSegment.add(new Segment(bd, bg));
+		rectangleSegment.add(new Segment(bg, hg));
 		return rectangleSegment;
 	}
 
@@ -77,13 +77,13 @@ Rectangle extends Shape{
 	 */
 	public List<Beacon> generateBeacon() {
 		List<Beacon> listOfPosition=new ArrayList<>();
-		double widthUnit=width/PRECISION;
-		double heightUnit=height/PRECISION;
-		for (int k=-PRECISION/5;k<PRECISION+PRECISION/5;k++){
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,-width/2+k*widthUnit,height/2),new Circle(RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,width/2,height/2-k*heightUnit),new Circle(RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,width/2-k*widthUnit,-height/2),new Circle(RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,-width/2,-height/2+k*heightUnit),new Circle(RADIUS_OF_BEACON)));}
+		double widthUnit=width/ precision;
+		double heightUnit=height/ precision;
+		for (int k = -precision /5; k< precision + precision /5; k++){
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,-width/2+k*widthUnit,height/2),new Circle(radiusOfBeacon)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,width/2,height/2-k*heightUnit),new Circle(radiusOfBeacon)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,width/2-k*widthUnit,-height/2),new Circle(radiusOfBeacon)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,-width/2,-height/2+k*heightUnit),new Circle(radiusOfBeacon)));}
 		return listOfPosition;
 	}
 
@@ -110,10 +110,10 @@ Rectangle extends Shape{
 			Position pointToCompare=intersectionsPositionOrdered.get(intersectionsPositionOrdered.size()-1);
 			Position min=intersectionsPosition.get(0);
 			double distMin=Mathematician.distanceFormula(aPosition,pointToCompare);
-			for (Position position :intersectionsPosition){
-				if (Mathematician.distanceFormula(position,pointToCompare)<distMin){
-					distMin=Mathematician.distanceFormula(position,pointToCompare);
-					min=position;
+			for (Position thePosition :intersectionsPosition){
+				if (Mathematician.distanceFormula(thePosition,pointToCompare)<distMin){
+					distMin=Mathematician.distanceFormula(thePosition,pointToCompare);
+					min=thePosition;
 				}
 			}
 			intersectionsPositionOrdered.add(min);
@@ -130,23 +130,22 @@ Rectangle extends Shape{
 	 */
 	public boolean positionIsInTheRectangle(Position pointA) {
 		List<Position> cornersList = computeCorner();
-		Position HG = cornersList.get(0);
-		Position HD = cornersList.get(1);
-		//Position BD = cornersList.get(2);
-		Position BG = cornersList.get(3);
+		Position hg = cornersList.get(0);
+		Position hd = cornersList.get(1);
+		Position bg = cornersList.get(3);
 
 		double x = pointA.getX();
 		double y = pointA.getY();
 
-		double HDHGx = HD.getX() - HG.getX();
-		double HDHGy = HD.getY() - HG.getY();
-		double BGHGx = BG.getX() - HG.getX();
-		double BGHGy = BG.getY() - HG.getY();
+		double hdhgx = hd.getX() - hg.getX();
+		double hdhgy = hd.getY() - hg.getY();
+		double bghgx = bg.getX() - hg.getX();
+		double bghgy = bg.getY() - hg.getY();
 
-		boolean calculusHDHGx = (x - HG.getX()) * HDHGx + (y - HG.getY()) * HDHGy < 0;
-		boolean calculusHDHGy = (x - HD.getX()) * HDHGx + (y - HD.getY()) * HDHGy > 0;
-		boolean calculusBGHGx = (x - HG.getX()) * BGHGx + (y - HG.getY()) * BGHGy < 0;
-		boolean calculusBGHGy = (x - BG.getX()) * BGHGx + (y - BG.getY()) * BGHGy > 0;
+		boolean calculusHDHGx = (x - hg.getX()) * hdhgx + (y - hg.getY()) * hdhgy < 0;
+		boolean calculusHDHGy = (x - hd.getX()) * hdhgx + (y - hd.getY()) * hdhgy > 0;
+		boolean calculusBGHGx = (x - hg.getX()) * bghgx + (y - hg.getY()) * bghgy < 0;
+		boolean calculusBGHGy = (x - bg.getX()) * bghgx + (y - bg.getY()) * bghgy > 0;
 
 		return !calculusHDHGx && !calculusHDHGy && !calculusBGHGx && !calculusBGHGy;
 	}
