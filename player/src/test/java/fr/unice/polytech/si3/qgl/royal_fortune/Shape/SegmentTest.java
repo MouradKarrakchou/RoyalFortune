@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SegmentTest {
     private Segment s;
@@ -55,7 +54,9 @@ public class SegmentTest {
     @Test
     void computeBTest(){
         assertEquals(0., s.computeB(p1));
+        assertEquals(9., s.computeB(new Position(4,9,2)));
     }
+
 
     @Test
     void computeIntersectionWith_IntersectionTest(){
@@ -75,6 +76,18 @@ public class SegmentTest {
         r.setPosition(new Position(20,0,0));
         res = s.angleIntersectionBetweenSegmentAndRectangle(r);
         assertEquals(Math.PI/2, res);
+    }
+
+    @Test
+    void pointInSegmentTest(){
+        Position p = new Position(5,0,0);
+        assertTrue(s.pointInSegment(p));
+    }
+
+    @Test
+    void pointNotInSegmentTest(){
+        Position p = new Position(-5,0,0);
+        assertFalse(s.pointInSegment(p));
     }
 
 }
