@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ObserverTest {
+class ObserverTest {
     Wind wind;
     Position shipPosition;
     Position nextCheckPointPosition;
@@ -28,10 +28,5 @@ public class ObserverTest {
         wind=new Wind(0,100);
         observer=new Observer(shipPosition,wind,nextCheckPointPosition);
         newSeaEntities=new ArrayList<>();
-    }
-    @Test
-    void watchSeaTest(){
-        newSeaEntities.add(new Stream(new Position(100,100,0),new Rectangle(100,100,0),50));
-        //assertEquals(,observer.watchSea(newSeaEntities));
     }
 }

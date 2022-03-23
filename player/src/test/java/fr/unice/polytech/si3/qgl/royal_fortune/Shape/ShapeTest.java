@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ShapeTest {
+class ShapeTest {
 
     private Shape s;
 
@@ -21,7 +21,7 @@ public class ShapeTest {
 
     @Test
     void toStringTest(){
-        assertTrue(s.toString() != "");
+        assertEquals("", s.toString());
     }
 
     @Test

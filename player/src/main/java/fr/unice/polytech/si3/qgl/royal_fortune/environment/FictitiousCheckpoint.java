@@ -21,7 +21,7 @@ public class FictitiousCheckpoint {
      */
     public List<Checkpoint> createFictitiousCheckpoints(List<Checkpoint> originalCheckpoints) {
         if (originalCheckpoints == null)
-            return Collections.emptyList();;
+            return Collections.emptyList();
 
         if (originalCheckpoints.isEmpty())
             return originalCheckpoints;

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SegmentTest {
+class SegmentTest {
     private Segment s;
     private Position p1;
     private Position p2;

@@ -13,16 +13,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RectangleTest {
+class RectangleTest {
     Rectangle rectangle;
 
     @BeforeEach
     void init() {
         rectangle=new Rectangle(50, 50, Math.PI/2);
-    }
-    @Test
-    void rectangleInitialisionTest(){
-        rectangle.setPosition(new Position(50,50,Math.PI/2));
     }
 
     @Test
@@ -135,7 +131,7 @@ public class RectangleTest {
 
     @Test
     void toStringTest(){
-        assertTrue(rectangle.toString() != "");
+        assertNotEquals("", rectangle.toString());
     }
 
     @Test
@@ -164,7 +160,7 @@ public class RectangleTest {
 
         Segment s = new Segment(pointA, pointB);
         List<Position> res = rectangle.computeIntersectionWith(s);
-        //assertEquals(2, res.size());//----------------------------------------> NE MARCHE PAS IL FAUT FIX CETTE ISSUE
+        assertEquals(2, res.size());
     }
 
 
