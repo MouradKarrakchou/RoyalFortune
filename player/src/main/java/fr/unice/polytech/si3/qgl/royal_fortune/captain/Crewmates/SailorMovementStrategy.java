@@ -381,7 +381,7 @@ public class SailorMovementStrategy {
                 .toList();
     }
 
-    private boolean canContinueToOarEvenly(){
+    public boolean canContinueToOarEvenly(){
         return preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
                 currentSailorPlacement.getNbRightSailors()) * 2 + 2);
     }
