@@ -12,10 +12,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class RouteTest {/*
+public class RouteTest {
     List<Stream> listStream;
     List<Reef> listReef;
     Wind wind;
@@ -28,13 +27,31 @@ public class RouteTest {/*
         listStream = new ArrayList<>();
         listReef = new ArrayList<>();
         wind = new Wind(0., 5.);
+        cartologue = new Cartologue(listStream, listReef);
+
         segment = new Segment(new Position(0,0,0), new Position(10,0,0));
-        cartologue = new Cartologue(listStream, listReef, wind);
         route = new Route(segment, cartologue);
     }
     @Test
-    void distributeSegmentsTest(){
-        assertTrue(true);
+    void createLeaveRouteNotStreamNotReef(){
+        assertTrue(route.getFirstRoute() == null);
+        assertTrue(route.getSecondRoute() == null);
     }
-*/
+
+    @Test
+    void createRouteThatContainTwoLeaveRoute(){
+        Segment segment1 = new Segment(new Position(0,0,0), new Position(10,0,0));
+        Segment segment2 = new Segment(new Position(10,0,0), new Position(10,10,0));
+        Segment segment3 = new Segment(new Position(10,10,0), new Position(30,10,0));
+
+        List<Segment> listSegment = new ArrayList<>();
+        listSegment.add(segment1);
+        listSegment.add(segment2);
+        listSegment.add(segment2);
+
+        route = new Route(listSegment, cartologue);
+        assertTrue(route.getFirstRoute().getListSegment().size() == 1);
+        assertTrue(route.getSecondRoute().getListSegment().size() == 2);
+        System.out.println(route.toString(0));
+    }
 }
