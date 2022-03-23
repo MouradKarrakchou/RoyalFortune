@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SegmentTest {
     @BeforeEach
@@ -34,5 +35,24 @@ public class SegmentTest {
         angle = segment.angleIntersectionBetweenSegmentAndRectangle(rectangle);
         assertEquals(2*Math.PI/3, angle);
     }
+    @Test
+    void computeIntersectionWithTest(){
+        Segment segment1=new Segment(new Position(0,10),new Position(0,100));
+        Segment segment2=new Segment(new Position(0,10),new Position(0,100));
+        assertTrue(segment1.computeIntersectionWith(segment2).isPresent());
+    }
+    @Test
+    void computeIntersectionWithTest2(){
+        Segment segment1=new Segment(new Position(0,10),new Position(0,100));
+        Segment segment2=new Segment(new Position(0,50),new Position(0,400));
+        assertTrue(segment1.computeIntersectionWith(segment2).isPresent());
+    }
+    @Test
+    void computeIntersectionWithTest3(){
+        Segment segment1=new Segment(new Position(10,0),new Position(20,0));
+        Segment segment2=new Segment(new Position(5,0),new Position(11,0));
+        assertTrue(segment1.computeIntersectionWith(segment2).isPresent());
+    }
+
 
 }

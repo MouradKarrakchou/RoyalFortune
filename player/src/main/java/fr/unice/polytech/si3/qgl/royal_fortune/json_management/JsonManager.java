@@ -31,6 +31,8 @@ public class JsonManager {
 	static final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 	static String exception = "Exception";
 
+	private JsonManager(){}
+
 	/**
 	 *Create a InitGameDAO with a the InitGame JSON
 	 * @param game a String formated as JSON 
@@ -160,7 +162,6 @@ public class JsonManager {
 			JsonNode shipJson = actualObj.get(searchNode);
 			return shipJson.toString();
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			LOGGER.log(Level.INFO, exception);
 		}
 		return null;

@@ -6,6 +6,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ShapeTest {
@@ -53,6 +55,6 @@ public class ShapeTest {
 
     @Test
     void generateBeaconTest(){
-        assertEquals(null, s.generateBeacon());
+        assertEquals(new ArrayList<>(), s.generateBeacon());
     }
 }

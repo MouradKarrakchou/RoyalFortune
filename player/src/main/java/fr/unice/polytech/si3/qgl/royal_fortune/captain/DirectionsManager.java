@@ -4,7 +4,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 
 public class DirectionsManager {
@@ -29,10 +28,11 @@ public class DirectionsManager {
      */
     public double[] angleCalculator() {
         Checkpoint currentCheckpoint = fictitiousCheckpoints.getCurrentCheckPoint();
-        double angleMove = computeAngleMove(currentCheckpoint.getPosition(), ship.getPosition());
-        double angleCone = computeAngleCone(currentCheckpoint, ship.getPosition());
+        angleMove = computeAngleMove(currentCheckpoint.getPosition(), ship.getPosition());
         angleMove = adjustAccuracy(angleMove);
         angleMove = checkSign(angleMove,currentCheckpoint.getPosition(), ship.getPosition());
+        angleCone = computeAngleCone(currentCheckpoint, ship.getPosition());
+
         return new double[]{angleMove, angleCone};
     }
 
