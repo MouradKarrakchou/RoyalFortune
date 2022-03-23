@@ -41,16 +41,6 @@ public class Mathematician {
     }
 
     /**
-     *Link streams and their beacons
-     * @param listStream list of streams
-     * @return Return a Hashmap that link streams with their lists of beacons
-     */
-    public List<Beacon> getHashBeaconOfListStream(List<Stream> listStream){
-        //utilise les beacon générés par les formes elles même
-        return null;
-    }
-
-    /**
      * Given a position of our Base and our movement (x,y) in this base return the new Position in the real Base.
      * @param position position in a base
      * @param x movement on x axis
