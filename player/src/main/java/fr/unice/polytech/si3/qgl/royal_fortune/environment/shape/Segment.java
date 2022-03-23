@@ -18,7 +18,8 @@ public class Segment {
         this.pointA = pointA;
         this.pointB = pointB;
         a = computeA(pointA, pointB);
-        b = computeB(pointA);
+        if (Math.abs(a)!=Float.POSITIVE_INFINITY)
+            b = computeB(pointA);
         length= Mathematician.distanceFormula(pointA,pointB);
     }
 
@@ -28,7 +29,10 @@ public class Segment {
      * @return the position of the intersection
      */
     public Optional<Position> computeIntersectionWith(Segment segment){
-        if (a==segment.getA()){
+        if (Math.abs(a)==Float.POSITIVE_INFINITY&& Math.abs(segment.getA())==Float.POSITIVE_INFINITY){
+            if (pointA.getX()==segment.getPointA().getX()) return Optional.of(pointA);
+        }
+        else if (a==segment.getA()){
             boolean pointAIsInTheSegment=pointInSegment(pointA);
             boolean pointBIsInTheSegment=pointInSegment(pointB);
             if (b==segment.getB()){
@@ -37,9 +41,6 @@ public class Segment {
                 else if (pointBIsInTheSegment)
                     return Optional.of(pointB);
             }}
-        else if (Math.abs(a)==Float.POSITIVE_INFINITY&& Math.abs(segment.getA())==Float.POSITIVE_INFINITY){
-            if (b==segment.getB()) return Optional.of(pointA);
-        }
         else if (Math.abs(a)==Float.POSITIVE_INFINITY){
             double intersectionY=segment.getA()*pointA.getX()+segment.getB();
             boolean rightY=this.pointInSegment(new Position(pointA.getX(),intersectionY));
