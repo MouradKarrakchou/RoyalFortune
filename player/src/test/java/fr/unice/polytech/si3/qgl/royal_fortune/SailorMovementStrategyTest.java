@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
@@ -24,6 +25,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.swing.text.StyleConstants.Orientation;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -691,16 +693,25 @@ public class SailorMovementStrategyTest {
         Sailor sailor00 = new Sailor(0, 0, 0, "sailor0");
         sailors.add(sailor00);
 
+        Sail sail = new Sail(0, 0, false);
+        entities.add(sail);
+
         List<Checkpoint> checkpoints = new ArrayList<>();
         checkpoints.add(new Checkpoint(new Position(500, 0, 0), new Circle()));
         checkpoints.add(new Checkpoint(new Position(-500, 0, 0), new Circle()));
+
+        Wind wind = mock(Wind.class);
+        when(wind.getOrientation()).thenReturn(0.0);
+        when(wind.getStrength()).thenReturn(0.0);
+
         Goal goal = new Goal("goal", checkpoints);
         FictitiousCheckpoint fictitiousCheckpoints = new FictitiousCheckpoint(checkpoints);
-        SeaMap seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(), null, null);
+        SeaMap seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(), wind, null);
 
         Associations associations = new Associations();
 
-        PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap, null);
+
+        PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap, wind);
 
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, preCalculator);
         assertFalse(sailorMovementStrategy.canContinueToOarEvenly());

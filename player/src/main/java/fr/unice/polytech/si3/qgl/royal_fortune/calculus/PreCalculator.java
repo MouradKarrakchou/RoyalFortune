@@ -40,7 +40,7 @@ public class PreCalculator {
      * @return if with this numberOfSailors we are in the checkpoint or not
      */
     public boolean needSailorToOarToCheckpoint(int numberOfSailors) {
-        return (numberOfSailors<howManySailorsNeeded());
+        return (numberOfSailors<=howManySailorsNeeded());
     }
     public int howManySailorsNeeded(){
         int numberOfSailors=0;
