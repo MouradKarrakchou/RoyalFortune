@@ -94,6 +94,10 @@ public class Cartologue {
         return false;
     }
 
+    public void setListStream(List<Stream> listStream) {
+        this.listStream = listStream;
+    }
+
     public Map<Segment, SeaEntities> getMap() {
         return map;
     }
