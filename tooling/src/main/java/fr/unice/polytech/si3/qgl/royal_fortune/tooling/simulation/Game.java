@@ -21,6 +21,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 public class Game {
@@ -136,11 +137,13 @@ public class Game {
         StringBuilder out = new StringBuilder();
         List<SeaEntities> list = allSeaEntities;
         for(SeaEntities seaEntities : list) {
-            if(seaEntities.isStream().isPresent()){
-                out = createOutForStream(seaEntities.isStream().get(), out);
+            Optional<Stream> isStream = seaEntities.isStream();
+            Optional<Reef> isReef = seaEntities.isReef();
+            if(isStream.isPresent()){
+                out = createOutForStream(isStream.get(), out);
             }
-            else if(seaEntities.isReef().isPresent()){
-                out = createOutForReef(seaEntities.isReef().get(), out);
+            else if(isReef.isPresent()){
+                out = createOutForReef(isReef.get(), out);
             }
             out.append("\n");
         }
@@ -164,13 +167,15 @@ public class Game {
     public StringBuilder createOutForReef(Reef reef, StringBuilder out) throws Exception {
         Position streamPos = reef.getPosition();
         out.append("reef").append(";");
-        if(reef.getShape().isRectangle().isPresent()){
-            Rectangle rect = reef.getShape().isRectangle().get();
+        Optional<Rectangle> isRectangle = reef.getShape().isRectangle();
+        Optional<Circle> isCircle = reef.getShape().isCircle();
+        if(isRectangle.isPresent()){
+            Rectangle rect = isRectangle.get();
             out.append("rect").append(";").append(rect.getHeight()).append(";").append(rect.getWidth()).append(";");
             out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
         }
-        else if(reef.getShape().isCircle().isPresent()){
-            Circle circle = reef.getShape().isCircle().get();
+        else if(isCircle.isPresent()){
+            Circle circle = isCircle.get();
             out.append("circle").append(";").append(circle.getRadius()).append(";");
             out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
         }
