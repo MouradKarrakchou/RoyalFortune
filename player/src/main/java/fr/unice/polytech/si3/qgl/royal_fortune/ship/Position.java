@@ -73,6 +73,10 @@ public class Position {
 		this.y=position.getY();
 		this.orientation=position.getOrientation();
     }
-
+	@Override
+	public boolean equals(Object object){
+		Position position=(Position) object;
+		return position.getX()==x&&position.getY()==y;
+	}
 	
 }
