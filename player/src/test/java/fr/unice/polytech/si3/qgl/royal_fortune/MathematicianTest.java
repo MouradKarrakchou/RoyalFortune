@@ -5,10 +5,12 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class MathematicianTest {
         listStream=new ArrayList<>();
         listReef=new ArrayList<>();
         wind=new Wind(0,50);
-        cartologue=new Cartologue(listStream,listReef,wind);
+        cartologue=new Cartologue(listStream,listReef);
         mathematician=new Mathematician(cartologue);
     }
 
@@ -47,7 +49,9 @@ public class MathematicianTest {
     @Test
     void computeTrajectoryTest(){
         List<Beacon> listBeacon=new ArrayList<>();
-        //listBeacon.add(new Beacon(,));
-        //mathematician.computeTrajectory();
+        listBeacon.add(new Beacon(new Position(500,0,0), new Rectangle(100,100,0)));
+        listBeacon.add(new Beacon(new Position(500,100,0), new Rectangle(100,100,0)));
+        listBeacon.add(new Beacon(new Position(500,-100,0), new Rectangle(100,100,0)));
+        //mathematician.computeTrajectory(listBeacon,new Position(0,0),new Position(1000,0));
     }
 }
