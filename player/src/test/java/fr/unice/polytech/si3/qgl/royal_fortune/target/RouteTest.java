@@ -13,16 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RouteTest {
+    List<Stream> listStream;
+    List<Reef> listReef;
+    Wind wind;
+    Segment segment;
+    Cartologue cartologue;
+    Route route;
+
     @BeforeEach
     void init(){
-        List<Stream> listStream = new ArrayList<>();
-        List<Reef> listReef = new ArrayList<>();
-        Wind wind = new Wind(0., 5.);
-
-        Segment segment = new Segment(new Position(0,0,0), new Position(10,0,0));
-        Cartologue cartologue = new Cartologue(listStream, listReef, wind);
-        Route r = new Route(segment, cartologue);
+        listStream = new ArrayList<>();
+        listReef = new ArrayList<>();
+        wind = new Wind(0., 5.);
+        segment = new Segment(new Position(0,0,0), new Position(10,0,0));
+        cartologue = new Cartologue(listStream, listReef, wind);
+        route = new Route(segment, cartologue);
     }
     @Test
-    void getListSegmentTest(){}
+    void getListSegmentTest(){
+
+    }
 }
