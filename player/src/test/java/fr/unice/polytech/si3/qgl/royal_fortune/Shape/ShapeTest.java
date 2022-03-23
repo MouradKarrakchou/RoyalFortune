@@ -21,7 +21,7 @@ class ShapeTest {
 
     @Test
     void toStringTest(){
-        assertEquals("", s.toString());
+        assertNotEquals("", s.toString());
     }
 
     @Test
