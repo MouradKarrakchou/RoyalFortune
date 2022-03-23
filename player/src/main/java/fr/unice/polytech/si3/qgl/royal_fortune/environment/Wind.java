@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Wind {
-    final Logger logger = Logger.getLogger(Ship.class.getName());
+    final Logger logger = Logger.getLogger(Wind.class.getName());
     double orientation;
     double strength;
 

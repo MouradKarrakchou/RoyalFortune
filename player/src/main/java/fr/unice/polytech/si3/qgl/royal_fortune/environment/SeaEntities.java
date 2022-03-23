@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.Optional;
 
@@ -40,15 +37,13 @@ public class SeaEntities {
 
 
     public Optional<Stream> isStream() {
-        if(this instanceof Stream){
-            Stream current = (Stream) this;
+        if(this instanceof Stream current){
             return Optional.of(current);
         }
         return Optional.empty();
     }
     public Optional<Reef> isReef() {
-        if(this instanceof Reef){
-            Reef current = (Reef) this;
+        if(this instanceof Reef current){
             return Optional.of(current);
         }
         return Optional.empty();
