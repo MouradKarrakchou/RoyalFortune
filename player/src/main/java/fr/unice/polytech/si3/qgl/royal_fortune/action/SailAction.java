@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class SailAction extends Action{
     public static String LIFT = "LIFT_SAIL";
 
-    final Logger logger = Logger.getLogger(RudderAction.class.getName());
+    final Logger LOGGER = Logger.getLogger(SailAction.class.getName());
     public SailAction(int sailorId, String type) {
         super(sailorId, type);
         this.type = type;
@@ -28,7 +28,7 @@ public class SailAction extends Action{
         try {
             return mapper.writeValueAsString(rudderActionJSON);
         } catch (JsonProcessingException e) {
-            logger.log(Level.INFO, "Exception");
+            LOGGER.log(Level.INFO, "Exception");
         }
         return "";
     }
