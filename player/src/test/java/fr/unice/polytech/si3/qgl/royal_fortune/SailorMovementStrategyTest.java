@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -718,5 +717,48 @@ class SailorMovementStrategyTest {
         sailors.add(sailor01);
 
         assertTrue(sailorMovementStrategy.canContinueToOarEvenly());
+    }
+
+    @Test
+    void associateSpecialistSailorAndSailorToOarEvenlyTest(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        List<Entities> entities = new ArrayList<>();
+        Oar oar00 = new Oar(1, 0);
+        entities.add(oar00);
+
+        Oar oar01 = new Oar(1, 1);
+        entities.add(oar01);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(6, 4),
+                entities,
+                new Rectangle(6, 4, 0));
+
+        Associations associations = new Associations();
+
+        PreCalculator mockedPreCalculator = mock(PreCalculator.class);
+        when(mockedPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(false);
+
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockedPreCalculator);
+        assertFalse(sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly());
+
+        Sailor canOnlyGoLeft = new Sailor(0, 6, 0, "onlyLeft");
+        sailors.add(canOnlyGoLeft);
+
+        Sailor canOnlyGoRight = new Sailor(0, 6, 1, "onlyRight");
+        sailors.add(canOnlyGoRight);
+
+        Sailor canGoBoth = new Sailor(0, 1, 1, "canBoth");
+        sailors.add(canGoBoth);
+
+        assertTrue(sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly());
+        assertEquals(canGoBoth, associations.getAssociatedSailor(oar01));
+        assertEquals(canOnlyGoLeft, associations.getAssociatedSailor(oar00));
+        assertNull(associations.getAssociatedEntity(canOnlyGoRight));
     }
 }
