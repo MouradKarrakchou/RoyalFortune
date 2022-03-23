@@ -97,7 +97,7 @@ Rectangle extends Shape{
 		List<Position> intersectionsPosition = new ArrayList<>();
 		Optional<Position> intersection;
 		for(Segment seg : segmentList) {
-			 intersection = segment.computeIntersectionWith(seg);
+			intersection = segment.computeIntersectionWith(seg);
 			intersection.ifPresent(intersectionsPosition::add);
 		}
 		return ordered(intersectionsPosition,segment);
