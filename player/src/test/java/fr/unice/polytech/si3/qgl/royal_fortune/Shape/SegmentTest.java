@@ -65,6 +65,8 @@ public class SegmentTest {
         assertTrue(res.isPresent());
     }
 
+
+
     @Test
     void angleIntersectionBetweenSegmentAndRectangleTest(){
         Rectangle r = new Rectangle(10.,10.,0.);
