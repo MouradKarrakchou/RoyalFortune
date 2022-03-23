@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RouteTest {
     List<Stream> listStream;
@@ -33,5 +34,6 @@ public class RouteTest {
     }
     @Test
     void distributeSegmentsTest(){
+        assertTrue(true);
     }
 }
