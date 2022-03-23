@@ -460,6 +460,15 @@ public class SailorMovementStrategyTest {
         assertEquals(rightOar02, associations.getAssociatedEntity(sailor00));
         assertEquals(rightOar01, associations.getAssociatedEntity(sailor01));
         assertNull(associations.getAssociatedEntity(sailor02));
+
+        associations.dissociateAll();
+
+        requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 4, false, false);
+        sailorMovementStrategy.associateNearestSailorToOars(requestedPlacement);
+        assertEquals(-2, requestedPlacement.getOarWeight());
+        assertEquals(leftOar02, associations.getAssociatedEntity(sailor00));
+        assertEquals(leftOar01, associations.getAssociatedEntity(sailor01));
+        assertNull(associations.getAssociatedEntity(sailor02));
     }
 
     @Test
@@ -652,6 +661,5 @@ public class SailorMovementStrategyTest {
         assertEquals(sailor00, associations.getAssociatedSailor(oar00));
         assertEquals(sailor02, associations.getAssociatedSailor(sail));
         assertNull(associations.getAssociatedSailor(oar01));
-
     }
 }
