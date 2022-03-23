@@ -14,6 +14,7 @@ public class Mathematician {
     Cartologue cartologue;
     public Mathematician(Cartologue cartologue){
         this.cartologue=cartologue;
+        beaconHashMap=new HashMap<>();
     }
 
     /**
@@ -33,7 +34,7 @@ public class Mathematician {
         }
         Route route = null;
         if (!roads.isEmpty())
-                route=Collections.max(roads);
+                route=Collections.min(roads);
         if (route!=null)
             return Optional.of(beaconHashMap.get(route));
         else return Optional.empty();
