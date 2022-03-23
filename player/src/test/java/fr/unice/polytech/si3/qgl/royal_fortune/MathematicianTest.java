@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MathematicianTest {
+class MathematicianTest {
     Mathematician mathematician;
     Cartologue cartologue;
     List<Stream> listStream;
@@ -46,12 +46,5 @@ public class MathematicianTest {
         assertEquals(positionAfterBase.getY(), y);
         assertEquals(positionAfterBase.getOrientation(), ori);
     }
-    @Test
-    void computeTrajectoryTest(){
-        List<Beacon> listBeacon=new ArrayList<>();
-        listBeacon.add(new Beacon(new Position(500,0,0), new Rectangle(100,100,0)));
-        listBeacon.add(new Beacon(new Position(500,100,0), new Rectangle(100,100,0)));
-        listBeacon.add(new Beacon(new Position(500,-100,0), new Rectangle(100,100,0)));
-        //mathematician.computeTrajectory(listBeacon,new Position(0,0),new Position(1000,0));
-    }
+
 }
