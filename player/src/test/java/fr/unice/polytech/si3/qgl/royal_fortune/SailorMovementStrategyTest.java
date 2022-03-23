@@ -5,6 +5,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorMovementStrategy;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -13,12 +18,14 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -663,6 +670,7 @@ public class SailorMovementStrategyTest {
         assertNull(associations.getAssociatedSailor(oar01));
     }
 
+    @Test
     void canContinueToOarEvenlyTest(){
         List<Sailor> sailors = new ArrayList<>();
 
@@ -683,5 +691,23 @@ public class SailorMovementStrategyTest {
         Sailor sailor00 = new Sailor(0, 0, 0, "sailor0");
         sailors.add(sailor00);
 
+        List<Checkpoint> checkpoints = new ArrayList<>();
+        checkpoints.add(new Checkpoint(new Position(500, 0, 0), new Circle()));
+        checkpoints.add(new Checkpoint(new Position(-500, 0, 0), new Circle()));
+        Goal goal = new Goal("goal", checkpoints);
+        FictitiousCheckpoint fictitiousCheckpoints = new FictitiousCheckpoint(checkpoints);
+        SeaMap seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(), null, null);
+
+        Associations associations = new Associations();
+
+        PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap, null);
+
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, preCalculator);
+        assertFalse(sailorMovementStrategy.canContinueToOarEvenly());
+
+        Sailor sailor01 = new Sailor(0, 0, 0, "sailor0");
+        sailors.add(sailor01);
+
+        assertTrue(sailorMovementStrategy.canContinueToOarEvenly());
     }
 }
