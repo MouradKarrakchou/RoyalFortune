@@ -114,9 +114,9 @@ class SailorTest {
 
 	@Test
 	void nameAndIdTest() {
-		Sailor sailor = new Sailor(0, 0, 0, "King");
+		Sailor sailor = new Sailor(1, 0, 0, "King");
 		assertEquals("King", sailor.getName());
-		assertEquals(0, sailor.getId());
+		assertEquals(1, sailor.getId());
 	}
 
 }
