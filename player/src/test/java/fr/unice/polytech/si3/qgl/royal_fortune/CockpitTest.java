@@ -1,8 +1,20 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.exception.EmptyDaoException;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,5 +92,21 @@ class CockpitTest {
             fail("Exception was thrown!");
         }
         assertTrue(true);
+    }
+
+    @Test
+    void elementTest() {
+        Goal goal = new Goal("Mode", new ArrayList<>());
+        List<Sailor> sailorsList = new ArrayList<>();
+        sailorsList.add(new Sailor(1, 2, 3, "Queen"));
+        Ship ship = new Ship("Type", 100, new Position(0, 0, 0), "name",null, null, null);
+        Captain captain = new Captain(ship, sailorsList, goal, null, new Wind(0, 12));
+        Cockpit cockpit = new Cockpit(ship, sailorsList, goal, captain);
+
+        assertEquals("Type", cockpit.getShip().getType());
+        assertEquals("Queen", cockpit.getSailors().get(0).getName());
+        assertEquals(new ArrayList<>(), cockpit.getGoal().getCheckPoints());
+        assertEquals(12, cockpit.getCaptain().getWind().getStrength());
+        assertEquals(new ArrayList<>(), cockpit.getLogs());
     }
 }
