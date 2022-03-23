@@ -20,9 +20,11 @@ class Boat {
 
 class Checkpoint {
     constructor(x, y, radius) {
-        this.position = getCalcPosition(x, y, radius);
+        //this.position = getCalcPosition(x, y, radius);
         //this.position = new Position(x, y, 0);
-        this.radius = (radius * 0.5);
+        //this.radius = (radius * 0.5);
+        this.position = new Position(x, y , 0)
+        this.radius = radius;
     }
 }
 class Position {
