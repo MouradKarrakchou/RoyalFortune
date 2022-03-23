@@ -1,10 +1,10 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Crew;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorMovementStrategy;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Crew;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorMovementStrategy;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
@@ -40,7 +40,7 @@ public class Captain {
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
         seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(),wind,seaEntities);
         preCalculator = new PreCalculator(ship, sailors, seaMap,wind);
-        crew = new Crew(sailors, ship, preCalculator, associations);
+        crew = new Crew(sailors, associations);
 
     }
 
@@ -53,7 +53,6 @@ public class Captain {
      * @return The json file of the round actions
      */
     public String roundDecisions() {
-        //System.out.println("Sail is opened : " + ship.getSail().isOpenned());
         associations.dissociateAll();
         roundActions.clear();
         seaMap.updateCheckPoint(seaEntities);
@@ -167,14 +166,13 @@ public class Captain {
     }
 
     /**
-     *
+     * Check if the angle is different from 0
      * @param angleMove angle the ship has to make to be in the right orientation
      * @param angleSailorsShouldMake ideal angle the sailors should make by oaring
      * @return true if we need to use rudder, false in other case
      */
     public boolean getRudderDecision(double angleMove, double angleSailorsShouldMake) {
-        boolean angleIsNotZero = Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3);
-        return angleIsNotZero;
+        return Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3);
     }
         /**
          * If we need to use the sail return the action to do, in the other case return optional.empty

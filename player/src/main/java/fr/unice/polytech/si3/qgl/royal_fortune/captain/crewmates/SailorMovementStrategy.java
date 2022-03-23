@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
+package fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
@@ -41,22 +41,16 @@ public class SailorMovementStrategy {
         // We are associating every Sailor to a starving entity.
         continueAssociatingStarvingEntities(requestedSailorPlacement);
 
-        // We are associating (if possible) the nearest sailor to the Rudder.
-        if(requestedSailorPlacement.hasRudder()){
-            // If an association has been made.
-            if(associateNearestSailor(ship.getRudder())){
-                requestedSailorPlacement.setRudder(false);
-                currentSailorPlacement.setRudder(true);
-            }
+        // We are associating (if possible) the nearest sailor to the Rudder. And if an association has been made.
+        if(requestedSailorPlacement.hasRudder() && associateNearestSailor(ship.getRudder())){
+            requestedSailorPlacement.setRudder(false);
+            currentSailorPlacement.setRudder(true);
         }
 
-        // We are associating (if possible) the nearest sailor to the Sail.
-        if(requestedSailorPlacement.hasSail()){
-            // If an association has been made.
-            if(associateNearestSailor(ship.getSail())){
-                requestedSailorPlacement.setSail(false);
-                currentSailorPlacement.setSail(true);
-            }
+        // We are associating (if possible) the nearest sailor to the Sail. And if an association has been made.
+        if(requestedSailorPlacement.hasSail() && associateNearestSailor(ship.getSail())){
+            requestedSailorPlacement.setSail(false);
+            currentSailorPlacement.setSail(true);
         }
 
         // We are associating (if possible) the left or right oar to the nearest sailor according to the oarWeight.
@@ -195,24 +189,18 @@ public class SailorMovementStrategy {
             }
         }
 
-        // If we need at least on right oar.
-        if(requestedSailorPlacement.getOarWeight() > 0) {
-            // If an association has been made.
-            if (associateStarvingOar(DirectionsManager.RIGHT)){
-                currentSailorPlacement.incrementNbRightSailor(1);
-                requestedSailorPlacement.incrementOarWeight(-1);
-                return true; // We are returning to be sure to keep the association priority.
-            }
+        // If we need at least on right oar. And if an association has been made.
+        if(requestedSailorPlacement.getOarWeight() > 0 && associateStarvingOar(DirectionsManager.RIGHT)) {
+            currentSailorPlacement.incrementNbRightSailor(1);
+            requestedSailorPlacement.incrementOarWeight(-1);
+            return true; // We are returning to be sure to keep the association priority.
         }
 
-        // If we need at least on left oar.
-        if(requestedSailorPlacement.getOarWeight() < 0) {
-            // If an association has been made.
-            if (associateStarvingOar(DirectionsManager.LEFT)){
-                currentSailorPlacement.incrementNbLeftSailor(1);
-                requestedSailorPlacement.incrementOarWeight(1);
-                return true; // We are returning to be sure to keep the association priority.
-            }
+        // If we need at least on left oar. And If an association has been made.
+        if(requestedSailorPlacement.getOarWeight() < 0 && associateStarvingOar(DirectionsManager.LEFT)) {
+            currentSailorPlacement.incrementNbLeftSailor(1);
+            requestedSailorPlacement.incrementOarWeight(1);
+            return true; // We are returning to be sure to keep the association priority.
         }
 
         return false;
@@ -383,6 +371,6 @@ public class SailorMovementStrategy {
 
     public boolean canContinueToOarEvenly(){
         return preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
-                currentSailorPlacement.getNbRightSailors()) * 2 + 2);
+                currentSailorPlacement.getNbRightSailors()) * 2);
     }
 }

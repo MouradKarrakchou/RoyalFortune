@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
+package fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.MovingAction;
@@ -12,14 +12,10 @@ import java.util.*;
 
 public class Crew {
     private final List<Sailor> sailors;
-    private final Ship ship;
-    private final PreCalculator preCalculator;
     private final Associations associations;
 
-    public Crew(List<Sailor> sailors, Ship ship, PreCalculator preCalculator, Associations associations) {
+    public Crew(List<Sailor> sailors, Associations associations) {
         this.sailors = sailors;
-        this.ship = ship;
-        this.preCalculator = preCalculator;
         this.associations = associations;
     }
 
