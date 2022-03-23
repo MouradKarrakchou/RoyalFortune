@@ -72,8 +72,8 @@ public class SegmentTest {
         double res = s.angleIntersectionBetweenSegmentAndRectangle(r);
         assertEquals(0., res);
 
-        r = new Rectangle(10.,10.,Math.PI/2);
-        r.setPosition(new Position(20,0,0));
+        r = new Rectangle(-10.,10.,Math.PI/2);
+        r.setPosition(new Position(20,-9,0));
         res = s.angleIntersectionBetweenSegmentAndRectangle(r);
         assertEquals(Math.PI/2, res);
     }
@@ -87,6 +87,15 @@ public class SegmentTest {
     @Test
     void pointNotInSegmentTest(){
         Position p = new Position(-5,0,0);
+        assertFalse(s.pointInSegment(p));
+
+        p = new Position(60,0,0);
+        assertFalse(s.pointInSegment(p));
+
+        p = new Position(5,10,0);
+        assertFalse(s.pointInSegment(p));
+
+        p = new Position(5,-10,0);
         assertFalse(s.pointInSegment(p));
     }
 
