@@ -52,22 +52,21 @@ public class Cockpit implements ICockpit {
 	}
 
 	public String nextRound(String round){
-		System.out.println(round);
 		NextRoundDAO nextRoundDAO = null;
 		try {
 			nextRoundDAO = createNextRoundDAO(round);
 		} catch (EmptyDaoException e) {
 			LOGGER.info("Empty Dao");
 		}
-		LOGGER.info("Next round input: " + round);
+		LOGGER.log(Level.INFO, () -> "Next round input: " + round);
 		updateWithNextRound(nextRoundDAO);
 		String actions  =captain.roundDecisions();
-		System.out.println("Actions = "+actions);
+		LOGGER.log(Level.INFO, () -> "Actions = "+actions);
+
 		return actions;
 	}
 	public void updateWithNextRound(NextRoundDAO nextRoundDAO){
 		Ship newShip = nextRoundDAO.getShip();
-		//System.out.println("New ship = "+newShip);
 		ship.updatePos(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
 		captain.updateSeaEntities(nextRoundDAO.getVisibleEntities());

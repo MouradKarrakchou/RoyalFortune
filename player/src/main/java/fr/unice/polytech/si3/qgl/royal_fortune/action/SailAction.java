@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SailAction extends Action{
-    public static String LIFT = "LIFT_SAIL";
 
     final Logger LOGGER = Logger.getLogger(SailAction.class.getName());
     public SailAction(int sailorId, String type) {
@@ -17,6 +16,10 @@ public class SailAction extends Action{
     }
 
     public SailAction(){}
+
+    public String getType() {
+        return type;
+    }
 
     @Override
     public String toString() {
@@ -33,7 +36,4 @@ public class SailAction extends Action{
         return "";
     }
 
-    public String getType() {
-        return type;
-    }
 }

@@ -8,15 +8,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LowerSailAction extends SailAction{
-    public static String LOWER = "LOWER_SAIL";
+    public static final String lower_sail = "LOWER_SAIL";
 
     final Logger logger = Logger.getLogger(LowerSailAction.class.getName());
     public LowerSailAction(int sailorId) {
-        super(sailorId, LOWER);
-        this.type = LOWER;
+        super(sailorId, lower_sail);
+        this.type = lower_sail;
     }
 
     public LowerSailAction(){}
+
+    public String getType() {
+        return type;
+    }
 
     @Override
     public String toString() {
@@ -33,7 +37,4 @@ public class LowerSailAction extends SailAction{
         return "";
     }
 
-    public String getType() {
-        return type;
-    }
 }
