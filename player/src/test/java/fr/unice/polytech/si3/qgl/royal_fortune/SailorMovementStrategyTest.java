@@ -662,4 +662,26 @@ public class SailorMovementStrategyTest {
         assertEquals(sailor02, associations.getAssociatedSailor(sail));
         assertNull(associations.getAssociatedSailor(oar01));
     }
+
+    void canContinueToOarEvenlyTest(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        List<Entities> entities = new ArrayList<>();
+        Oar oar00 = new Oar(1, 0);
+        entities.add(oar00);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(6, 4),
+                entities,
+                new Rectangle(6, 4, 0));
+
+        // Sailor00
+        Sailor sailor00 = new Sailor(0, 0, 0, "sailor0");
+        sailors.add(sailor00);
+
+    }
 }
