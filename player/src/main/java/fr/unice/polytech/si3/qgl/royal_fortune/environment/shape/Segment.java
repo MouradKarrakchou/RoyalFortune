@@ -62,6 +62,8 @@ public class Segment {
     }
 
     public boolean pointInSegment(Position point){
+        if (Mathematician.distanceFormula(point,pointA)>length||Mathematician.distanceFormula(point,pointB)>length)
+            return false;
         if (Math.abs(a)==Float.POSITIVE_INFINITY)
             return (point.getX()==pointA.getX());
         return(a*point.getX()-b==point.getY());
