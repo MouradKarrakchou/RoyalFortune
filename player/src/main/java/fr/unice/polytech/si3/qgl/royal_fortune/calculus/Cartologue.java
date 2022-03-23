@@ -61,7 +61,7 @@ public class Cartologue {
             {
                 segments.add(new Segment(intersections.get(0),intersections.get(1)));
                 segments.add(new Segment(intersections.get(1),intersections.get(2)));
-                if(Boolean.TRUE.equals(isOnStream))
+                if(isOnStream)
                     map.put(segments.get(0),stream);
                 else
                     map.put(segments.get(1),stream);
