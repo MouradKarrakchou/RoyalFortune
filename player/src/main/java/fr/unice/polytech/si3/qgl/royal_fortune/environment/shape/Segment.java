@@ -67,7 +67,7 @@ public class Segment {
             return false;
         if (Math.abs(a)==Float.POSITIVE_INFINITY)
             return (point.getX()==pointA.getX());
-        return(a*point.getX()-b==point.getY());
+        return(Math.abs(a*point.getX()+b-point.getY())<0.001);
     }
 
     /**

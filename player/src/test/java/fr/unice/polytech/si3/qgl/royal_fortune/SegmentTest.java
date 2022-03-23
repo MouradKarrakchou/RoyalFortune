@@ -53,6 +53,32 @@ public class SegmentTest {
         Segment segment2=new Segment(new Position(5,0),new Position(11,0));
         assertTrue(segment1.computeIntersectionWith(segment2).isPresent());
     }
+    @Test
+    void computeIntersectionWithTest4(){
+        Segment segment1=new Segment(new Position(10,0),new Position(10.5,0));
+        Segment segment2=new Segment(new Position(5,0),new Position(11,0));
+        assertTrue(segment1.computeIntersectionWith(segment2).isPresent());
+    }
+    @Test
+    void computeIntersectionWithTest5(){
+        Segment segment1=new Segment(new Position(10,0),new Position(10.5,0));
+        Segment segment2=new Segment(new Position(10.5,0),new Position(11,0));
+        assertTrue(segment1.computeIntersectionWith(segment2).isPresent());
+    }
+    @Test
+    void computeIntersectionWithTest6(){
+        Segment segment1=new Segment(new Position(0,1),new Position(1,10));
+        Segment segment2=new Segment(new Position(0,5),new Position(10,5));
+        assertTrue(segment1.computeIntersectionWith(segment2).isPresent());
+    }
+    @Test
+    void computeIntersectionWithTest7(){
+        Segment segment1=new Segment(new Position(0,4),new Position(1,10));
+        Segment segment2=new Segment(new Position(0,5),new Position(10,5));
+        assertTrue(segment1.computeIntersectionWith(segment2).isPresent());
+    }
+
+
 
 
 }
