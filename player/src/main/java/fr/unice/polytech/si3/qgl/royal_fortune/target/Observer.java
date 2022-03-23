@@ -22,7 +22,7 @@ public class Observer {
         this.nextCheckPointPosition=nextCheckPointPosition;
         this.shipPosition=shipPosition;
         this.currentSeaEntities=new ArrayList<>();
-        cartologue=new Cartologue(getStream(currentSeaEntities),null,wind);
+        cartologue=new Cartologue(getStream(currentSeaEntities),null);
         this.mathematician = new Mathematician(cartologue);
     }
 
