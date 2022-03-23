@@ -533,10 +533,15 @@ public class SailorMovementStrategyTest {
         SailorPlacement answer = sailorMovementStrategy.askPlacement(requestedPlacement);
         assertTrue(answer.hasRudder());
         assertFalse(answer.hasSail());
+        assertFalse(requestedPlacement.hasRudder());
+        assertFalse(requestedPlacement.hasSail());
+
         assertEquals(sailor00, associations.getAssociatedSailor(rudder));
         assertEquals(1, answer.getNbRightSailors());
         assertEquals(3, answer.getNbLeftSailors());
         assertEquals(1, answer.getNbRightSailors());
+
+
     }
 
     @Test
@@ -636,7 +641,13 @@ public class SailorMovementStrategyTest {
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockPreCalculator);
 
         SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, false, true);
-        sailorMovementStrategy.askPlacement(requestedPlacement);
+        SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(requestedPlacement);
+
+        assertEquals(1, strategyAnswer.getNbLeftSailors());
+        assertEquals(0, strategyAnswer.getNbRightSailors());
+        assertTrue(strategyAnswer.hasSail());
+
+        assertFalse(requestedPlacement.hasSail());
 
         assertEquals(sailor00, associations.getAssociatedSailor(oar00));
         assertEquals(sailor02, associations.getAssociatedSailor(sail));

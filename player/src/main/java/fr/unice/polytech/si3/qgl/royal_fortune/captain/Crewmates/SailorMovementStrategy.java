@@ -64,8 +64,6 @@ public class SailorMovementStrategy {
 
         continueAssociatingSailorsToOarEvenly();
 
-        System.out.println(associations.size());
-
         return currentSailorPlacement;
     }
 
