@@ -12,7 +12,6 @@ public class Route implements Comparable{
     private Route firstRoute;
     private Route secondRoute;
     private double value;
-    private Optional<Stream> stream;
     private List<Segment> listSegment;
     private Cartologue cartologue;
     private Boolean reefCollision;
@@ -25,6 +24,7 @@ public class Route implements Comparable{
      */
     public Route(Segment segment,Cartologue cartologue){
         this.cartologue = cartologue;
+        this.listSegment = new ArrayList<>();
         this.listSegment.add(segment);
         List<Segment> slicedSegments = sliceSegment(segment);
         if(slicedSegments.size() > 0){
@@ -96,10 +96,6 @@ public class Route implements Comparable{
         return value;
     }
 
-    public Optional<Stream> getStream() {
-        return stream;
-    }
-
     public Cartologue getCartologue() {
         return cartologue;
     }
@@ -115,5 +111,28 @@ public class Route implements Comparable{
         else if(this.value==((Route)o).getValue())
             return 0;
         else return -1;
+    }
+
+    public String toString(int i){
+        //" + listSegment.toString()+"
+        String out ="";
+        //out = indent(out, i);
+        out += i+" - Route: \n";
+        out = indent(out, i);
+        if(firstRoute!= null)
+            out += i+" - FirstRoute: \n\t" + firstRoute.toString(i+1)+"\n";
+        else
+            out+= i+" - FirstRoute: \n\t "+indent(out, i)+listSegment.toString()+"\n";
+        out = indent(out, i);
+        if(secondRoute!= null)
+            out += i+" - SecondRoute: \n\t" + secondRoute.toString(i+1)+"\n";
+        else
+            out+= i+" - SecondRoute: \n\t"+indent(out, i)+listSegment.toString()+"\n";
+        return out;
+    }
+
+    private String indent(String out, int j) {
+        for(int i = 0 ; i < j ; i++) out += "\t";
+        return out;
     }
 }

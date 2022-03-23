@@ -24,7 +24,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-public class CaptainTest {
+class CaptainTest {
     private Ship basicShip;
     private Captain captain;
     private List<Checkpoint> checkpoints;

@@ -83,9 +83,7 @@ public class Segment {
         double rectangleOrientation = rectangle.getOrientation();
         double num = distanceSegmentExtremityX * Math.cos(rectangleOrientation) + distanceSegmentExtremityY * Math.sin(rectangleOrientation);
 
-        double intersectionAngle = Math.acos(num / distanceSegmentExtremity);
-
-        return intersectionAngle;
+        return Math.acos(num / distanceSegmentExtremity);
     }
 
     public Position getPointA() {
@@ -110,5 +108,10 @@ public class Segment {
 
     public double getLength() {
         return length;
+    }
+
+    @Override
+    public String toString() {
+        return "PointA: {"+pointA.getX()+";"+pointA.getY()+"}   PointB: {"+pointB.getX()+";"+pointB.getY()+"}";
     }
 }

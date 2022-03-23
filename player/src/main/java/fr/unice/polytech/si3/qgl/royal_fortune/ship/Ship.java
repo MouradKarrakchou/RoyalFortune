@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -81,7 +80,7 @@ public class Ship {
 				 .map(Oar.class::cast)
 				 .filter(associations::isFree)
 				 .filter(oar -> oar.isLeft() == (orientation == DirectionsManager.LEFT))
-				 .collect(Collectors.toList());
+				 .toList();
 	}
 
 	/**
@@ -90,14 +89,14 @@ public class Ship {
 	 */
 	public Rudder getRudder(){
 		for(Entities entity : entities)
-			if (entity instanceof Rudder)
-				return (Rudder) entity;
+			if (entity instanceof Rudder rudder)
+				return  rudder;
 		return null;
 	}
 	public Sail getSail(){
 		for(Entities entity : entities)
-			if (entity instanceof Sail)
-				return (Sail) entity;
+			if (entity instanceof Sail sail)
+				return sail;
 		return null;
 	}
 
