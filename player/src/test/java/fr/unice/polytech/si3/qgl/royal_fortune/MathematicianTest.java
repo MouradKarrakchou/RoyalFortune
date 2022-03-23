@@ -28,7 +28,7 @@ public class MathematicianTest {
         listStream=new ArrayList<>();
         listReef=new ArrayList<>();
         wind=new Wind(0,50);
-        cartologue=new Cartologue(listStream,listReef,wind);
+        cartologue=new Cartologue(listStream,listReef);
         mathematician=new Mathematician(cartologue);
     }
 
