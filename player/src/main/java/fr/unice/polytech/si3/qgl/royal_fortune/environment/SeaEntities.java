@@ -36,17 +36,12 @@ public class SeaEntities {
     }
 
 
-    public Optional<Stream> isStream() {
-        if(this instanceof Stream current){
-            return Optional.of(current);
-        }
-        return Optional.empty();
+    public Boolean isStream() {
+        return this instanceof Stream;
     }
-    public Optional<Reef> isReef() {
-        if(this instanceof Reef current){
-            return Optional.of(current);
-        }
-        return Optional.empty();
+
+    public Boolean isReef() {
+        return this instanceof Reef;
     }
 
 }

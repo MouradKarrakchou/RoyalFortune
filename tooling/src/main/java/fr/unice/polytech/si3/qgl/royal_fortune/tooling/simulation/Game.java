@@ -137,13 +137,13 @@ public class Game {
         StringBuilder out = new StringBuilder();
         List<SeaEntities> list = allSeaEntities;
         for(SeaEntities seaEntities : list) {
-            Optional<Stream> isStream = seaEntities.isStream();
-            Optional<Reef> isReef = seaEntities.isReef();
-            if(isStream.isPresent()){
-                out = createOutForStream(isStream.get(), out);
+            Boolean isStream = seaEntities.isStream();
+            Boolean isReef = seaEntities.isReef();
+            if(isStream){
+                out = createOutForStream((Stream) seaEntities, out);
             }
-            else if(isReef.isPresent()){
-                out = createOutForReef(isReef.get(), out);
+            else if(isReef){
+                out = createOutForReef((Reef) seaEntities, out);
             }
             out.append("\n");
         }
