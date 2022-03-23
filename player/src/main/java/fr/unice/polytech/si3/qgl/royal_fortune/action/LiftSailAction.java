@@ -18,22 +18,4 @@ public class LiftSailAction extends SailAction{
 
     public LiftSailAction(){}
 
-    @Override
-    public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode rudderActionJSON = mapper.createObjectNode();
-        rudderActionJSON.put("sailorId", sailorId);
-        rudderActionJSON.put("type", type);
-
-        try {
-            return mapper.writeValueAsString(rudderActionJSON);
-        } catch (JsonProcessingException e) {
-            logger.log(Level.INFO, "Exception");
-        }
-        return "";
-    }
-
-    public String getType() {
-        return type;
-    }
 }
