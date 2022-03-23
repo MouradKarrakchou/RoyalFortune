@@ -41,6 +41,6 @@ class CockpitIT {
             e.printStackTrace();
             fail("Exception was thrown!");
         }
-        assertTrue(true);
+        assertTrue(false);
     }
 }
