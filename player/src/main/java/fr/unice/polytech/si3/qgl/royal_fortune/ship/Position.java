@@ -75,18 +75,9 @@ public class Position {
     }
 
 
-	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof Position p)) return false;
 		return p.getX() == x && p.getY() == y && p.getOrientation() == orientation;
 	}
 
-	@Override
-	public int hashCode() {
-		int result = 17;
-		result = 31 * result + String.valueOf(x).hashCode();
-		result = 31 * result + Integer.parseInt(String.valueOf(y));
-		result = 31 * result + String.valueOf(orientation).hashCode();
-		return result;
-	}
 }
