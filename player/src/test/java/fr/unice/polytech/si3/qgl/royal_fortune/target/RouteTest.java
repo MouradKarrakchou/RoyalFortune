@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class RouteTest {
     List<Stream> listStream;
     List<Reef> listReef;
@@ -30,7 +32,6 @@ public class RouteTest {
         route = new Route(segment, cartologue);
     }
     @Test
-    void getListSegmentTest(){
-
+    void distributeSegmentsTest(){
     }
 }
