@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class LiftSailAction extends SailAction{
     public static String LIFT = "LIFT_SAIL";
 
-    final Logger logger = Logger.getLogger(RudderAction.class.getName());
+    final Logger logger = Logger.getLogger(LiftSailAction.class.getName());
     public LiftSailAction(int sailorId) {
         super(sailorId, LIFT);
         this.type = LIFT;

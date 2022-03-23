@@ -27,7 +27,7 @@ Rectangle extends Shape{
 	private double height;
 	private double orientation;
 	private List<Segment> segmentList;
-	Position position;
+	Position aPosition;
 	int PRECISION=50;
 	int RADIUS_OF_BEACON = 50;
 
@@ -64,10 +64,10 @@ Rectangle extends Shape{
 	 */
 	public List<Position> computeCorner() {
 		List<Position> listOfPosition=new ArrayList<>();
-		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,height/2));
-		listOfPosition.add(Mathematician.changeBase(this.position,width/2,height/2));
-		listOfPosition.add(Mathematician.changeBase(this.position,width/2,-height/2));
-		listOfPosition.add(Mathematician.changeBase(this.position,-width/2,-height/2));
+		listOfPosition.add(Mathematician.changeBase(this.aPosition,-width/2,height/2));
+		listOfPosition.add(Mathematician.changeBase(this.aPosition,width/2,height/2));
+		listOfPosition.add(Mathematician.changeBase(this.aPosition,width/2,-height/2));
+		listOfPosition.add(Mathematician.changeBase(this.aPosition,-width/2,-height/2));
 		return listOfPosition;
 	}
 	@Override
@@ -80,10 +80,10 @@ Rectangle extends Shape{
 		double widthUnit=width/PRECISION;
 		double heightUnit=height/PRECISION;
 		for (int k=-PRECISION/5;k<PRECISION+PRECISION/5;k++){
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2+k*widthUnit,height/2),new Circle(RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2,height/2-k*heightUnit),new Circle(RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,width/2-k*widthUnit,-height/2),new Circle(RADIUS_OF_BEACON)));
-		listOfPosition.add(new Beacon(Mathematician.changeBase(this.position,-width/2,-height/2+k*heightUnit),new Circle(RADIUS_OF_BEACON)));}
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,-width/2+k*widthUnit,height/2),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,width/2,height/2-k*heightUnit),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,width/2-k*widthUnit,-height/2),new Circle(RADIUS_OF_BEACON)));
+		listOfPosition.add(new Beacon(Mathematician.changeBase(this.aPosition,-width/2,-height/2+k*heightUnit),new Circle(RADIUS_OF_BEACON)));}
 		return listOfPosition;
 	}
 
@@ -109,7 +109,7 @@ Rectangle extends Shape{
 		while (!intersectionsPosition.isEmpty()){
 			Position pointToCompare=intersectionsPositionOrdered.get(intersectionsPositionOrdered.size()-1);
 			Position min=intersectionsPosition.get(0);
-			double distMin=Mathematician.distanceFormula(position,pointToCompare);
+			double distMin=Mathematician.distanceFormula(aPosition,pointToCompare);
 			for (Position position :intersectionsPosition){
 				if (Mathematician.distanceFormula(position,pointToCompare)<distMin){
 					distMin=Mathematician.distanceFormula(position,pointToCompare);
@@ -157,8 +157,8 @@ Rectangle extends Shape{
 	 * @param position
 	 */
 	public void setPosition(Position position) {
-		this.position = position;
-		this.position.setOrientation(orientation);
+		this.aPosition = position;
+		this.aPosition.setOrientation(orientation);
 		this.segmentList = computeSegments();
 	}
 
