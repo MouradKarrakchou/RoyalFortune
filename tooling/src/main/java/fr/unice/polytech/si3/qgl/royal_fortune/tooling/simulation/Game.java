@@ -153,9 +153,10 @@ public class Game {
     public StringBuilder createOutForStream(Stream stream, StringBuilder out) throws Exception {
         Position streamPos = stream.getPosition();
         out.append("stream").append(";");
-        if(stream.getShape().isRectangle().isPresent()){
-            Rectangle rect = stream.getShape().isRectangle().get();
-            out.append(rect.getHeight()).append(";").append(rect.getWidth()).append(";");
+        Optional<Rectangle> isRectangle = stream.getShape().isRectangle();
+        if(isRectangle.isPresent()){
+            Rectangle rectangle = isRectangle.get();
+            out.append(rectangle.getHeight()).append(";").append(rectangle.getWidth()).append(";");
             out.append(stream.getStrength()).append(";");
             out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
         }
