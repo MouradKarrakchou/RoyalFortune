@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,7 +77,11 @@ public class FictitiousCheckpoint {
         return fictitiousCheckpoints.get(0);
     }
     public void addFictitiousCheckpoint(Checkpoint checkpoint){
-        fictitiousCheckpoints.add(0,checkpoint);
+        if (checkpoint instanceof Beacon&&fictitiousCheckpoints.get(0) instanceof Beacon)
+        {fictitiousCheckpoints.remove(0);
+            fictitiousCheckpoints.add(0,checkpoint);}
+        else
+            fictitiousCheckpoints.add(0,checkpoint);
     }
 
     public List<Checkpoint> getFictitiousCheckpoints() {
