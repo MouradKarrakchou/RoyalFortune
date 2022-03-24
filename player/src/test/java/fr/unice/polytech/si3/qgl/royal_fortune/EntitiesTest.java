@@ -19,10 +19,4 @@ public class EntitiesTest {
         assertFalse(rudder.isSail());
     }
 
-    @Test
-    void typeTest() {
-        Entities entities = new Entities("Type", 1, 2);
-        assertEquals("Type", entities.getType());
-        assertEquals("{\"type\":\"Entities\",\"type\":\"Type\",\"x\":1,\"y\":2,\"rudder\":false,\"sail\":false,\"oar\":false}", entities.toString());
-    }
 }
