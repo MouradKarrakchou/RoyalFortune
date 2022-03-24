@@ -56,7 +56,7 @@ class SeaMapTest {
         assertEquals(false,seaMap.isInCheckpoint(checkpoint));
         fictitiousCheckpoint=new FictitiousCheckpoint(checkpoints);
         seaMap.setFictitiousCheckpoints(fictitiousCheckpoint);
-        seaMap.updateCheckPoint(null);
+        seaMap.updateCheckPoint(new ArrayList<>());
         assertEquals(1,checkpoints.size());
         assertEquals(1,fictitiousCheckpoint.getFictitiousCheckpoints().size());
     }
@@ -68,7 +68,7 @@ class SeaMapTest {
         checkpoints.add(new Checkpoint(new Position(500,500,0),new Circle(100)));
         fictitiousCheckpoint=new FictitiousCheckpoint(checkpoints);
         seaMap.setFictitiousCheckpoints(fictitiousCheckpoint);
-        seaMap.updateCheckPoint(null);
+        seaMap.updateCheckPoint(new ArrayList<>());
         assertEquals(1,checkpoints.size());
         assertEquals(1,fictitiousCheckpoint.getFictitiousCheckpoints().size());
     }
