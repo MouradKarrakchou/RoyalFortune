@@ -115,9 +115,9 @@ class CockpitTest {
     @Test
     void getTest(){
         Cockpit cockpit = new Cockpit(new Ship(), new ArrayList<>(), new Goal(), new Captain());
-        assertTrue(cockpit.getShip()!= null);
-        assertTrue(cockpit.getSailors()!= null);
-        assertTrue(cockpit.getCaptain()!= null);
-        assertTrue(cockpit.getGoal()!= null);
+        assertNotNull(cockpit.getShip());
+        assertNotNull(cockpit.getSailors());
+        assertNotNull(cockpit.getCaptain());
+        assertNotNull(cockpit.getGoal());
     }
 }
