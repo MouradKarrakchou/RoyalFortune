@@ -32,6 +32,7 @@ public class SeaEntities {
     }
 
     public Shape getShape() {
+        shape.setPosition(position);
         return shape;
     }
 
