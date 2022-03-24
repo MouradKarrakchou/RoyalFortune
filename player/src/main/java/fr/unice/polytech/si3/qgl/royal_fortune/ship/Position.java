@@ -75,8 +75,20 @@ public class Position {
     }
 	@Override
 	public boolean equals(Object object){
-		Position position=(Position) object;
+		if (object == null) return false;
+		if (this.getClass() != object.getClass()) return false;
+
+		Position position = (Position) object;
 		return ((Math.abs(position.getX()-x)<0.001)&&(Math.abs(position.getY()-y)<0.001));
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + String.valueOf(y).hashCode();
+		result = 31 * result + Integer.parseInt(String.valueOf(y));
+		result = 31 * result + String.valueOf(orientation).hashCode();
+		return result;
 	}
 	
 }
