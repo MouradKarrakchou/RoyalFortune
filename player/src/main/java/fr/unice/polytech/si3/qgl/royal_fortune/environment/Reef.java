@@ -8,5 +8,6 @@ public class Reef extends SeaEntities {
     public Reef(){}
     public Reef(Position position, Shape shape){
         super(position,shape);
+        shape.setPosition(position);
     }
 }
