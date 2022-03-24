@@ -25,12 +25,13 @@ public class Mathematician {
     public Optional<Beacon> computeTrajectory(List<Beacon> listBeacon,Position departure,Position arrival){
         ArrayList<Route> roads=new ArrayList<>();
         for (Beacon beacon :listBeacon){
-            List<Segment> segments=new ArrayList<>();
+            if (!beacon.getPosition().equals(departure)&&!beacon.getPosition().equals(arrival))
+            {List<Segment> segments=new ArrayList<>();
             segments.add(new Segment(departure,beacon.getPosition()));
             segments.add(new Segment(beacon.getPosition(), arrival));
             Route route=new Route(segments,cartologue);
             roads.add(route);
-            beaconHashMap.put(route,beacon);
+            beaconHashMap.put(route,beacon);}
         }
         Route route = null;
         if (!roads.isEmpty())

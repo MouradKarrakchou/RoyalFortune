@@ -106,9 +106,9 @@ Rectangle extends Shape{
 
 	private List<Position> distinct(List<Position> ordered) {
 		List<Position> positionList=new ArrayList<>();
-		for (Position position:ordered){
-			if (!positionList.contains(position))
-			positionList.add(position);
+		for (int k=0;k<ordered.size();k++){
+			if (!positionList.contains(ordered.get(ordered.size()-k-1)))
+			positionList.add(ordered.get(ordered.size()-k-1));
 		}
 		return positionList;
 	}
