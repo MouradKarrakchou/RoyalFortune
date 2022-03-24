@@ -76,7 +76,7 @@ public class Position {
 	@Override
 	public boolean equals(Object object){
 		Position position=(Position) object;
-		return position.getX()==x&&position.getY()==y;
+		return ((Math.abs(position.getX()-x)<0.001)&&(Math.abs(position.getY()-y)<0.001));
 	}
 	
 }

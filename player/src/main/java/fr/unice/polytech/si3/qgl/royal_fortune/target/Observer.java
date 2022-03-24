@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.target;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
@@ -22,7 +23,7 @@ public class Observer {
         this.nextCheckPointPosition=nextCheckPointPosition;
         this.shipPosition=shipPosition;
         this.currentSeaEntities=new ArrayList<>();
-        cartologue=new Cartologue(getStream(currentSeaEntities),null);
+        cartologue=new Cartologue(getStream(currentSeaEntities),getReef(currentSeaEntities));
         this.mathematician = new Mathematician(cartologue);
     }
 
@@ -33,6 +34,14 @@ public class Observer {
                 listOfStream.add((Stream) seaEntities);
         }
         return listOfStream;
+    }
+    private List<Reef> getReef(List<SeaEntities> newSeaEntities){
+        List<Reef> listOfReef=new ArrayList<>();
+        for(SeaEntities seaEntities:newSeaEntities){
+            if (seaEntities instanceof Reef)
+                listOfReef.add((Reef) seaEntities);
+        }
+        return listOfReef;
     }
     /**
      * Check in half-circle all the seaEntities in RANGE. If newSeaEntities is different from currentSeaEntities return true.
@@ -50,10 +59,10 @@ public class Observer {
      */
     public Optional<Beacon> watchSea(List<SeaEntities> newSeaEntities){
         List<Beacon> beacons=new ArrayList<>();
-        for (Stream stream:getStream(newSeaEntities)){
-            beacons.addAll(stream.getShape().generateBeacon());
+        for (SeaEntities seaEntities:newSeaEntities){
+            beacons.addAll(seaEntities.getShape().generateBeacon());
         }
-        cartologue.setListStream(getStream(newSeaEntities));
+        cartologue.setListSeaEntities(newSeaEntities);
         return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);
     }
 
