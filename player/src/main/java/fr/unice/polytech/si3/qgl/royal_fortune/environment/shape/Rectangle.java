@@ -30,7 +30,7 @@ Rectangle extends Shape{
 	private List<Segment> segmentList;
 	Position aPosition;
 	int precision = 50;
-	int radiusOfBeacon = 50;
+	int radiusOfBeacon = 300;
 
 	public Rectangle() {}
 	
