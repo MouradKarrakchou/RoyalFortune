@@ -163,6 +163,4 @@ public class RouteTest {
         assertEquals(0, r1.compareTo(r1));
     }
 
-
-
 }
