@@ -74,6 +74,8 @@ class CartologueTest {
         Stream stream= new Stream(new Position(200,0),new Rectangle(100,100,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(1000,0));
         listStream.add(stream);
+        cartologue=new Cartologue(listStream,listReef);
+        map=cartologue.getMap();
         List<Segment> cartoCut = cartologue.cutSegment(segment, false);
         assertEquals(3,cartoCut.size());
         assertEquals(0,cartoCut.get(0).getPointA().getX());
@@ -91,6 +93,8 @@ class CartologueTest {
         Stream stream= new Stream(new Position(0,200),new Rectangle(100,100,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(0,1000));
         listStream.add(stream);
+        cartologue=new Cartologue(listStream,listReef);
+        map=cartologue.getMap();
         List<Segment> cartoCut = cartologue.cutSegment(segment, false);
         assertEquals(3,cartoCut.size());
         assertEquals(0,cartoCut.get(0).getPointA().getY());

@@ -66,7 +66,7 @@ public class RouteTest {
         Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
         Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
         listStream.add(stream);
-
+        cartologue=new Cartologue(listStream,listReef);
         Route route = new Route(segment1, cartologue);
         assertTrue(route.getListSegment().size() == 3);
         assertTrue(route.getFirstRoute().getListSegment().size() == 1);
@@ -85,7 +85,7 @@ public class RouteTest {
         Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 1, 0));
         Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
         listStream.add(stream);
-
+        cartologue=new Cartologue(listStream,listReef);
         Route route = new Route(segment1, cartologue);
         assertTrue(route.getListSegment().size() == 3);
         assertTrue(route.getFirstRoute().getListSegment().size() == 1);
@@ -126,6 +126,8 @@ public class RouteTest {
     void sliceSegmentTestWithAStream(){
         Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
         listStream.add(stream);
+        cartologue=new Cartologue(listStream,listReef);
+        route = new Route(segment, cartologue);
         List<Segment> res = route.sliceSegment(segment);
         assertEquals(3, res.size());
     }
