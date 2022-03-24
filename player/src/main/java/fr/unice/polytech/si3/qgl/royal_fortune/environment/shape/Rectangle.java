@@ -106,11 +106,16 @@ Rectangle extends Shape{
 
 	private List<Position> distinct(List<Position> ordered) {
 		List<Position> positionList=new ArrayList<>();
+		List<Position> positionList2=new ArrayList<>();
+
 		for (int k=0;k<ordered.size();k++){
 			if (!positionList.contains(ordered.get(ordered.size()-k-1)))
 			positionList.add(ordered.get(ordered.size()-k-1));
 		}
-		return positionList;
+		for (int k=0;k<positionList.size();k++){
+				positionList2.add(positionList.get(positionList.size()-k-1));
+		}
+		return positionList2;
 	}
 
 	private List<Position> ordered(List<Position> intersectionsPosition, Segment segment) {
