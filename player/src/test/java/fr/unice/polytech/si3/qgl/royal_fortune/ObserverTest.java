@@ -28,7 +28,7 @@ class ObserverTest {
         currentSeaEntities=new ArrayList<>();
         shipPosition=new Position(0,0,0);
         nextCheckPointPosition=new Position(1000,0,0);
-        observer=new Observer(shipPosition,nextCheckPointPosition);
+        observer=new Observer();
     }
 
     @Test

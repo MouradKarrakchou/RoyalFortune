@@ -13,4 +13,15 @@ public class Stream extends SeaEntities{
     public int getStrength() {
         return strength;
     }
+    @Override
+    public boolean equals(Object object){
+        if (!(object instanceof Stream))
+            return false;
+        Stream stream=(Stream) object;
+        if (this.position.equals(stream.getPosition())
+                &&this.strength==(stream.getStrength())
+                &&this.shape.equals(stream.shape))
+            return true;
+        return false;
+    }
 }

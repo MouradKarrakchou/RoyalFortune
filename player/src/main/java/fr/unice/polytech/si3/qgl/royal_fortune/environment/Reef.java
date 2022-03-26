@@ -9,4 +9,14 @@ public class Reef extends SeaEntities {
     public Reef(Position position, Shape shape){
         super(position,shape);
     }
+    @Override
+    public boolean equals(Object object){
+        if (!(object instanceof Reef))
+            return false;
+        Reef reef=(Reef) object;
+        if (this.position.equals(reef.getPosition())
+                &&this.shape.equals(reef.shape))
+            return true;
+        return false;
+    }
 }
