@@ -233,6 +233,7 @@ public class Captain {
         this.wind = wind;
     }
 
+
     public void updateSeaEntities(List<SeaEntities> seaEntities) {this.seaEntities=seaEntities;
     }
 }

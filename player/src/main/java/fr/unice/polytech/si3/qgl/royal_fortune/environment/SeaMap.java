@@ -56,4 +56,7 @@ public class SeaMap {
         return(fictitiousCheckpoints.getCurrentCheckPoint());
     }
 
+    public FictitiousCheckpoint getFictitiousCheckpoints() {
+        return fictitiousCheckpoints;
+    }
 }
