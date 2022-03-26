@@ -28,7 +28,7 @@ Rectangle extends Shape{
 	private double height;
 	private double orientation;
 	private List<Segment> segmentList = new ArrayList<>();
-;
+
 
 	public Rectangle() {}
 	
@@ -48,6 +48,7 @@ Rectangle extends Shape{
 	public double getOrientation() {
 		return orientation;
 	}
+
 	@Override
 	public boolean equals(Object object){
 		if (!(object instanceof Rectangle))
@@ -59,6 +60,16 @@ Rectangle extends Shape{
 			return true;
 		return false;
 	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + String.valueOf(width).hashCode();
+		result = 31 * result + Integer.parseInt(String.valueOf(height));
+		result = 31 * result + String.valueOf(orientation).hashCode();
+		return result;
+	}
+
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();

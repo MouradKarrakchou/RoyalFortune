@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public class GeometryRectangle {
 
+    private GeometryRectangle() {}
 
     /**
      * Compute the 4 segments of the rectangle

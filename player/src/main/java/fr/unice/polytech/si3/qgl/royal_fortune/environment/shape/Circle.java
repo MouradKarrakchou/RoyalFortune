@@ -4,11 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
-import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
-import java.util.List;
 import java.util.logging.Level;
 
 /**

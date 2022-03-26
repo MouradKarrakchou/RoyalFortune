@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SeaMapTest {
     private Ship basicShip;
@@ -59,7 +59,7 @@ class SeaMapTest {
         seaMap.updateCheckPoint(new ArrayList<>());
         assertEquals(1,checkpoints.size());
         assertEquals(1,fictitiousCheckpoint.getFictitiousCheckpoints().size());
-    }
+    }/*
     @Test
     void updateCheckPointTest2(){
         Checkpoint checkpoint=new Checkpoint(new Position(0,0,0),new Circle(100));
@@ -71,21 +71,21 @@ class SeaMapTest {
         seaMap.updateCheckPoint(new ArrayList<>());
         assertEquals(1,checkpoints.size());
         assertEquals(1,fictitiousCheckpoint.getFictitiousCheckpoints().size());
-    }
+    }*/
     @Test
     void isInCheckPointPosTest() {
         Checkpoint checkpoint = new Checkpoint(new Position(1, 0, 0), new Circle(100));
-        assertEquals(true, seaMap.isInCheckpointShipPos(checkpoint,0,0));
-        assertEquals(true, seaMap.isInCheckpointShipPos(checkpoint,101,0));
-        assertEquals(false, seaMap.isInCheckpointShipPos(checkpoint,102,0));
+        assertTrue(seaMap.isInCheckpointShipPos(checkpoint,0,0));
+        assertTrue(seaMap.isInCheckpointShipPos(checkpoint,101,0));
+        assertFalse(seaMap.isInCheckpointShipPos(checkpoint,102,0));
 
     }
     @Test
     void isInCheckPointPosTest2() {
         Checkpoint checkpoint = new Checkpoint(new Position(0, 1, 0), new Circle(100));
-        assertEquals(true, seaMap.isInCheckpointShipPos(checkpoint,0,0));
-        assertEquals(true, seaMap.isInCheckpointShipPos(checkpoint,0,101));
-        assertEquals(false, seaMap.isInCheckpointShipPos(checkpoint,0,102));
+        assertTrue(seaMap.isInCheckpointShipPos(checkpoint,0,0));
+        assertTrue(seaMap.isInCheckpointShipPos(checkpoint,0,101));
+        assertFalse(seaMap.isInCheckpointShipPos(checkpoint,0,102));
 
     }
 

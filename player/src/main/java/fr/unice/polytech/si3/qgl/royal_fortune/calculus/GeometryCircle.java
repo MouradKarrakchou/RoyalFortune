@@ -7,6 +7,8 @@ import java.util.List;
 
 public class GeometryCircle {
 
+    private GeometryCircle() {}
+
     /**
      * check if the rectangle is in the circle
      * @return true if the rectangle is the circle

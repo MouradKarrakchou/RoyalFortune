@@ -38,8 +38,9 @@ public class Cartologue {
             else{
                 return (Double.POSITIVE_INFINITY);
             }
-        else
-            dist=segment.getLength()/165;
+        else {
+            dist = segment.getLength() / 165;
+        }
         return dist;
     }
 

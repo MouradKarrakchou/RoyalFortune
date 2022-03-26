@@ -24,4 +24,13 @@ public class Stream extends SeaEntities{
             return true;
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + String.valueOf(position.getX()).hashCode();
+        result = 31 * result + Integer.parseInt(String.valueOf(strength));
+        result = 31 * result + String.valueOf(shape.getType()).hashCode();
+        return result;
+    }
 }
