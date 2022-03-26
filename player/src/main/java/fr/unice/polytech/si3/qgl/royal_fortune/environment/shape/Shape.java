@@ -55,6 +55,11 @@ public class Shape {
 	}
 
 
+	/**
+	 * Generate some beacons all around the shape
+	 * @return the list of beacon of the shape
+	 */
+	public List<Beacon> generateBeacon(Position pos){return new ArrayList<>();}
 
 	public Optional<Circle> isCircle(){
 		if(this instanceof Circle current){

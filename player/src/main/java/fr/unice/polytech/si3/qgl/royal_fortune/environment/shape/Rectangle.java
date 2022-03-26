@@ -27,7 +27,7 @@ Rectangle extends Shape{
 	private double width;
 	private double height;
 	private double orientation;
-	private List<Segment> segmentList;
+	private List<Segment> segmentList = new ArrayList<>();
 ;
 
 	public Rectangle() {}
@@ -37,7 +37,6 @@ Rectangle extends Shape{
 		this.width = width;
 		this.height = height;
 		this.orientation = orientation;
-		this.segmentList = new ArrayList<>();
 	}
 
 	public double getWidth() {
