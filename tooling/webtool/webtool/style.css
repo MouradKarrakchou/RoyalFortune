@@ -54,8 +54,8 @@ body {
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    background-color: rgb(187, 44, 168);
-    z-index: 5;
+    background-color: rgb(143, 206, 164);
+    z-index: 1;
 }
 
 .seaEntitie {
