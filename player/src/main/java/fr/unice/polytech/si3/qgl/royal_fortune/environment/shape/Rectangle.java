@@ -4,14 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 
 /**
@@ -51,14 +46,11 @@ Rectangle extends Shape{
 
 	@Override
 	public boolean equals(Object object){
-		if (!(object instanceof Rectangle))
+		if (!(object instanceof Rectangle rectangle))
 			return false;
-		Rectangle rectangle=(Rectangle) object;
-		if (this.width==rectangle.getWidth()&&
-		this.height==rectangle.height&&
-		this.orientation==rectangle.orientation)
-			return true;
-		return false;
+		return this.width == rectangle.getWidth() &&
+				this.height == rectangle.height &&
+				this.orientation == rectangle.orientation;
 	}
 
 	@Override

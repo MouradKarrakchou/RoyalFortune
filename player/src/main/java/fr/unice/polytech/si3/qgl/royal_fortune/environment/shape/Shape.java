@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
-import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,8 +74,7 @@ public class Shape {
 	}
 
 	public void computeSegmentsIfPossible(Position position) {
-		if(this instanceof Rectangle){
-			Rectangle currentRectangle = (Rectangle) this;
+		if(this instanceof Rectangle currentRectangle){
 			List<Segment> listSeg = GeometryRectangle.computeSegments(position,  currentRectangle);
 			currentRectangle.getSegmentList().addAll(listSeg);
 		}
