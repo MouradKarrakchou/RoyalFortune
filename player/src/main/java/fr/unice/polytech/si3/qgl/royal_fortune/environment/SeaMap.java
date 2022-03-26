@@ -6,6 +6,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,7 @@ public class SeaMap {
         if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
         {
             fictitiousCheckpoints.nextCheckPoint();
+            this.seaEntities.clear();
         }
 
         observer.setNextCheckPointPosition(fictitiousCheckpoints.getCurrentCheckPoint().getPosition());

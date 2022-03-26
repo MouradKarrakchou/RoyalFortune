@@ -137,7 +137,7 @@ public class Game {
     public List<Beacon> computeAllBeacons(){
         List<Beacon> allBeacon = new ArrayList<>();
         for (SeaEntities seaEntity : allSeaEntities) {
-            if(seaEntity.isStream())
+            if(seaEntity.getShape() instanceof Rectangle)
                 allBeacon.addAll(GeometryRectangle.generateBeacon(seaEntity.getPosition(), (Rectangle) seaEntity.getShape()));
         }
         return allBeacon;

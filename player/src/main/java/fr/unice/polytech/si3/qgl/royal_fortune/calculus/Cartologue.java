@@ -61,8 +61,10 @@ public class Cartologue {
      */
     public List<Segment> cutSegment(Segment path, Boolean isOnStream){
         List<Segment> segments=new ArrayList<>();
+        List<Position> intersections=new ArrayList<>();
         for (SeaEntities seaEntities:listSeaEntities){
-            List<Position> intersections = new ArrayList<>(GeometryRectangle.computeIntersectionWith(path, seaEntities.getPosition(), (Rectangle) seaEntities.getShape()));
+            if (seaEntities.getShape() instanceof Rectangle)
+                intersections = new ArrayList<>(GeometryRectangle.computeIntersectionWith(path, seaEntities.getPosition(), (Rectangle) seaEntities.getShape()));
             if (intersections.size()==3)
             {
                 segments.add(new Segment(intersections.get(0),intersections.get(1)));
@@ -94,8 +96,9 @@ public class Cartologue {
      */
     private boolean positionIsOnASeaEntities(Position pointA) {
         for (SeaEntities seaEntities:listSeaEntities){
-            if (GeometryRectangle.positionIsInTheRectangle(pointA, seaEntities.getPosition(), (Rectangle) seaEntities.getShape()))
-                return true;
+            if (seaEntities.getShape() instanceof Rectangle)
+                if (GeometryRectangle.positionIsInTheRectangle(pointA, seaEntities.getPosition(), (Rectangle) seaEntities.getShape()))
+                    return true;
         }
         return false;
     }

@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
@@ -54,6 +55,14 @@ public class Observer {
                 return true;
         }
         return false;
+    }
+    public List<Beacon> generateRandomBeacon(Position shipPosition){
+        Random random=new Random(500);
+        List<Beacon> listBeacon=new ArrayList<>();
+        for (int k=0;k<500;k++){
+            listBeacon.add(new Beacon(new Position(shipPosition.getX()+(random.nextInt()-250),shipPosition.getY()+(random.nextInt()-250),0),new Circle(200)));
+        }
+        return listBeacon;
     }
 
     /**
