@@ -20,11 +20,16 @@ class Boat {
 
 class Checkpoint {
     constructor(x, y, radius) {
-        //this.position = getCalcPosition(x, y, radius);
-        //this.position = new Position(x, y, 0);
-        //this.radius = (radius * 0.5);
-        this.position = new Position(x, y , 0)
+        this.position = new Position(x, y, 0)
         this.radius = radius;
+    }
+}
+
+
+class Beacon {
+    constructor(x, y) {
+        this.position = new Position(x, y, 0)
+        this.radius = 100;
     }
 }
 class Position {
@@ -76,6 +81,8 @@ class Circle {
 function init() {
     window.checkpoints = [];
     window.seaEntities = [];
+    window.beacons = [];
+
     window.cameraLock = false;
     addListener();
     window.boat = new Boat(0, 0, 0);
@@ -176,13 +183,33 @@ function createSeaEntities(input) {
     }
 }
 
+function createBeacon(input) {
+    console.log("beacons:\n" + input)
+    let sea = document.getElementById('sea');
+    for (let i = 0; i < input.length; i++) {
+        let parameters = input[i].split(';');
+        window.beacons.push(new Beacon(parameters[0], parameters[1], parameters[2]));
+        let check = "<div id='beacon_" + i + "' class='beacon'></div>"
+        sea.innerHTML += check;
+    }
+}
+
 function animateCheckpoints() {
     $('.checkpoint').each(function() {
         let id = $(this).attr("id");
         let checkpoint = window.checkpoints[id];
         let radius = checkpoint.radius;
-        //$(this).animate({ top: window.checkpoints[id].y, left: window.checkpoints[id].x }, 1000);
         $(this).css({ top: checkpoint.position.y - (radius / 2), left: checkpoint.position.x - (radius / 2) });
+        $(this).css({ height: radius, width: radius });
+    });
+}
+
+function animateBeacon() {
+    $('.beacon').each(function() {
+        let id = $(this).attr("id").slice(7);
+        let beacon = window.beacons[id];
+        let radius = beacon.radius;
+        $(this).css({ top: beacon.position.y - (radius / 2), left: beacon.position.x - (radius / 2) });
         $(this).css({ height: radius, width: radius });
     });
 }
@@ -193,22 +220,21 @@ function animateSeaEntities() {
         let seaEntite = window.seaEntities[id];
         if (seaEntite.type == "Reef_Rectangle") {
             $(this).css('transform', 'rotate(' + seaEntite.position.orientation + 'rad)');
-            $(this).animate({ top: seaEntite.position.y - (seaEntite.rectangle.height / 2), left: seaEntite.position.x - (seaEntite.rectangle.width / 2) }, 1000);
-            $(this).animate({ height: seaEntite.rectangle.height, width: seaEntite.rectangle.width }, 1000);
+            $(this).css({ top: seaEntite.position.y - (seaEntite.rectangle.height / 2), left: seaEntite.position.x - (seaEntite.rectangle.width / 2) }, 1000);
+            $(this).css({ height: seaEntite.rectangle.height, width: seaEntite.rectangle.width }, 1000);
         } else if (seaEntite.type == "Reef_Circle") {
-            $(this).animate({ top: seaEntite.position.y - (seaEntite.circle.radius / 2), left: seaEntite.position.x - (seaEntite.circle.radius / 2) }, 1000);
-            $(this).animate({ height: seaEntite.circle.radius, width: seaEntite.circle.radius }, 1000);
+            $(this).css({ top: seaEntite.position.y - (seaEntite.circle.radius / 2), left: seaEntite.position.x - (seaEntite.circle.radius / 2) }, 1000);
+            $(this).css({ height: seaEntite.circle.radius, width: seaEntite.circle.radius }, 1000);
         } else if (seaEntite.type == "Stream") {
             $(this).css('transform', 'rotate(' + seaEntite.position.orientation + 'rad)');
-            $(this).animate({ top: seaEntite.position.y - (seaEntite.rectangle.height / 2), left: seaEntite.position.x - (seaEntite.rectangle.width / 2) }, 1000);
-            $(this).animate({ height: seaEntite.rectangle.height, width: seaEntite.rectangle.width }, 1000);
+            $(this).css({ top: seaEntite.position.y - (seaEntite.rectangle.height / 2), left: seaEntite.position.x - (seaEntite.rectangle.width / 2) }, 1000);
+            $(this).css({ height: seaEntite.rectangle.height, width: seaEntite.rectangle.width }, 1000);
         }
     });
 }
 
 function getText(textarea) {
     array = textarea.value.replace(/\s+/g, ' ').split(' ').filter((e) => e.length > 0);
-
     return array
 }
 
@@ -224,8 +250,6 @@ function drawpath(newX, newY) {
     draw.innerHTML += path;
     draw.innerHTML += point;
     draw.innerHTML += point2;
-
-
 }
 
 function addListener() {
@@ -240,7 +264,8 @@ function addListener() {
         let inputArray = input.split("---");
         let checkpoints = removeEmpty(inputArray[0].split("\n"));
         let seaEntities = removeEmpty(inputArray[1].split("\n"));
-        let coord = removeEmpty(inputArray[2].split("\n"));
+        let beacons = removeEmpty(inputArray[2].split("\n"));
+        let coord = removeEmpty(inputArray[3].split("\n"));
 
         /*console.log("checkpoints:\n" + checkpoints);
         console.log("seaEntities:\n" + seaEntities);
@@ -256,6 +281,10 @@ function addListener() {
         createSeaEntities(seaEntities);
         console.log("---animate SeaEntities---");
         animateSeaEntities();
+        console.log("---create Beacon---");
+        createBeacon(beacons);
+        console.log("---animate Beacon---");
+        animateBeacon();
         console.log("---move boat---");
         move(coord);
     });

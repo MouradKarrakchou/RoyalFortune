@@ -49,6 +49,15 @@ body {
     z-index: 0;
 }
 
+.beacon {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: rgb(187, 44, 168);
+    z-index: 5;
+}
+
 .seaEntitie {
     position: absolute;
     height: 100px;
