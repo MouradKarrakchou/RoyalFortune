@@ -32,7 +32,7 @@ public class Main {
 		OutputMaker.insertAllBeacons(game.computeAllBeacons());
 
 		int tour=0;
-		while (!game.isFinished()&&tour<=150) {
+		while (!game.isFinished()) {
 			game.nextRound(wind);
 			LOGGER.info(String.valueOf(game));
 			OutputMaker.appendForOutput(game.toString());
