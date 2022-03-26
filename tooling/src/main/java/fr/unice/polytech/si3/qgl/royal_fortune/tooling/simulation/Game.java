@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.*;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
@@ -16,6 +17,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
@@ -98,7 +100,6 @@ public class Game {
 
     @Override
     public String toString() {
-        //"Orientation: "+ship.getPosition().getOrientation()+'\n';
         return ship.getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
     }
 
@@ -111,79 +112,27 @@ public class Game {
         logger.info(out);
         return (distanceSC<=radius && goal.getCheckPoints().size() == 1);
     }
-    
-    public StringBuilder getAllCheckpointsForOutput() {
-    	StringBuilder out = new StringBuilder();
-    	List<Checkpoint> checks = goal.getCheckPoints();
-    	for(Checkpoint checkpoint : checks) {
-    		Position pos = checkpoint.getPosition();
-    		double x = pos.getX();
-    		double y = pos.getY();
-            double radius = ((Circle)checkpoint.getShape()).getRadius();
-            out.append(x).append(";").append(y).append(";").append(radius).append("\n");
-    	}
-    	return out;
+
+
+    public Goal getGoal() {
+        return goal;
     }
 
     public List<SeaEntities> getAllSeaEntities() {
         return allSeaEntities;
     }
 
-    public StringBuilder getAllSeaEntitiesForOutput() throws Exception {
-        StringBuilder out = new StringBuilder();
-        List<SeaEntities> list = allSeaEntities;
-        for(SeaEntities seaEntities : list) {
-            Boolean isStream = seaEntities.isStream();
-            Boolean isReef = seaEntities.isReef();
-            if(isStream){
-                out = createOutForStream((Stream) seaEntities, out);
-            }
-            else if(isReef){
-                out = createOutForReef((Reef) seaEntities, out);
-            }
-            out.append("\n");
-        }
-        return out;
-    }
-
-    public StringBuilder createOutForStream(Stream stream, StringBuilder out) throws Exception {
-        Position streamPos = stream.getPosition();
-        out.append("stream").append(";");
-        Optional<Rectangle> isRectangle = stream.getShape().isRectangle();
-        if(isRectangle.isPresent()){
-            Rectangle rectangle = isRectangle.get();
-            out.append(rectangle.getHeight()).append(";").append(rectangle.getWidth()).append(";");
-            out.append(stream.getStrength()).append(";");
-            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
-        }
-        else
-            throw new Exception("Stream with other shape than rectangle");
-        return out;
-    }
-
-    public StringBuilder createOutForReef(Reef reef, StringBuilder out) throws Exception {
-        Position streamPos = reef.getPosition();
-        out.append("reef").append(";");
-        Optional<Rectangle> isRectangle = reef.getShape().isRectangle();
-        Optional<Circle> isCircle = reef.getShape().isCircle();
-        if(isRectangle.isPresent()){
-            Rectangle rect = isRectangle.get();
-            out.append("rect").append(";").append(rect.getHeight()).append(";").append(rect.getWidth()).append(";");
-            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
-        }
-        else if(isCircle.isPresent()){
-            Circle circle = isCircle.get();
-            out.append("circle").append(";").append(circle.getRadius()).append(";");
-            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
-        }
-        else
-            throw new Exception("Stream with other shape than rectangle");
-        return out;
-    }
-    
-
     public void setShip(Ship ship) {
         this.ship = ship;
+    }
+
+    public List<Beacon> computeAllBeacons(){
+        List<Beacon> allBeacon = new ArrayList<>();
+        for (SeaEntities seaEntity : allSeaEntities) {
+            if(seaEntity.isStream())
+                allBeacon.addAll(GeometryRectangle.generateBeacon(seaEntity.getPosition(), (Rectangle) seaEntity.getShape()));
+        }
+        return allBeacon;
     }
 
 
