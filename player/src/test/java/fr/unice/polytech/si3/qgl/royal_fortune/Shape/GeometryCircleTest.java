@@ -1,28 +1,26 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CircleTest {
+class GeometryCircleTest {
     @Test
     void rectangleIsInCircle(){
         double radius = 500.;
         double h = 100;
         double w = 100;
         double o = 0;
-        Position circlePos = new Position(0,0,0);
-        Position rectPos = new Position(0,0,0);
+        Position seaEntitiePos = new Position(0,0,0);
 
         Rectangle r = new Rectangle(w, h , o);
-        Circle c = new Circle(circlePos, radius);
+        Circle c = new Circle(radius);
 
-        r.setPosition(rectPos);
-        assertTrue(c.rectangleIsInCircle(r));
+        assertTrue(GeometryCircle.rectangleIsInCircle(r, seaEntitiePos, radius));
     }
 
     @Test
@@ -32,13 +30,11 @@ class CircleTest {
         double w = 100;
         double o = 0;
         Position circlePos = new Position(1000,0,0);
-        Position rectPos = new Position(0,0,0);
 
         Rectangle r = new Rectangle(w, h , o);
-        Circle c = new Circle(circlePos, radius);
+        Circle c = new Circle(radius);
 
-        r.setPosition(rectPos);
-        assertFalse(c.rectangleIsInCircle(r));
+        assertFalse(GeometryCircle.rectangleIsInCircle(r, circlePos, radius));
     }
 
     @Test

@@ -1,11 +1,13 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.target;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.util.*;
@@ -60,7 +62,7 @@ public class Observer {
     public Optional<Beacon> watchSea(List<SeaEntities> newSeaEntities){
         List<Beacon> beacons=new ArrayList<>();
         for (SeaEntities seaEntities:newSeaEntities){
-            beacons.addAll(seaEntities.getShape().generateBeacon());
+            beacons.addAll(GeometryRectangle.generateBeacon(seaEntities.getPosition(), (Rectangle) seaEntities.getShape()));
         }
         cartologue.setListSeaEntities(newSeaEntities);
         return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);

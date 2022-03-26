@@ -70,12 +70,10 @@ class SegmentTest {
     @Test
     void angleIntersectionBetweenSegmentAndRectangleTest(){
         Rectangle r = new Rectangle(10.,10.,0.);
-        r.setPosition(new Position(20,0,0));
         double res = s.angleIntersectionBetweenSegmentAndRectangle(r);
         assertEquals(0., res);
 
         r = new Rectangle(-10.,10.,Math.PI/2);
-        r.setPosition(new Position(20,-9,0));
         res = s.angleIntersectionBetweenSegmentAndRectangle(r);
         assertEquals(Math.PI/2, res);
     }

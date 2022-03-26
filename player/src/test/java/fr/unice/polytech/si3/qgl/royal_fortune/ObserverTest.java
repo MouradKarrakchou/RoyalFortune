@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,7 +36,7 @@ class ObserverTest {
     void watchSeaTest(){
         Stream stream=new Stream(new Position(500,0,0),new Rectangle(100,100,Math.PI),100);
         currentSeaEntities.add(stream);
-        Beacon beacon=observer.watchSea(currentSeaEntities).get();
-        assertTrue(observer.watchSea(currentSeaEntities).isPresent());
+        Optional<Beacon> beacon=observer.watchSea(currentSeaEntities);
+        assertTrue(beacon.isPresent());
     }
 }

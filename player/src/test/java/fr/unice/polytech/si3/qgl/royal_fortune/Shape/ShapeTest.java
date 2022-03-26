@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -53,8 +54,11 @@ class ShapeTest {
         assertFalse(s.isCircle().isPresent());
     }
 
+
     @Test
-    void generateBeaconTest(){
-        assertEquals(new ArrayList<>(), s.generateBeacon());
+    void computeSegmentsIfPossibleTest(){
+        Rectangle rectangle = new Rectangle(5,5,0);
+        rectangle.computeSegmentsIfPossible(new Position(0, 0, 0));
+        assertEquals(4, rectangle.getSegmentList().size());
     }
 }

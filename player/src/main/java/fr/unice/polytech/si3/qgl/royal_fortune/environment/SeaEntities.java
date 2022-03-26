@@ -21,7 +21,7 @@ public class SeaEntities {
     public SeaEntities(Position position, Shape shape){
         this.position=position;
         this.shape=shape;
-        shape.setPosition(position);
+        shape.computeSegmentsIfPossible(position);
     }
 
     public SeaEntities() {
@@ -32,7 +32,6 @@ public class SeaEntities {
     }
 
     public Shape getShape() {
-        shape.setPosition(position);
         return shape;
     }
 
