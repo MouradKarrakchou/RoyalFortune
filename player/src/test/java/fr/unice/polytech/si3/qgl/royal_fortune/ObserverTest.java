@@ -36,6 +36,8 @@ class ObserverTest {
     void watchSeaTest(){
         Stream stream=new Stream(new Position(500,0,0),new Rectangle(100,100,Math.PI),100);
         currentSeaEntities.add(stream);
+        observer.setShipPosition(shipPosition);
+        observer.setNextCheckPointPosition(nextCheckPointPosition);
         Optional<Beacon> beacon=observer.watchSea(currentSeaEntities);
         assertTrue(beacon.isPresent());
     }

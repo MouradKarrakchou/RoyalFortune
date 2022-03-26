@@ -28,7 +28,9 @@ public class SeaMap {
     public void updateCheckPoint(List<SeaEntities> newSeaEntities) {
         if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
         {
-            fictitiousCheckpoints.nextCheckPoint();}
+            fictitiousCheckpoints.nextCheckPoint();
+        }
+
         observer.setNextCheckPointPosition(fictitiousCheckpoints.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);
         if (observer.checkIfNewSeaEntities(newSeaEntities)){
