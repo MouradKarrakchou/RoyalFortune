@@ -172,7 +172,7 @@ Rectangle extends Shape{
 	 */
 	public void setPosition(Position position) {
 		this.aPosition = position;
-		this.aPosition.setOrientation(orientation);
+		this.orientation=position.getOrientation();
 		this.segmentList = computeSegments();
 	}
 

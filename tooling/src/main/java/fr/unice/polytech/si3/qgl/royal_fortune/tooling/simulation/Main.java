@@ -34,7 +34,7 @@ public class Main {
 		} catch (Exception e) {
 			LOGGER.info("Exception");
 		}
-		while (!game.isFinished()&&tour<=150) {
+		while (!game.isFinished()) {
 			game.nextRound(wind);
 			LOGGER.info(String.valueOf(game));
 			textForOutput.append(game);

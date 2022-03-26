@@ -44,7 +44,6 @@ public class Game {
         this.goal = initGameDAO.getGoal();
         this.cockpit = new Cockpit();
         this.cockpit.initGame(initialiser);
-        this.goal=cockpit.getGoal();
         this.ship = new Ship(cockpit.getShip());
         this.referee=new Referee(cockpit,ship,sailors);
         visibleEntities = new ArrayList<>();
@@ -109,7 +108,11 @@ public class Game {
         double radius=((Circle)goal.getCurrentCheckPoint().getShape()).getRadius();
         String out = "Distance to the checkpoint: "+distanceSC;
         logger.info(out);
-        return (distanceSC<=radius && goal.getCheckPoints().size() == 1);
+        if(distanceSC<=radius && goal.getCheckPoints().size() == 1)
+            return true;
+        else if(distanceSC<=radius)
+            goal.nextCheckPoint();
+        return false;
     }
     
     public StringBuilder getAllCheckpointsForOutput() {
@@ -180,7 +183,10 @@ public class Game {
             throw new Exception("Stream with other shape than rectangle");
         return out;
     }
-    
+
+    public Goal getGoal() {
+        return goal;
+    }
 
     public void setShip(Ship ship) {
         this.ship = ship;
