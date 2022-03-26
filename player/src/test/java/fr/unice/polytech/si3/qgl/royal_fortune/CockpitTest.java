@@ -3,12 +3,9 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.exception.EmptyDaoException;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -93,7 +90,7 @@ class CockpitTest {
             fail("Exception was thrown!");
         }
         assertTrue(true);
-        assertTrue(res!= null);
+        assertNotNull(res);
     }
 
     @Test

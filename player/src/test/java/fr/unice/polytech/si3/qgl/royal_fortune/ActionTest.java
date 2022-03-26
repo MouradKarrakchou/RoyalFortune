@@ -3,12 +3,11 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.RudderAction;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.SailAction;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ActionTest {
+class ActionTest {
 
     @Test
     void elementsTest() {

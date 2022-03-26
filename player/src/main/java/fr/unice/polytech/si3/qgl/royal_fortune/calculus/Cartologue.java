@@ -30,14 +30,15 @@ public class Cartologue {
     public double computeNumberOfRoundsNeeded(Segment segment) {
         double dist;
         //we considerate that numberOfSailors/numberOfOar=1
-        if (map.containsKey(segment))
-            if (map.get(segment).isStream())
-            {   Stream stream= (Stream) map.get(segment);
-                double angle=segment.angleIntersectionBetweenSegmentAndRectangle((Rectangle)stream.getShape());
-                dist=segment.getLength()/(165+stream.getStrength()*Math.cos(angle));}
-            else{
+        if (map.containsKey(segment)) {
+            if (map.get(segment).isStream()) {
+                Stream stream = (Stream) map.get(segment);
+                double angle = segment.angleIntersectionBetweenSegmentAndRectangle((Rectangle) stream.getShape());
+                dist = segment.getLength() / (165 + stream.getStrength() * Math.cos(angle));
+            } else {
                 return (Double.POSITIVE_INFINITY);
             }
+        }
         else {
             dist = segment.getLength() / 165;
         }
