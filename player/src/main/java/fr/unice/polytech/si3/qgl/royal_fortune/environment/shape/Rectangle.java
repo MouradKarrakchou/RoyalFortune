@@ -49,6 +49,17 @@ Rectangle extends Shape{
 		return orientation;
 	}
 	@Override
+	public boolean equals(Object object){
+		if (!(object instanceof Rectangle))
+			return false;
+		Rectangle rectangle=(Rectangle) object;
+		if (this.width==rectangle.getWidth()&&
+		this.height==rectangle.height&&
+		this.orientation==rectangle.orientation)
+			return true;
+		return false;
+	}
+	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode oarActionJSON = mapper.createObjectNode();

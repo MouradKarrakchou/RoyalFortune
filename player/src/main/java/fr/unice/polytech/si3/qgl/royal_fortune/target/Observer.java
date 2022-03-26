@@ -21,9 +21,7 @@ public class Observer {
     private Position nextCheckPointPosition;
     private int RANGE=40;
 
-    public Observer(Position shipPosition,Position nextCheckPointPosition){
-        this.nextCheckPointPosition=nextCheckPointPosition;
-        this.shipPosition=shipPosition;
+    public Observer(){
         this.currentSeaEntities=new ArrayList<>();
         cartologue=new Cartologue(getStream(currentSeaEntities),getReef(currentSeaEntities));
         this.mathematician = new Mathematician(cartologue);
@@ -51,7 +49,11 @@ public class Observer {
      * @return boolean
      */
     public Boolean checkIfNewSeaEntities(List<SeaEntities> newSeaEntities){
-        return true;
+        for (SeaEntities seaEntitie: newSeaEntities){
+            if (!currentSeaEntities.contains(seaEntitie))
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -60,6 +62,7 @@ public class Observer {
      * @return If return empty we target the checkpoint else we target the Beacon
      */
     public Optional<Beacon> watchSea(List<SeaEntities> newSeaEntities){
+        currentSeaEntities=newSeaEntities;
         List<Beacon> beacons=new ArrayList<>();
         for (SeaEntities seaEntities:newSeaEntities){
             beacons.addAll(GeometryRectangle.generateBeacon(seaEntities.getPosition(), (Rectangle) seaEntities.getShape()));
@@ -68,4 +71,11 @@ public class Observer {
         return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);
     }
 
+    public void setNextCheckPointPosition(Position nextCheckPointPosition) {
+        this.nextCheckPointPosition = nextCheckPointPosition;
+    }
+
+    public void setShipPosition(Position shipPosition) {
+        this.shipPosition = shipPosition;
+    }
 }
