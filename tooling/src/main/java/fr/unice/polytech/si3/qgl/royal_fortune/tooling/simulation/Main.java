@@ -2,11 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
@@ -29,15 +25,16 @@ public class Main {
 		Game game = new Game(jsonWeek6Runner, jsonListSeaEntitiesWeek6RunnerInverse);
 		OutputMaker.insertCheckpoints(game.getGoal().getCheckPoints());
 		OutputMaker.insertAllSeaEntities(game.getAllSeaEntities());
-		OutputMaker.insertAllBeacons(game.computeAllBeacons());
+		OutputMaker.insertBeacons(game.computeAllBeacons());
 
 		int tour=0;
 		while (!game.isFinished()) {
 			game.nextRound(wind);
 			LOGGER.info(String.valueOf(game));
-			OutputMaker.appendForOutput(game.toString());
+			OutputMaker.appendShipPosition(game.toString());
 			tour++;
 		}
+		OutputMaker.insertBeacons(game.getListBeaconUsed());
 		OutputMaker.writeOutputInFile();
 	}
 }

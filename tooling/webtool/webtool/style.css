@@ -58,6 +58,11 @@ body {
     z-index: 1;
 }
 
+.used {
+    background-color: rgb(205, 251, 98);
+    z-index: 2;
+}
+
 .seaEntitie {
     position: absolute;
     height: 100px;

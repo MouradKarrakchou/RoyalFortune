@@ -184,11 +184,10 @@ function createSeaEntities(input) {
 }
 
 function createBeacon(input) {
-    console.log("beacons:\n" + input)
     let sea = document.getElementById('sea');
     for (let i = 0; i < input.length; i++) {
         let parameters = input[i].split(';');
-        window.beacons.push(new Beacon(parameters[0], parameters[1], parameters[2]));
+        window.beacons.push(new Beacon(parameters[0], parameters[1]));
         let check = "<div id='beacon_" + i + "' class='beacon'></div>"
         sea.innerHTML += check;
     }
@@ -233,6 +232,30 @@ function animateSeaEntities() {
     });
 }
 
+
+function setUsedBeacon(input) {
+    console.log("UsedBeacon:\n" + input)
+    let sea = document.getElementById('sea');
+    for (let i = 0; i < input.length; i++) {
+        let parameters = input[i].split(';');
+        let x = parseFloat(parameters[0]);
+        let y = parseFloat(parameters[1]);
+        let idUsed = findBeaconId(new Position(x, y, 0));
+        let beaconUsed = document.getElementById("beacon_" + idUsed);
+        beaconUsed.classList.add("used");
+    }
+}
+
+function findBeaconId(positionUsed) {
+    for (let i = 0; i < window.beacons.length; i++) {
+        if (i == 245)
+            console.log(window.beacons[i]);
+        if (window.beacons[i].position.x == positionUsed.x && window.beacons[i].position.y == positionUsed.y) {
+            return i;
+        }
+    }
+}
+
 function getText(textarea) {
     array = textarea.value.replace(/\s+/g, ' ').split(' ').filter((e) => e.length > 0);
     return array
@@ -265,7 +288,8 @@ function addListener() {
         let checkpoints = removeEmpty(inputArray[0].split("\n"));
         let seaEntities = removeEmpty(inputArray[1].split("\n"));
         let beacons = removeEmpty(inputArray[2].split("\n"));
-        let coord = removeEmpty(inputArray[3].split("\n"));
+        let beaconsUsed = removeEmpty(inputArray[3].split("\n"));
+        let coord = removeEmpty(inputArray[4].split("\n"));
 
         /*console.log("checkpoints:\n" + checkpoints);
         console.log("seaEntities:\n" + seaEntities);
@@ -285,6 +309,8 @@ function addListener() {
         createBeacon(beacons);
         console.log("---animate Beacon---");
         animateBeacon();
+        console.log("---create setUsedBeacon---");
+        setUsedBeacon(beaconsUsed);
         console.log("---move boat---");
         move(coord);
     });

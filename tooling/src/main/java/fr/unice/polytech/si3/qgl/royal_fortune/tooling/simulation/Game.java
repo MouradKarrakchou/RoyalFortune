@@ -30,6 +30,7 @@ public class Game {
     private Referee referee;
     private List<SeaEntities> allSeaEntities;
     private List<SeaEntities> visibleEntities;
+    private List<Beacon> listBeaconUsed;
     private FictitiousCheckpoint fictitiousCheckpoint;
 
     final Logger logger = Logger.getLogger(Game.class.getName());
@@ -45,7 +46,8 @@ public class Game {
         this.ship = new Ship(cockpit.getShip());
         this.referee=new Referee(cockpit,ship,sailors);
         this.fictitiousCheckpoint=cockpit.getCaptain().getSeaMap().getFictitiousCheckpoints();
-        visibleEntities = new ArrayList<>();
+        this.visibleEntities = new ArrayList<>();
+        this.listBeaconUsed = new ArrayList<>();
     }
 
     public Game(String initialiser){
@@ -74,7 +76,12 @@ public class Game {
         List<Action> actions=JsonManager.readActionJson(jsonverif);
         logger.info(String.valueOf(actions));
         this.ship = referee.makeAdvance(cockpit,actions);
+        addBeaconToUsed(cockpit.getCaptain().getSeaMap().getCurrentFictitiousCheckPoint());
+    }
 
+    private void addBeaconToUsed(Checkpoint currentFictitiousCheckPoint) {
+        if(currentFictitiousCheckPoint instanceof Beacon)
+            listBeaconUsed.add((Beacon) currentFictitiousCheckPoint);
     }
 
     public String createJson(Wind wind) {
@@ -136,6 +143,7 @@ public class Game {
         return allBeacon;
     }
 
-
-    
+    public List<Beacon> getListBeaconUsed() {
+        return listBeaconUsed;
+    }
 }

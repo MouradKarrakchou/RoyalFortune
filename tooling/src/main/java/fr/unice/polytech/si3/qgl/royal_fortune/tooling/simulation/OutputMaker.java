@@ -19,32 +19,33 @@ import java.util.logging.Logger;
 
 public class OutputMaker {
     static final Logger LOGGER = Logger.getLogger(Main.class.getName());
-    public static StringBuilder textForOutput = new StringBuilder();
+    public static StringBuilder parameterOfGame = new StringBuilder();
+    public static StringBuilder shipPosition = new StringBuilder();
+
 
     public OutputMaker(){
-        this.textForOutput = new StringBuilder();
+        this.parameterOfGame = new StringBuilder();
     }
 
     public static void insertCheckpoints(List<Checkpoint> allCheckpoints){
-        textForOutput.append(OutputMaker.getAllCheckpointsForOutput(allCheckpoints) + "---\n");
+        parameterOfGame.append(OutputMaker.getAllCheckpointsForOutput(allCheckpoints) + "---\n");
     }
 
     public static void insertAllSeaEntities(List<SeaEntities> allSeaEntities){
         try {
-            textForOutput.append(getAllSeaEntitiesForOutput(allSeaEntities)+ "---\n");
+            parameterOfGame.append(getAllSeaEntitiesForOutput(allSeaEntities)+ "---\n");
         } catch (Exception e) {
             LOGGER.info("Exception");
         };
     }
 
-    public static void insertAllBeacons(List<Beacon> allBeacon){
+    public static void insertBeacons(List<Beacon> allBeacon){
         OutputMaker.getAllBeaconForOutput(allBeacon);
     }
 
 
-
-    public static void appendForOutput(String text){
-        textForOutput.append(text);
+    public static void appendShipPosition(String text){
+        shipPosition.append(text);
     }
 
     public static StringBuilder getAllCheckpointsForOutput( List<Checkpoint> checkPoints) {
@@ -113,15 +114,16 @@ public class OutputMaker {
     private static void getAllBeaconForOutput(List<Beacon> allBeacon) {
         for (Beacon beacon : allBeacon) {
             Position beaconPos = beacon.getPosition();
-            textForOutput.append(beaconPos.getX()).append(";").append(beaconPos.getY()).append("\n");
+            parameterOfGame.append(beaconPos.getX()).append(";").append(beaconPos.getY()).append("\n");
         }
-        textForOutput.append("---\n");
+        parameterOfGame.append("---\n");
     }
 
     public static void writeOutputInFile(){
+        parameterOfGame.append(shipPosition);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
             try {
-                writer.write(String.valueOf(textForOutput));
+                writer.write(String.valueOf(parameterOfGame));
             } catch (IOException e) {
                 LOGGER.log(Level.INFO, "Exception");
             }
@@ -129,4 +131,6 @@ public class OutputMaker {
             e.printStackTrace();
         }
     }
+
+
 }
