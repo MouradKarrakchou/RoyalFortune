@@ -24,21 +24,28 @@ public class Mathematician {
      */
     public Optional<Beacon> computeTrajectory(List<Beacon> listBeacon,Position departure,Position arrival){
         ArrayList<Route> roads=new ArrayList<>();
+        Route route;
         for (Beacon beacon :listBeacon){
             if (!beacon.getPosition().equals(departure)&&!beacon.getPosition().equals(arrival))
             {List<Segment> segments=new ArrayList<>();
             segments.add(new Segment(departure,beacon.getPosition()));
             segments.add(new Segment(beacon.getPosition(), arrival));
-            Route route=new Route(segments,cartologue);
-            roads.add(route);
-            beaconHashMap.put(route,beacon);}
+            route=new Route(segments,cartologue);
+            if(Double.isFinite(route.getValue()));
+                {
+                    roads.add(route);
+                    beaconHashMap.put(route,beacon);
+                }
+            }
         }
-        Route route = null;
+        roads.add(new Route(new Segment(departure,arrival),cartologue));
+        route=null;
         if (!roads.isEmpty())
                 route=Collections.min(roads);
         if (route!=null)
-            return Optional.of(beaconHashMap.get(route));
-        else return Optional.empty();
+            if (beaconHashMap.containsKey(route))
+                return Optional.of(beaconHashMap.get(route));
+        return Optional.empty();
     }
 
     /**
