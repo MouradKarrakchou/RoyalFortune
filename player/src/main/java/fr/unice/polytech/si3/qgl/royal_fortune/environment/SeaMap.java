@@ -64,4 +64,10 @@ public class SeaMap {
     public FictitiousCheckpoint getFictitiousCheckpoints() {
         return fictitiousCheckpoints;
     }
+
+    public Checkpoint getCurrentFictitiousToSlowCheckPoint() {if (fictitiousCheckpoints.getCurrentCheckPoint() instanceof Beacon)
+        return fictitiousCheckpoints.getFictitiousCheckpoints().get(1);
+        else
+            return fictitiousCheckpoints.getCurrentCheckPoint();
+    }
 }

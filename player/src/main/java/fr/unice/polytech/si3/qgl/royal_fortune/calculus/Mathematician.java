@@ -38,7 +38,7 @@ public class Mathematician {
                 }
             }
         }
-        roads.add(new Route(new Segment(departure,arrival),cartologue));
+        roads.add(0,new Route(new Segment(departure,arrival),cartologue));
         route=null;
         if (!roads.isEmpty())
                 route=Collections.min(roads);
