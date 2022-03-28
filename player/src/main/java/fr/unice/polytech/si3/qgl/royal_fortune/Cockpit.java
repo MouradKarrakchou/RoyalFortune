@@ -60,6 +60,7 @@ public class Cockpit implements ICockpit {
 		}
 		LOGGER.log(Level.INFO, () -> "Next round input: " + round);
 		updateWithNextRound(nextRoundDAO);
+		captain.setSeaEntities(nextRoundDAO.getVisibleEntities());
 		String actions  =captain.roundDecisions();
 		LOGGER.log(Level.INFO, () -> "Actions = "+actions);
 
@@ -110,6 +111,7 @@ public class Cockpit implements ICockpit {
 	public void setShip(Ship ship) {
 		this.ship = ship;
 	}
+
 
 	@Override
 	public ArrayList<String> getLogs() {

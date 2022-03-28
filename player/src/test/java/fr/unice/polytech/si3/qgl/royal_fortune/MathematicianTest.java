@@ -109,6 +109,15 @@ class MathematicianTest {
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
         assertEquals(beaconList.get(0), rightBeacon.get());
     }
+    @Test
+    void computeTrajectoryOnBeaconWTest2() {
+        List<Beacon> beaconList = new ArrayList<>();
+        beaconList.add(new Beacon(new Position(450, 150, 0), new Circle(50)));
+
+        Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), new ArrayList<>()));
+        Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
+        assertTrue(rightBeacon.isEmpty());
+    }
 
     @Test
     void computeTrajectoryOnBeaconAahTest() {
