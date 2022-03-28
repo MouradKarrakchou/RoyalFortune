@@ -75,7 +75,7 @@ public class Observer {
         List<Beacon> beacons=new ArrayList<>();
         for (SeaEntities seaEntities:newSeaEntities){
             if (seaEntities.getShape() instanceof Rectangle)
-                beacons.addAll(GeometryRectangle.generateBeacon(seaEntities.getPosition(), (Rectangle) seaEntities.getShape()));
+                beacons.addAll(GeometryRectangle.generateBeacon(seaEntities.getPosition(), (Rectangle) seaEntities.getShape(),false));
         }
         cartologue.setListSeaEntities(newSeaEntities);
         return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);
