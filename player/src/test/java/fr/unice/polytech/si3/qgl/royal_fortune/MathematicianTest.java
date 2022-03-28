@@ -83,10 +83,4 @@ class MathematicianTest {
         assertFalse(bestBeacon.isEmpty());
     }
 
-    void test(){
-        Position positionArrival = new Position(100, 0, 0);
-        Beacon beacon1 = new Beacon(new Position(0,0,0), new Circle(20));
-        //mathematician.computeTrajectory();
-    }
-
 }
