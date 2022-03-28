@@ -31,7 +31,7 @@ public class Mathematician {
             segments.add(new Segment(departure,beacon.getPosition()));
             segments.add(new Segment(beacon.getPosition(), arrival));
             route=new Route(segments,cartologue);
-            if(Double.isFinite(route.getValue()));
+            if(Double.isFinite(route.getValue()))
                 {
                     roads.add(route);
                     beaconHashMap.put(route,beacon);
