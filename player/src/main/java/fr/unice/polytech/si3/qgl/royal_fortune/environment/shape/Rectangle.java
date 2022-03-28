@@ -14,7 +14,8 @@ import java.util.logging.Level;
  *
  */
 @JsonIgnoreProperties(value = {
-		"type"
+		"type",
+		"segmentList"
 })
 public class
 Rectangle extends Shape{

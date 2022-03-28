@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
@@ -12,6 +13,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Stream.class, name = "stream"),
         @JsonSubTypes.Type(value = Reef.class, name = "reef")
+})
+@JsonIgnoreProperties(value = {
+        "stream",
+        "reef"
 })
 public class SeaEntities {
     Position position;
@@ -30,6 +35,7 @@ public class SeaEntities {
     }
 
     public Shape getShape() {
+        shape.computeSegmentsIfPossible(position);
         return shape;
     }
 
@@ -41,5 +47,7 @@ public class SeaEntities {
     public Boolean isReef() {
         return this instanceof Reef;
     }
+
+
 
 }

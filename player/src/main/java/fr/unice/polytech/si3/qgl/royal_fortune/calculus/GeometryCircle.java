@@ -14,7 +14,7 @@ public class GeometryCircle {
     private final double securityScaling = 20;
     private final int alignedBeacons = 3;
 
-    private GeometryCircle() {}
+    public GeometryCircle() {}
 
     /**
      * check if the rectangle is in the circle
