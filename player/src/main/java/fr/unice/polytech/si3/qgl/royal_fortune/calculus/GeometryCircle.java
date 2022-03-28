@@ -36,9 +36,8 @@ public class GeometryCircle {
      * @return the list containing the two beacons
      */
     public static List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
-        double beaconRadius = 50;
         double securityScaling = 0;
-        int alignedBeacons = 3;
+        int alignedBeacons = 30;
 
         List<Beacon> beaconList = new ArrayList<>();
 
@@ -49,23 +48,23 @@ public class GeometryCircle {
         double normalVectorX = -vectorSheepCheckpointY / normSheepCheckpoint;
         double normalVectorY = vectorSheepCheckpointX / normSheepCheckpoint;
 
-        double upBeaconX = reefPosition.getX() + normalVectorX * (securityScaling + reefShape.getRadius());
-        double upBeaconY = reefPosition.getY() + normalVectorY * (securityScaling + reefShape.getRadius());
+        double upBeaconX = reefPosition.getX() + normalVectorX * (securityScaling + reefShape.getRadius() + Beacon.RADIUSBEACON);
+        double upBeaconY = reefPosition.getY() + normalVectorY * (securityScaling + reefShape.getRadius() + Beacon.RADIUSBEACON);
         beaconList.add(new Beacon(new Position(upBeaconX, upBeaconY)));
 
-        double downBeaconX = reefPosition.getX() - normalVectorX * (securityScaling + reefShape.getRadius());
-        double downBeaconY = reefPosition.getY() - normalVectorY * (securityScaling + reefShape.getRadius());
+        double downBeaconX = reefPosition.getX() - normalVectorX * (securityScaling + reefShape.getRadius() + Beacon.RADIUSBEACON);
+        double downBeaconY = reefPosition.getY() - normalVectorY * (securityScaling + reefShape.getRadius() + Beacon.RADIUSBEACON);
         beaconList.add(new Beacon(new Position(downBeaconX, downBeaconY)));
 
 
-        for (int i = 0; i<alignedBeacons; i++){
-            upBeaconX += normalVectorX * beaconRadius;
-            upBeaconY += normalVectorY *  beaconRadius;
+        for (int i = 0; i < alignedBeacons; i++){
+            upBeaconX += 0.5 * normalVectorX * Beacon.RADIUSBEACON ;
+            upBeaconY += 0.5 * normalVectorY * Beacon.RADIUSBEACON;
 
             beaconList.add(new Beacon(new Position(upBeaconX, upBeaconY)));
 
-            downBeaconX -= normalVectorX * beaconRadius;
-            downBeaconY -=  normalVectorY * beaconRadius;
+            downBeaconX -= 0.5 * normalVectorX * Beacon.RADIUSBEACON;
+            downBeaconY -= 0.5 * normalVectorY * Beacon.RADIUSBEACON;
             beaconList.add(new Beacon(new Position(downBeaconX, downBeaconY)));
         }
 
