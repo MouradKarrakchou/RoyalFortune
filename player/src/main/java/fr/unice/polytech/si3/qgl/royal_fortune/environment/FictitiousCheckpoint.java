@@ -75,6 +75,7 @@ public class FictitiousCheckpoint {
             return null;
         return fictitiousCheckpoints.get(0);
     }
+
     public void addFictitiousCheckpoint(Checkpoint checkpoint){
         if (fictitiousCheckpoints.get(0) instanceof Beacon) {
             fictitiousCheckpoints.remove(0);

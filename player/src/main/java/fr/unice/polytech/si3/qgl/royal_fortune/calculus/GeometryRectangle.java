@@ -124,10 +124,13 @@ public class GeometryRectangle {
         return !calculusHDHGx && !calculusHDHGy && !calculusBGHGx && !calculusBGHGy;
     }
 
-    public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle) {
+    public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle,boolean isAReef) {
         List<Beacon> listOfPosition=new ArrayList<>();
         int precision = 50;
         int radiusOfBeacon = 50;
+        if (isAReef){
+            rectangle=new Rectangle(rectangle.getWidth()+20,rectangle.getHeight()+20,rectangle.getOrientation());
+        }
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
         double widthUnit=width/ precision;
