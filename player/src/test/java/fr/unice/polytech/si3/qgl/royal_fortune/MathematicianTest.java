@@ -66,4 +66,18 @@ class MathematicianTest {
         assertEquals(beacon01, bestBeacon.get());
     }
 
+
+    @Test
+    void computeTrajectoryOnBeaconTest(){
+        List<Beacon> beacons = new ArrayList<>();
+
+        Beacon beacon01 = new Beacon(new Position(0, 0), new Circle());
+        beacons.add(beacon01);
+
+        Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
+                new Position(0, 0), new Position(100, 0));
+
+        assertTrue(bestBeacon.isEmpty());
+    }
+
 }

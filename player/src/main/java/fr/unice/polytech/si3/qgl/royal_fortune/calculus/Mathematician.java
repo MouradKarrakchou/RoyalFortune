@@ -18,7 +18,7 @@ public class Mathematician {
     }
 
     /**
-     * Compute the best path to reach the next checkpoint through a beacon or empty to follow th checkpoint
+     * Compute the best path to reach the next checkpoint through a beacon or empty to follow the checkpoint
      * @param listBeacon list of beacons
      * @return the best beacon to go through or empty
      */
