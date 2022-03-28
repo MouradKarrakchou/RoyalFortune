@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
@@ -55,9 +56,27 @@ class ObserverTest {
 
     @Test
     void watchSea3Test() {
-        Reef reef = new Reef(new Position(500,0,0), new Rectangle(100,100, 0));
-        currentSeaEntities.add(reef);
-        observer.setShipPosition(shipPosition);
+        List<Reef> reefList = new ArrayList<>();
+        reefList.add(new Reef(new Position(500,0,0), new Rectangle(100,100, 0)));
 
+        List<Beacon> beaconList = new ArrayList<>();
+        beaconList.add(new Beacon(new Position(450, 0, 0), new Circle(50)));
+        beaconList.add(new Beacon(new Position(450, 150, 0), new Circle(50)));
+
+        Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), reefList));
+        Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
+        assertEquals(beaconList.get(1), rightBeacon.get());
     }
+
+    @Test
+    void watchSea4Test() {
+        List<Beacon> beaconList = new ArrayList<>();
+        beaconList.add(new Beacon(new Position(450, 0, 0), new Circle(50)));
+        beaconList.add(new Beacon(new Position(450, 150, 0), new Circle(50)));
+
+        Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), new ArrayList<>()));
+        Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
+        assertEquals(beaconList.get(0), rightBeacon.get());
+    }
+
 }
