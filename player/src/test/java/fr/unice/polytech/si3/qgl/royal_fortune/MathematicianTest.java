@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
@@ -45,6 +46,12 @@ class MathematicianTest {
         assertEquals(positionAfterBase.getX(), x);
         assertEquals(positionAfterBase.getY(), y);
         assertEquals(positionAfterBase.getOrientation(), ori);
+    }
+
+    void test(){
+        Position positionArrival = new Position(100, 0, 0);
+        Beacon beacon1 = new Beacon(new Position(0,0,0), new Circle(20));
+        //mathematician.computeTrajectory();
     }
 
 }
