@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
@@ -14,8 +15,9 @@ import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MathematicianTest {
     Mathematician mathematician;
@@ -45,6 +47,20 @@ class MathematicianTest {
         assertEquals(positionAfterBase.getX(), x);
         assertEquals(positionAfterBase.getY(), y);
         assertEquals(positionAfterBase.getOrientation(), ori);
+    }
+
+    @Test
+    void computeTrajectoryTest(){
+        List<Beacon> beacons = new ArrayList<>();
+
+        Beacon beacon = new Beacon(new Position(50, 0), new Circle());
+        beacons.add(beacon);
+
+        Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
+                new Position(0, 0), new Position(100, 0));
+
+        assertTrue(bestBeacon.isPresent());
+        assertEquals(beacon, bestBeacon.get());
     }
 
 }
