@@ -76,11 +76,10 @@ public class FictitiousCheckpoint {
         return fictitiousCheckpoints.get(0);
     }
     public void addFictitiousCheckpoint(Checkpoint checkpoint){
-        if (fictitiousCheckpoints.get(0) instanceof Beacon)
-        {fictitiousCheckpoints.remove(0);
-        fictitiousCheckpoints.add(0,checkpoint);}
-        else
-            fictitiousCheckpoints.add(0,checkpoint);
+        if (fictitiousCheckpoints.get(0) instanceof Beacon) {
+            fictitiousCheckpoints.remove(0);
+        }
+        fictitiousCheckpoints.add(0,checkpoint);
     }
 
     public List<Checkpoint> getFictitiousCheckpoints() {
