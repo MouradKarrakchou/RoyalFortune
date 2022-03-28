@@ -58,10 +58,10 @@ public class Observer {
         return false;
     }
     public List<Beacon> generateRandomBeacon(Position shipPosition){
-        Random random=new Random(500);
+        Random random=new Random(1000);
         List<Beacon> listBeacon=new ArrayList<>();
-        for (int k=0;k<500;k++){
-            listBeacon.add(new Beacon(new Position(shipPosition.getX()+(random.nextInt()-250),shipPosition.getY()+(random.nextInt()-250),0)));
+        for (int k=0;k<1000;k++){
+            listBeacon.add(new Beacon(new Position(shipPosition.getX()+(random.nextInt()-500),shipPosition.getY()+(random.nextInt()-500),0)));
         }
         return listBeacon;
     }
