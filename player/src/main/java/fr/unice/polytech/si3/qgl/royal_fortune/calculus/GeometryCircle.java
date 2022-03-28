@@ -39,7 +39,7 @@ public class GeometryCircle {
      * @param reefShape reef position
      * @return the list containing the two beacons
      */
-    public List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
+    public static List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
         List<Beacon> beaconList = new ArrayList<>();
 
         double vectorSheepCheckpointX = checkpointPosition.getX() - shipPosition.getX();
