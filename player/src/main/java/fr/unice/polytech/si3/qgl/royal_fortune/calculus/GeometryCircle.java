@@ -28,11 +28,20 @@ public class GeometryCircle {
         return false;
     }
 
-    public List<Beacon> generateBeacon(Position sheepPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
+    /**
+     * Generates two beacons on the circle, one at the opposite of the other:
+     * the line between the two beacons is perpendicular to the line of the trajectory from the ship to the checkpoint
+     * @param shipPosition ship position
+     * @param checkpointPosition checkpoint position
+     * @param reefPosition reef position
+     * @param reefShape reef position
+     * @return the list containing the two beacons
+     */
+    public List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
         List<Beacon> beaconList = new ArrayList<>();
 
-        double vectorSheepCheckpointX = checkpointPosition.getX() - sheepPosition.getX();
-        double vectorSheepCheckpointY = checkpointPosition.getY() - sheepPosition.getY();
+        double vectorSheepCheckpointX = checkpointPosition.getX() - shipPosition.getX();
+        double vectorSheepCheckpointY = checkpointPosition.getY() - shipPosition.getY();
         double normSheepCheckpoint = Math.sqrt(vectorSheepCheckpointX * vectorSheepCheckpointX + vectorSheepCheckpointY * vectorSheepCheckpointY);
 
         double normalVectorX = -vectorSheepCheckpointY / normSheepCheckpoint;
