@@ -37,7 +37,7 @@ public class GeometryCircle {
      */
     public static List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
         double beaconRadius = 50;
-        double securityScaling = 20;
+        double securityScaling = 0;
         int alignedBeacons = 3;
 
         List<Beacon> beaconList = new ArrayList<>();
