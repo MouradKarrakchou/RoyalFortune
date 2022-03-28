@@ -74,10 +74,10 @@ public class GeometryCircle {
      * @param segment a segment
      * @return the list of the intersections (2 intersections, 1 intersection or empty)
      */
-    public static List<Position> computeIntersectionWith(Circle circle, Position cerclePosition, Segment segment) {
+    public static List<Position> computeIntersectionWith(Segment segment, Position circlePosition, Circle circle) {
         List<Position> intersectionList = new ArrayList<>();
-        double x=cerclePosition.getX();
-        double y=cerclePosition.getY();
+        double x=circlePosition.getX();
+        double y=circlePosition.getY();
         double a = segment.getA();
         double b = 0;
         double radius = circle.getRadius();
