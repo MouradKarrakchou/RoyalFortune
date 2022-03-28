@@ -12,6 +12,7 @@ import java.util.List;
 public class GeometryCircle {
     private final double beaconRadius = 50;
     private final double securityScaling = 20;
+    private final int alignedBeacons = 3;
 
     private GeometryCircle() {}
 
@@ -47,13 +48,22 @@ public class GeometryCircle {
         double normalVectorX = -vectorSheepCheckpointY / normSheepCheckpoint;
         double normalVectorY = vectorSheepCheckpointX / normSheepCheckpoint;
 
-        double firstBeaconX = reefPosition.getX() + normalVectorX * (reefShape.getRadius() + beaconRadius + securityScaling);
-        double firstBeaconY = reefPosition.getY() + normalVectorY * (reefShape.getRadius() + beaconRadius + securityScaling);
-        beaconList.add(new Beacon(new Position(firstBeaconX, firstBeaconY), new Circle(beaconRadius)));
+        for (int i = 0; i<alignedBeacons; i++){
+            double upBeaconX = reefPosition.getX();
+            double upBeaconY = reefPosition.getY() ;
+            double downBeaconX = reefPosition.getX();
+            double downBeaconY = reefPosition.getY();
 
-        double secondBeaconX = reefPosition.getX() - normalVectorX * (reefShape.getRadius() + beaconRadius + securityScaling);
-        double secondBeaconY = reefPosition.getY() - normalVectorY * (reefShape.getRadius() + beaconRadius + securityScaling);
-        beaconList.add(new Beacon(new Position(secondBeaconX, secondBeaconY), new Circle(beaconRadius)));
+            upBeaconX += normalVectorX * (reefShape.getRadius() + beaconRadius + securityScaling);
+            upBeaconY += normalVectorY * (reefShape.getRadius() + beaconRadius + securityScaling);
+
+
+            beaconList.add(new Beacon(new Position(upBeaconX, upBeaconY), new Circle(beaconRadius)));
+
+            downBeaconX -= normalVectorX * (reefShape.getRadius() + beaconRadius + securityScaling);
+            downBeaconY -=  normalVectorY * (reefShape.getRadius() + beaconRadius + securityScaling);
+            beaconList.add(new Beacon(new Position(downBeaconX, downBeaconY), new Circle(beaconRadius)));
+        }
 
         return beaconList;
     }
