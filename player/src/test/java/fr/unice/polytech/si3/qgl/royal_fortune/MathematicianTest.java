@@ -111,6 +111,15 @@ class MathematicianTest {
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
         assertEquals(beaconList.get(0), rightBeacon.get());
     }
+    @Test
+    void computeTrajectoryOnBeaconWTest2() {
+        List<Beacon> beaconList = new ArrayList<>();
+        beaconList.add(new Beacon(new Position(450, 150, 0), new Circle(50)));
+
+        Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), new ArrayList<>()));
+        Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
+        assertTrue(rightBeacon.isEmpty());
+    }
 
     @Test
     void computeTrajectoryOnBeaconAahTest() {
@@ -142,56 +151,24 @@ class MathematicianTest {
     }
 
     @Test
-    void computeTrajectoryOnBeaconInFrontOfReefTest() {
-        List<Reef> reefList = new ArrayList<>();
-        reefList.add(new Reef(new Position(500,1000,0), new Rectangle(100,100, 0)));
+    void computeTrajectoryReefTest(){
+        List<Beacon> beacons = new ArrayList<>();
 
-        List<Beacon> beaconList = new ArrayList<>();
-        beaconList.add(new Beacon(new Position(450, 0, 0), new Circle(50)));
-        Route defaultRoute = new Route(new Segment(shipPosition, nextCheckPointPosition), cartologue);
+        listReef.add(new Reef(new Position(25, 0), new Rectangle(5, 5, 0)));
+        cartologue = new Cartologue(listStream, listReef);
+        mathematician = new Mathematician(cartologue);
 
-        Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), reefList));
-        Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
-        assertEquals(beaconList.get(0), rightBeacon.get());
+        Beacon beacon00 = new Beacon(new Position(50, -50), new Circle());
+        beacons.add(beacon00);
+
+        Beacon beacon01 = new Beacon(new Position(50, 0), new Circle());
+        beacons.add(beacon01);
+
+        Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
+                new Position(0, 0), new Position(100, 0));
+
+        assertTrue(bestBeacon.isPresent());
+        assertEquals(beacon00, bestBeacon.get());
     }
 
-    @Test
-    void computeTrajectoryOnBeaconInFrontOfStreamOneBeaconTest() {
-        List<Stream> streamList = new ArrayList<>();
-        streamList.add(new Stream(new Position(500,0,0), new Rectangle(100,100, 0), 2));
-
-        List<Beacon> beaconList = new ArrayList<>();
-        beaconList.add(new Beacon(new Position(450, 1000, 0), new Circle(50)));
-
-        Mathematician mathematician = new Mathematician(new Cartologue(streamList, new ArrayList<>()));
-        Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
-        assertTrue(rightBeacon.isEmpty());
-    }
-
-    @Test
-    void computeTrajectoryOnBeaconInFrontOfStreamStrenghtOneBeaconTest() {
-        List<Stream> streamList = new ArrayList<>();
-        streamList.add(new Stream(new Position(500,0,-Math.PI/2), new Rectangle(100,100, 0), 2000));
-
-        List<Beacon> beaconList = new ArrayList<>();
-        beaconList.add(new Beacon(new Position(450, 20, 0), new Circle(50)));
-
-        Mathematician mathematician = new Mathematician(new Cartologue(streamList, new ArrayList<>()));
-        Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
-        //assertTrue(rightBeacon.isPresent());//----------> A FINIR !!!!
-    }
-
-    @Test
-    void computeTrajectoryOnBeaconInFrontOfReefOneBeaconTest() {
-        List<Reef> reefList = new ArrayList<>();
-        reefList.add(new Reef(new Position(500,0,0), new Rectangle(100,100, 0)));
-
-        List<Beacon> beaconList = new ArrayList<>();
-        beaconList.add(new Beacon(new Position(450, 0, 0), new Circle(50)));
-        Route defaultRoute = new Route(new Segment(shipPosition, nextCheckPointPosition), cartologue);
-
-        Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), reefList));
-        Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
-        assertEquals(beaconList.get(0), rightBeacon.get());
-    }
 }
