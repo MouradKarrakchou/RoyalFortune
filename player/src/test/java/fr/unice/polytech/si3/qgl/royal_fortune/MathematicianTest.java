@@ -71,16 +71,13 @@ class MathematicianTest {
     void computeTrajectoryOnBeaconTest(){
         List<Beacon> beacons = new ArrayList<>();
 
-        Beacon beacon00 = new Beacon(new Position(50, -50), new Circle());
-        beacons.add(beacon00);
-
         Beacon beacon01 = new Beacon(new Position(0, 0), new Circle());
         beacons.add(beacon01);
 
         Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
                 new Position(0, 0), new Position(100, 0));
 
-        assertFalse(bestBeacon.isEmpty());
+        assertTrue(bestBeacon.isEmpty());
     }
 
 }
