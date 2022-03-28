@@ -18,6 +18,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -30,7 +31,7 @@ public class Game {
     private Referee referee;
     private List<SeaEntities> allSeaEntities;
     private List<SeaEntities> visibleEntities;
-    private List<Beacon> listBeaconUsed;
+    private HashSet<Beacon> listBeaconUsed;
     private FictitiousCheckpoint fictitiousCheckpoint;
 
     final Logger logger = Logger.getLogger(Game.class.getName());
@@ -47,7 +48,7 @@ public class Game {
         this.referee=new Referee(cockpit,ship,sailors);
         this.fictitiousCheckpoint=cockpit.getCaptain().getSeaMap().getFictitiousCheckpoints();
         this.visibleEntities = new ArrayList<>();
-        this.listBeaconUsed = new ArrayList<>();
+        this.listBeaconUsed = new HashSet<>();
     }
 
     public Game(String initialiser){
@@ -144,6 +145,6 @@ public class Game {
     }
 
     public List<Beacon> getListBeaconUsed() {
-        return listBeaconUsed;
+        return listBeaconUsed.stream().toList();
     }
 }
