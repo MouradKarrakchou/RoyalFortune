@@ -25,7 +25,7 @@ public class Main {
 		String jsonListSeaEntitiesWeek6RunnerInverse ="[{\"position\":{\"x\":3539.1304347826062,\"y\":2280.130293159613,\"orientation\":1.9},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":\"350\",\"height\":\"3000\"},\"strength\":35,\"id\":\"66251\"},{\"position\":{\"x\":5504.347826086957,\"y\":2703.5830618892533,\"orientation\":0},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":\"500\",\"height\":\"1750\"},\"strength\":50,\"id\":\"163530\"},{\"position\":{\"x\":5400,\"y\":1172.6384364820844,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"circle\",\"radius\":\"650\"},\"id\":\"369817\"},{\"position\":{\"x\":4921.739130434786,\"y\":4096.091205211728,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":\"1000\",\"height\":\"2500\"},\"id\":\"423671\"}]";
 		//------------------
 
-		Game game = new Game(jsonWeekTest, jsonListSeaEntitiesWeekTest);
+		Game game = new Game(jsonWeek6Runner, jsonListSeaEntitiesWeek6WithBlock);
 		OutputMaker.insertCheckpoints(game.getGoal().getCheckPoints());
 		OutputMaker.insertAllSeaEntities(game.getAllSeaEntities());
 		OutputMaker.insertBeacons(game.computeAllBeacons());
