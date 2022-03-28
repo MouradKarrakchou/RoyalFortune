@@ -78,9 +78,9 @@ public class GeometryCircle {
         List<Position> intersectionList = new ArrayList<>();
         double x=circlePosition.getX();
         double y=circlePosition.getY();
+        double radius = circle.getRadius();
         double a = segment.getA();
         double b = 0;
-        double radius = circle.getRadius();
 
         double discriminant = 4 * Math.pow(a, 2) * Math.pow(b, 2) - 4 * (Math.pow(a, 2) + 1) * (Math.pow(b, 2) - Math.pow(radius, 2));
 
@@ -92,7 +92,6 @@ public class GeometryCircle {
 
             double secondSolution = (-2 * a * b - Math.sqrt(discriminant)) / (2 * (Math.pow(a, 2) + 1));
             Position position2 = new Position(secondSolution+x, a*secondSolution+b+y);
-
             if(segment.pointInSegment(position2))
                 intersectionList.add(position2);
         }
@@ -100,7 +99,6 @@ public class GeometryCircle {
         else if (discriminant == 0) {
             double onlySolution = (-2 * a * b) / (2 * (Math.pow(a, 2) + 1));
             Position position = new Position(onlySolution+x, a*onlySolution+b+y);
-
             if(segment.pointInSegment(position))
                 intersectionList.add(position);
         }
