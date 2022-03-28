@@ -61,7 +61,7 @@ public class Observer {
         Random random=new Random(500);
         List<Beacon> listBeacon=new ArrayList<>();
         for (int k=0;k<500;k++){
-            listBeacon.add(new Beacon(new Position(shipPosition.getX()+(random.nextInt()-250),shipPosition.getY()+(random.nextInt()-250),0),new Circle(200)));
+            listBeacon.add(new Beacon(new Position(shipPosition.getX()+(random.nextInt()-250),shipPosition.getY()+(random.nextInt()-250),0)));
         }
         return listBeacon;
     }

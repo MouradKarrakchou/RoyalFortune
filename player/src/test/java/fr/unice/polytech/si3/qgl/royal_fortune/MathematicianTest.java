@@ -60,10 +60,10 @@ class MathematicianTest {
     void computeTrajectoryTest(){
         List<Beacon> beacons = new ArrayList<>();
 
-        Beacon beacon00 = new Beacon(new Position(50, -50), new Circle());
+        Beacon beacon00 = new Beacon(new Position(50, -50));
         beacons.add(beacon00);
 
-        Beacon beacon01 = new Beacon(new Position(50, 0), new Circle());
+        Beacon beacon01 = new Beacon(new Position(50, 0));
         beacons.add(beacon01);
 
         Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
@@ -76,7 +76,7 @@ class MathematicianTest {
     void computeTrajectoryOnBeaconTest(){
         List<Beacon> beacons = new ArrayList<>();
 
-        Beacon beacon01 = new Beacon(new Position(0, 0), new Circle());
+        Beacon beacon01 = new Beacon(new Position(0, 0));
         beacons.add(beacon01);
 
         Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
@@ -91,8 +91,8 @@ class MathematicianTest {
         reefList.add(new Reef(new Position(500,0,0), new Rectangle(100,100, 0)));
 
         List<Beacon> beaconList = new ArrayList<>();
-        beaconList.add(new Beacon(new Position(450, 0, 0), new Circle(50)));
-        beaconList.add(new Beacon(new Position(450, 150, 0), new Circle(50)));
+        beaconList.add(new Beacon(new Position(450, 0, 0)));
+        beaconList.add(new Beacon(new Position(450, 150, 0)));
 
         Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), reefList));
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
@@ -102,8 +102,8 @@ class MathematicianTest {
     @Test
     void computeTrajectoryOnBeaconWTest() {
         List<Beacon> beaconList = new ArrayList<>();
-        beaconList.add(new Beacon(new Position(450, 0, 0), new Circle(50)));
-        beaconList.add(new Beacon(new Position(450, 150, 0), new Circle(50)));
+        beaconList.add(new Beacon(new Position(450, 0, 0)));
+        beaconList.add(new Beacon(new Position(450, 150, 0)));
 
         Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), new ArrayList<>()));
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
@@ -112,7 +112,7 @@ class MathematicianTest {
     @Test
     void computeTrajectoryOnBeaconWTest2() {
         List<Beacon> beaconList = new ArrayList<>();
-        beaconList.add(new Beacon(new Position(450, 150, 0), new Circle(50)));
+        beaconList.add(new Beacon(new Position(450, 150, 0)));
 
         Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), new ArrayList<>()));
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
@@ -125,8 +125,8 @@ class MathematicianTest {
         reefList.add(new Reef(new Position(500,0,0), new Rectangle(100,100, 0)));
 
         List<Beacon> beaconList = new ArrayList<>();
-        beaconList.add(new Beacon(new Position(450, -150, 0), new Circle(50)));
-        beaconList.add(new Beacon(new Position(450, 150, 0), new Circle(50)));
+        beaconList.add(new Beacon(new Position(450, -150, 0)));
+        beaconList.add(new Beacon(new Position(450, 150, 0)));
 
         Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), reefList));
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
@@ -139,9 +139,9 @@ class MathematicianTest {
         reefList.add(new Reef(new Position(500,0,0), new Rectangle(100,100, 0)));
 
         List<Beacon> beaconList = new ArrayList<>();
-        beaconList.add(new Beacon(new Position(450, 0, 0), new Circle(50)));
-        beaconList.add(new Beacon(new Position(550, 0, 0), new Circle(50)));
-        beaconList.add(new Beacon(new Position(450, -150, 0), new Circle(50)));
+        beaconList.add(new Beacon(new Position(450, 0, 0)));
+        beaconList.add(new Beacon(new Position(550, 0, 0)));
+        beaconList.add(new Beacon(new Position(450, -150, 0)));
 
         Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), reefList));
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
@@ -156,10 +156,10 @@ class MathematicianTest {
         cartologue = new Cartologue(listStream, listReef);
         mathematician = new Mathematician(cartologue);
 
-        Beacon beacon00 = new Beacon(new Position(50, -50), new Circle());
+        Beacon beacon00 = new Beacon(new Position(50, -50));
         beacons.add(beacon00);
 
-        Beacon beacon01 = new Beacon(new Position(50, 0), new Circle());
+        Beacon beacon01 = new Beacon(new Position(50, 0));
         beacons.add(beacon01);
 
         Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,

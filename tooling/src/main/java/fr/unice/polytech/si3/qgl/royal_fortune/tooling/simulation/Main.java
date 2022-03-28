@@ -37,7 +37,7 @@ public class Main {
 		OutputMaker.insertBeacons(game.computeAllBeacons());
 
 		int tour=0;
-		while (!game.isFinished()&& tour<50) {
+		while (!game.isFinished()) {
 			game.nextRound(wind);
 			LOGGER.info(String.valueOf(game));
 			OutputMaker.appendShipPosition(game.toString());
