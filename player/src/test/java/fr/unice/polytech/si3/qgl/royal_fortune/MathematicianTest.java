@@ -148,4 +148,25 @@ class MathematicianTest {
         assertEquals(beaconList.get(2), rightBeacon.get());
     }
 
+    @Test
+    void computeTrajectoryReefTest(){
+        List<Beacon> beacons = new ArrayList<>();
+
+        listReef.add(new Reef(new Position(25, 0), new Rectangle(5, 5, 0)));
+        cartologue = new Cartologue(listStream, listReef);
+        mathematician = new Mathematician(cartologue);
+
+        Beacon beacon00 = new Beacon(new Position(50, -50), new Circle());
+        beacons.add(beacon00);
+
+        Beacon beacon01 = new Beacon(new Position(50, 0), new Circle());
+        beacons.add(beacon01);
+
+        Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
+                new Position(0, 0), new Position(100, 0));
+
+        assertTrue(bestBeacon.isPresent());
+        assertEquals(beacon00, bestBeacon.get());
+    }
+
 }
