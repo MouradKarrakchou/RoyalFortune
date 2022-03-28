@@ -75,21 +75,20 @@ public class GeometryCircle {
      * @return the list of the intersections (2 intersections, 1 intersection or empty)
      */
     public static List<Position> computeIntersectionWith(Segment segment, Position circlePosition, Circle circle) {
-        segment.getPointA().setX(segment.getPointA().getX()-circlePosition.getX());
-        segment.getPointB().setX(segment.getPointB().getX()-circlePosition.getX());
+        segment.getPointA().setX(segment.getPointA().getX() - circlePosition.getX());
+        segment.getPointB().setX(segment.getPointB().getX() - circlePosition.getX());
 
-        segment.getPointA().setY(segment.getPointA().getY()-circlePosition.getY());
-        segment.getPointB().setY(segment.getPointB().getY()-circlePosition.getY());
+        segment.getPointA().setY(segment.getPointA().getY() - circlePosition.getY());
+        segment.getPointB().setY(segment.getPointB().getY() - circlePosition.getY());
 
-        segment=new Segment(segment.getPointA(),segment.getPointB());
+        segment = new Segment(segment.getPointA(), segment.getPointB());
 
         List<Position> intersectionList = new ArrayList<>();
         double x=circlePosition.getX();
         double y=circlePosition.getY();
         double radius = circle.getRadius();
-
         double a = segment.getA();
-        double b = 0;
+        double b = segment.getB();
 
         double discriminant = 4 * Math.pow(a, 2) * Math.pow(b, 2) - 4 * (Math.pow(a, 2) + 1) * (Math.pow(b, 2) - Math.pow(radius, 2));
 
