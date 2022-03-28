@@ -79,4 +79,18 @@ class ObserverTest {
         assertEquals(beaconList.get(0), rightBeacon.get());
     }
 
+    @Test
+    void watchSea5Test() {
+        List<Reef> reefList = new ArrayList<>();
+        reefList.add(new Reef(new Position(500,0,0), new Rectangle(100,100, 0)));
+
+        List<Beacon> beaconList = new ArrayList<>();
+        beaconList.add(new Beacon(new Position(450, -150, 0), new Circle(50)));
+        beaconList.add(new Beacon(new Position(450, 150, 0), new Circle(50)));
+
+        Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), reefList));
+        Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
+        assertEquals(beaconList.get(0), rightBeacon.get());
+    }
+
 }
