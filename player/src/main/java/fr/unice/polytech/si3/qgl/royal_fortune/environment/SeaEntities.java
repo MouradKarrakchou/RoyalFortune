@@ -30,6 +30,7 @@ public class SeaEntities {
     }
 
     public Shape getShape() {
+        shape.computeSegmentsIfPossible(position);
         return shape;
     }
 
