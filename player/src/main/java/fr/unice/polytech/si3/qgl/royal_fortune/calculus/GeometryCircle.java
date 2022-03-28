@@ -74,25 +74,35 @@ public class GeometryCircle {
      * @param segment a segment
      * @return the list of the intersections (2 intersections, 1 intersection or empty)
      */
-    private List<Position> circleIntersection(Circle circle, Segment segment) {
+    public static List<Position> computeIntersectionWith(Circle circle, Position cerclePosition, Segment segment) {
         List<Position> intersectionList = new ArrayList<>();
+        double x=cerclePosition.getX();
+        double y=cerclePosition.getY();
         double a = segment.getA();
-        double b = segment.getB();
+        double b = 0;
         double radius = circle.getRadius();
 
         double discriminant = 4 * Math.pow(a, 2) * Math.pow(b, 2) - 4 * (Math.pow(a, 2) + 1) * (Math.pow(b, 2) - Math.pow(radius, 2));
 
         if(discriminant > 0) {
             double firstSolution = (-2 * a * b + Math.sqrt(discriminant)) / (2 * (Math.pow(a, 2) + 1));
-            intersectionList.add(new Position(firstSolution, a*firstSolution+b));
+            Position position1 = new Position(firstSolution+x, a*firstSolution+b+y);
+            if(segment.pointInSegment(position1))
+                intersectionList.add(position1);
 
             double secondSolution = (-2 * a * b - Math.sqrt(discriminant)) / (2 * (Math.pow(a, 2) + 1));
-            intersectionList.add(new Position(secondSolution, a*secondSolution+b));
+            Position position2 = new Position(secondSolution+x, a*secondSolution+b+y);
+
+            if(segment.pointInSegment(position2))
+                intersectionList.add(position2);
         }
 
         else if (discriminant == 0) {
             double onlySolution = (-2 * a * b) / (2 * (Math.pow(a, 2) + 1));
-            intersectionList.add(new Position(onlySolution, a*onlySolution+b));
+            Position position = new Position(onlySolution+x, a*onlySolution+b+y);
+
+            if(segment.pointInSegment(position))
+                intersectionList.add(position);
         }
 
         return intersectionList;
