@@ -39,7 +39,6 @@ public class SeaMap {
             Optional<Beacon> beaconOptional=observer.watchSea(newSeaEntities);
             beaconOptional.ifPresent(beacon -> fictitiousCheckpoints.addFictitiousCheckpoint(beacon));
         }
-
     }
     public boolean isInCheckpoint(Checkpoint checkpoint) {
         return(isInCheckpointShipPos(checkpoint,shipPosition.getX(),shipPosition.getY()));

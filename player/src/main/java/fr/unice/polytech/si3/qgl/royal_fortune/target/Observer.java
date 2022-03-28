@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.target;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
@@ -76,6 +77,9 @@ public class Observer {
         for (SeaEntities seaEntities:newSeaEntities){
             if (seaEntities.getShape() instanceof Rectangle)
                 beacons.addAll(GeometryRectangle.generateBeacon(seaEntities.getPosition(), (Rectangle) seaEntities.getShape(),seaEntities.isReef()));
+            if (seaEntities.getShape() instanceof Circle)
+                beacons.addAll(GeometryCircle.generateBeacon(shipPosition, nextCheckPointPosition,seaEntities.getPosition(),(Circle) seaEntities.getShape()));
+
         }
         cartologue.setListSeaEntities(newSeaEntities);
         return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);
