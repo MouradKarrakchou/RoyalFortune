@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.*;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
@@ -140,6 +141,8 @@ public class Game {
         for (SeaEntities seaEntity : allSeaEntities) {
             if(seaEntity.getShape() instanceof Rectangle)
                 allBeacon.addAll(GeometryRectangle.generateBeacon(seaEntity.getPosition(), (Rectangle) seaEntity.getShape(),seaEntity.isReef()));
+            if(seaEntity.getShape() instanceof Circle)
+                allBeacon.addAll(GeometryCircle.generateBeacon(ship.getPosition(),goal.getCheckPoints().get(0).getPosition(),seaEntity.getPosition(), (Circle) seaEntity.getShape()));
 
         }
         return allBeacon;

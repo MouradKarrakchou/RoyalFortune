@@ -51,8 +51,12 @@ public class GeometryCircle {
 
         double upBeaconX = reefPosition.getX() + normalVectorX * (securityScaling + reefShape.getRadius());
         double upBeaconY = reefPosition.getY() + normalVectorY * (securityScaling + reefShape.getRadius());
-        double downBeaconX = reefPosition.getX() - normalVectorX * (securityScaling + reefShape.getRadius());;
-        double downBeaconY = reefPosition.getY() - normalVectorY * (securityScaling + reefShape.getRadius());;
+        beaconList.add(new Beacon(new Position(upBeaconX, upBeaconY), new Circle(beaconRadius)));
+
+        double downBeaconX = reefPosition.getX() - normalVectorX * (securityScaling + reefShape.getRadius());
+        double downBeaconY = reefPosition.getY() - normalVectorY * (securityScaling + reefShape.getRadius());
+        beaconList.add(new Beacon(new Position(downBeaconX, downBeaconY), new Circle(beaconRadius)));
+
 
         for (int i = 0; i<alignedBeacons; i++){
             upBeaconX += normalVectorX * beaconRadius;
@@ -75,6 +79,14 @@ public class GeometryCircle {
      * @return the list of the intersections (2 intersections, 1 intersection or empty)
      */
     public static List<Position> computeIntersectionWith(Segment segment, Position circlePosition, Circle circle) {
+        List<Position> intersectionList = new ArrayList<>();
+        Position pointASave=segment.getPointA();
+        Position pointBSave=segment.getPointB();
+
+        segment=new Segment(segment.getPointA(),segment.getPointB());
+        segment.setPointA(new Position(segment.getPointA().getX(),segment.getPointA().getY()));
+        segment.setPointB(new Position(segment.getPointB().getX(),segment.getPointB().getY()));
+
         segment.getPointA().setX(segment.getPointA().getX() - circlePosition.getX());
         segment.getPointB().setX(segment.getPointB().getX() - circlePosition.getX());
 
@@ -83,7 +95,6 @@ public class GeometryCircle {
 
         segment = new Segment(segment.getPointA(), segment.getPointB());
 
-        List<Position> intersectionList = new ArrayList<>();
         double x=circlePosition.getX();
         double y=circlePosition.getY();
         double radius = circle.getRadius();
@@ -94,21 +105,37 @@ public class GeometryCircle {
 
         if(discriminant > 0) {
             double firstSolution = (-2 * a * b + Math.sqrt(discriminant)) / (2 * (Math.pow(a, 2) + 1));
-            Position position1 = new Position(firstSolution+x, a*firstSolution+b+y);
-            if(segment.pointInSegment(position1))
-                intersectionList.add(position1);
-
             double secondSolution = (-2 * a * b - Math.sqrt(discriminant)) / (2 * (Math.pow(a, 2) + 1));
-            Position position2 = new Position(secondSolution+x, a*secondSolution+b+y);
-            if(segment.pointInSegment(position2))
-                intersectionList.add(position2);
+
+            Position position1 = new Position(firstSolution, a*firstSolution+b);
+            Position position2 = new Position(secondSolution, a*secondSolution+b);
+            Position position1real=new Position(firstSolution+x, a*firstSolution+b+y);
+            Position position2real=new Position(secondSolution+x, a*secondSolution+b+y);
+            if(segment.pointInSegment(position1)&&segment.pointInSegment(position2)){
+                if (Mathematician.distanceFormula(position1,pointASave)>Mathematician.distanceFormula(position2,pointASave))
+                {
+                    if (!pointASave.equals(position1real)&&!pointBSave.equals(position1real))
+                        intersectionList.add(position1real);
+                    if (!pointASave.equals(position2real)&&!pointBSave.equals(position2real))
+                        intersectionList.add(position2real);
+                }
+                else
+                {
+                    if (!pointASave.equals(position2real)&&!pointBSave.equals(position2real))
+                        intersectionList.add(position2real);
+                    if (!pointASave.equals(position1real)&&!pointBSave.equals(position1real))
+                        intersectionList.add(position1real);
+                }}
         }
 
         else if (discriminant == 0) {
             double onlySolution = (-2 * a * b) / (2 * (Math.pow(a, 2) + 1));
-            Position position = new Position(onlySolution+x, a*onlySolution+b+y);
+            Position position = new Position(onlySolution, a*onlySolution+b);
+            Position realposition = new Position(onlySolution+x, a*onlySolution+b+y);
+
             if(segment.pointInSegment(position))
-                intersectionList.add(position);
+                if (!pointASave.equals(realposition)&&!pointBSave.equals(realposition))
+                    intersectionList.add(new Position(onlySolution+x, a*onlySolution+b+y));
         }
 
         return intersectionList;

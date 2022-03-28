@@ -110,6 +110,14 @@ public class Segment {
         return length;
     }
 
+    public void setPointA(Position pointA) {
+        this.pointA = pointA;
+    }
+
+    public void setPointB(Position pointB) {
+        this.pointB = pointB;
+    }
+
     @Override
     public String toString() {
         return "PointA: {"+pointA.getX()+";"+pointA.getY()+"}   PointB: {"+pointB.getX()+";"+pointB.getY()+"}";

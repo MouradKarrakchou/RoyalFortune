@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
@@ -65,6 +66,11 @@ public class Cartologue {
         for (SeaEntities seaEntities:listSeaEntities){
             if (seaEntities.getShape() instanceof Rectangle)
                 intersections = new ArrayList<>(GeometryRectangle.computeIntersectionWith(path, seaEntities.getPosition(), (Rectangle) seaEntities.getShape()));
+            if (seaEntities.getShape() instanceof Circle) {
+                intersections = new ArrayList<>(GeometryCircle.computeIntersectionWith(path, seaEntities.getPosition(), (Circle) seaEntities.getShape()));
+                intersections.add(0,path.getPointA());
+                intersections.add( path.getPointB());
+            }
             if (intersections.size()==3)
             {
                 segments.add(new Segment(intersections.get(0),intersections.get(1)));
@@ -99,6 +105,8 @@ public class Cartologue {
             if (seaEntities.getShape() instanceof Rectangle)
                 if (GeometryRectangle.positionIsInTheRectangle(pointA, seaEntities.getPosition(), (Rectangle) seaEntities.getShape()))
                     return true;
+                if (GeometryRectangle.positionIsInTheCircle(pointA, seaEntities.getPosition(), (Circle) seaEntities.getShape()))
+                return true;
         }
         return false;
     }

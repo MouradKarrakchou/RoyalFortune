@@ -143,5 +143,8 @@ public class GeometryRectangle {
         }
         return listOfPosition;
     }
-    
+
+    public static boolean positionIsInTheCircle(Position pointA, Position position, Circle shape) {
+        return Mathematician.distanceFormula(pointA,position)< shape.getRadius();
+    }
 }
