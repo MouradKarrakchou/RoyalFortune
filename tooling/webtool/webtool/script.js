@@ -170,14 +170,14 @@ function createSeaEntities(input) {
         if (parameters[0] == "reef") {
             if (parameters[1] == "rect") {
                 window.seaEntities.push(new Reef_Rectangle(parameters[2], parameters[3], parameters[4], parameters[5], parameters[6]));
-                seaEntitie = "<div id='seaEnt_" + i + "' class='seaEntitie Reef'></div>"
+                seaEntitie = "<div id='seaEnt_" + i + "' class='seaEntitie Reef'> 5 </div>"
             } else if (parameters[1] == "circle") {
                 window.seaEntities.push(new Reef_Circle(parameters[2], parameters[3], parameters[4], parameters[5]));
                 seaEntitie = "<div id='seaEnt_" + i + "' class='seaEntitie Reef Reef_Circle'></div>"
             }
         } else if (parameters[0] == "stream") {
             window.seaEntities.push(new Stream(parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6]));
-            seaEntitie = "<div id='seaEnt_" + i + "' class='seaEntitie Stream'></div>"
+            seaEntitie = "<div id='seaEnt_" + i + "' class='seaEntitie Stream'> 5 </div>"
         }
         seaEntitiesList.innerHTML += seaEntitie;
     }
