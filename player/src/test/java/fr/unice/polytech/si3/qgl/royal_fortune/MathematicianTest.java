@@ -53,14 +53,17 @@ class MathematicianTest {
     void computeTrajectoryTest(){
         List<Beacon> beacons = new ArrayList<>();
 
-        Beacon beacon = new Beacon(new Position(50, 0), new Circle());
-        beacons.add(beacon);
+        Beacon beacon00 = new Beacon(new Position(50, -50), new Circle());
+        beacons.add(beacon00);
+
+        Beacon beacon01 = new Beacon(new Position(50, 0), new Circle());
+        beacons.add(beacon01);
 
         Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
                 new Position(0, 0), new Position(100, 0));
 
         assertTrue(bestBeacon.isPresent());
-        assertEquals(beacon, bestBeacon.get());
+        assertEquals(beacon01, bestBeacon.get());
     }
 
 }
