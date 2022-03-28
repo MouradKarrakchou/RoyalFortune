@@ -66,12 +66,18 @@ class GeometryCircleTest {
 
         List<Beacon> beaconList = geometryCircle.generateBeacon(shipPosition, checkpointPosition, reefPosition, reefShape);
 
-        assertEquals(2, beaconList.size());
+        assertEquals(6, beaconList.size());
 
         assertEquals(100, beaconList.get(0).getPosition().getX());
         assertEquals(90, beaconList.get(0).getPosition().getY());
 
         assertEquals(100, beaconList.get(1).getPosition().getX());
         assertEquals(-110, beaconList.get(1).getPosition().getY());
+
+        assertEquals(100, beaconList.get(2).getPosition().getX());
+        assertEquals(140, beaconList.get(2).getPosition().getY());
+
+        assertEquals(100, beaconList.get(3).getPosition().getX());
+        assertEquals(-160, beaconList.get(3).getPosition().getY());
     }
 }
