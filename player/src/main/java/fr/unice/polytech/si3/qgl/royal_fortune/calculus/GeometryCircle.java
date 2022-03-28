@@ -68,11 +68,33 @@ public class GeometryCircle {
         return beaconList;
     }
 
+    /**
+     * Check if there are intersections between a given circle and line (from a segment)
+     * @param circle a circle
+     * @param segment a segment
+     * @return the list of the intersections (2 intersections, 1 intersection or empty)
+     */
     private List<Position> circleIntersection(Circle circle, Segment segment) {
+        List<Position> intersectionList = new ArrayList<>();
         double a = segment.getA();
         double b = segment.getB();
         double radius = circle.getRadius();
 
-        double discriminent = 4*Math.pow(a, 2)*Math.pow();
+        double discriminant = 4 * Math.pow(a, 2) * Math.pow(b, 2) - 4 * (Math.pow(a, 2) + 1) * (Math.pow(b, 2) - Math.pow(radius, 2));
+
+        if(discriminant > 0) {
+            double firstSolution = (-2 * a * b + Math.sqrt(discriminant)) / (2 * (Math.pow(a, 2) + 1));
+            intersectionList.add(new Position(firstSolution, a*firstSolution+b));
+
+            double secondSolution = (-2 * a * b - Math.sqrt(discriminant)) / (2 * (Math.pow(a, 2) + 1));
+            intersectionList.add(new Position(secondSolution, a*secondSolution+b));
+        }
+
+        else if (discriminant == 0) {
+            double onlySolution = (-2 * a * b) / (2 * (Math.pow(a, 2) + 1));
+            intersectionList.add(new Position(onlySolution, a*onlySolution+b));
+        }
+
+        return intersectionList;
     }
 }
