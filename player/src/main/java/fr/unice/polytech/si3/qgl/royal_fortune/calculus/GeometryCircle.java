@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
@@ -65,5 +66,13 @@ public class GeometryCircle {
         }
 
         return beaconList;
+    }
+
+    private List<Position> circleIntersection(Circle circle, Segment segment) {
+        double a = segment.getA();
+        double b = segment.getB();
+        double radius = circle.getRadius();
+
+        double discriminent = 4*Math.pow(a, 2)*Math.pow()
     }
 }
