@@ -15,8 +15,9 @@ import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MathematicianTest {
     Mathematician mathematician;
@@ -46,6 +47,40 @@ class MathematicianTest {
         assertEquals(positionAfterBase.getX(), x);
         assertEquals(positionAfterBase.getY(), y);
         assertEquals(positionAfterBase.getOrientation(), ori);
+    }
+
+    @Test
+    void computeTrajectoryTest(){
+        List<Beacon> beacons = new ArrayList<>();
+
+        Beacon beacon00 = new Beacon(new Position(50, -50), new Circle());
+        beacons.add(beacon00);
+
+        Beacon beacon01 = new Beacon(new Position(50, 0), new Circle());
+        beacons.add(beacon01);
+
+        Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
+                new Position(0, 0), new Position(100, 0));
+
+        assertTrue(bestBeacon.isPresent());
+        assertEquals(beacon01, bestBeacon.get());
+    }
+
+
+    @Test
+    void computeTrajectoryOnBeaconTest(){
+        List<Beacon> beacons = new ArrayList<>();
+
+        Beacon beacon00 = new Beacon(new Position(50, -50), new Circle());
+        beacons.add(beacon00);
+
+        Beacon beacon01 = new Beacon(new Position(0, 0), new Circle());
+        beacons.add(beacon01);
+
+        Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
+                new Position(0, 0), new Position(100, 0));
+
+        assertFalse(bestBeacon.isEmpty());
     }
 
     void test(){

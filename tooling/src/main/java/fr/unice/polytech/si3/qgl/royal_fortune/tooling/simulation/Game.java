@@ -139,7 +139,8 @@ public class Game {
         List<Beacon> allBeacon = new ArrayList<>();
         for (SeaEntities seaEntity : allSeaEntities) {
             if(seaEntity.getShape() instanceof Rectangle)
-                allBeacon.addAll(GeometryRectangle.generateBeacon(seaEntity.getPosition(), (Rectangle) seaEntity.getShape()));
+                allBeacon.addAll(GeometryRectangle.generateBeacon(seaEntity.getPosition(), (Rectangle) seaEntity.getShape(),seaEntity.isReef()));
+
         }
         return allBeacon;
     }

@@ -111,7 +111,7 @@ class GeometryRectangleTest {
     @Test
     void generateBeaconTest(){
         Stream stream = new Stream(new Position(0,0,Math.PI/2), rectangle, 5);
-        List<Beacon> res = GeometryRectangle.generateBeacon(stream.getPosition(), rectangle);
+        List<Beacon> res = GeometryRectangle.generateBeacon(stream.getPosition(), rectangle,false);
         assertTrue((Math.abs(res.get(0).getPosition().getX()-(-25)))<0.2);
         assertTrue((Math.abs(res.get(0).getPosition().getY()-(-35)))<0.2);
         assertTrue((Math.abs(res.get(0).getPosition().getOrientation()-0))<0.2);
