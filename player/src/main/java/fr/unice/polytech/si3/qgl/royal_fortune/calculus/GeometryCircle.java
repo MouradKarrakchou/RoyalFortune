@@ -13,7 +13,7 @@ public class GeometryCircle {
     private final double beaconRadius = 50;
     private final double securityScaling = 20;
 
-    private GeometryCircle() {}
+    public GeometryCircle() {}
 
     /**
      * check if the rectangle is in the circle
