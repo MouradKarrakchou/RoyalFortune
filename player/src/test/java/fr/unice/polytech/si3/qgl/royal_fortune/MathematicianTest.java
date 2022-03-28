@@ -68,9 +68,7 @@ class MathematicianTest {
 
         Optional<Beacon> bestBeacon = mathematician.computeTrajectory(beacons,
                 new Position(0, 0), new Position(100, 0));
-
-        assertTrue(bestBeacon.isPresent());
-        assertEquals(beacon01, bestBeacon.get());
+        assertTrue(bestBeacon.isEmpty());
     }
 
 
@@ -109,7 +107,7 @@ class MathematicianTest {
 
         Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), new ArrayList<>()));
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
-        assertEquals(beaconList.get(0), rightBeacon.get());
+        assertTrue(rightBeacon.isEmpty());
     }
     @Test
     void computeTrajectoryOnBeaconWTest2() {
