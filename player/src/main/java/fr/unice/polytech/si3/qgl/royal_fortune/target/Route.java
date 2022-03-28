@@ -103,11 +103,7 @@ public class Route implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        if(this.value>((Route)o).getValue())
-            return 1;
-        else if(this.value==((Route)o).getValue())
-            return 0;
-        else return -1;
+        return Double.compare(this.value, ((Route) o).getValue());
     }
 
     @Override

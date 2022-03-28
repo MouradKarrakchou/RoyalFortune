@@ -133,10 +133,10 @@ public class GeometryRectangle {
         double widthUnit=width/ precision;
         double heightUnit=height/ precision;
         for (int k = -precision /5; k< precision + precision /5; k++){
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-width/2+k*widthUnit,height/2),new Circle(radiusOfBeacon)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2,height/2-k*heightUnit),new Circle(radiusOfBeacon)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2-k*widthUnit,-height/2),new Circle(radiusOfBeacon)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-width/2,-height/2+k*heightUnit),new Circle(radiusOfBeacon)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2+k*heightUnit,width/2),new Circle(radiusOfBeacon)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2,width/2-k*widthUnit),new Circle(radiusOfBeacon)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2-k*heightUnit,-width/2),new Circle(radiusOfBeacon)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2,-width/2+k*widthUnit),new Circle(radiusOfBeacon)));
         }
         return listOfPosition;
     }

@@ -18,6 +18,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -30,6 +31,7 @@ public class Game {
     private Referee referee;
     private List<SeaEntities> allSeaEntities;
     private List<SeaEntities> visibleEntities;
+    private HashSet<Beacon> listBeaconUsed;
     private FictitiousCheckpoint fictitiousCheckpoint;
 
     final Logger logger = Logger.getLogger(Game.class.getName());
@@ -45,7 +47,8 @@ public class Game {
         this.ship = new Ship(cockpit.getShip());
         this.referee=new Referee(cockpit,ship,sailors);
         this.fictitiousCheckpoint=cockpit.getCaptain().getSeaMap().getFictitiousCheckpoints();
-        visibleEntities = new ArrayList<>();
+        this.visibleEntities = new ArrayList<>();
+        this.listBeaconUsed = new HashSet<>();
     }
 
     public Game(String initialiser){
@@ -74,7 +77,12 @@ public class Game {
         List<Action> actions=JsonManager.readActionJson(jsonverif);
         logger.info(String.valueOf(actions));
         this.ship = referee.makeAdvance(cockpit,actions);
+        addBeaconToUsed(cockpit.getCaptain().getSeaMap().getCurrentFictitiousCheckPoint());
+    }
 
+    private void addBeaconToUsed(Checkpoint currentFictitiousCheckPoint) {
+        if(currentFictitiousCheckPoint instanceof Beacon)
+            listBeaconUsed.add((Beacon) currentFictitiousCheckPoint);
     }
 
     public String createJson(Wind wind) {
@@ -130,12 +138,13 @@ public class Game {
     public List<Beacon> computeAllBeacons(){
         List<Beacon> allBeacon = new ArrayList<>();
         for (SeaEntities seaEntity : allSeaEntities) {
-            if(seaEntity.isStream())
+            if(seaEntity.getShape() instanceof Rectangle)
                 allBeacon.addAll(GeometryRectangle.generateBeacon(seaEntity.getPosition(), (Rectangle) seaEntity.getShape()));
         }
         return allBeacon;
     }
 
-
-    
+    public List<Beacon> getListBeaconUsed() {
+        return listBeaconUsed.stream().toList();
+    }
 }
