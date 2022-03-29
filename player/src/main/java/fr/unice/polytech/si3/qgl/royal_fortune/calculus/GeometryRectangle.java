@@ -126,7 +126,7 @@ public class GeometryRectangle {
 
     public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle,boolean isAReef) {
         List<Beacon> listOfPosition=new ArrayList<>();
-        int precision = 7;
+        int precision = 5;
         if (isAReef){
             rectangle=new Rectangle(rectangle.getWidth()+20,rectangle.getHeight()+20,rectangle.getOrientation());
         }
