@@ -35,8 +35,8 @@ public class SeaEntities {
     }
 
     public Shape getShape() {
-        shape.computeSegmentsIfPossible(position);
         shape.updateForReef();
+        shape.computeSegmentsIfPossible(position);
         return shape;
     }
     public Shape getShapeForTool(){
