@@ -25,6 +25,12 @@ public class Circle extends Shape{
     }
 
     public double getRadius() { return radius; }
+    @Override
+    public void updateForReef() {
+        if (!super.updated)
+            radius+=15;
+        super.updated=true;
+    }
 
     @Override
     public String toString() {

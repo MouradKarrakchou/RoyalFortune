@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 public class Shape {
 	private String type;
 	final Logger logger = Logger.getLogger(Shape.class.getName());
+	boolean updated=false;
 
 	public Shape() {}
 	public Shape(String type) {
@@ -79,4 +80,7 @@ public class Shape {
 			currentRectangle.getSegmentList().addAll(listSeg);
 		}
 	}
+
+    public void updateForReef() {
+    }
 }

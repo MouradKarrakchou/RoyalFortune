@@ -44,6 +44,14 @@ Rectangle extends Shape{
 	public double getOrientation() {
 		return orientation;
 	}
+	@Override
+	public void updateForReef() {
+		if (!super.updated) {
+			height+=15;
+			width+=15;
+		}
+		super.updated=true;
+	}
 
 	@Override
 	public boolean equals(Object object){
