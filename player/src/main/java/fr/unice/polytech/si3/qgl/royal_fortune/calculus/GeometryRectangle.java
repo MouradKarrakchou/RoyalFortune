@@ -131,11 +131,11 @@ public class GeometryRectangle {
         }
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
-        double widthPrecision=width/200;
-        double heightPrecision=height/200;
+        double widthPrecision=width/300;
+        double heightPrecision=height/300;
         double widthUnit=width/ widthPrecision;
         double heightUnit=height/ heightPrecision;
-        for (int k = -4; k< (int)Math.round(widthPrecision)+4 ; k++){
+        for (int k = -2; k< (int)Math.round(widthPrecision)+2 ; k++){
             listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2,-width/2+k*widthUnit)));
             listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2,width/2-k*widthUnit)));
         }
