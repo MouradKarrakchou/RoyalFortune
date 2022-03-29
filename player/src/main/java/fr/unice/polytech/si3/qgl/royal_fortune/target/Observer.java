@@ -92,4 +92,8 @@ public class Observer {
     public void setShipPosition(Position shipPosition) {
         this.shipPosition = shipPosition;
     }
+
+    public Cartologue getCartologue() {
+        return cartologue;
+    }
 }

@@ -116,6 +116,10 @@ public class Cartologue {
         this.listSeaEntities = seaEntities;
     }
 
+    public List<SeaEntities> getListSeaEntities() {
+        return listSeaEntities;
+    }
+
     public Map<Segment, SeaEntities> getMap() {
         return map;
     }

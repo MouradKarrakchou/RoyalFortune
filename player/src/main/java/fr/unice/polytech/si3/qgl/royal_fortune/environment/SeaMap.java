@@ -31,11 +31,13 @@ public class SeaMap {
         {
             goal.nextCheckPoint();
             fictitiousCheckpoints.nextCheckPoint();
+            observer.getCartologue().getListSeaEntities().clear();
             this.seaEntities.clear();
         }
         if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
         {
             fictitiousCheckpoints.nextCheckPoint();
+            observer.getCartologue().getListSeaEntities().clear();
             this.seaEntities.clear();
         }
 
