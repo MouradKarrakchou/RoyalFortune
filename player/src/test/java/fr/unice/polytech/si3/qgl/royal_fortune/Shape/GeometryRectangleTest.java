@@ -29,7 +29,7 @@ class GeometryRectangleTest {
         boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(0,0, 0), rectPos, rectangle);
         assertTrue(isInRectangle);
     }
-
+/*
     @Test
     void positionIsOnSideOfTheRectangleTest() {
         Rectangle rectangle = new Rectangle(3, 5, 0);
@@ -106,7 +106,7 @@ class GeometryRectangleTest {
     void computeSegmentTest(){
         List<Segment> res = GeometryRectangle.computeSegments(new Position(0,0,0), rectangle);
         assertTrue(res.size() > 0);
-    }
+    }*/
 
     @Test
     void generateBeaconTest(){
