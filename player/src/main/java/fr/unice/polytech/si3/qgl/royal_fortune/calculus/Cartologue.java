@@ -105,7 +105,8 @@ public class Cartologue {
             if (seaEntities.getShape() instanceof Rectangle)
                 if (GeometryRectangle.positionIsInTheRectangle(pointA, seaEntities.getPosition(), (Rectangle) seaEntities.getShape()))
                     return true;
-                if (GeometryRectangle.positionIsInTheCircle(pointA, seaEntities.getPosition(), (Circle) seaEntities.getShape()))
+            else if (seaEntities.getShape() instanceof Circle)
+                    if (GeometryRectangle.positionIsInTheCircle(pointA, seaEntities.getPosition(), (Circle) seaEntities.getShape()))
                 return true;
         }
         return false;

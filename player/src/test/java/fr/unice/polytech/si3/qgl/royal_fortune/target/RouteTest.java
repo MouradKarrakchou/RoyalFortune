@@ -60,7 +60,7 @@ public class RouteTest {
         assertEquals(segment2, route.getSecondRoute().getFirstRoute().getListSegment().get(0));
         assertEquals(segment3, route.getSecondRoute().getSecondRoute().getListSegment().get(0));
     }
-
+/*
     @Test
     void createRouteThatCutAStream() {
         Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
@@ -97,7 +97,7 @@ public class RouteTest {
         assertEquals(route.getListSegment().get(1), route.getSecondRoute().getFirstRoute().getListSegment().get(0));
         assertEquals(route.getListSegment().get(2), route.getSecondRoute().getSecondRoute().getListSegment().get(0));
     }
-
+*/
 
     @Test
     void createRouteThatContain5Route() {
@@ -121,7 +121,7 @@ public class RouteTest {
         assertTrue(route.getSecondRoute().getListSegment().size() == 3);
         System.out.println(route);
     }
-
+/*
     @Test
     void sliceSegmentTestWithAStream(){
         Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
@@ -130,7 +130,7 @@ public class RouteTest {
         route = new Route(segment, cartologue);
         List<Segment> res = route.sliceSegment(segment);
         assertEquals(3, res.size());
-    }
+    }*/
 
     @Test
     void getValueTest(){
