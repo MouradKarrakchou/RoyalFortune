@@ -39,7 +39,7 @@ public class Main {
 		int tour=0;
 		while (!game.isFinished() || tour < 50) {
 			game.nextRound(wind);
-			LOGGER.info(String.valueOf(game));
+			LOGGER.info("round = "+ tour + "  "+String.valueOf(game));
 			OutputMaker.appendShipPosition(game.toString());
 			tour++;
 		}
