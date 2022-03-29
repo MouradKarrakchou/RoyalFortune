@@ -134,7 +134,7 @@ public class GeometryRectangle {
         double height = rectangle.getHeight();
         double widthUnit=width/ precision;
         double heightUnit=height/ precision;
-        for (int k = -5*precision /5; k< precision + 5*precision /5; k++){
+        for (int k = -5*precision; k< precision + 5*precision; k++){
             listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2+k*heightUnit,width/2)));
             listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2,width/2-k*widthUnit)));
             listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2-k*heightUnit,-width/2)));
