@@ -82,6 +82,8 @@ function init() {
     window.checkpoints = [];
     window.seaEntities = [];
     window.beacons = [];
+    window.usedBeacons = [];
+
 
     window.cameraLock = false;
     addListener();
@@ -193,6 +195,16 @@ function createBeacon(input) {
     }
 }
 
+function createUsedBeacon(input) {
+    let sea = document.getElementById('sea');
+    for (let i = 0; i < input.length; i++) {
+        let parameters = input[i].split(';');
+        window.usedBeacons.push(new Beacon(parameters[0], parameters[1]));
+        let check = "<div id='Ubeacon_" + i + "' class='beacon used'></div>"
+        sea.innerHTML += check;
+    }
+}
+
 function animateCheckpoints() {
     $('.checkpoint').each(function() {
         let id = $(this).attr("id");
@@ -207,6 +219,15 @@ function animateBeacon() {
     $('.beacon').each(function() {
         let id = $(this).attr("id").slice(7);
         let beacon = window.beacons[id];
+        let radius = beacon.radius;
+        $(this).css({ top: beacon.position.y - (radius / 2), left: beacon.position.x - (radius / 2) });
+        $(this).css({ height: radius, width: radius });
+    });
+}
+function animateUsedBeacon() {
+    $('.beacon').each(function() {
+        let id = $(this).attr("id").slice(8);
+        let beacon = window.usedBeacons[id];
         let radius = beacon.radius;
         $(this).css({ top: beacon.position.y - (radius / 2), left: beacon.position.x - (radius / 2) });
         $(this).css({ height: radius, width: radius });
@@ -309,8 +330,10 @@ function addListener() {
         createBeacon(beacons);
         console.log("---animate Beacon---");
         animateBeacon();
-        console.log("---create setUsedBeacon---");
-        setUsedBeacon(beaconsUsed);
+        console.log("---create Beacon---");
+        createUsedBeacon(beaconsUsed);
+        console.log("---animate Beacon---");
+        animateUsedBeacon();
         console.log("---move boat---");
         move(coord);
     });
