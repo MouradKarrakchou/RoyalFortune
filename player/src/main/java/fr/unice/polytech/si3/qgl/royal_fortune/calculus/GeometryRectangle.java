@@ -40,10 +40,10 @@ public class GeometryRectangle {
         List<Position> listOfPosition=new ArrayList<>();
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
-        listOfPosition.add(Mathematician.changeBase(aPosition,-width/2,height/2));
-        listOfPosition.add(Mathematician.changeBase(aPosition,width/2,height/2));
-        listOfPosition.add(Mathematician.changeBase(aPosition,width/2,-height/2));
-        listOfPosition.add(Mathematician.changeBase(aPosition,-width/2,-height/2));
+        listOfPosition.add(Mathematician.changeBase(aPosition,-height/2,width/2));
+        listOfPosition.add(Mathematician.changeBase(aPosition,height/2,width/2));
+        listOfPosition.add(Mathematician.changeBase(aPosition,height/2,-width/2));
+        listOfPosition.add(Mathematician.changeBase(aPosition,-height/2,-width/2));
         return listOfPosition;
     }
     
