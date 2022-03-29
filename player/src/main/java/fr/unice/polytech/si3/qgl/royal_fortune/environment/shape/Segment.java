@@ -10,7 +10,7 @@ public class Segment {
     private Position pointB;
     private double length;
 
-    //equation of the line
+    //Equation of the line
     private double a;
     private double b;
 

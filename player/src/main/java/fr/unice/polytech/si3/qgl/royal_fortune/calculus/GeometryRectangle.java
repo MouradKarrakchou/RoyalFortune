@@ -126,19 +126,22 @@ public class GeometryRectangle {
 
     public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle,boolean isAReef) {
         List<Beacon> listOfPosition=new ArrayList<>();
-        int precision = 3;
         if (isAReef){
             rectangle=new Rectangle(rectangle.getWidth()+20,rectangle.getHeight()+20,rectangle.getOrientation());
         }
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
-        double widthUnit=width/ precision;
-        double heightUnit=height/ precision;
-        for (int k = -precision; k< 2*precision ; k++){
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2+k*heightUnit,width/2)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2,width/2-k*widthUnit)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2-k*heightUnit,-width/2)));
+        double widthPrecision=width/200;
+        double heightPrecision=height/200;
+        double widthUnit=width/ widthPrecision;
+        double heightUnit=height/ heightPrecision;
+        for (int k = -4; k< (int)Math.round(widthPrecision)+4 ; k++){
             listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2,-width/2+k*widthUnit)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2,width/2-k*widthUnit)));
+        }
+        for (int k = -4; k< (int)Math.round(heightPrecision)+4 ; k++){
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2+k*heightUnit,width/2)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2-k*heightUnit,-width/2)));
         }
         return listOfPosition;
     }
