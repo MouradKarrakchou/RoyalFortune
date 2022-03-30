@@ -28,12 +28,12 @@ public class OutputMaker {
     }
 
     public static void insertCheckpoints(List<Checkpoint> allCheckpoints){
-        parameterOfGame.append(OutputMaker.getAllCheckpointsForOutput(allCheckpoints) + "---\n");
+        parameterOfGame.append(OutputMaker.getAllCheckpointsForOutput(allCheckpoints) + "---|\n");
     }
 
     public static void insertAllSeaEntities(List<SeaEntities> allSeaEntities){
         try {
-            parameterOfGame.append(getAllSeaEntitiesForOutput(allSeaEntities)+ "---\n");
+            parameterOfGame.append(getAllSeaEntitiesForOutput(allSeaEntities)+ "---|\n");
         } catch (Exception e) {
             LOGGER.info("Exception");
         };
@@ -55,7 +55,7 @@ public class OutputMaker {
             double x = pos.getX();
             double y = pos.getY();
             double radius = ((Circle)checkpoint.getShape()).getRadius();
-            out.append(x).append(";").append(y).append(";").append(radius).append("\n");
+            out.append(Math.round(x)).append(";").append(Math.round(y)).append(";").append(Math.round(radius)).append("|\n");
         }
         return out;
     }
@@ -71,7 +71,7 @@ public class OutputMaker {
             else if(isReef){
                 out = createOutForReef((Reef) seaEntities, out);
             }
-            out.append("\n");
+            out.append("|\n");
         }
         return out;
     }
@@ -82,9 +82,9 @@ public class OutputMaker {
         Optional<Rectangle> isRectangle = stream.getShape().isRectangle();
         if(isRectangle.isPresent()){
             Rectangle rectangle = isRectangle.get();
-            out.append(rectangle.getHeight()).append(";").append(rectangle.getWidth()).append(";");
-            out.append(stream.getStrength()).append(";");
-            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
+            out.append(Math.round(rectangle.getHeight())).append(";").append(Math.round(rectangle.getWidth())).append(";");
+            out.append(Math.round(stream.getStrength())).append(";");
+            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(Math.round(streamPos.getOrientation()));
         }
         else
             throw new Exception("Stream with other shape than rectangle");
@@ -98,13 +98,13 @@ public class OutputMaker {
         Optional<Circle> isCircle = reef.getShape().isCircle();
         if(isRectangle.isPresent()){
             Rectangle rect = isRectangle.get();
-            out.append("rect").append(";").append(rect.getHeight()).append(";").append(rect.getWidth()).append(";");
-            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
+            out.append("rect").append(";").append(Math.round(rect.getHeight())).append(";").append(Math.round(rect.getWidth())).append(";");
+            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(streamPos.getOrientation());
         }
         else if(isCircle.isPresent()){
             Circle circle = isCircle.get();
-            out.append("circle").append(";").append(circle.getRadius()).append(";");
-            out.append(streamPos.getX()).append(";").append(streamPos.getY()).append(";").append(streamPos.getOrientation());
+            out.append("circle").append(";").append(Math.round(circle.getRadius())).append(";");
+            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(streamPos.getOrientation());
         }
         else
             throw new Exception("Stream with other shape than rectangle");
@@ -114,9 +114,9 @@ public class OutputMaker {
     private static void getAllBeaconForOutput(List<Beacon> allBeacon) {
         for (Beacon beacon : allBeacon) {
             Position beaconPos = beacon.getPosition();
-            parameterOfGame.append(beaconPos.getX()).append(";").append(beaconPos.getY()).append("\n");
+            parameterOfGame.append(Math.round(beaconPos.getX())).append(";").append(Math.round(beaconPos.getY())).append("|\n");
         }
-        parameterOfGame.append("---\n");
+        parameterOfGame.append("---|\n");
     }
 
     public static void writeOutputInFile(){
