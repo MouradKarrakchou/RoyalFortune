@@ -6,7 +6,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,8 +71,9 @@ public class SeaMap {
         return fictitiousCheckpoints;
     }
 
-    public Checkpoint getCurrentFictitiousToSlowCheckPoint() {if (fictitiousCheckpoints.getCurrentCheckPoint() instanceof Beacon)
-        return fictitiousCheckpoints.getFictitiousCheckpoints().get(1);
+    public Checkpoint getCurrentFictitiousToSlowCheckPoint() {
+        if (fictitiousCheckpoints.getCurrentCheckPoint() instanceof Beacon)
+            return fictitiousCheckpoints.getFictitiousCheckpoints().get(1);
         else
             return fictitiousCheckpoints.getCurrentCheckPoint();
     }
