@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
@@ -11,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeometryCircle {
-    public GeometryCircle() {}
+    public GeometryCircle() {
+        //No elements needed
+    }
 
     /**
      * check if the rectangle is in the circle
@@ -132,9 +133,10 @@ public class GeometryCircle {
             Position position = new Position(onlySolution, a*onlySolution+b);
             Position realposition = new Position(onlySolution+x, a*onlySolution+b+y);
 
-            if(segment.pointInSegment(position))
-                if (!pointASave.equals(realposition)&&!pointBSave.equals(realposition))
-                    intersectionList.add(new Position(onlySolution+x, a*onlySolution+b+y));
+            if(segment.pointInSegment(position)) {
+                if (!pointASave.equals(realposition) && !pointBSave.equals(realposition))
+                    intersectionList.add(new Position(onlySolution + x, a * onlySolution + b + y));
+            }
         }
 
         return intersectionList;

@@ -59,6 +59,7 @@ public class Cockpit implements ICockpit {
 			LOGGER.info("Empty Dao");
 		}
 		LOGGER.log(Level.INFO, () -> "Next round input: " + round);
+		assert nextRoundDAO != null;
 		updateWithNextRound(nextRoundDAO);
 		captain.setSeaEntities(nextRoundDAO.getVisibleEntities());
 		String actions  =captain.roundDecisions();
