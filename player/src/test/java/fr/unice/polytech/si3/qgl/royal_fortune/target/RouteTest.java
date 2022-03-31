@@ -122,11 +122,13 @@ public class RouteTest {
 
     @Test
     void sliceSegmentTestWithAStream(){
-        Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
-        listStream.add(stream);
-        cartologue=new Cartologue(listStream,listReef);
-        route = new Route(segment, cartologue);
-        List<Segment> res = route.sliceSegment(segment);
+        Segment segment = new Segment(new Position(0, 0, 0), new Position(100, 0, 0));
+        Stream stream = new Stream(new Position(30,0,0), new Rectangle(10,10,0), 5);
+        List<Stream> streamList = new ArrayList<>();
+        streamList.add(stream);
+        Cartologue cartologue = new Cartologue(streamList, new ArrayList<>());
+        Route newRoute = new Route(segment, cartologue);
+        List<Segment> res = newRoute.sliceSegment(segment);
         assertEquals(3, res.size());
     }
 
