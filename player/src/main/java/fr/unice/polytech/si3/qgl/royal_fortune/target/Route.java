@@ -11,9 +11,9 @@ import java.util.Optional;
 public class Route implements Comparable{
     private Route firstRoute;
     private Route secondRoute;
-    private double value;
+    private final double value;
     private List<Segment> listSegment;
-    private Cartologue cartologue;
+    private final Cartologue cartologue;
     private Boolean reefCollision;
 
     /**
