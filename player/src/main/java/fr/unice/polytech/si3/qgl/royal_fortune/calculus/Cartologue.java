@@ -54,7 +54,7 @@ public class Cartologue {
      * @return a list of segment that represent intersection
      */
     public List<Segment> sliceSegmentByInteraction (Segment path){
-        return(cutSegment(path, positionIsOnASeaEntities(path.getPointA())));
+        return cutSegment(path, positionIsOnASeaEntities(path.getPointA()));
     }
 
     /**
