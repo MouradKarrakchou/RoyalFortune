@@ -29,13 +29,13 @@ class GeometryRectangleTest {
         boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(0,0, 0), rectPos, rectangle);
         assertTrue(isInRectangle);
     }
-/*
+
     @Test
     void positionIsOnSideOfTheRectangleTest() {
         Rectangle rectangle = new Rectangle(3, 5, 0);
         Position rectPos = new Position(0, 0, Math.PI/2);
 
-        boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(1.5,0, 0), rectPos, rectangle);
+        boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(0,1.5, 0), rectPos, rectangle);
         assertTrue(isInRectangle);
     }
 
@@ -44,7 +44,7 @@ class GeometryRectangleTest {
         Rectangle rectangle = new Rectangle(3, 5, 0);
         Position rectPos = new Position(0, 0, 0);
 
-        boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(1.5,2.5, 0), rectPos, rectangle);
+        boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(2.5,1.5, 0), rectPos, rectangle);
         assertTrue(isInRectangle);
     }
 
@@ -53,7 +53,7 @@ class GeometryRectangleTest {
         Rectangle rectangle = new Rectangle(3, 5, 0);
         Position rectPos = new Position(0, 0, 0);
 
-        boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(1.6,0, 0), rectPos, rectangle);
+        boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(0,1.6, 0), rectPos, rectangle);
         assertFalse(isInRectangle);
     }
     @Test
@@ -61,7 +61,7 @@ class GeometryRectangleTest {
         Rectangle rectangle = new Rectangle(3, 5, 0);
         Position rectPos = new Position(0, 0, Math.PI/2);
 
-        boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(1.5,1.5, 0), rectPos, rectangle);
+        boolean isInRectangle = GeometryRectangle.positionIsInTheRectangle(new Position(1.4,0, 0), rectPos, rectangle);
         assertTrue(isInRectangle);
     }
     @Test
@@ -69,65 +69,64 @@ class GeometryRectangleTest {
         Rectangle rectangle = new Rectangle(3, 5, 0);
         Position rectPos = new Position(0, 0, 0);
 
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(1.5,2.5, 0), rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-1.5,-2.5, 0), rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-1.5,0, 0), rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0,-2.5, 0), rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0,2.5, 0), rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(1.5,0, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(2.5,1.5, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-2.5,-1.5, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0,-1.5, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-2.5,0, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(2.5,0, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0,1.5, 0), rectPos, rectangle));
     }
     @Test
     void positionIsInTheRectangleTest4() {
         Rectangle rectangle = new Rectangle(3, 5, 0);
         Stream stream = new Stream(new Position(-1,-1,0), rectangle, 5);
 
-
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0.5,1.5, 0), stream.getPosition(), rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-2.5,-3.5, 0), stream.getPosition(), rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-2.5,-1, 0), stream.getPosition(), rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-1,-3.5, 0), stream.getPosition(), rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-1,1.5, 0), stream.getPosition(), rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0.5,-1, 0), stream.getPosition(), rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(1.5,0.5, 0), stream.getPosition(), rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-3.5,-2.5, 0), stream.getPosition(), rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-1,-2.5, 0), stream.getPosition(), rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-3.5,-1.5, 0), stream.getPosition(), rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(1.5,-1, 0), stream.getPosition(), rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-1,0.5, 0), stream.getPosition(), rectangle));
     }
     @Test
     void positionIsInTheRectangleTest3() {
         Rectangle rectangle = new Rectangle(5, 3, Math.PI/2);
         Position rectPos = new Position(0, 0, Math.PI/2);
 
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(1.49999,2.4999, 0), rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-1.49999,-2.4999, 0),rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-1.49999,0, 0),rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0,-2.4999, 0), rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0,2.4999, 0), rectPos, rectangle));
-        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(1.49999,0, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(2.4999,1.49999, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-2.4999,-1.49999, 0),rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0,-1.49999, 0),rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(-2.4999,0, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(2.4999,0, 0), rectPos, rectangle));
+        assertTrue(GeometryRectangle.positionIsInTheRectangle(new Position(0,1.49999, 0), rectPos, rectangle));
     }
 
     @Test
     void computeSegmentTest(){
         List<Segment> res = GeometryRectangle.computeSegments(new Position(0,0,0), rectangle);
         assertTrue(res.size() > 0);
-    }*/
+    }
 
     @Test
     void generateBeaconTest(){
         Stream stream = new Stream(new Position(0,0,Math.PI/2), rectangle, 5);
         List<Beacon> res = GeometryRectangle.generateBeacon(stream.getPosition(), rectangle,false);
-        /*assertTrue((Math.abs(res.get(0).getPosition().getX()-(-25)))<0.2);
-        assertTrue((Math.abs(res.get(0).getPosition().getY()-(-35)))<0.2);
+
+        assertTrue((Math.abs(res.get(0).getPosition().getX() - 825))<0.2);
+        assertTrue((Math.abs(res.get(0).getPosition().getY()-(-25)))<0.2);
         assertTrue((Math.abs(res.get(0).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(1).getPosition().getX()-(-35)))<0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getX()-(-825)))<0.2);
         assertTrue((Math.abs(res.get(1).getPosition().getY()-(25)))<0.2);
         assertTrue((Math.abs(res.get(1).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(2).getPosition().getX()-(25)))<0.2);
-        assertTrue((Math.abs(res.get(2).getPosition().getY()-(35)))<0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getX() - 425)<0.2));
+        assertTrue((Math.abs(res.get(2).getPosition().getY()-(-25)))<0.2);
         assertTrue((Math.abs(res.get(2).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(3).getPosition().getX()-(35)))<0.2);
-        assertTrue((Math.abs(res.get(3).getPosition().getY()-(-25)))<0.2);
-        assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);*/
-        //---------> A FAIRE ON A CHANGE LE NBR DE BEACON
+        assertTrue((Math.abs(res.get(3).getPosition().getX()-(-425)))<0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getY() - 25))<0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
     }
 
     @Test
