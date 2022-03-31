@@ -1,20 +1,34 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.IPositionable;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Stack;
 
-public class DijkstraNode {
-    private final Beacon node;
+public class DijkstraNode implements Comparable<DijkstraNode> {
+    private final IPositionable nodeObject;
     private DijkstraNode previousNode;
     private double nodeValue;
 
-    public DijkstraNode(Beacon currentNode, DijkstraNode previousNode, double nodeValue){
-        this.node = currentNode;
-        this.previousNode = previousNode;
+    /**
+     * @param nodeObject - The object situated on the node
+     *                    * A Position for the checkpoint & the ship
+     *                    * A Beacon fot the beacons.
+     */
+    public DijkstraNode(IPositionable nodeObject){
+        this.nodeObject = nodeObject;
+        this.previousNode = null;
+        this.nodeValue = Double.POSITIVE_INFINITY;
+    }
+
+    private DijkstraNode(IPositionable currentNode, double nodeValue){
+        this.nodeObject = currentNode;
+        this.previousNode = null;
         this.nodeValue = nodeValue;
+    }
+
+    public static DijkstraNode generateStartingNode(IPositionable currentNode){
+        return new DijkstraNode(currentNode, 0);
     }
 
     public void setPreviousNode(DijkstraNode previousNode){
@@ -25,13 +39,19 @@ public class DijkstraNode {
         this.nodeValue = nodeValue;
     }
 
+    public IPositionable getNode(){
+        return this.nodeObject;
+    }
+
+    public double getNodeValue(){
+        return this.nodeValue;
+    }
+
     /**
      * @return The shortest path to access this Node.
      */
-    public List<Beacon> getPath(){
-        List<Beacon> nodePath = getPath(new ArrayList<>(), this);
-        Collections.reverse(nodePath);
-        return nodePath;
+    public Stack<Beacon> getPath(){
+        return getPath(new Stack<>(), this);
     }
 
     /**
@@ -41,11 +61,20 @@ public class DijkstraNode {
      * @param currentNode - The node to retrieve the path
      * @return The shortest path to access the given node.
      */
-    private List<Beacon> getPath(List<Beacon> currentPath, DijkstraNode currentNode){
+    private Stack<Beacon> getPath(Stack<Beacon> currentPath, DijkstraNode currentNode){
         if (currentNode == null)
             return currentPath;
 
-        currentPath.add(currentNode.node);
+        // We only add Beacon to the beacon list. Ship position & checkpoint position are ignored.
+        if (currentNode.nodeObject instanceof Beacon beaconNode)
+            currentPath.add(beaconNode);
+
         return(getPath(currentPath, currentNode.previousNode));
+    }
+
+
+    @Override
+    public int compareTo(DijkstraNode node) {
+        return (int) (this.nodeValue - node.nodeValue);
     }
 }
