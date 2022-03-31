@@ -63,8 +63,8 @@ public class RouteTest {
 
     @Test
     void createRouteThatCutAStream() {
-        Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
-        Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
+        Segment segment1 = new Segment(new Position(0, 0, 0), new Position(100, 0, 0));
+        Stream stream = new Stream(new Position(40,0,0), new Rectangle(10,10,0), 5);
         listStream.add(stream);
         cartologue=new Cartologue(listStream,listReef);
         Route route = new Route(segment1, cartologue);
@@ -81,8 +81,8 @@ public class RouteTest {
 
     @Test
     void createRouteThatCutAStream2() {
-        Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 1, 0));
-        Stream stream = new Stream(new Position(5,0,0), new Rectangle(2,2,0), 5);
+        Segment segment1 = new Segment(new Position(0, 0, 0), new Position(100, 1, 0));
+        Stream stream = new Stream(new Position(40,0,0), new Rectangle(10,10,0), 5);
         listStream.add(stream);
         cartologue=new Cartologue(listStream,listReef);
         Route route = new Route(segment1, cartologue);
