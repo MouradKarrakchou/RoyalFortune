@@ -84,7 +84,7 @@ class MathematicianTest {
 
         assertTrue(bestBeacon.isEmpty());
     }
-/*
+
     @Test
     void computeTrajectoryOnBeaconUTest() {
         List<Reef> reefList = new ArrayList<>();
@@ -97,7 +97,7 @@ class MathematicianTest {
         Mathematician mathematician = new Mathematician(new Cartologue(new ArrayList<>(), reefList));
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
         assertEquals(beaconList.get(1), rightBeacon.get());
-    }*/
+    }
 
     @Test
     void computeTrajectoryOnBeaconWTest() {
@@ -118,7 +118,7 @@ class MathematicianTest {
         Optional<Beacon> rightBeacon = mathematician.computeTrajectory(beaconList,shipPosition,nextCheckPointPosition);
         assertTrue(rightBeacon.isEmpty());
     }
-/*
+
     @Test
     void computeTrajectoryOnBeaconAahTest() {
         List<Reef> reefList = new ArrayList<>();
@@ -168,5 +168,5 @@ class MathematicianTest {
         assertTrue(bestBeacon.isPresent());
         assertEquals(beacon00, bestBeacon.get());
     }
-*/
+
 }
