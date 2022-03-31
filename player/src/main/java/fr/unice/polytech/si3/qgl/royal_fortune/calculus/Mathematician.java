@@ -37,7 +37,6 @@ public class Mathematician {
                     }
                 }
         }
-        Route routeMax = Collections.max(roads);
         roads.add(0,new Route(new Segment(departure,arrival),cartologue));
         route=null;
         if (!roads.isEmpty())
