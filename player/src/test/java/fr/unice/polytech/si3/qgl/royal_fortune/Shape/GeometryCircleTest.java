@@ -56,7 +56,7 @@ class GeometryCircleTest {
 
         assertNotEquals("", c.toString());
     }
-/*
+
     @Test
     void generateBeaconTest() {
         Position shipPosition = new Position(0, 0);
@@ -64,20 +64,20 @@ class GeometryCircleTest {
         Position reefPosition = new Position(100, -10);
         Circle reefShape = new Circle(30);
 
-        List<Beacon> beaconList = geometryCircle.generateBeacon(shipPosition, checkpointPosition, reefPosition, reefShape);
+        List<Beacon> beaconList = GeometryCircle.generateBeacon(shipPosition, checkpointPosition, reefPosition, reefShape);
 
         assertEquals(6, beaconList.size());
 
         assertEquals(100, beaconList.get(0).getPosition().getX());
-        assertEquals(90, beaconList.get(0).getPosition().getY());
+        assertEquals(205, beaconList.get(0).getPosition().getY());
 
         assertEquals(100, beaconList.get(1).getPosition().getX());
-        assertEquals(-110, beaconList.get(1).getPosition().getY());
+        assertEquals(-225, beaconList.get(1).getPosition().getY());
 
         assertEquals(100, beaconList.get(2).getPosition().getX());
-        assertEquals(140, beaconList.get(2).getPosition().getY());
+        assertEquals(305, beaconList.get(2).getPosition().getY());
 
         assertEquals(100, beaconList.get(3).getPosition().getX());
-        assertEquals(-160, beaconList.get(3).getPosition().getY());
-    }*/
+        assertEquals(-325, beaconList.get(3).getPosition().getY());
+    }
 }
