@@ -27,7 +27,28 @@ public class DijkstraTest {
     }
 
     @Test
-    void proceedDijkstraTest(){
+    void proceedDijkstra0Node0ReefTest(){
+        Cartologue cartologue = new Cartologue(new ArrayList<>(), new ArrayList<>());
+        Position departurePosition = new Position(0, 0);
+        Position arrivalPosition = new Position(500, 500);
+        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        assertEquals(0, beaconPath.size());
+    }
+
+    @Test
+    void proceedDijkstraCanOnlyCrashTest(){
+        Reef reef00 = new Reef(new Position(0, 500), new Rectangle(100, 100, 0));
+        reefList.add(reef00);
+
+        Cartologue cartologue = new Cartologue(new ArrayList<>(), new ArrayList<>());
+        Position departurePosition = new Position(0, 0);
+        Position arrivalPosition = new Position(0, 1000);
+        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        assertEquals(0, beaconPath.size());
+    }
+
+    @Test
+    void proceedDijkstra3Nodes1ReefTest(){
         Reef reef00 = new Reef(new Position(0, 500), new Rectangle(100, 100, 0));
         reefList.add(reef00);
 
@@ -41,5 +62,30 @@ public class DijkstraTest {
         Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
         assertEquals(1, beaconPath.size());
         assertEquals(beacon00, beaconPath.pop());
+    }
+
+    @Test
+    void proceedDijkstra6Nodes1ReefTest(){
+        Reef reef00 = new Reef(new Position(750, 100), new Rectangle(900, 100, 0));
+        reefList.add(reef00);
+
+        Beacon beacon00 = new Beacon(new Position(500, 0));
+        beaconList.add(beacon00);
+
+        Beacon beacon01 = new Beacon(new Position(1000, 0));
+        beaconList.add(beacon01);
+
+        Beacon beacon02 = new Beacon(new Position(500, -500));
+        beaconList.add(beacon02);
+
+        Beacon beacon03 = new Beacon(new Position(1000, -500));
+        beaconList.add(beacon03);
+
+        Cartologue cartologue = new Cartologue(new ArrayList<>(), reefList);
+
+        Position departurePosition = new Position(0, 0);
+        Position arrivalPosition = new Position(1000, 500);
+        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        assertEquals(2, beaconPath.size());
     }
 }
