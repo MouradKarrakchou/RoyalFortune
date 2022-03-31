@@ -64,10 +64,10 @@ public class Cartologue {
         List<Segment> segments=new ArrayList<>();
         List<Position> intersections=new ArrayList<>();
         for (SeaEntities seaEntities:listSeaEntities){
-            if (seaEntities.getShape() instanceof Rectangle)
-                intersections = new ArrayList<>(GeometryRectangle.computeIntersectionWith(path, seaEntities.getPosition(), (Rectangle) seaEntities.getShape()));
-            if (seaEntities.getShape() instanceof Circle) {
-                intersections = new ArrayList<>(GeometryCircle.computeIntersectionWith(path, seaEntities.getPosition(), (Circle) seaEntities.getShape()));
+            if (seaEntities.getShape() instanceof Rectangle rectangle)
+                intersections = new ArrayList<>(GeometryRectangle.computeIntersectionWith(path, seaEntities.getPosition(), rectangle));
+            if (seaEntities.getShape() instanceof Circle circle) {
+                intersections = new ArrayList<>(GeometryCircle.computeIntersectionWith(path, seaEntities.getPosition(), circle));
                 intersections.add(0,path.getPointA());
                 intersections.add( path.getPointB());
             }
@@ -102,12 +102,16 @@ public class Cartologue {
      */
     private boolean positionIsOnASeaEntities(Position pointA) {
         for (SeaEntities seaEntities:listSeaEntities){
-            if (seaEntities.getShape() instanceof Rectangle)
-                if (GeometryRectangle.positionIsInTheRectangle(pointA, seaEntities.getPosition(), (Rectangle) seaEntities.getShape()))
+            if (seaEntities.getShape() instanceof Rectangle rectangle) {
+                if (GeometryRectangle.positionIsInTheRectangle(pointA, seaEntities.getPosition(), rectangle)) {
                     return true;
-            else if (seaEntities.getShape() instanceof Circle)
-                    if (GeometryRectangle.positionIsInTheCircle(pointA, seaEntities.getPosition(), (Circle) seaEntities.getShape()))
-                return true;
+                }
+            }
+            else if (seaEntities.getShape() instanceof Circle circle) {
+                    if (GeometryRectangle.positionIsInTheCircle(pointA, seaEntities.getPosition(), circle)) {
+                        return true;
+                    }
+                }
         }
         return false;
     }

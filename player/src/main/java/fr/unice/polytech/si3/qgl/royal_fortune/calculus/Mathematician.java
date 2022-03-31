@@ -41,9 +41,10 @@ public class Mathematician {
         route=null;
         if (!roads.isEmpty())
                 route=Collections.min(roads);
-        if (route!=null)
+        if (route!=null) {
             if (beaconHashMap.containsKey(route))
                 return Optional.of(beaconHashMap.get(route));
+        }
         return Optional.empty();
     }
 

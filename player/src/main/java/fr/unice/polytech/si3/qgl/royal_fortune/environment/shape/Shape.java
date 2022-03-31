@@ -9,9 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -55,12 +53,6 @@ public class Shape {
 	}
 
 
-	/**
-	 * Generate some beacons all around the shape
-	 * @return the list of beacon of the shape
-	 */
-	public List<Beacon> generateBeacon(Position pos){return new ArrayList<>();}
-
 	public Optional<Circle> isCircle(){
 		if(this instanceof Circle current){
 			return Optional.of(current);
@@ -83,5 +75,6 @@ public class Shape {
 	}
 
     public void updateForReef() {
+		//Make reefs bigger for safety
     }
 }

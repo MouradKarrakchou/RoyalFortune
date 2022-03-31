@@ -106,7 +106,7 @@ public class Game {
     @Override
     public String toString() {
         //"Orientation: "+ship.getPosition().getOrientation()+'\n';
-        return ship.getPosition().getX()+";"+cockpit.getShip().getPosition().getY()+";"+ship.getPosition().getOrientation()+'\n';
+        return Math.round(ship.getPosition().getX())+";"+Math.round(cockpit.getShip().getPosition().getY())+";"+ship.getPosition().getOrientation()+"|\n";
     }
 
     public boolean isFinished() {

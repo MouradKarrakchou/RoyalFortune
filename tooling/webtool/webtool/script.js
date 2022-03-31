@@ -29,6 +29,8 @@ class Checkpoint {
 class Beacon {
     constructor(x, y) {
         this.position = new Position(x, y, 0)
+        if (this.position.x > window.maxX) window.maxX = this.position.x;
+        if (this.position.y > window.maxY) window.maxY = this.position.y;
         this.radius = 100;
     }
 }
@@ -82,9 +84,14 @@ function init() {
     window.checkpoints = [];
     window.seaEntities = [];
     window.beacons = [];
+    window.usedBeacons = [];
+    window.maxX = 1000;
+    window.maxY = 1000;
+
 
     window.cameraLock = false;
     addListener();
+    listenerToDownloadReduceSea();
     window.boat = new Boat(0, 0, 0);
     window.saveMyLife = document.getElementById("saveMyLife");
     window.lastX = translateX(0);
@@ -93,7 +100,7 @@ function init() {
     $("#boat").animate({ top: window.lastY, left: window.lastX }, 1200, function() {
         scrollToTheBoat(window.lastX / 2, window.lastY / 2);
     });
-
+    getInputJson();
 }
 
 function scrollToTheBoat(x, y) {
@@ -102,7 +109,8 @@ function scrollToTheBoat(x, y) {
 
 
 function move(input) {
-    for (let i = 0; i < input.length; i++) {
+    placeBoatAtStart(input, 0);
+    for (let i = 1; i < input.length; i++) {
         storeCurrentPosition();
         updateBoatPosition(input, i);
         drawpath(window.boat.getX(), window.boat.getY());
@@ -111,6 +119,12 @@ function move(input) {
             scrollToTheBoat(window.lastX / 2, window.lastY / 2);
     }
 }
+
+function placeBoatAtStart(input) {
+    updateBoatPosition(input, 0);
+    drawBoat();
+}
+
 
 function storeCurrentPosition() {
     window.lastX = window.boat.getX();
@@ -193,6 +207,16 @@ function createBeacon(input) {
     }
 }
 
+function createUsedBeacon(input) {
+    let sea = document.getElementById('sea');
+    for (let i = 0; i < input.length; i++) {
+        let parameters = input[i].split(';');
+        window.usedBeacons.push(new Beacon(parameters[0], parameters[1]));
+        let check = "<div id='Ubeacon_" + i + "' class='beacon used'></div>"
+        sea.innerHTML += check;
+    }
+}
+
 function animateCheckpoints() {
     $('.checkpoint').each(function() {
         let id = $(this).attr("id");
@@ -207,6 +231,16 @@ function animateBeacon() {
     $('.beacon').each(function() {
         let id = $(this).attr("id").slice(7);
         let beacon = window.beacons[id];
+        let radius = beacon.radius;
+        $(this).css({ top: beacon.position.y - (radius / 2), left: beacon.position.x - (radius / 2) });
+        $(this).css({ height: radius, width: radius });
+    });
+}
+
+function animateUsedBeacon() {
+    $('.used').each(function() {
+        let id = $(this).attr("id").slice(8);
+        let beacon = window.usedBeacons[id];
         let radius = beacon.radius;
         $(this).css({ top: beacon.position.y - (radius / 2), left: beacon.position.x - (radius / 2) });
         $(this).css({ height: radius, width: radius });
@@ -275,46 +309,62 @@ function drawpath(newX, newY) {
     draw.innerHTML += point2;
 }
 
+
+function startRun(jsonIn) {
+    if (!document.getElementById("cameraLock").checked) window.cameraLock = false;
+    let input;
+    let splitChar;
+    let inputArray;
+    if (jsonIn != undefined) {
+        input = jsonIn;
+        splitChar = "|";
+        inputArray = input.split("---|");
+    } else {
+        input = document.querySelector('#log').value;
+        splitChar = "|\n";
+        inputArray = input.split("---|\n");
+    }
+    console.log(input);
+    let checkpoints = removeEmpty(inputArray[0].split(splitChar));
+    let seaEntities = removeEmpty(inputArray[1].split(splitChar));
+    let beacons = removeEmpty(inputArray[2].split(splitChar));
+    let beaconsUsed = removeEmpty(inputArray[3].split(splitChar));
+    let coord = removeEmpty(inputArray[4].split(splitChar));
+
+    /*console.log("checkpoints:\n" + checkpoints);
+    console.log("seaEntities:\n" + seaEntities);
+    console.log("coord:\n" + coord);*/
+
+    console.log("---compute score---");
+    score.innerText = "Number of round: " + countRound(coord);
+    console.log("---create checkpoint---");
+    createCheckpoints(checkpoints);
+    console.log("---animate checkpoint---");
+    animateCheckpoints();
+    console.log("---create SeaEntities---");
+    createSeaEntities(seaEntities);
+    console.log("---animate SeaEntities---");
+    animateSeaEntities();
+    console.log("---create Beacon---");
+    createBeacon(beacons);
+    console.log("---animate Beacon---");
+    animateBeacon();
+    console.log("---create usedBeacon---");
+    createUsedBeacon(beaconsUsed);
+    console.log("---animate usedBeacon---");
+    animateUsedBeacon();
+    console.log("---set the dimension of the sea---");
+    setSeaDimension();
+    /*console.log("---create setUsedBeacon---");
+    setUsedBeacon(beaconsUsed);*/
+    console.log("---move boat---");
+    move(coord);
+}
+
 function addListener() {
-    document.querySelector('#start').addEventListener('click', function(event) {
-        if (!document.getElementById("cameraLock").checked) window.cameraLock = false;
-        let input = document.querySelector('#log').value
-            /*let index = input.indexOf("---");
-            let checkpoints = input.slice(0, index);
-            let coord = input.slice(index + 1);
-            let score = document.getElementById("score");*/
-        console.log(input);
-        let inputArray = input.split("---");
-        let checkpoints = removeEmpty(inputArray[0].split("\n"));
-        let seaEntities = removeEmpty(inputArray[1].split("\n"));
-        let beacons = removeEmpty(inputArray[2].split("\n"));
-        let beaconsUsed = removeEmpty(inputArray[3].split("\n"));
-        let coord = removeEmpty(inputArray[4].split("\n"));
-
-        /*console.log("checkpoints:\n" + checkpoints);
-        console.log("seaEntities:\n" + seaEntities);
-        console.log("coord:\n" + coord);*/
-
-        console.log("---compute score---");
-        score.innerText = "Number of round: " + countRound(coord);
-        console.log("---create checkpoint---");
-        createCheckpoints(checkpoints);
-        console.log("---animate checkpoint---");
-        animateCheckpoints();
-        console.log("---create SeaEntities---");
-        createSeaEntities(seaEntities);
-        console.log("---animate SeaEntities---");
-        animateSeaEntities();
-        console.log("---create Beacon---");
-        createBeacon(beacons);
-        console.log("---animate Beacon---");
-        animateBeacon();
-        console.log("---create setUsedBeacon---");
-        setUsedBeacon(beaconsUsed);
-        console.log("---move boat---");
-        move(coord);
+    document.querySelector('#start').addEventListener('click', function() {
+        startRun();
     });
-
     document.querySelector('#reset').addEventListener('click', function(event) {
         location.reload();
     });
@@ -343,4 +393,44 @@ function getCalcPosition(x, y, radius) {
     let newY = parseInt(y) + (radius * 0.5) * unitY;
     let fictiousPosition = new Position(newX, newY, 0);
     return fictiousPosition;
+}
+
+function setSeaDimension() {
+    //Récuperer la balise la plus basse (avec le y le plus grand)
+    //Récuperer la balise la plus à droite (avec le x le plus grand)
+    $('body').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
+
+}
+
+function listenerToDownloadReduceSea() {
+    document.querySelector('#download').addEventListener('click', function(event) {
+        downloadimage();
+    });
+}
+
+function getURL() {
+    return window.location.href;
+}
+
+function getInputJson() {
+    let url = getURL();
+    let json = url.split("input=")[1];
+    console.log(json)
+    if (json != undefined) {
+        startRun(json);
+        downloadimage();
+    }
+}
+
+function downloadimage() {
+    $('#sea').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
+    var container = document.getElementById('sea'); // full page 
+    html2canvas(container, { allowTaint: true }).then(function(canvas) {
+        var link = document.createElement("a");
+        document.body.appendChild(link);
+        link.download = "html_image.jpg";
+        link.href = canvas.toDataURL();
+        link.target = '_blank';
+        link.click();
+    });
 }
