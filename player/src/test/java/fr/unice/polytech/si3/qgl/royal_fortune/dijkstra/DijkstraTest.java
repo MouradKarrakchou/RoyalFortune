@@ -26,21 +26,20 @@ public class DijkstraTest {
         beaconList = new ArrayList<>();
     }
 
-    /*@Test
+    @Test
     void proceedDijkstraTest(){
-        Reef reef00 = new Reef(new Position(0, 5), new Rectangle(1, 1, 0));
+        Reef reef00 = new Reef(new Position(0, 500), new Rectangle(100, 100, 0));
         reefList.add(reef00);
 
-        Beacon beacon00 = new Beacon(new Position(7, 0));
+        Beacon beacon00 = new Beacon(new Position(700, 0));
         beaconList.add(beacon00);
 
         Cartologue cartologue = new Cartologue(new ArrayList<>(), reefList);
 
         Position departurePosition = new Position(0, 0);
-        Position arrivalPosition = new Position(0, 10);
+        Position arrivalPosition = new Position(0, 1000);
         Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
         assertEquals(1, beaconPath.size());
         assertEquals(beacon00, beaconPath.pop());
-
-    }*/
+    }
 }

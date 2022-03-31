@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Route;
 
 import java.util.*;
 
@@ -52,9 +53,10 @@ public class Dijkstra {
         for (DijkstraNode node : availableNodes){
             // Creating a segment between the currentNode and one of the possible node.
             Segment segment = new Segment(currentNode.getNode().getPosition(), node.getNode().getPosition());
+            Route route = new Route(segment, cartologue);
 
             // If the calculated path length is shorter than the older one, we update the node.
-            double newNodeValue = cartologue.computeNumberOfRoundsNeeded(segment) + currentNode.getNodeValue();
+            double newNodeValue = route.getValue() + currentNode.getNodeValue();
             if(newNodeValue < node.getNodeValue()){
                 node.setNodeValue(newNodeValue);
                 node.setPreviousNode(currentNode);
