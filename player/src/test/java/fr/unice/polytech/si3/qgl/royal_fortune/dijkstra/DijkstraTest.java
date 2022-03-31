@@ -87,5 +87,7 @@ public class DijkstraTest {
         Position arrivalPosition = new Position(1000, 500);
         Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
         assertEquals(2, beaconPath.size());
+        assertEquals(beacon02, beaconPath.pop());
+        assertEquals(beacon03, beaconPath.pop());
     }
 }
