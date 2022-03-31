@@ -26,17 +26,18 @@ public class Mathematician {
         ArrayList<Route> roads=new ArrayList<>();
         Route route;
         for (Beacon beacon :listBeacon){
-            if (!beacon.getPosition().equals(departure)&&!beacon.getPosition().equals(arrival))
-            {List<Segment> segments=new ArrayList<>();
-            segments.add(new Segment(departure,beacon.getPosition()));
-            segments.add(new Segment(beacon.getPosition(), arrival));
-            route=new Route(segments,cartologue);
-            if(Double.isFinite(route.getValue())){
-                    roads.add(route);
-                    beaconHashMap.put(route,beacon);
+            if (!beacon.getPosition().equals(departure)&&!beacon.getPosition().equals(arrival)){
+                List<Segment> segments=new ArrayList<>();
+                segments.add(new Segment(departure,beacon.getPosition()));
+                segments.add(new Segment(beacon.getPosition(), arrival));
+                route=new Route(segments,cartologue);
+                if(Double.isFinite(route.getValue())){
+                        roads.add(route);
+                        beaconHashMap.put(route,beacon);
+                    }
                 }
-            }
         }
+        Route routeMax = Collections.max(roads);
         roads.add(0,new Route(new Segment(departure,arrival),cartologue));
         route=null;
         if (!roads.isEmpty())
