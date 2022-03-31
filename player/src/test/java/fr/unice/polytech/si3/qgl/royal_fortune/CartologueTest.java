@@ -68,7 +68,7 @@ class CartologueTest {
         map.put(segment,stream);
         double dist=segment.getLength()/(165+stream.getStrength()*Math.cos(Math.PI/4));
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)- dist)<0.01);
-    }/*
+    }
     @Test
     void testCutSegment1(){
         Stream stream= new Stream(new Position(200,0),new Rectangle(100,100,0),50);
@@ -79,10 +79,10 @@ class CartologueTest {
         List<Segment> cartoCut = cartologue.cutSegment(segment, false);
         assertEquals(3,cartoCut.size());
         assertEquals(0,cartoCut.get(0).getPointA().getX());
-        assertEquals(150,cartoCut.get(0).getPointB().getX());
-        assertEquals(150,cartoCut.get(1).getPointA().getX());
-        assertEquals(250,cartoCut.get(1).getPointB().getX());
-        assertEquals(250,cartoCut.get(2).getPointA().getX());
+        assertEquals(142.5,cartoCut.get(0).getPointB().getX());
+        assertEquals(142.5,cartoCut.get(1).getPointA().getX());
+        assertEquals(257.5,cartoCut.get(1).getPointB().getX());
+        assertEquals(257.5,cartoCut.get(2).getPointA().getX());
         assertEquals(1000,cartoCut.get(2).getPointB().getX());
         assertEquals(stream, map.get(cartoCut.get(1)));
         assertFalse(map.containsKey(cartoCut.get(0)));
@@ -98,13 +98,13 @@ class CartologueTest {
         List<Segment> cartoCut = cartologue.cutSegment(segment, false);
         assertEquals(3,cartoCut.size());
         assertEquals(0,cartoCut.get(0).getPointA().getY());
-        assertEquals(150,cartoCut.get(0).getPointB().getY());
-        assertEquals(150,cartoCut.get(1).getPointA().getY());
-        assertEquals(250,cartoCut.get(1).getPointB().getY());
-        assertEquals(250,cartoCut.get(2).getPointA().getY());
+        assertEquals(142.5,cartoCut.get(0).getPointB().getY());
+        assertEquals(142.5,cartoCut.get(1).getPointA().getY());
+        assertEquals(257.5,cartoCut.get(1).getPointB().getY());
+        assertEquals(257.5,cartoCut.get(2).getPointA().getY());
         assertEquals(1000,cartoCut.get(2).getPointB().getY());
         assertEquals(stream, map.get(cartoCut.get(1)));
         assertFalse(map.containsKey(cartoCut.get(0)));
         assertFalse(map.containsKey(cartoCut.get(2)));
-    }*/
+    }
 }

@@ -77,6 +77,7 @@ public class Shape {
 	public void computeSegmentsIfPossible(Position position) {
 		if(this instanceof Rectangle currentRectangle){
 			List<Segment> listSeg = GeometryRectangle.computeSegments(position,  currentRectangle);
+			currentRectangle.getSegmentList().clear();
 			currentRectangle.getSegmentList().addAll(listSeg);
 		}
 	}
