@@ -35,7 +35,9 @@ public class Cartologue {
             if (map.get(segment).isStream()) {
                 Stream stream = (Stream) map.get(segment);
                 double angle = segment.angleIntersectionBetweenSegmentAndRectangle((Rectangle) stream.getShape());
-                dist = segment.getLength() / (165 + stream.getStrength() * Math.cos(angle));
+                double distancePushByStream = (165 + stream.getStrength() * Math.cos(angle));
+                dist = segment.getLength() / distancePushByStream;
+            if(distancePushByStream < 0) return (Double.POSITIVE_INFINITY);
             } else {
                 return (Double.POSITIVE_INFINITY);
             }
@@ -52,7 +54,7 @@ public class Cartologue {
      * @return a list of segment that represent intersection
      */
     public List<Segment> sliceSegmentByInteraction (Segment path){
-        return(cutSegment(path, positionIsOnASeaEntities(path.getPointA())));
+        return cutSegment(path, positionIsOnASeaEntities(path.getPointA()));
     }
 
     /**
