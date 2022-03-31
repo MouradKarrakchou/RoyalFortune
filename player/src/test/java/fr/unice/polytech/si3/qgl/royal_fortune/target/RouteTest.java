@@ -36,8 +36,8 @@ public class RouteTest {
 
     @Test
     void createLeaveRouteNotStreamNotReef() {
-        assertTrue(route.getFirstRoute() == null);
-        assertTrue(route.getSecondRoute() == null);
+        assertNull(route.getFirstRoute());
+        assertNull(route.getSecondRoute());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class RouteTest {
         assertEquals(segment2, route.getSecondRoute().getFirstRoute().getListSegment().get(0));
         assertEquals(segment3, route.getSecondRoute().getSecondRoute().getListSegment().get(0));
     }
-/*
+
     @Test
     void createRouteThatCutAStream() {
         Segment segment1 = new Segment(new Position(0, 0, 0), new Position(10, 0, 0));
@@ -68,14 +68,13 @@ public class RouteTest {
         listStream.add(stream);
         cartologue=new Cartologue(listStream,listReef);
         Route route = new Route(segment1, cartologue);
-        assertTrue(route.getListSegment().size() == 3);
-        assertTrue(route.getFirstRoute().getListSegment().size() == 1);
+        assertEquals(3, route.getListSegment().size());
+        assertEquals(1, route.getFirstRoute().getListSegment().size());
         assertNull(route.getFirstRoute().getFirstRoute());
         assertNull(route.getFirstRoute().getSecondRoute());
-        //-----------> A DECOMMENTER
         assertEquals(route.getFirstRoute().getValue()+route.getSecondRoute().getValue(),route.getValue());
 
-        assertTrue(route.getSecondRoute().getListSegment().size() == 2);
+        assertEquals(2, route.getSecondRoute().getListSegment().size());
         assertEquals(route.getListSegment().get(1), route.getSecondRoute().getFirstRoute().getListSegment().get(0));
         assertEquals(route.getListSegment().get(2), route.getSecondRoute().getSecondRoute().getListSegment().get(0));
     }
@@ -87,17 +86,16 @@ public class RouteTest {
         listStream.add(stream);
         cartologue=new Cartologue(listStream,listReef);
         Route route = new Route(segment1, cartologue);
-        assertTrue(route.getListSegment().size() == 3);
-        assertTrue(route.getFirstRoute().getListSegment().size() == 1);
+        assertEquals(3, route.getListSegment().size());
+        assertEquals(1, route.getFirstRoute().getListSegment().size());
         assertNull(route.getFirstRoute().getFirstRoute());
         assertNull(route.getFirstRoute().getSecondRoute());
         assertEquals(route.getFirstRoute().getValue()+route.getSecondRoute().getValue(),route.getValue());
 
-        assertTrue(route.getSecondRoute().getListSegment().size() == 2);
+        assertEquals(2, route.getSecondRoute().getListSegment().size());
         assertEquals(route.getListSegment().get(1), route.getSecondRoute().getFirstRoute().getListSegment().get(0));
         assertEquals(route.getListSegment().get(2), route.getSecondRoute().getSecondRoute().getListSegment().get(0));
     }
-*/
 
     @Test
     void createRouteThatContain5Route() {
