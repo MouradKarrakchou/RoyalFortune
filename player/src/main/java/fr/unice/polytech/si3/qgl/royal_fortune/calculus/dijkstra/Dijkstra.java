@@ -1,11 +1,9 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.IPositionable;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
-import org.w3c.dom.Node;
 
 import java.util.*;
 
@@ -18,9 +16,9 @@ public class Dijkstra {
      * @param beacons - The list of all the beacons on the map.
      * @return The shortest path as an array of Beacon.
      */
-    public static List<Beacon> proceedDijkstra(Position departure, Position arrival, Cartologue cartologue, List <Beacon> beacons){
+    public static Stack<Beacon> proceedDijkstra(Position departure, Position arrival, Cartologue cartologue, List <Beacon> beacons){
         List<DijkstraNode> availableNodes = generateDijkstraNodes(beacons);
-        DijkstraNode arrivalNode = DijkstraNode.generateStartingNode(arrival);
+        DijkstraNode arrivalNode = new DijkstraNode(arrival);
         availableNodes.add(arrivalNode);
 
         DijkstraNode departureNode = DijkstraNode.generateStartingNode(departure);
@@ -29,8 +27,8 @@ public class Dijkstra {
 
         DijkstraNode minNode;
         while((minNode = Collections.min(updatedNodes)) != arrivalNode){
-            updatedNodes.addAll(updateNodes(minNode, availableNodes, cartologue));
-            availableNodes.remove(minNode);
+            Set<DijkstraNode> a = updateNodes(minNode, availableNodes, cartologue);
+            updatedNodes.addAll(a);
             updatedNodes.remove(minNode);
         }
 
@@ -48,6 +46,7 @@ public class Dijkstra {
      */
     private static Set<DijkstraNode> updateNodes(DijkstraNode currentNode, List<DijkstraNode> availableNodes, Cartologue cartologue){
         // Creating a list of all updated nodes.
+        availableNodes.remove(currentNode);
         Set<DijkstraNode> updatedNodes = new HashSet<>();
 
         for (DijkstraNode node : availableNodes){
@@ -62,7 +61,6 @@ public class Dijkstra {
                 updatedNodes.add(node);
             }
         }
-
         return updatedNodes;
     }
 
