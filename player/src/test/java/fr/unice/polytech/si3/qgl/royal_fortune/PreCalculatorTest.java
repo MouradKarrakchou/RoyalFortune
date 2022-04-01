@@ -49,27 +49,26 @@ class PreCalculatorTest {
         preCalculator=new PreCalculator(ship,sailors,seaMap,wind);
     }
 
-    /**@Test
+    @Test
     void needSailorToOarToCheckpointTest() {
         sailors.add(new Sailor(0, 0, 0, "sailor0"));
         sailors.add(new Sailor(1, 0, 1, "sailor1"));
         sailors.add(new Sailor(2, 1, 0, "sailor2"));
         sailors.add(new Sailor(3, 1, 1, "sailor3"));
+        sailors.add(new Sailor(2, 1, 0, "sailor4"));
+        sailors.add(new Sailor(3, 1, 1, "sailor5"));
 
         entities.add(new Oar(0, 0));
         entities.add(new Oar(1, 0));
-        entities.add(new Oar(2, 0));
 
         entities.add(new Oar(0, 3));
         entities.add(new Oar(1, 3));
-        entities.add(new Oar(2, 3));
 
         entities.add(new Sail(4, 2, false));
 
-        checkpoints.add(new Checkpoint(new Position(100, 0, 0), new Circle(10)));
+        checkpoints.add(new Checkpoint(new Position(1000, 0, 0), new Circle(50)));
 
         seaMap = new SeaMap(new Goal("",checkpoints), new FictitiousCheckpoint(checkpoints), ship.getPosition(),null, null);
-
         preCalculator = new PreCalculator(ship, sailors, seaMap, new Wind(0, 0));
 
         assertTrue(preCalculator.needSailorToOarToCheckpoint(ship.getNbrOar()));
@@ -110,7 +109,7 @@ class PreCalculatorTest {
 
         PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap, new Wind(0, 0));
         assertFalse(preCalculator.needSailorToOarToCheckpoint(ship.getNbrOar()));
-    }**/
+    }
 
     @Test
     void numberOfSailorToOarToCheckPointTest() {
