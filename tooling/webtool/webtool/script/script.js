@@ -418,7 +418,7 @@ function getInputJson() {
     console.log(json)
     if (json != undefined) {
         startRun(json);
-        downloadimage();
+        sendDataToBack();
     }
 }
 
@@ -428,9 +428,33 @@ function downloadimage() {
     html2canvas(container, { allowTaint: true }).then(function(canvas) {
         var link = document.createElement("a");
         document.body.appendChild(link);
-        link.download = "html_image.jpg";
+        link.download = "html_image.png";
         link.href = canvas.toDataURL();
         link.target = '_blank';
         link.click();
+    });
+}
+
+
+function sendDataToBack() {
+    $('#sea').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
+    var container = document.getElementById('sea'); // full page 
+    html2canvas(container, { allowTaint: true }).then(function(canvas) {
+        var imgData = canvas.toDataURL('image/png');
+        var form_data = new FormData();
+        form_data.append('file', imgData);
+        alert(form_data);
+        $.ajax({
+            url: '../backend/decode64.php', // <-- point to server-side PHP script 
+            dataType: 'text', // <-- what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(php_script_response) {
+                alert(php_script_response); // <-- display response from the PHP script, if any
+            }
+        });
     });
 }
