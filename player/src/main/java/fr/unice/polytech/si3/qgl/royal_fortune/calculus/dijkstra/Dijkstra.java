@@ -60,8 +60,8 @@ public class Dijkstra {
             if(newNodeValue < node.getNodeValue()){
                 node.setNodeValue(newNodeValue);
                 node.setPreviousNode(currentNode);
-                updatedNodes.add(node);
             }
+            updatedNodes.add(node);
         }
         return updatedNodes;
     }
