@@ -88,8 +88,9 @@ public class Captain {
         Optional<Boolean> optionalSailDecision = getSailDecision();
         boolean useSail = optionalSailDecision.isPresent();
         boolean needRudder = getRudderDecision(angleMove, angleSailorsShouldMake);
+        boolean needWatch = true;
 
-        SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail);
+        SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail, needWatch);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
 
@@ -162,6 +163,12 @@ public class Captain {
         else{
             int signOfAngleMove = (int) (angleMove/Math.abs(angleMove));
             return signOfAngleMove * Math.PI/4;
+        }
+    }
+
+    void useWatch(SailorPlacement strategyAnswer) {
+        if(strategyAnswer.hasWatch()){
+            roundActions.addAll(crew.useWatch());
         }
     }
 

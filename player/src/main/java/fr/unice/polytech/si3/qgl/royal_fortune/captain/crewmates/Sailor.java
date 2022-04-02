@@ -84,6 +84,10 @@ public class Sailor{
 		return new OarAction(this.getId());
 	}
 
+	public WatchAction watch(){
+		return new WatchAction(this.getId());
+	}
+
 	public RudderAction turnWithRudder(double rotationRudder) {
 		return new RudderAction(this.getId(), rotationRudder);
 	}

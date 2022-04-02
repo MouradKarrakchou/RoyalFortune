@@ -85,4 +85,13 @@ public class Crew {
                 .map(sailor -> sailor.useSail(opened))
                 .toList());
     }
+
+    public List<Action> useWatch() {
+        return new ArrayList<>(sailors.stream()
+                .filter(sailor -> !associations.isFree(sailor))
+                .filter(sailor -> associations.getAssociatedEntity(sailor).isWatch())
+                .filter(sailor -> sailor.isOnTheTargetEntity(associations))
+                .map(Sailor::watch)
+                .toList());
+    }
 }
