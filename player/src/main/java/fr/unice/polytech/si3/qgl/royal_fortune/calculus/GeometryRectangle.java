@@ -125,24 +125,20 @@ public class GeometryRectangle {
     }
 
     public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle,boolean isAReef) {
+        double safetyLength = 30;
         List<Beacon> listOfPosition=new ArrayList<>();
         if (isAReef){
-            rectangle=new Rectangle(rectangle.getWidth()+20,rectangle.getHeight()+20,rectangle.getOrientation());
+            rectangle=new Rectangle(rectangle.getWidth()+safetyLength,rectangle.getHeight()+safetyLength,rectangle.getOrientation());
         }
+
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
-        double widthPrecision=width/400;
-        double heightPrecision=height/400;
-        double widthUnit=width/ widthPrecision;
-        double heightUnit=height/ heightPrecision;
-        for (int k = -2; k< (int)Math.round(widthPrecision)+2 ; k++){
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2,-width/2+k*widthUnit)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2,width/2-k*widthUnit)));
-        }
-        for (int k = -2; k< (int)Math.round(heightPrecision)+2 ; k++){
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2+k*heightUnit,width/2)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2-k*heightUnit,-width/2)));
-        }
+
+        listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height / 2,-width / 2)));
+        listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height / 2,width / 2)));
+        listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height / 2,width / 2)));
+        listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height / 2,-width / 2)));
+
         return listOfPosition;
     }
 
