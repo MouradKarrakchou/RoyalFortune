@@ -37,26 +37,35 @@ public class GeometryCircle {
      * @return the list containing the two beacons
      */
         public static List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
-        double securityScaling = 0;
         List<Beacon> beaconList = new ArrayList<>();
-
-        double vectorShipCheckpointX = checkpointPosition.getX() - shipPosition.getX();
-        double vectorShipCheckpointY = checkpointPosition.getY() - shipPosition.getY();
-        double normShipCheckpoint = Math.sqrt(vectorShipCheckpointX * vectorShipCheckpointX + vectorShipCheckpointY * vectorShipCheckpointY);
-
-        double normalVectorX = -vectorShipCheckpointY / normShipCheckpoint;
-        double normalVectorY = vectorShipCheckpointX / normShipCheckpoint;
+        double securityScaling = 0;
+        double[] vecteurShipCheckpoint = computeNormalVecteurShipCheckpoint(shipPosition, checkpointPosition);
+        double normalVectorX = vecteurShipCheckpoint[0];
+        double normalVectorY = vecteurShipCheckpoint[1];
 
         Beacon upBeacon = createUpBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, securityScaling, reefShape.getRadius());
         Beacon downBeacon = createDownBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, securityScaling, reefShape.getRadius());
         beaconList.add(upBeacon);
         beaconList.add(downBeacon);
         placeBeaconsAroundReef(upBeacon.getPosition(), downBeacon.getPosition(),normalVectorX, normalVectorY, beaconList);
-
         return beaconList;
     }
 
+    /**
+     *
+     * @param shipPosition
+     * @param checkpointPosition
+     * @return a tab of double of size 2, at index 0 their is normalVectorX et at index 1 normalVectorY
+     */
+    public static double[] computeNormalVecteurShipCheckpoint(Position shipPosition, Position checkpointPosition){
+        double vectorShipCheckpointX = checkpointPosition.getX() - shipPosition.getX();
+        double vectorShipCheckpointY = checkpointPosition.getY() - shipPosition.getY();
+        double normShipCheckpoint = Math.sqrt(vectorShipCheckpointX * vectorShipCheckpointX + vectorShipCheckpointY * vectorShipCheckpointY);
 
+        double normalVectorX = -vectorShipCheckpointY / normShipCheckpoint;
+        double normalVectorY = vectorShipCheckpointX / normShipCheckpoint;
+        return new double[]{normalVectorX, normalVectorY};
+    }
 
     /**
      * Create a beacon at the top of the reef with a circle shape
