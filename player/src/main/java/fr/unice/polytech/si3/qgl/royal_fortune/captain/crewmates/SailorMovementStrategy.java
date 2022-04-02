@@ -171,7 +171,7 @@ public class SailorMovementStrategy {
      */
     public boolean associateStarvingEntities(SailorPlacement requestedSailorPlacement){
         // If we need a watch.
-        if (requestedSailorPlacement.hasRudder()){
+        if (requestedSailorPlacement.hasWatch()){
             Watch watch = ship.getWatch();
             // If an association has been made
             if(associateStarvingEntity(watch)){
