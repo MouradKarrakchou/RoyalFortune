@@ -98,22 +98,19 @@ public class GeometryCircle {
      */
     public static void placeBeaconsAroundReef(Position upBeacon, Position downBeacon, double normalVectorX, double normalVectorY, List<Beacon> beaconList){
 
-        int alignedBeacons = 2;
         double upBeaconX = upBeacon.getX();
         double upBeaconY = upBeacon.getY();
         double downBeaconX = downBeacon.getX();
         double downBeaconY = downBeacon.getY();
 
-        for (int i = 0; i < alignedBeacons; i++){
-            upBeaconX += 0.5 * normalVectorX * Beacon.RADIUSBEACON ;
-            upBeaconY += 0.5 * normalVectorY * Beacon.RADIUSBEACON;
+        upBeaconX += 0.5 * normalVectorX * Beacon.RADIUSBEACON ;
+        upBeaconY += 0.5 * normalVectorY * Beacon.RADIUSBEACON;
+        beaconList.add(new Beacon(new Position(upBeaconX, upBeaconY)));
 
-            beaconList.add(new Beacon(new Position(upBeaconX, upBeaconY)));
+        downBeaconX -= 0.5 * normalVectorX * Beacon.RADIUSBEACON;
+        downBeaconY -= 0.5 * normalVectorY * Beacon.RADIUSBEACON;
+        beaconList.add(new Beacon(new Position(downBeaconX, downBeaconY)));
 
-            downBeaconX -= 0.5 * normalVectorX * Beacon.RADIUSBEACON;
-            downBeaconY -= 0.5 * normalVectorY * Beacon.RADIUSBEACON;
-            beaconList.add(new Beacon(new Position(downBeaconX, downBeaconY)));
-        }
     }
 
     /**
