@@ -11,4 +11,9 @@ public class Beacon extends Checkpoint {
     public Beacon (Position position){
         super(position,new Circle(RADIUSBEACON));
     }
+
+    @Override
+    public String toString() {
+        return this.getPosition().toString();
+    }
 }

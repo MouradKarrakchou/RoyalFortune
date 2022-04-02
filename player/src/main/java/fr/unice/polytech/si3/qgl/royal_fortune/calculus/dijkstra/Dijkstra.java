@@ -28,8 +28,7 @@ public class Dijkstra {
 
         DijkstraNode minNode;
         while((minNode = Collections.min(updatedNodes)) != arrivalNode){
-            Set<DijkstraNode> a = updateNodes(minNode, availableNodes, cartologue);
-            updatedNodes.addAll(a);
+            updatedNodes.addAll(updateNodes(minNode, availableNodes, cartologue));
             updatedNodes.remove(minNode);
         }
 
