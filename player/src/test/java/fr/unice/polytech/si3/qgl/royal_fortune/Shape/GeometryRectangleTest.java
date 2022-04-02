@@ -131,6 +131,7 @@ class GeometryRectangleTest {
         assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
     }
 
+    /*
     @Test
     void generateBeaconReefTest(){
         Rectangle rectangle = new Rectangle(70, 50, 0);
@@ -152,7 +153,7 @@ class GeometryRectangleTest {
         assertTrue((Math.abs(res.get(3).getPosition().getX() - 35)) < 0.2);
         assertTrue((Math.abs(res.get(3).getPosition().getY() + 45)) < 0.2);
         assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
-    }
+    }*/
 
     @Test
     void toStringTest(){
