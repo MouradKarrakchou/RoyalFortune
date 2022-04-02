@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +25,9 @@ import java.util.logging.Logger;
         @JsonSubTypes.Type(value = Rectangle.class, name = "rectangle")
 })
 public class Shape {
-	Position position;
 	private String type;
 	final Logger logger = Logger.getLogger(Shape.class.getName());
+	boolean updated=false;
 
 	public Shape() {}
 	public Shape(String type) {
@@ -52,29 +52,29 @@ public class Shape {
 		return "";
 	}
 
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-
-	/**
-	 * Generate some beacons all around the shape
-	 * @return the list of beacon of the shape
-	 */
-	public List<Beacon> generateBeacon(){return null;}
 
 	public Optional<Circle> isCircle(){
-		if(this instanceof Circle){
-			Circle current = (Circle) this;
+		if(this instanceof Circle current){
 			return Optional.of(current);
 		}
 		return Optional.empty();
 	}
 	public Optional<Rectangle> isRectangle(){
-		if(this instanceof Rectangle){
-			Rectangle current = (Rectangle) this;
+		if(this instanceof Rectangle current){
 			return Optional.of(current);
 		}
 		return Optional.empty();
 	}
 
+	public void computeSegmentsIfPossible(Position position) {
+		if(this instanceof Rectangle currentRectangle){
+			List<Segment> listSeg = GeometryRectangle.computeSegments(position,  currentRectangle);
+			currentRectangle.getSegmentList().clear();
+			currentRectangle.getSegmentList().addAll(listSeg);
+		}
+	}
+
+    public void updateForReef() {
+		//Make reefs bigger for safety
+    }
 }

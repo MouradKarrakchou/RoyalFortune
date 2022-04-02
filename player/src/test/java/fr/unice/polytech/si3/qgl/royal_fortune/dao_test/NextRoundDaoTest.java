@@ -1,9 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.dao_test;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,10 +9,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class NextRoundDaoTest {
+class NextRoundDaoTest {
 
     private NextRoundDAO nextDao;
     @BeforeEach
@@ -33,7 +30,7 @@ public class NextRoundDaoTest {
 
     @Test
     void toStringTest(){
-        assertTrue(nextDao.toString() != "");
+        assertNotEquals("", nextDao.toString());
     }
 
 

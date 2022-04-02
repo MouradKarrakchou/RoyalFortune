@@ -2,9 +2,14 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.*;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorMovementStrategy;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.SailorPlacement;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorMovementStrategy;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorPlacement;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -13,6 +18,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -23,7 +29,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class SailorMovementStrategyTest {
+class SailorMovementStrategyTest {
 
     @Test
     void getSailorsNearToOarLeftTest(){
@@ -460,6 +466,15 @@ public class SailorMovementStrategyTest {
         assertEquals(rightOar02, associations.getAssociatedEntity(sailor00));
         assertEquals(rightOar01, associations.getAssociatedEntity(sailor01));
         assertNull(associations.getAssociatedEntity(sailor02));
+
+        associations.dissociateAll();
+
+        requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 4, false, false);
+        sailorMovementStrategy.associateNearestSailorToOars(requestedPlacement);
+        assertEquals(-2, requestedPlacement.getOarWeight());
+        assertEquals(leftOar02, associations.getAssociatedEntity(sailor00));
+        assertEquals(leftOar01, associations.getAssociatedEntity(sailor01));
+        assertNull(associations.getAssociatedEntity(sailor02));
     }
 
     @Test
@@ -533,10 +548,15 @@ public class SailorMovementStrategyTest {
         SailorPlacement answer = sailorMovementStrategy.askPlacement(requestedPlacement);
         assertTrue(answer.hasRudder());
         assertFalse(answer.hasSail());
+        assertFalse(requestedPlacement.hasRudder());
+        assertFalse(requestedPlacement.hasSail());
+
         assertEquals(sailor00, associations.getAssociatedSailor(rudder));
         assertEquals(1, answer.getNbRightSailors());
         assertEquals(3, answer.getNbLeftSailors());
         assertEquals(1, answer.getNbRightSailors());
+
+
     }
 
     @Test
@@ -636,11 +656,124 @@ public class SailorMovementStrategyTest {
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockPreCalculator);
 
         SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, false, true);
-        sailorMovementStrategy.askPlacement(requestedPlacement);
+        SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(requestedPlacement);
+
+        assertEquals(1, strategyAnswer.getNbLeftSailors());
+        assertEquals(0, strategyAnswer.getNbRightSailors());
+        assertTrue(strategyAnswer.hasSail());
+
+        assertFalse(requestedPlacement.hasSail());
 
         assertEquals(sailor00, associations.getAssociatedSailor(oar00));
         assertEquals(sailor02, associations.getAssociatedSailor(sail));
         assertNull(associations.getAssociatedSailor(oar01));
+    }
 
+    @Test
+    void canContinueToOarEvenlyTest(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        List<Entities> entities = new ArrayList<>();
+        Oar oar00 = new Oar(1, 0);
+        entities.add(oar00);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(6, 4),
+                entities,
+                new Rectangle(6, 4, 0));
+
+        // Sailor00
+        Sailor sailor00 = new Sailor(0, 0, 0, "sailor0");
+        sailors.add(sailor00);
+
+        Sail sail = new Sail(0, 0, false);
+        entities.add(sail);
+
+        List<Checkpoint> checkpoints = new ArrayList<>();
+        checkpoints.add(new Checkpoint(new Position(500, 0, 0), new Circle()));
+        checkpoints.add(new Checkpoint(new Position(-500, 0, 0), new Circle()));
+
+        Wind wind = mock(Wind.class);
+        when(wind.getOrientation()).thenReturn(0.0);
+        when(wind.getStrength()).thenReturn(0.0);
+
+        Goal goal = new Goal("goal", checkpoints);
+        FictitiousCheckpoint fictitiousCheckpoints = new FictitiousCheckpoint(checkpoints);
+        SeaMap seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(), wind, null);
+
+        Associations associations = new Associations();
+
+
+        PreCalculator preCalculator = new PreCalculator(ship, sailors, seaMap, wind);
+
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, preCalculator);
+        assertFalse(sailorMovementStrategy.canContinueToOarEvenly());
+
+        Sailor sailor01 = new Sailor(0, 0, 0, "sailor0");
+        sailors.add(sailor01);
+
+        assertTrue(sailorMovementStrategy.canContinueToOarEvenly());
+    }
+
+    @Test
+    void associateSpecialistSailorAndSailorToOarEvenlyTest(){
+        List<Sailor> sailors = new ArrayList<>();
+
+        List<Entities> entities = new ArrayList<>();
+        Oar oar00 = new Oar(1, 0);
+        entities.add(oar00);
+
+        Oar oar01 = new Oar(1, 1);
+        entities.add(oar01);
+
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(6, 4),
+                entities,
+                new Rectangle(6, 4, 0));
+
+        Associations associations = new Associations();
+
+        PreCalculator mockedPreCalculator = mock(PreCalculator.class);
+        when(mockedPreCalculator.needSailorToOarToCheckpoint(anyInt())).thenReturn(true);
+
+        SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockedPreCalculator);
+        assertFalse(sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly());
+
+        Sailor canOnlyGoLeft = new Sailor(0, 6, 0, "onlyLeft");
+        sailors.add(canOnlyGoLeft);
+
+        Sailor canOnlyGoRight = new Sailor(0, 6, 1, "onlyRight");
+        sailors.add(canOnlyGoRight);
+
+        Sailor canGoBoth = new Sailor(0, 1, 1, "canBoth");
+        sailors.add(canGoBoth);
+
+        assertTrue(sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly());
+        assertEquals(canGoBoth, associations.getAssociatedSailor(oar01));
+        assertEquals(canOnlyGoLeft, associations.getAssociatedSailor(oar00));
+        assertNull(associations.getAssociatedEntity(canOnlyGoRight));
+
+        Sailor canGoBoth1 = new Sailor(1, 1, 1, "canBoth1");
+        sailors.add(canGoBoth1);
+
+        Oar oar02 = new Oar(1, 1);
+        entities.add(oar02);
+
+        Oar oar03 = new Oar(1, 0);
+        entities.add(oar03);
+
+        assertTrue(sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly());
+        assertEquals(canGoBoth1, associations.getAssociatedSailor(oar03));
+        assertEquals(canOnlyGoRight, associations.getAssociatedSailor(oar02));
+
+        assertFalse(sailorMovementStrategy.associateSpecialistSailorAndSailorToOarEvenly());
     }
 }

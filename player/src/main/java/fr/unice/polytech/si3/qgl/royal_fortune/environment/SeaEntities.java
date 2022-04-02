@@ -1,14 +1,10 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
-
-import java.util.Optional;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -18,13 +14,17 @@ import java.util.Optional;
         @JsonSubTypes.Type(value = Stream.class, name = "stream"),
         @JsonSubTypes.Type(value = Reef.class, name = "reef")
 })
+@JsonIgnoreProperties(value = {
+        "stream",
+        "reef"
+})
 public class SeaEntities {
     Position position;
     Shape shape;
     public SeaEntities(Position position, Shape shape){
         this.position=position;
         this.shape=shape;
-        shape.setPosition(position);
+        shape.computeSegmentsIfPossible(position);
     }
 
     public SeaEntities() {
@@ -35,23 +35,23 @@ public class SeaEntities {
     }
 
     public Shape getShape() {
+        shape.updateForReef();
+        shape.computeSegmentsIfPossible(position);
+        return shape;
+    }
+    public Shape getShapeForTool(){
         return shape;
     }
 
 
-    public Optional<Stream> isStream() {
-        if(this instanceof Stream){
-            Stream current = (Stream) this;
-            return Optional.of(current);
-        }
-        return Optional.empty();
+    public Boolean isStream() {
+        return this instanceof Stream;
     }
-    public Optional<Reef> isReef() {
-        if(this instanceof Reef){
-            Reef current = (Reef) this;
-            return Optional.of(current);
-        }
-        return Optional.empty();
+
+    public Boolean isReef() {
+        return this instanceof Reef;
     }
+
+
 
 }

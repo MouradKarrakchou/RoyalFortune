@@ -1,10 +1,15 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.target;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.util.*;
@@ -18,21 +23,27 @@ public class Observer {
     private Position nextCheckPointPosition;
     private int RANGE=40;
 
-    public Observer(Position shipPosition, Wind wind,Position nextCheckPointPosition){
-        this.nextCheckPointPosition=nextCheckPointPosition;
-        this.shipPosition=shipPosition;
+    public Observer(){
         this.currentSeaEntities=new ArrayList<>();
-        cartologue=new Cartologue(getStream(currentSeaEntities),null,wind);
+        cartologue=new Cartologue(getStream(currentSeaEntities),getReef(currentSeaEntities));
         this.mathematician = new Mathematician(cartologue);
     }
 
     private List<Stream> getStream(List<SeaEntities> newSeaEntities){
         List<Stream> listOfStream=new ArrayList<>();
-        for(SeaEntities seaEntities:currentSeaEntities){
+        for(SeaEntities seaEntities:newSeaEntities){
             if (seaEntities instanceof Stream)
                 listOfStream.add((Stream) seaEntities);
         }
         return listOfStream;
+    }
+    private List<Reef> getReef(List<SeaEntities> newSeaEntities){
+        List<Reef> listOfReef=new ArrayList<>();
+        for(SeaEntities seaEntities:newSeaEntities){
+            if (seaEntities instanceof Reef)
+                listOfReef.add((Reef) seaEntities);
+        }
+        return listOfReef;
     }
     /**
      * Check in half-circle all the seaEntities in RANGE. If newSeaEntities is different from currentSeaEntities return true.
@@ -40,7 +51,19 @@ public class Observer {
      * @return boolean
      */
     public Boolean checkIfNewSeaEntities(List<SeaEntities> newSeaEntities){
-        return true;
+        for (SeaEntities seaEntitie: newSeaEntities){
+            if (!currentSeaEntities.contains(seaEntitie))
+                return true;
+        }
+        return false;
+    }
+    public List<Beacon> generateRandomBeacon(Position shipPosition){
+        Random random=new Random(1000);
+        List<Beacon> listBeacon=new ArrayList<>();
+        for (int k=0;k<1000;k++){
+            listBeacon.add(new Beacon(new Position(shipPosition.getX()+(random.nextInt()-500),shipPosition.getY()+(random.nextInt()-500),0)));
+        }
+        return listBeacon;
     }
 
     /**
@@ -49,11 +72,28 @@ public class Observer {
      * @return If return empty we target the checkpoint else we target the Beacon
      */
     public Optional<Beacon> watchSea(List<SeaEntities> newSeaEntities){
+        currentSeaEntities=newSeaEntities;
         List<Beacon> beacons=new ArrayList<>();
-        for (Stream stream:getStream(newSeaEntities)){
-            beacons.addAll(stream.getShape().generateBeacon());
+        for (SeaEntities seaEntities:newSeaEntities){
+            if (seaEntities.getShape() instanceof Rectangle)
+                beacons.addAll(GeometryRectangle.generateBeacon(seaEntities.getPosition(), (Rectangle) seaEntities.getShape(),seaEntities.isReef()));
+            if (seaEntities.getShape() instanceof Circle)
+                beacons.addAll(GeometryCircle.generateBeacon(shipPosition, nextCheckPointPosition,seaEntities.getPosition(),(Circle) seaEntities.getShape()));
+
         }
+        cartologue.setListSeaEntities(newSeaEntities);
         return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);
     }
 
+    public void setNextCheckPointPosition(Position nextCheckPointPosition) {
+        this.nextCheckPointPosition = nextCheckPointPosition;
+    }
+
+    public void setShipPosition(Position shipPosition) {
+        this.shipPosition = shipPosition;
+    }
+
+    public Cartologue getCartologue() {
+        return cartologue;
+    }
 }

@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
+package fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates;
 
 public class SailorPlacement {
     private int oarWeight;
@@ -21,39 +21,13 @@ public class SailorPlacement {
         this.sail = sail;
     }
 
-    public SailorPlacement(int nbLeftSailors, int nbRightSailors, boolean rudder, boolean sail){
-        this.rudder = rudder;
-        this.sail = sail;
-        this.nbRightSailors = nbRightSailors;
-        this.nbLeftSailors = nbLeftSailors;
-    }
-
-    public SailorPlacement(int oarWeight, int nbLeftSailors, int nbRightSailors, boolean rudder, boolean sail){
-        this.oarWeight = oarWeight;
-        this.rudder = rudder;
-        this.sail = sail;
-        this.nbRightSailors = nbRightSailors;
-        this.nbLeftSailors = nbLeftSailors;
-    }
 
     public boolean hasRudder() {
         return rudder;
     }
 
-    public void setOarWeight(int oarWeight) {
-        this.oarWeight = oarWeight;
-    }
-
     public void setSail(boolean sail) {
         this.sail = sail;
-    }
-
-    public void setNbLeftSailors(int nbLeftSailors) {
-        this.nbLeftSailors = nbLeftSailors;
-    }
-
-    public void setNbRightSailors(int nbRightSailors) {
-        this.nbRightSailors = nbRightSailors;
     }
 
     public boolean hasSail() {

@@ -1,15 +1,17 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.exception.ToFarAssociationException;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Associations {
     private final Map<Sailor, Entities> sailorAssociations;
     private final Map<Entities, Sailor> entityAssociations;
+    private static final Logger LOGGER = Logger.getLogger(Associations.class.getName());
 
     public Associations(){
         this.sailorAssociations = new HashMap<>();
@@ -35,7 +37,7 @@ public class Associations {
         try {
             checkForTargetOutOfRange(sailor, entity);
         } catch (ToFarAssociationException e) {
-            e.printStackTrace();
+            LOGGER.info("Cannot add association");
         }
 
         sailorAssociations.put(sailor, entity);

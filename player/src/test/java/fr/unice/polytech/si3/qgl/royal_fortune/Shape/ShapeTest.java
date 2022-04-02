@@ -3,12 +3,15 @@ package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ShapeTest {
+class ShapeTest {
 
     private Shape s;
 
@@ -19,7 +22,7 @@ public class ShapeTest {
 
     @Test
     void toStringTest(){
-        assertTrue(s.toString() != "");
+        assertNotEquals("", s.toString());
     }
 
     @Test
@@ -51,8 +54,11 @@ public class ShapeTest {
         assertFalse(s.isCircle().isPresent());
     }
 
+
     @Test
-    void generateBeaconTest(){
-        assertEquals(null, s.generateBeacon());
+    void computeSegmentsIfPossibleTest(){
+        Rectangle rectangle = new Rectangle(5,5,0);
+        rectangle.computeSegmentsIfPossible(new Position(0, 0, 0));
+        assertEquals(4, rectangle.getSegmentList().size());
     }
 }

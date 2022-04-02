@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
@@ -30,6 +30,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 public class JsonManager {
 	static final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
 	static String exception = "Exception";
+
+	private JsonManager(){}
 
 	/**
 	 *Create a InitGameDAO with a the InitGame JSON
@@ -160,7 +162,6 @@ public class JsonManager {
 			JsonNode shipJson = actualObj.get(searchNode);
 			return shipJson.toString();
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			LOGGER.log(Level.INFO, exception);
 		}
 		return null;

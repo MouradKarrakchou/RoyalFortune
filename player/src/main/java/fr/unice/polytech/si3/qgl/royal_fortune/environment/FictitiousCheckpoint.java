@@ -2,8 +2,10 @@ package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FictitiousCheckpoint {
@@ -20,21 +22,21 @@ public class FictitiousCheckpoint {
      */
     public List<Checkpoint> createFictitiousCheckpoints(List<Checkpoint> originalCheckpoints) {
         if (originalCheckpoints == null)
-            return null;
+            return Collections.emptyList();
 
         if (originalCheckpoints.isEmpty())
             return originalCheckpoints;
 
-        List<Checkpoint> fictitiousCheckpoints = new ArrayList<>();
+        List<Checkpoint> theFictitiousCheckpoints = new ArrayList<>();
         for (int i = 0; i < originalCheckpoints.size() - 1; i++) {
             Checkpoint currentCheckpoint = originalCheckpoints.get(i);
             Checkpoint nextCheckPoint = originalCheckpoints.get(i + 1);
-            fictitiousCheckpoints.add(createFictitiousCheckpoint(currentCheckpoint, nextCheckPoint));
+            theFictitiousCheckpoints.add(createFictitiousCheckpoint(currentCheckpoint, nextCheckPoint));
         }
 
         // The last checkpoint will not be changed
-        fictitiousCheckpoints.add(originalCheckpoints.get(originalCheckpoints.size() - 1));
-        return fictitiousCheckpoints;
+        theFictitiousCheckpoints.add(originalCheckpoints.get(originalCheckpoints.size() - 1));
+        return theFictitiousCheckpoints;
     }
 
     /**
@@ -60,7 +62,6 @@ public class FictitiousCheckpoint {
         Circle fictitiousCheckpointShape = new Circle(fictitiousCheckpointRadius);
         Position fictitiousCheckpointPosition = new Position(currentCheckpointX + fictitiousCheckpointRadius * unitX,
                 currentCheckpointY + fictitiousCheckpointRadius * unitY, 0);
-        fictitiousCheckpointShape.setPosition(fictitiousCheckpointPosition);
         return new Checkpoint(fictitiousCheckpointPosition, fictitiousCheckpointShape);
     }
 
@@ -74,7 +75,11 @@ public class FictitiousCheckpoint {
             return null;
         return fictitiousCheckpoints.get(0);
     }
+
     public void addFictitiousCheckpoint(Checkpoint checkpoint){
+        if (fictitiousCheckpoints.get(0) instanceof Beacon) {
+            fictitiousCheckpoints.remove(0);
+        }
         fictitiousCheckpoints.add(0,checkpoint);
     }
 

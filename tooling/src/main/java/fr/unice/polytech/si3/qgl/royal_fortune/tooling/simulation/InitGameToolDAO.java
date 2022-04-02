@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
@@ -10,12 +10,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class InitGameToolDAO extends InitGameDAO {
 
     private List<SeaEntities> seaEntities;
-    private int minumumCrewSize;
+    private int minimumCrewSize;
     private int maximumCrewSize;
     private Ship ship;
     private Position startingPositions;
@@ -26,28 +25,21 @@ public class InitGameToolDAO extends InitGameDAO {
         this.ship = ship;
         this.seaEntities = seaEntities;
         this.maximumCrewSize = maximumCrewSize;
-        this.minumumCrewSize = minumumCrewSize;
+        this.minimumCrewSize = minumumCrewSize;
         this.startingPositions = startingPositions;
     }
-     public void configDao(){
-         int crewSize = countCrew(minumumCrewSize, maximumCrewSize);
-         try {
-             setSailors(genSailors(crewSize, ship));
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-         super.getShip().setPosition(startingPositions);
-     }
 
+    /* NE PAS DELETE - UTIL
     public int countCrew(int minumumCrewSize, int maximumCrewSize){
         int crewSize = 0;
         if(minumumCrewSize == maximumCrewSize) crewSize = minumumCrewSize;
         else{
-            Random r = new Random();
+            SecureRandom r = new SecureRandom();
             crewSize = r.nextInt(maximumCrewSize-minumumCrewSize) + minumumCrewSize;
         }
         return crewSize;
     }
+     */
 
     public List<Sailor> genSailors(int crewSize, Ship ship) throws Exception {
         List<Sailor> listSailor = new ArrayList<>();
@@ -70,10 +62,5 @@ public class InitGameToolDAO extends InitGameDAO {
         }
         return listSailor;
     }
-
-    public List<SeaEntities> getSeaEntities() {
-        return seaEntities;
-    }
-
 
 }

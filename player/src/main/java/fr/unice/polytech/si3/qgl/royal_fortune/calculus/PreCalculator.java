@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -11,7 +11,7 @@ public class PreCalculator {
     private final Ship ship;
     private final List<Sailor> sailors;
     private final SeaMap seaMap;
-    private  Wind wind;
+    private Wind wind;
 
     public PreCalculator(Ship ship, List<Sailor> sailors, SeaMap seaMap, Wind wind) {
         this.ship = ship;
@@ -40,7 +40,7 @@ public class PreCalculator {
      * @return if with this numberOfSailors we are in the checkpoint or not
      */
     public boolean needSailorToOarToCheckpoint(int numberOfSailors) {
-        return (numberOfSailors<howManySailorsNeeded());
+        return numberOfSailors < howManySailorsNeeded();
     }
     public int howManySailorsNeeded(){
         int numberOfSailors=0;
@@ -49,16 +49,15 @@ public class PreCalculator {
         double newY = ship.getPosition().getY();
         double angle = ship.getPosition().getOrientation();
 
-        /**if(ship.getSail().isOpenned()) {
-            Wind theWind = wind;
-            double windNorm = theWind.getStrength() * Math.cos(theWind.getOrientation() - angle);
+        if(ship.getSail().isOpenned()) {
+            double windNorm = wind.getStrength() * Math.cos(wind.getOrientation() - angle);
 
             newX += windNorm * Math.cos(angle);
             newY += windNorm * Math.sin(angle);
-        }**/
+        }
 
-        while(!seaMap.isInCheckpointShipPos(seaMap.getCurrentFictitiousCheckPoint(), newX, newY) && (numberOfSailors<=sailors.size())){
-            norm = 165 * numberOfSailors / (double) ship.getNbrOar();
+        while(!seaMap.isInCheckpointShipPos(seaMap.getCurrentFictitiousToSlowCheckPoint(), newX, newY) && (numberOfSailors+2<=sailors.size())){
+            norm = 165 * 2 / (double) ship.getNbrOar();
             newX += norm * Math.cos(angle);
             newY += norm * Math.sin(angle);
             numberOfSailors+=2;

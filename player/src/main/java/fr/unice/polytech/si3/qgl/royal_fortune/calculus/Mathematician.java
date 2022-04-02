@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
@@ -15,39 +14,38 @@ public class Mathematician {
     Cartologue cartologue;
     public Mathematician(Cartologue cartologue){
         this.cartologue=cartologue;
+        beaconHashMap=new HashMap<>();
     }
 
     /**
-     * Compute the best path to reach the next checkpoint through a beacon or empty to follow th checkpoint
+     * Compute the best path to reach the next checkpoint through a beacon or empty to follow the checkpoint
      * @param listBeacon list of beacons
      * @return the best beacon to go through or empty
      */
     public Optional<Beacon> computeTrajectory(List<Beacon> listBeacon,Position departure,Position arrival){
         ArrayList<Route> roads=new ArrayList<>();
+        Route route;
         for (Beacon beacon :listBeacon){
-            List<Segment> segments=new ArrayList<>();
-            segments.add(new Segment(departure,beacon.getPosition()));
-            segments.add(new Segment(beacon.getPosition(), arrival));
-            Route route=new Route(segments,cartologue);
-            roads.add(route);
-            beaconHashMap.put(route,beacon);
+            if (!beacon.getPosition().equals(departure)&&!beacon.getPosition().equals(arrival)){
+                List<Segment> segments=new ArrayList<>();
+                segments.add(new Segment(departure,beacon.getPosition()));
+                segments.add(new Segment(beacon.getPosition(), arrival));
+                route=new Route(segments,cartologue);
+                if(Double.isFinite(route.getValue())){
+                        roads.add(route);
+                        beaconHashMap.put(route,beacon);
+                    }
+                }
         }
-        Route route = null;
+        roads.add(0,new Route(new Segment(departure,arrival),cartologue));
+        route=null;
         if (!roads.isEmpty())
-                route=Collections.max(roads);
-        if (route!=null)
-            return Optional.of(beaconHashMap.get(route));
-        else return Optional.empty();
-    }
-
-    /**
-     *Link streams and their beacons
-     * @param listStream list of streams
-     * @return Return a Hashmap that link streams with their lists of beacons
-     */
-    public List<Beacon> getHashBeaconOfListStream(List<Stream> listStream){
-        //utilise les beacon générés par les formes elles même
-        return null;
+                route=Collections.min(roads);
+        if (route!=null) {
+            if (beaconHashMap.containsKey(route))
+                return Optional.of(beaconHashMap.get(route));
+        }
+        return Optional.empty();
     }
 
     /**

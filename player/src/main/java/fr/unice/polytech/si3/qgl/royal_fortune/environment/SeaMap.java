@@ -15,6 +15,7 @@ public class SeaMap {
     private final Position shipPosition;
     private Wind wind;
     private List<SeaEntities> seaEntities;
+    Observer observer;
 
     public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition,Wind wind,List<SeaEntities> seaEntities){
         this.goal=goal;
@@ -22,14 +23,29 @@ public class SeaMap {
         this.shipPosition=shipPosition;
         this.wind=wind;
         this.seaEntities=seaEntities;
+        observer=new Observer();
     }
     public void updateCheckPoint(List<SeaEntities> newSeaEntities) {
-        if (isInCheckpoint(goal.getCurrentCheckPoint()))
-        {goal.nextCheckPoint();
-            fictitiousCheckpoints.nextCheckPoint();}
-        //Observer observer=new Observer(shipPosition, wind,fictitiousCheckpoints.getCurrentCheckPoint().getPosition());
-        //Optional<Beacon> beaconOptional=observer.watchSea(newSeaEntities);
-        //beaconOptional.ifPresent(beacon -> fictitiousCheckpoints.addFictitiousCheckpoint(beacon));
+        if (isInCheckpoint(goal.getCheckPoints().get(0)))
+        {
+            goal.nextCheckPoint();
+            fictitiousCheckpoints.nextCheckPoint();
+            observer.getCartologue().getListSeaEntities().clear();
+            this.seaEntities.clear();
+        }
+        if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
+        {
+            fictitiousCheckpoints.nextCheckPoint();
+            observer.getCartologue().getListSeaEntities().clear();
+            this.seaEntities.clear();
+        }
+
+        observer.setNextCheckPointPosition(fictitiousCheckpoints.getCurrentCheckPoint().getPosition());
+        observer.setShipPosition(shipPosition);
+        if (observer.checkIfNewSeaEntities(newSeaEntities)){
+            Optional<Beacon> beaconOptional=observer.watchSea(newSeaEntities);
+            beaconOptional.ifPresent(beacon -> fictitiousCheckpoints.addFictitiousCheckpoint(beacon));
+        }
     }
     public boolean isInCheckpoint(Checkpoint checkpoint) {
         return(isInCheckpointShipPos(checkpoint,shipPosition.getX(),shipPosition.getY()));
@@ -51,4 +67,14 @@ public class SeaMap {
         return(fictitiousCheckpoints.getCurrentCheckPoint());
     }
 
+    public FictitiousCheckpoint getFictitiousCheckpoints() {
+        return fictitiousCheckpoints;
+    }
+
+    public Checkpoint getCurrentFictitiousToSlowCheckPoint() {
+        if (fictitiousCheckpoints.getCurrentCheckPoint() instanceof Beacon)
+            return fictitiousCheckpoints.getFictitiousCheckpoints().get(1);
+        else
+            return fictitiousCheckpoints.getCurrentCheckPoint();
+    }
 }

@@ -11,10 +11,9 @@ import java.util.Optional;
 public class Route implements Comparable{
     private Route firstRoute;
     private Route secondRoute;
-    private double value;
-    private Optional<Stream> stream;
+    private final double value;
     private List<Segment> listSegment;
-    private Cartologue cartologue;
+    private final Cartologue cartologue;
     private Boolean reefCollision;
 
     /**
@@ -25,6 +24,7 @@ public class Route implements Comparable{
      */
     public Route(Segment segment,Cartologue cartologue){
         this.cartologue = cartologue;
+        this.listSegment = new ArrayList<>();
         this.listSegment.add(segment);
         List<Segment> slicedSegments = sliceSegment(segment);
         if(slicedSegments.size() > 0){
@@ -55,7 +55,7 @@ public class Route implements Comparable{
      * If we have a list like <strong>{AB,BC,CD,DE}</strong> the two first segment AB and BC will go in firstRoute and the other <strong>(CD,DE)</strong> in the second.<br>
      * @param listSegment list of segments
      */
-    private void distributeSegments(List<Segment> listSegment) {
+    public void distributeSegments(List<Segment> listSegment) {
         List<Segment> segmentFirstRoute = new ArrayList<>();
         List<Segment> segmentSecondRoute = new ArrayList<>();
         for(int i = 0 ; i < listSegment.size()/2;i++)segmentFirstRoute.add(listSegment.get(i));
@@ -65,7 +65,7 @@ public class Route implements Comparable{
         else
             firstRoute = new Route(segmentFirstRoute, cartologue);
         if (segmentSecondRoute.size()==1)
-            secondRoute = new Route(segmentFirstRoute.get(0), cartologue);
+            secondRoute = new Route(segmentSecondRoute.get(0), cartologue);
         else
             secondRoute = new Route(segmentSecondRoute, cartologue);
     }
@@ -75,7 +75,7 @@ public class Route implements Comparable{
      * slice the segment by intersection between seaEntities using the cartologue
      * @return list of segments
      */
-    private List<Segment> sliceSegment(Segment segment) {
+    public List<Segment> sliceSegment(Segment segment) {
         //use cartologue to slice segment
         return cartologue.sliceSegmentByInteraction(segment);
     }
@@ -96,24 +96,37 @@ public class Route implements Comparable{
         return value;
     }
 
-    public Optional<Stream> getStream() {
-        return stream;
-    }
-
     public Cartologue getCartologue() {
         return cartologue;
     }
 
-    public Boolean getReefCollision() {
-        return reefCollision;
-    }
 
     @Override
     public int compareTo(Object o) {
-        if(this.value>((Route)o).getValue())
-            return 1;
-        else if(this.value==((Route)o).getValue())
-            return 0;
-        else return -1;
+        return Double.compare(this.value, ((Route) o).getValue());
+    }
+
+    @Override
+    public String toString() {
+        return toString(0,0);
+    }
+
+
+        public String toString(int i, int indentValue){
+        if(firstRoute == null && secondRoute == null){
+            return indent(indentValue)+"R"+i+"* -> "+listSegment.toString()+"\n";
+        }
+        else {
+            return indent(indentValue)+"R"+i+":\n" +
+                    firstRoute.toString(i+1,indentValue+1)+
+                    secondRoute.toString(i+2, indentValue+1);
+        }
+    }
+
+
+    public String indent(int j) {
+        String out = "";
+        for(int i = 0 ; i < j ; i++) out += "\t";
+        return out;
     }
 }

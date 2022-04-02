@@ -174,7 +174,7 @@ class DirectionsManagerTest {
     void computeAngleConeTest(){
         Position p1 = new Position(-0,5,-Math.PI/3);
         Position p2 = new Position(0,0,0);
-        Checkpoint checkpoint = new Checkpoint(p1, new Circle(p1,500));
+        Checkpoint checkpoint = new Checkpoint(p1, new Circle(500));
         double computeAngleCone = dirMan.computeAngleCone(checkpoint,p2);
         assertTrue(Math.abs(1.56-computeAngleCone)<0.01);
     }
@@ -184,7 +184,7 @@ class DirectionsManagerTest {
         boolean catchException = false;
         Position p1 = new Position(-0,0,-Math.PI/3);
         Position p2 = new Position(0,0,0);
-        Checkpoint checkpoint = new Checkpoint(p1, new Circle(p1,500));
+        Checkpoint checkpoint = new Checkpoint(p1, new Circle(500));
         try{
             double computeAngleCone = dirMan.computeAngleCone(checkpoint,p2);
         }
@@ -265,7 +265,8 @@ class DirectionsManagerTest {
         Position shipPosition = new Position(0,0,0);
         double angle = Math.PI;
         double computeDistance = dirMan.distToCheckPoint(angle,checkpointPosition,shipPosition);
-        assertEquals(0.0, 0.0);
+        assertTrue(Math.abs(computeDistance-1.) < 0.2);
+
     }
 
     @Test
@@ -289,7 +290,7 @@ class DirectionsManagerTest {
         Position shipPosition = new Position(0,0,0);
         double angle = Math.PI;
         double computeDistance = dirMan.checkSign(angle,checkpointPosition,shipPosition);
-        assertEquals(0.0, 0.0);
+        assertTrue(Math.abs(computeDistance+3.14) < 0.2);
     }
 
 

@@ -1,20 +1,20 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.dao;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 
 public class NextRoundDAO {
+	private static final Logger LOGGER = Logger.getLogger(NextRoundDAO.class.getName());
 	Ship ship;
 	List<SeaEntities> visibleEntities;
 	Wind wind;
 
-//        return "{\"ship\":"+ ship.toString()+",\n \"wind\":"+wind.toString()+",\n "+JsonManagerTool.convertListToJson(visiblesEntities)+"}";
 	public NextRoundDAO() {}
 	public NextRoundDAO(Ship ship, List<SeaEntities> visibleEntities, Wind wind) {
 		super();
@@ -39,8 +39,8 @@ public class NextRoundDAO {
 		try {
 			return mapper.writeValueAsString(this);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			LOGGER.info("Json Exception");
 		}
-		return null;
+		return "";
 	}
 }

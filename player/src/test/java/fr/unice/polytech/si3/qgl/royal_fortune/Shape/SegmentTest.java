@@ -8,10 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class SegmentTest {
+class SegmentTest {
     private Segment s;
     private Position p1;
     private Position p2;
@@ -55,7 +54,9 @@ public class SegmentTest {
     @Test
     void computeBTest(){
         assertEquals(0., s.computeB(p1));
+        assertEquals(9., s.computeB(new Position(4,9,2)));
     }
+
 
     @Test
     void computeIntersectionWith_IntersectionTest(){
@@ -64,17 +65,38 @@ public class SegmentTest {
         assertTrue(res.isPresent());
     }
 
+
+
     @Test
     void angleIntersectionBetweenSegmentAndRectangleTest(){
         Rectangle r = new Rectangle(10.,10.,0.);
-        r.setPosition(new Position(20,0,0));
         double res = s.angleIntersectionBetweenSegmentAndRectangle(r);
         assertEquals(0., res);
 
-        r = new Rectangle(10.,10.,Math.PI/2);
-        r.setPosition(new Position(20,0,0));
+        r = new Rectangle(-10.,10.,Math.PI/2);
         res = s.angleIntersectionBetweenSegmentAndRectangle(r);
         assertEquals(Math.PI/2, res);
+    }
+
+    @Test
+    void pointInSegmentTest(){
+        Position p = new Position(5,0,0);
+        assertTrue(s.pointInSegment(p));
+    }
+
+    @Test
+    void pointNotInSegmentTest(){
+        Position p = new Position(-5,0,0);
+        assertFalse(s.pointInSegment(p));
+
+        p = new Position(60,0,0);
+        assertFalse(s.pointInSegment(p));
+
+        p = new Position(5,10,0);
+        assertFalse(s.pointInSegment(p));
+
+        p = new Position(5,-10,0);
+        assertFalse(s.pointInSegment(p));
     }
 
 }

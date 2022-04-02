@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates;
+package fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.action.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
@@ -94,10 +95,11 @@ public class Sailor{
 	}
 
 	public Oar getNearestOar(List<Oar> oars,Associations associations){
-		return oars.stream()
+		Optional<Oar> nearestOar = oars.stream()
 				.filter(associations::isFree)
-				.min(Comparator.comparingInt(this::getDistanceToEntity))
-				.get();
+				.min(Comparator.comparingInt(this::getDistanceToEntity));
+
+		return nearestOar.orElse(null);
 	}
 
 	@Override

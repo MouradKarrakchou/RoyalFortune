@@ -29,6 +29,7 @@ body {
     width: fit-content;
     min-width: 400vw;
     min-height: 400vh;
+    background-color: rgb(151, 203, 248);
 }
 
 #boat {
@@ -49,15 +50,30 @@ body {
     z-index: 0;
 }
 
+.beacon {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: rgb(143, 206, 164);
+    z-index: 1;
+}
+
+.used {
+    background-color: rgb(205, 251, 98);
+    z-index: 2;
+}
+
 .seaEntitie {
     position: absolute;
     height: 100px;
     width: 100px;
-    z-index: 0;
+    z-index: 3;
 }
 
 .Reef {
     background-color: rgb(39, 39, 39);
+    color: white;
 }
 
 .Reef_Circle {

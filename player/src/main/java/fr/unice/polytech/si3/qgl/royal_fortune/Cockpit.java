@@ -2,10 +2,11 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import fr.unice.polytech.si3.qgl.regatta.cockpit.ICockpit;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.Crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
@@ -41,8 +42,9 @@ public class Cockpit implements ICockpit {
 		try {
 			initGameDAO = createInitGameDAO(game);
 		} catch (EmptyDaoException e) {
-			e.printStackTrace();
+			LOGGER.info("Empty Dao");
 		}
+		assert initGameDAO != null;
 		ship = initGameDAO.getShip();
 		sailors = initGameDAO.getSailors();
 		goal = initGameDAO.getGoal();
@@ -50,22 +52,23 @@ public class Cockpit implements ICockpit {
 	}
 
 	public String nextRound(String round){
-		System.out.println(round);
 		NextRoundDAO nextRoundDAO = null;
 		try {
 			nextRoundDAO = createNextRoundDAO(round);
 		} catch (EmptyDaoException e) {
-			e.printStackTrace();
+			LOGGER.info("Empty Dao");
 		}
-		LOGGER.info("Next round input: " + round);
+		LOGGER.log(Level.INFO, () -> "Next round input: " + round);
+		assert nextRoundDAO != null;
 		updateWithNextRound(nextRoundDAO);
+		captain.setSeaEntities(nextRoundDAO.getVisibleEntities());
 		String actions  =captain.roundDecisions();
-		System.out.println("Actions = "+actions);
+		LOGGER.log(Level.INFO, () -> "Actions = "+actions);
+
 		return actions;
 	}
 	public void updateWithNextRound(NextRoundDAO nextRoundDAO){
 		Ship newShip = nextRoundDAO.getShip();
-		//System.out.println("New ship = "+newShip);
 		ship.updatePos(newShip.getPosition());
 		ship.setEntities(newShip.getEntities());
 		captain.updateSeaEntities(nextRoundDAO.getVisibleEntities());
@@ -109,6 +112,7 @@ public class Cockpit implements ICockpit {
 	public void setShip(Ship ship) {
 		this.ship = ship;
 	}
+
 
 	@Override
 	public ArrayList<String> getLogs() {

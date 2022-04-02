@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
-import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -26,25 +23,14 @@ public class Circle extends Shape{
         super("circle");
         this.radius = radius;
     }
-    public Circle(Position position, double radius) {
-        super.position=position;
-        this.radius = radius;
-    }
-
-    /**
-     * check if the rectangle is in the circle
-     * @return true if the rectangle is the circle
-     */
-    public boolean rectangleIsInCircle(Rectangle rectangle){
-        List<Position> positionList=rectangle.computeCorner();
-        for(Position position:positionList){
-            if(Mathematician.distanceFormula(super.position,position)<=radius)
-                return true;
-        }
-        return false;
-    }
 
     public double getRadius() { return radius; }
+    @Override
+    public void updateForReef() {
+        if (!super.updated)
+            radius+=15;
+        super.updated=true;
+    }
 
     @Override
     public String toString() {

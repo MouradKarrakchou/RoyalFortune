@@ -10,7 +10,6 @@ public class Checkpoint {
     public Checkpoint(Position position, Shape shape) {
         this.position = position;
         this.shape = shape;
-        shape.setPosition(position);
     }
 
     Checkpoint(){}
