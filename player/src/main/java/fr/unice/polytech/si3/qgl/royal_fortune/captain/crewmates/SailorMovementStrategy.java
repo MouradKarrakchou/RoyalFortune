@@ -4,10 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.PreCalculator;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.*;
 
 import java.util.*;
 
@@ -40,6 +37,12 @@ public class SailorMovementStrategy {
 
         // We are associating every Sailor to a starving entity.
         continueAssociatingStarvingEntities(requestedSailorPlacement);
+
+        // We are associating (if possible) the nearest sailor to the Watch. And if an association has been made.
+        if(requestedSailorPlacement.hasWatch() && associateNearestSailor(ship.getRudder())){
+            requestedSailorPlacement.setWatch(false);
+            currentSailorPlacement.setWatch(true);
+        }
 
         // We are associating (if possible) the nearest sailor to the Rudder. And if an association has been made.
         if(requestedSailorPlacement.hasRudder() && associateNearestSailor(ship.getRudder())){
@@ -167,6 +170,17 @@ public class SailorMovementStrategy {
      * A starving entity is an entity having only one sailor nearby.
      */
     public boolean associateStarvingEntities(SailorPlacement requestedSailorPlacement){
+        // If we need a watch.
+        if (requestedSailorPlacement.hasRudder()){
+            Watch watch = ship.getWatch();
+            // If an association has been made
+            if(associateStarvingEntity(watch)){
+                requestedSailorPlacement.setWatch(false);
+                currentSailorPlacement.setWatch(true);
+                return true; // We are returning to be sure to keep the association priority.
+            }
+        }
+
         // If we need a rudder.
         if (requestedSailorPlacement.hasRudder()){
             Rudder rudder = ship.getRudder();
