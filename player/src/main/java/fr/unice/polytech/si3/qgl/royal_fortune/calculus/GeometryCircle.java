@@ -37,9 +37,8 @@ public class GeometryCircle {
      * @return the list containing the two beacons
      */
         public static List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
-        double securityScaling = 0;
         List<Beacon> beaconList = new ArrayList<>();
-
+        double securityScaling = 0;
         double[] vecteurShipCheckpoint = computeNormalVecteurShipCheckpoint(shipPosition, checkpointPosition);
         double normalVectorX = vecteurShipCheckpoint[0];
         double normalVectorY = vecteurShipCheckpoint[1];
@@ -49,7 +48,6 @@ public class GeometryCircle {
         beaconList.add(upBeacon);
         beaconList.add(downBeacon);
         placeBeaconsAroundReef(upBeacon.getPosition(), downBeacon.getPosition(),normalVectorX, normalVectorY, beaconList);
-
         return beaconList;
     }
 
