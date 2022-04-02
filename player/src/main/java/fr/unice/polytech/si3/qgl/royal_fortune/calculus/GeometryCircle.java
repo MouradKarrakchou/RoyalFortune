@@ -109,12 +109,12 @@ public class GeometryCircle {
         double downBeaconX = downBeacon.getX();
         double downBeaconY = downBeacon.getY();
 
-        upBeaconX += normalVectorX * 0.5*Beacon.RADIUSBEACON ;
-        upBeaconY += normalVectorY * 0.5*Beacon.RADIUSBEACON;
+        upBeaconX += normalVectorX * 0.1*Beacon.RADIUSBEACON ;
+        upBeaconY += normalVectorY * 0.1*Beacon.RADIUSBEACON;
         beaconList.add(new Beacon(new Position(upBeaconX, upBeaconY)));
 
-        downBeaconX -= normalVectorX * 0.5*Beacon.RADIUSBEACON;
-        downBeaconY -= normalVectorY * 0.5*Beacon.RADIUSBEACON;
+        downBeaconX -= normalVectorX * 0.1*Beacon.RADIUSBEACON;
+        downBeaconY -= normalVectorY * 0.1*Beacon.RADIUSBEACON;
         beaconList.add(new Beacon(new Position(downBeaconX, downBeaconY)));
     }
 
