@@ -33,7 +33,7 @@ class ObserverTest {
         nextCheckPointPosition=new Position(1000,0,0);
         observer=new Observer();
     }
-    /**
+/*
     @Test
     void watchSeaTest(){
         Stream stream=new Stream(new Position(500,0,0), new Rectangle(100,100,Math.PI),1000000);
@@ -53,6 +53,6 @@ class ObserverTest {
         Optional<Beacon> beacon=observer.watchSea(currentSeaEntities);
         assertTrue(beacon.isPresent());
     }
-    **/
+    */
 
 }

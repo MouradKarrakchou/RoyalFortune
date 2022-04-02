@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
@@ -108,26 +109,51 @@ class GeometryRectangleTest {
     }
 
     @Test
-    void generateBeaconTest(){
-        Stream stream = new Stream(new Position(0,0,Math.PI/2), rectangle, 5);
+    void generateBeaconStreamTest(){
+        Rectangle rectangle = new Rectangle(70, 50, 0);
+        Stream stream = new Stream(new Position(0,0,0), rectangle, 5);
         List<Beacon> res = GeometryRectangle.generateBeacon(stream.getPosition(), rectangle,false);
 
-        assertTrue((Math.abs(res.get(0).getPosition().getX() - 825))<0.2);
-        assertTrue((Math.abs(res.get(0).getPosition().getY()-(-25)))<0.2);
+        assertTrue((Math.abs(res.get(0).getPosition().getX() + 25))<0.2);
+        assertTrue((Math.abs(res.get(0).getPosition().getY() + 35))<0.2);
         assertTrue((Math.abs(res.get(0).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(1).getPosition().getX()-(-825)))<0.2);
-        assertTrue((Math.abs(res.get(1).getPosition().getY()-(25)))<0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getX() - 25)) <0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getY() - 35))<0.2);
         assertTrue((Math.abs(res.get(1).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(2).getPosition().getX() - 425)<0.2));
-        assertTrue((Math.abs(res.get(2).getPosition().getY()-(-25)))<0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getX() + 25)) < 0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getY() - 35)) < 0.2);
         assertTrue((Math.abs(res.get(2).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(3).getPosition().getX()-(-425)))<0.2);
-        assertTrue((Math.abs(res.get(3).getPosition().getY() - 25))<0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getX() - 25)) < 0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getY() + 35)) < 0.2);
         assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
     }
+
+    /*
+    @Test
+    void generateBeaconReefTest(){
+        Rectangle rectangle = new Rectangle(70, 50, 0);
+        Reef reef = new Reef(new Position(0,0,0), rectangle);
+        List<Beacon> res = GeometryRectangle.generateBeacon(reef.getPosition(), rectangle,true);
+
+        assertTrue((Math.abs(res.get(0).getPosition().getX() + 35))<0.2);
+        assertTrue((Math.abs(res.get(0).getPosition().getY() + 45))<0.2);
+        assertTrue((Math.abs(res.get(0).getPosition().getOrientation()-0))<0.2);
+
+        assertTrue((Math.abs(res.get(1).getPosition().getX() - 35)) <0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getY() - 45))<0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getOrientation()-0))<0.2);
+
+        assertTrue((Math.abs(res.get(2).getPosition().getX() + 35)) < 0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getY() - 45)) < 0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getOrientation()-0))<0.2);
+
+        assertTrue((Math.abs(res.get(3).getPosition().getX() - 35)) < 0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getY() + 45)) < 0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
+    }*/
 
     @Test
     void toStringTest(){
