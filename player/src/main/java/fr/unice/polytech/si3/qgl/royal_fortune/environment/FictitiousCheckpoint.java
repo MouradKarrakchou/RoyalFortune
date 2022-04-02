@@ -74,13 +74,7 @@ public class FictitiousCheckpoint {
     public Checkpoint getCurrentCheckPoint() {
         if (fictitiousCheckpoints.isEmpty())
             return null;
-        int i=0;
-        while (fictitiousCheckpoints.get(i) instanceof Beacon)
-        {
-            i++;
-            
-        }
-        return fictitiousCheckpoints.get(i);
+        return fictitiousCheckpoints.get(0);
     }
 
     public void addFictitiousCheckpoint(Checkpoint checkpoint){
