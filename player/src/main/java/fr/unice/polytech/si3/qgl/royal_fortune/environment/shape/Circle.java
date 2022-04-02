@@ -31,7 +31,13 @@ public class Circle extends Shape{
             radius+=15;
         super.updated=true;
     }
-
+    @Override
+    public boolean equals(Object object){
+        if (!(object instanceof Circle circle))
+            return false;
+        return this.radius == circle.getRadius();
+    }
+    
     @Override
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
