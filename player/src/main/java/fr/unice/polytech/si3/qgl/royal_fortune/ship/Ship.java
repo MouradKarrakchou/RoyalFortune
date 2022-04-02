@@ -8,10 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 
 /**
@@ -134,4 +131,11 @@ public class Ship {
 	public void updatePos(Position position){
 		this.position.update(position);
 	}
+
+    public Watch getWatch() {
+		for(Entities entity : entities)
+			if (entity instanceof Watch watch)
+				return watch;
+		return null;
+    }
 }
