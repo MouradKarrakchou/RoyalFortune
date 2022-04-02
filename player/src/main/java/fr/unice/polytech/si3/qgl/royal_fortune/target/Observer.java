@@ -15,7 +15,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import java.util.*;
 
 public class Observer {
-    public static final int MAX_RANGE = 1000;
+    public static final int MAX_RANGE = 100000;
     private List<SeaEntities> currentSeaEntities;
     private Position shipPosition;
     private Mathematician mathematician;
