@@ -88,7 +88,7 @@ public class Captain {
         Optional<Boolean> optionalSailDecision = getSailDecision();
         boolean useSail = optionalSailDecision.isPresent();
         boolean needRudder = getRudderDecision(angleMove, angleSailorsShouldMake);
-        boolean needWatch = !(ship.getWatch() == null);
+        boolean needWatch = ship.getWatch() != null;
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail, needWatch);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);

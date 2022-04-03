@@ -20,12 +20,12 @@ public class WatchAction extends Action {
     @Override
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode oarActionJSON = mapper.createObjectNode();
-        oarActionJSON.put("sailorId", sailorId);
-        oarActionJSON.put("type", "USE_WATCH");
+        ObjectNode watchActionJSON = mapper.createObjectNode();
+        watchActionJSON.put("sailorId", sailorId);
+        watchActionJSON.put("type", "USE_WATCH");
 
         try {
-            return mapper.writeValueAsString(oarActionJSON);
+            return mapper.writeValueAsString(watchActionJSON);
         } catch (JsonProcessingException e) {
             logger.log(Level.INFO, "Exception");
         }

@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeometryCircle {
-    public GeometryCircle() {
+
+    private GeometryCircle() {
         //No elements needed
     }
 
@@ -160,16 +161,16 @@ public class GeometryCircle {
             if(segment.pointInSegment(position1)&&segment.pointInSegment(position2)){
                 if (Mathematician.distanceFormula(position1,pointASave)>Mathematician.distanceFormula(position2,pointASave))
                 {
-                    if (!pointASave.equals(position1real)&&!pointBSave.equals(position1real))
+                    if (!pointASave.equals(position1real) && !pointBSave.equals(position1real))
                         intersectionList.add(position1real);
-                    if (!pointASave.equals(position2real)&&!pointBSave.equals(position2real))
+                    if (!pointASave.equals(position2real) && !pointBSave.equals(position2real))
                         intersectionList.add(position2real);
                 }
                 else
                 {
-                    if (!pointASave.equals(position2real)&&!pointBSave.equals(position2real))
+                    if (!pointASave.equals(position2real) && !pointBSave.equals(position2real))
                         intersectionList.add(position2real);
-                    if (!pointASave.equals(position1real)&&!pointBSave.equals(position1real))
+                    if (!pointASave.equals(position1real) && !pointBSave.equals(position1real))
                         intersectionList.add(position1real);
                 }}
         }
@@ -179,9 +180,8 @@ public class GeometryCircle {
             Position position = new Position(onlySolution, a*onlySolution+b);
             Position realposition = new Position(onlySolution+x, a*onlySolution+b+y);
 
-            if(segment.pointInSegment(position)) {
-                if (!pointASave.equals(realposition) && !pointBSave.equals(realposition))
-                    intersectionList.add(new Position(onlySolution + x, a * onlySolution + b + y));
+            if(segment.pointInSegment(position) && !pointASave.equals(realposition) && !pointBSave.equals(realposition)) {
+                intersectionList.add(new Position(onlySolution + x, a * onlySolution + b + y));
             }
         }
 
