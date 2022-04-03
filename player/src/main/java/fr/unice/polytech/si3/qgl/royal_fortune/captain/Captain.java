@@ -97,6 +97,7 @@ public class Captain {
         if(strategyAnswer.hasSail() && optionalSailDecision.isPresent())
             roundActions.addAll(crew.sailorsUseSail(optionalSailDecision.get()));
 
+        useWatch(strategyAnswer);
         turnWithRudderRoundAction(strategyAnswer, angleMove);
 
         roundActions.addAll(crew.sailorsMove());
