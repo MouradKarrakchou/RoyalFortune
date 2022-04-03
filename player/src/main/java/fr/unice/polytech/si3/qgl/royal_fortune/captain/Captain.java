@@ -167,7 +167,11 @@ public class Captain {
         }
     }
 
-    void useWatch(SailorPlacement strategyAnswer) {
+    /**
+     * If a sailor can use the watch, we add the watchAction to the roundActions list
+     * @param strategyAnswer the answer to know if the watch can be used (sailor on it)
+     */
+    public void useWatch(SailorPlacement strategyAnswer) {
         if(strategyAnswer.hasWatch()){
             roundActions.addAll(crew.useWatch());
         }
