@@ -1,8 +1,10 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
@@ -15,6 +17,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Watch;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -180,6 +183,30 @@ class CaptainTest {
     @Test
     void coneNotTooSmallAndNotInConeFalseTest() {
         assertFalse(captain.coneNotTooSmallAndNotInCone());
+    }
+
+    @Test
+    void useWatchTest() {
+        entities.clear();
+        entities.add(new Watch(0, 0));
+        sailors.clear();
+        sailors.add(new Sailor(0, 0, 0, "Sailor1"));
+
+        captain.useWatch(new SailorPlacement(0, false, false, false));
+        assertEquals("[]", captain.getRoundActions().toString());
+
+        captain.useWatch(new SailorPlacement(0, false, false, true));
+        assertEquals("[]", captain.getRoundActions().toString());
+
+
+        Associations associations = captain.getAssociations();
+        associations.addAssociation(sailors.get(0), entities.get(0));
+
+        captain.useWatch(new SailorPlacement(0, false, false, false));
+        assertEquals("[]", captain.getRoundActions().toString());
+
+        captain.useWatch(new SailorPlacement(0, false, false, true));
+        assertEquals("[{\"sailorId\":0,\"type\":\"USE_WATCH\"}]", captain.getRoundActions().toString());
     }
 
 }

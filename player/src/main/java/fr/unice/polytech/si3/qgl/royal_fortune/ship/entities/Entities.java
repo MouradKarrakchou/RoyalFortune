@@ -70,6 +70,10 @@ public class Entities {
 		return(this instanceof Oar);
     }
 
+	public boolean isWatch() {
+		return(this instanceof Watch);
+	}
+
 	public boolean isRudder(){
 		return(this instanceof Rudder);
 	}

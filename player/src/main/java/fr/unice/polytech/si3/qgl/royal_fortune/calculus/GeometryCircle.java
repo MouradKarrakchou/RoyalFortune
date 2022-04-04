@@ -6,7 +6,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,6 +167,7 @@ public class GeometryCircle {
     public static Segment translateSegmentToCenter(Segment segment, Position circlePosition){
         segment.getPointA().setX(segment.getPointA().getX() - circlePosition.getX());
         segment.getPointB().setX(segment.getPointB().getX() - circlePosition.getX());
+
         segment.getPointA().setY(segment.getPointA().getY() - circlePosition.getY());
         segment.getPointB().setY(segment.getPointB().getY() - circlePosition.getY());
 

@@ -109,11 +109,9 @@ public class Cartologue {
                     return true;
                 }
             }
-            else if (seaEntities.getShape() instanceof Circle circle) {
-                    if (GeometryRectangle.positionIsInTheCircle(pointA, seaEntities.getPosition(), circle)) {
-                        return true;
-                    }
-                }
+            else if (seaEntities.getShape() instanceof Circle circle && GeometryRectangle.positionIsInTheCircle(pointA, seaEntities.getPosition(), circle)) {
+                return true;
+            }
         }
         return false;
     }
