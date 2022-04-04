@@ -39,7 +39,7 @@ public class SailorMovementStrategy {
         continueAssociatingStarvingEntities(requestedSailorPlacement);
 
         // We are associating (if possible) the nearest sailor to the Watch. And if an association has been made.
-        if(requestedSailorPlacement.hasWatch() && associateNearestSailor(ship.getRudder())){
+        if(requestedSailorPlacement.hasWatch() && associateNearestSailor(ship.getWatch())){
             requestedSailorPlacement.setWatch(false);
             currentSailorPlacement.setWatch(true);
         }
