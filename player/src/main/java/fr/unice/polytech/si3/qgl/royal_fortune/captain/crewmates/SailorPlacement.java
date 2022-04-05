@@ -4,6 +4,7 @@ public class SailorPlacement {
     private int oarWeight;
     private boolean rudder;
     private boolean sail;
+    private boolean watch;
     private int nbLeftSailors;
     private int nbRightSailors;
 
@@ -11,6 +12,7 @@ public class SailorPlacement {
         this.oarWeight = 0;
         this.rudder = false;
         this.sail = false;
+        this.watch = false;
         this.nbLeftSailors = 0;
         this.nbRightSailors = 0;
     }
@@ -19,8 +21,19 @@ public class SailorPlacement {
         this.oarWeight = oarWeight;
         this.rudder = rudder;
         this.sail = sail;
+        this.watch = false;
     }
 
+    public SailorPlacement(int oarWeight, boolean rudder, boolean sail, boolean watch) {
+        this.oarWeight = oarWeight;
+        this.rudder = rudder;
+        this.sail = sail;
+        this.watch = watch;
+    }
+
+    public boolean hasWatch() {
+        return watch;
+    }
 
     public boolean hasRudder() {
         return rudder;
@@ -48,6 +61,10 @@ public class SailorPlacement {
 
     public void setRudder(boolean rudder) {
         this.rudder = rudder;
+    }
+
+    public void setWatch(boolean watch) {
+        this.watch = watch;
     }
 
     public void incrementNbLeftSailor(int incrementation){

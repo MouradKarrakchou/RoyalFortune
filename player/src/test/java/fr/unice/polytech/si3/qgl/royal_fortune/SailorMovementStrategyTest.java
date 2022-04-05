@@ -13,10 +13,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.Test;
@@ -501,6 +498,10 @@ class SailorMovementStrategyTest {
         Sailor sailor04 = new Sailor(1, 7, 2, "sailor4");
         sailors.add(sailor04);
 
+        // Sailor04
+        Sailor sailor05 = new Sailor(1, 2, 1, "sailor5");
+        sailors.add(sailor05);
+
         List<Entities> entities = new ArrayList<>();
         Oar oar00 = new Oar(1, 0);
         entities.add(oar00);
@@ -529,6 +530,9 @@ class SailorMovementStrategyTest {
         Rudder rudder = new Rudder(1, 2);
         entities.add(rudder);
 
+        Watch watch = new Watch(2, 1);
+        entities.add(watch);
+
         Ship ship = new Ship(
                 "ship",
                 100,
@@ -544,12 +548,15 @@ class SailorMovementStrategyTest {
         Associations associations = new Associations();
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations, mockPreCalculator);
 
-        SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, true, false);
+        SailorPlacement requestedPlacement = new SailorPlacement(DirectionsManager.LEFT * 2, true, false, true);
         SailorPlacement answer = sailorMovementStrategy.askPlacement(requestedPlacement);
         assertTrue(answer.hasRudder());
         assertFalse(answer.hasSail());
+        assertTrue(answer.hasWatch());
+
         assertFalse(requestedPlacement.hasRudder());
         assertFalse(requestedPlacement.hasSail());
+        assertFalse(requestedPlacement.hasWatch());
 
         assertEquals(sailor00, associations.getAssociatedSailor(rudder));
         assertEquals(1, answer.getNbRightSailors());
