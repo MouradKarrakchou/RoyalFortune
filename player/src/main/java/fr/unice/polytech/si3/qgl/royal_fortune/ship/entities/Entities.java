@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 		@JsonSubTypes.Type(value = Oar.class, name = "oar"),
 		@JsonSubTypes.Type(value = Rudder.class, name = "rudder"),
 		@JsonSubTypes.Type(value = Sail.class, name = "sail"),
+		@JsonSubTypes.Type(value = Watch.class, name = "watch")
 })
 @JsonIgnoreProperties(value = {
 	"sailor"
