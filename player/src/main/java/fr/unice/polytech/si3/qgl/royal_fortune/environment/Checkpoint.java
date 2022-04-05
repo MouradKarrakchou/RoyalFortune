@@ -1,9 +1,10 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.IPositionable;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 
-public class Checkpoint {
+public class Checkpoint implements IPositionable {
     private Position position;
     private Shape shape;
 
@@ -26,5 +27,6 @@ public class Checkpoint {
         this.shape = shape;
     }
 
+    @Override
     public Position getPosition() { return position; }
 }

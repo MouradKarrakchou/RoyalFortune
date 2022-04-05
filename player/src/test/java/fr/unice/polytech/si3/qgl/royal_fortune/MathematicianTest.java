@@ -55,7 +55,7 @@ class MathematicianTest {
         assertEquals(positionAfterBase.getY(), y);
         assertEquals(positionAfterBase.getOrientation(), ori);
     }
-
+    /**
     @Test
     void computeTrajectoryTest(){
         List<Beacon> beacons = new ArrayList<>();
@@ -168,5 +168,5 @@ class MathematicianTest {
         assertTrue(bestBeacon.isPresent());
         assertEquals(beacon00, bestBeacon.get());
     }
-
+    **/
 }
