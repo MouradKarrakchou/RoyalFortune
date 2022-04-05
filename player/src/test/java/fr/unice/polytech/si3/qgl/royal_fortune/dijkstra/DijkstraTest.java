@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.dijkstra;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra.Dijkstra;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
@@ -193,5 +194,22 @@ public class DijkstraTest {
         assertEquals(2, beaconPath.size());
         assertEquals(beacon01, beaconPath.pop());
         assertEquals(beacon02, beaconPath.pop());
+    }
+
+    @Test
+    void proceedDijkstra1CircularReefTest(){
+        Reef circularReef = new Reef(new Position(800, 600), new Circle(200));
+        reefList.add(circularReef);
+
+        Beacon beacon00 = new Beacon(new Position(-1000, 1000));
+        beaconList.add(beacon00);
+
+        Cartologue cartologue = new Cartologue(new ArrayList<>(), reefList);
+
+        Position departurePosition = new Position(200, 200);
+        Position arrivalPosition = new Position(1000, 1000);
+        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        assertEquals(1, beaconPath.size());
+        assertEquals(beacon00, beaconPath.pop());
     }
 }
