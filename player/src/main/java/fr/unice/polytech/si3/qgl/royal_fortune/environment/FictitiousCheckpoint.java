@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 public class FictitiousCheckpoint {
     private final List<Checkpoint> fictitiousCheckpoints;
@@ -77,13 +78,26 @@ public class FictitiousCheckpoint {
     }
 
     public void addFictitiousCheckpoint(Checkpoint checkpoint){
-        if (fictitiousCheckpoints.get(0) instanceof Beacon) {
-            fictitiousCheckpoints.remove(0);
-        }
         fictitiousCheckpoints.add(0,checkpoint);
     }
 
     public List<Checkpoint> getFictitiousCheckpoints() {
         return fictitiousCheckpoints;
+    }
+
+    public void addBeacons(Stack<Beacon> beaconStack) {
+        removeAllBeacons();
+        int i=0;
+        while (beaconStack.size()>0){
+            fictitiousCheckpoints.add(i,beaconStack.pop());
+            i++;
+        }
+    }
+    public void removeAllBeacons(){
+        Checkpoint checkpoint=fictitiousCheckpoints.get(0);
+        while (checkpoint instanceof Beacon){
+            fictitiousCheckpoints.remove(0);
+            checkpoint=fictitiousCheckpoints.get(0);
+        }
     }
 }
