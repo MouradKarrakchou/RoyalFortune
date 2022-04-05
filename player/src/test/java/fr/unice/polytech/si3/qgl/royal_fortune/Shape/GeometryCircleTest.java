@@ -68,7 +68,7 @@ class GeometryCircleTest {
 
         assertNotEquals("", c.toString());
     }
-
+/*
     @Test
     void generateBeaconTest() {
         Position shipPosition = new Position(0, 0);
@@ -85,7 +85,7 @@ class GeometryCircleTest {
 
         assertEquals(100, beaconList.get(1).getPosition().getX());
         assertEquals(-145, beaconList.get(1).getPosition().getY());
-    }
+    }*/
 
     @Test
     void computeNormalVectorShipCheckpointTest() {
@@ -104,7 +104,7 @@ class GeometryCircleTest {
         assertEquals(-0.4623495415374716, vectors[0]);
         assertEquals(-0.8866977508937811, vectors[1]);
     }
-
+/*
     @Test
     void createUpAndDownBeaconUsingCircleReef() {
         Position reefPosition = new Position(17.7, -23.6, 0);
@@ -121,6 +121,6 @@ class GeometryCircleTest {
         beaconExpectedPosition = new Position(-5544.8, -4136.1);
         assertEquals(beaconExpectedPosition.getX(), beacon.getPosition().getX());
         assertEquals(beaconExpectedPosition.getY(), beacon.getPosition().getY());
-    }
+    }*/
 
 }
