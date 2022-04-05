@@ -125,7 +125,7 @@ public class GeometryRectangle {
     }
 
     public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle,boolean isAReef) {
-        double safetyLength = 30;
+        double safetyLength = 100;
         List<Beacon> listOfPosition=new ArrayList<>();
         if (isAReef){
             rectangle=new Rectangle(rectangle.getWidth()+safetyLength,rectangle.getHeight()+safetyLength,rectangle.getOrientation());
