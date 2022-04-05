@@ -124,8 +124,8 @@ public class GeometryRectangle {
         return !calculusHDHGx && !calculusHDHGy && !calculusBGHGx && !calculusBGHGy;
     }
 
-    public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle,boolean isAReef) {
-        double safetyLength = 100;
+    public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle, boolean isAReef) {
+        double safetyLength = 150;
         List<Beacon> listOfPosition=new ArrayList<>();
         if (isAReef){
             rectangle=new Rectangle(rectangle.getWidth()+safetyLength,rectangle.getHeight()+safetyLength,rectangle.getOrientation());

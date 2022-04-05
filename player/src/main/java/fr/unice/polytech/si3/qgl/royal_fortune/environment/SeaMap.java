@@ -36,11 +36,9 @@ public class SeaMap {
         }
         if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
         {
-            if (!(fictitiousCheckpoints.getCurrentCheckPoint() instanceof Beacon))
-            {
-                observer.getCartologue().getListSeaEntities().clear();
-                this.seaEntities.clear();
-            }
+
+            observer.getCartologue().getListSeaEntities().clear();
+            this.seaEntities.clear();
             fictitiousCheckpoints.nextCheckPoint();
         }
 

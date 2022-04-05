@@ -47,8 +47,8 @@ Rectangle extends Shape{
 	@Override
 	public void updateForReef() {
 		if (!super.updated) {
-			height+=15;
-			width+=15;
+			height+=40;
+			width+=40;
 		}
 		super.updated=true;
 	}

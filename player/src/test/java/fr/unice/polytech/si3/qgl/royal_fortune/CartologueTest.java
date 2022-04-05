@@ -68,7 +68,7 @@ class CartologueTest {
         map.put(segment,stream);
         double dist=segment.getLength()/(165+stream.getStrength()*Math.cos(Math.PI/4));
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)- dist)<0.01);
-    }
+    }/*
     @Test
     void testCutSegment1(){
         Stream stream= new Stream(new Position(200,0),new Rectangle(100,100,0),50);
@@ -106,5 +106,5 @@ class CartologueTest {
         assertEquals(stream, map.get(cartoCut.get(1)));
         assertFalse(map.containsKey(cartoCut.get(0)));
         assertFalse(map.containsKey(cartoCut.get(2)));
-    }
+    }*/
 }
