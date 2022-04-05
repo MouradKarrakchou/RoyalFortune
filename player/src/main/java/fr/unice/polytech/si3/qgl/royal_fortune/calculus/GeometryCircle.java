@@ -43,8 +43,23 @@ public class GeometryCircle {
         double normalVectorX = vectorShipCheckpoint[0];
         double normalVectorY = vectorShipCheckpoint[1];
 
-        createUpBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, reefShape.getRadius(), beaconList);
-        createDownBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, reefShape.getRadius(), beaconList);
+        double directorVectorX = -vectorShipCheckpoint[1];
+        double directorVectorY = vectorShipCheckpoint[0];
+
+        double circleRadius = reefShape.getRadius();
+
+        double rightBeaconX = reefPosition.getX() + directorVectorX * (circleRadius + Beacon.RADIUSBEACON);
+        double rightBeaconY = reefPosition.getY() + directorVectorY * (circleRadius + Beacon.RADIUSBEACON);
+        Beacon rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
+        beaconList.add(rightBeacon);
+
+        double leftBeaconX = reefPosition.getX() - directorVectorX * (circleRadius + Beacon.RADIUSBEACON);
+        double leftBeaconY = reefPosition.getY() - directorVectorY * (circleRadius + Beacon.RADIUSBEACON);
+        Beacon leftBeacon = new Beacon(new Position(leftBeaconX, leftBeaconY));
+        beaconList.add(leftBeacon);
+
+        createUpBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, beaconList);
+        createDownBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, beaconList);
 
         return beaconList;
     }
