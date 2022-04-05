@@ -52,6 +52,7 @@ public class Observer {
      */
     public Boolean checkIfNewSeaEntities(List<SeaEntities> newSeaEntities){
         for (SeaEntities seaEntitie: newSeaEntities){
+            seaEntitie.getShape();
             if (!currentSeaEntities.contains(seaEntitie))
                 return true;
         }
