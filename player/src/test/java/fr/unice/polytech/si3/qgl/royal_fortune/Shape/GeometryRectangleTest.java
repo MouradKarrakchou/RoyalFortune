@@ -131,29 +131,30 @@ class GeometryRectangleTest {
         assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
     }
 
-/*
     @Test
     void generateBeaconReefTest(){
         Rectangle rectangle = new Rectangle(70, 50, 0);
         Reef reef = new Reef(new Position(0,0,0), rectangle);
         List<Beacon> res = GeometryRectangle.generateBeacon(reef.getPosition(), rectangle,true);
 
-        assertTrue((Math.abs(res.get(0).getPosition().getX() + 40))<0.2);
-        assertTrue((Math.abs(res.get(0).getPosition().getY() + 50))<0.2);
+        System.out.println(Math.abs(res.get(0).getPosition().getX()));
+        System.out.println(Math.abs(res.get(0).getPosition().getY()));
+        assertTrue((Math.abs(res.get(0).getPosition().getX() + 100))<0.2);
+        assertTrue((Math.abs(res.get(0).getPosition().getY() + 110))<0.2);
         assertTrue((Math.abs(res.get(0).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(1).getPosition().getX() - 40)) <0.2);
-        assertTrue((Math.abs(res.get(1).getPosition().getY() - 50))<0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getX() - 100)) <0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getY() - 110))<0.2);
         assertTrue((Math.abs(res.get(1).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(2).getPosition().getX() + 40)) < 0.2);
-        assertTrue((Math.abs(res.get(2).getPosition().getY() - 50)) < 0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getX() + 100)) < 0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getY() - 110)) < 0.2);
         assertTrue((Math.abs(res.get(2).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(3).getPosition().getX() - 40)) < 0.2);
-        assertTrue((Math.abs(res.get(3).getPosition().getY() + 50)) < 0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getX() - 100)) < 0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getY() + 110)) < 0.2);
         assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
-    }*/
+    }
 
     @Test
     void toStringTest(){

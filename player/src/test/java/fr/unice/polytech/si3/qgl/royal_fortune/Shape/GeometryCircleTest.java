@@ -68,7 +68,7 @@ class GeometryCircleTest {
 
         assertNotEquals("", c.toString());
     }
-/*
+
     @Test
     void generateBeaconTest() {
         Position shipPosition = new Position(0, 0);
@@ -78,14 +78,20 @@ class GeometryCircleTest {
 
         List<Beacon> beaconList = GeometryCircle.generateBeacon(shipPosition, checkpointPosition, reefPosition, reefShape);
 
-        assertEquals(2, beaconList.size());
+        assertEquals(4, beaconList.size());
 
-        assertEquals(100, beaconList.get(0).getPosition().getX());
-        assertEquals(125, beaconList.get(0).getPosition().getY());
+        assertEquals(-130, beaconList.get(0).getPosition().getX());
+        assertEquals(-10, beaconList.get(0).getPosition().getY());
 
-        assertEquals(100, beaconList.get(1).getPosition().getX());
-        assertEquals(-145, beaconList.get(1).getPosition().getY());
-    }*/
+        assertEquals(330, beaconList.get(1).getPosition().getX());
+        assertEquals(-10, beaconList.get(1).getPosition().getY());
+
+        assertEquals(100, beaconList.get(2).getPosition().getX());
+        assertEquals(220, beaconList.get(2).getPosition().getY());
+
+        assertEquals(100, beaconList.get(3).getPosition().getX());
+        assertEquals(-240, beaconList.get(3).getPosition().getY());
+    }
 
     @Test
     void computeNormalVectorShipCheckpointTest() {
@@ -104,7 +110,7 @@ class GeometryCircleTest {
         assertEquals(-0.4623495415374716, vectors[0]);
         assertEquals(-0.8866977508937811, vectors[1]);
     }
-/*
+
     @Test
     void createUpAndDownBeaconUsingCircleReef() {
         Position reefPosition = new Position(17.7, -23.6, 0);
@@ -113,14 +119,14 @@ class GeometryCircleTest {
         double circleRadius = 50;
 
         Beacon beacon = GeometryCircle.createUpBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, new ArrayList<>());
-        Position beaconExpectedPosition = new Position(5580.2, 4088.9);
+        Position beaconExpectedPosition = new Position(11142.7, 8201.4);
         assertEquals(beaconExpectedPosition.getX(), beacon.getPosition().getX());
         assertEquals(beaconExpectedPosition.getY(), beacon.getPosition().getY());
 
         beacon = GeometryCircle.createDownBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, new ArrayList<>());
-        beaconExpectedPosition = new Position(-5544.8, -4136.1);
+        beaconExpectedPosition = new Position(-11107.3, -8248.6);
         assertEquals(beaconExpectedPosition.getX(), beacon.getPosition().getX());
         assertEquals(beaconExpectedPosition.getY(), beacon.getPosition().getY());
-    }*/
+    }
 
 }
