@@ -79,7 +79,7 @@ class GeometryCircleTest {
 
         assertEquals(4, beaconList.size());
 
-        assertEquals(-130, beaconList.get(0).getPosition().getX());
+        assertEquals(200, beaconList.get(0).getPosition().getX());
         assertEquals(-10, beaconList.get(0).getPosition().getY());
 
         assertEquals(330, beaconList.get(1).getPosition().getX());
@@ -109,6 +109,7 @@ class GeometryCircleTest {
         assertEquals(-0.4623495415374716, vectors[0]);
         assertEquals(-0.8866977508937811, vectors[1]);
     }
+
 
     @Test
     void createRightLeftUpAndDownBeaconUsingCircleReef() {
