@@ -140,10 +140,10 @@ public class GeometryCircle {
      */
     public static List<Position> computeIntersectionWith(Segment segment, Position circlePosition, Circle circle) {
         List<Position> intersectionList = new ArrayList<>();
-        Position pointASave=segment.getPointA();
-        Position pointBSave=segment.getPointB();
+        Position pointASave = segment.getPointA();
+        Position pointBSave = segment.getPointB();
 
-        segment=new Segment(segment.getPointA(),segment.getPointB());
+        segment = new Segment(segment.getPointA(),segment.getPointB());
         segment.setPointA(new Position(segment.getPointA().getX(),segment.getPointA().getY()));
         segment.setPointB(new Position(segment.getPointB().getX(),segment.getPointB().getY()));
 
@@ -169,8 +169,8 @@ public class GeometryCircle {
 
             Position position1 = new Position(firstSolution, a*firstSolution+b);
             Position position2 = new Position(secondSolution, a*secondSolution+b);
-            Position position1real=new Position(firstSolution+x, a*firstSolution+b+y);
-            Position position2real=new Position(secondSolution+x, a*secondSolution+b+y);
+            Position position1real = new Position(firstSolution+x, a*firstSolution+b+y);
+            Position position2real = new Position(secondSolution+x, a*secondSolution+b+y);
             if(segment.pointInSegment(position1)&&segment.pointInSegment(position2)){
                 if (Mathematician.distanceFormula(position1,pointASave)>Mathematician.distanceFormula(position2,pointASave))
                 {
