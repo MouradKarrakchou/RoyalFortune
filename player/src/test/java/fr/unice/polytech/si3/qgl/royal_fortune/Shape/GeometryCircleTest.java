@@ -4,7 +4,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -98,7 +97,7 @@ class GeometryCircleTest {
         Position shipPosition = new Position(0, 0, 0);
         Position checkpointPosition = new Position(1000, 0, 0);
 
-        double[] vectors = GeometryCircle.computeNormalVectorShipCheckpoint(shipPosition, checkpointPosition);
+        double[] vectors = GeometryCircle.computeDirectorAndNormalVectorsShipCheckpoint(shipPosition, checkpointPosition);
         assertEquals(-0.0, vectors[0]);
         assertEquals(1, vectors[1]);
 
@@ -106,7 +105,7 @@ class GeometryCircleTest {
         shipPosition = new Position(23.6, -11.4, 0);
         checkpointPosition = new Position(-4.4, 3.2, 0);
 
-        vectors = GeometryCircle.computeNormalVectorShipCheckpoint(shipPosition, checkpointPosition);
+        vectors = GeometryCircle.computeDirectorAndNormalVectorsShipCheckpoint(shipPosition, checkpointPosition);
         assertEquals(-0.4623495415374716, vectors[0]);
         assertEquals(-0.8866977508937811, vectors[1]);
     }

@@ -39,24 +39,16 @@ public class GeometryCircle {
      */
     public static List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
         List<Beacon> beaconList = new ArrayList<>();
-        double[] vectorShipCheckpoint = computeNormalVectorShipCheckpoint(shipPosition, checkpointPosition);
+
+        double[] vectorShipCheckpoint = computeDirectorAndNormalVectorsShipCheckpoint(shipPosition, checkpointPosition);
         double normalVectorX = vectorShipCheckpoint[0];
         double normalVectorY = vectorShipCheckpoint[1];
-
         double directorVectorX = -vectorShipCheckpoint[1];
         double directorVectorY = vectorShipCheckpoint[0];
-
         double circleRadius = reefShape.getRadius();
 
-        double rightBeaconX = reefPosition.getX() + directorVectorX * (circleRadius + Beacon.RADIUSBEACON);
-        double rightBeaconY = reefPosition.getY() + directorVectorY * (circleRadius + Beacon.RADIUSBEACON);
-        Beacon rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
-        beaconList.add(rightBeacon);
-
-        double leftBeaconX = reefPosition.getX() - directorVectorX * (circleRadius + Beacon.RADIUSBEACON);
-        double leftBeaconY = reefPosition.getY() - directorVectorY * (circleRadius + Beacon.RADIUSBEACON);
-        Beacon leftBeacon = new Beacon(new Position(leftBeaconX, leftBeaconY));
-        beaconList.add(leftBeacon);
+        createRightBeaconUsingCircleReef(reefPosition, directorVectorX, directorVectorY, circleRadius, beaconList);
+        createLeftBeaconUsingCircleReef(reefPosition, directorVectorX, directorVectorY, circleRadius, beaconList);
 
         createUpBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, beaconList);
         createDownBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, beaconList);
@@ -65,52 +57,79 @@ public class GeometryCircle {
     }
 
     /**
-     *
+     * Compute the director and normal vectors on the trajectory ship - checkpoint
      * @param shipPosition
      * @param checkpointPosition
-     * @return a tab of double of size 2, at index 0 their is normalVectorX et at index 1 normalVectorY
+     * @return a tab of double of size 4, having directorVectorX, directorVectorY, normalVectorX and normalVectorY (in that order)
      */
-    public static double[] computeNormalVectorShipCheckpoint(Position shipPosition, Position checkpointPosition){
-        double vectorShipCheckpointX = checkpointPosition.getX() - shipPosition.getX();
-        double vectorShipCheckpointY = checkpointPosition.getY() - shipPosition.getY();
-        double normShipCheckpoint = Math.sqrt(vectorShipCheckpointX * vectorShipCheckpointX + vectorShipCheckpointY * vectorShipCheckpointY);
+    public static double[] computeDirectorAndNormalVectorsShipCheckpoint(Position shipPosition, Position checkpointPosition){
+        double directorVectorShipCheckpointX = checkpointPosition.getX() - shipPosition.getX();
+        double directorVectorShipCheckpointY = checkpointPosition.getY() - shipPosition.getY();
+        double normShipCheckpoint = Math.sqrt(directorVectorShipCheckpointX * directorVectorShipCheckpointX + directorVectorShipCheckpointY * directorVectorShipCheckpointY);
 
-        double normalVectorX = -vectorShipCheckpointY / normShipCheckpoint;
-        double normalVectorY = vectorShipCheckpointX / normShipCheckpoint;
-        return new double[]{normalVectorX, normalVectorY};
+        double normalVectorX = -directorVectorShipCheckpointY / normShipCheckpoint;
+        double normalVectorY = directorVectorShipCheckpointX / normShipCheckpoint;
+        return new double[]{directorVectorShipCheckpointX, directorVectorShipCheckpointY, normalVectorX, normalVectorY};
+    }
+
+    /**
+     * Create a beacon at the right of the reef with a circle shape
+     * @param reefPosition position of a reef
+     * @param directorVectorX x component of the director vector (director of the trajectory ship - checkpoint)
+     * @param directorVectorY y component of the director vector (director of the trajectory ship - checkpoint)
+     * @param circleRadius radius of the reef
+     * @return a beacon place at the right of the circle reef
+     */
+    public static void createRightBeaconUsingCircleReef(Position reefPosition, double directorVectorX, double directorVectorY, double circleRadius, List<Beacon> beaconList) {
+        double rightBeaconX = reefPosition.getX() + directorVectorX * (circleRadius + Beacon.RADIUSBEACON);
+        double rightBeaconY = reefPosition.getY() + directorVectorY * (circleRadius + Beacon.RADIUSBEACON);
+        Beacon rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
+        beaconList.add(rightBeacon);
+    }
+
+    /**
+     * Create a beacon at the left of the reef with a circle shape
+     * @param reefPosition position of a reef
+     * @param directorVectorX x component of the director vector (director of the trajectory ship - checkpoint)
+     * @param directorVectorY y component of the director vector (director of the trajectory ship - checkpoint)
+     * @param circleRadius radius of the reef
+     * @return a beacon place at the left of the circle reef
+     */
+    public static void createLeftBeaconUsingCircleReef(Position reefPosition, double directorVectorX, double directorVectorY, double circleRadius, List<Beacon> beaconList) {
+        double leftBeaconX = reefPosition.getX() - directorVectorX * (circleRadius + Beacon.RADIUSBEACON);
+        double leftBeaconY = reefPosition.getY() - directorVectorY * (circleRadius + Beacon.RADIUSBEACON);
+        Beacon leftBeacon = new Beacon(new Position(leftBeaconX, leftBeaconY));
+        beaconList.add(leftBeacon);
     }
 
     /**
      * Create a beacon at the top of the reef with a circle shape
-     * @param reefPosition
-     * @param normalVectorX
-     * @param normalVectorY
-     * @param circleRadius
+     * @param reefPosition position of a reef
+     * @param normalVectorX x component of the normal vector (normal of the trajectory ship - checkpoint)
+     * @param normalVectorY y component of the normal vector (normal of the trajectory ship - checkpoint)
+     * @param circleRadius radius of the reef
      * @return a beacon place at the top of the circle reef
      */
-    public static Beacon createUpBeaconUsingCircleReef(Position reefPosition, double normalVectorX, double normalVectorY, double circleRadius, List<Beacon> beaconList){
+    public static void createUpBeaconUsingCircleReef(Position reefPosition, double normalVectorX, double normalVectorY, double circleRadius, List<Beacon> beaconList){
         double upBeaconX = reefPosition.getX() + normalVectorX * (circleRadius + Beacon.RADIUSBEACON);
         double upBeaconY = reefPosition.getY() + normalVectorY * (circleRadius + Beacon.RADIUSBEACON);
         Beacon upBeacon = new Beacon(new Position(upBeaconX, upBeaconY));
         beaconList.add(upBeacon);
-        return upBeacon;
     }
 
     /**
      * Create a beacon at the bottom of the reef with a circle shape
-     * @param reefPosition
-     * @param normalVectorX
-     * @param normalVectorY
-     * @param circleRadius
+     * @param reefPosition position of a reef
+     * @param normalVectorX x component of the normal vector (normal of the trajectory ship - checkpoint)
+     * @param normalVectorY y component of the normal vector (normal of the trajectory ship - checkpoint)
+     * @param circleRadius radius of the reef
      * @return a beacon place at the bottom of the circle reef
      */
-    public static Beacon createDownBeaconUsingCircleReef(Position reefPosition, double normalVectorX, double normalVectorY, double circleRadius, List<Beacon> beaconList){
+    public static void createDownBeaconUsingCircleReef(Position reefPosition, double normalVectorX, double normalVectorY, double circleRadius, List<Beacon> beaconList){
         double downBeaconX = reefPosition.getX() - normalVectorX * (circleRadius + Beacon.RADIUSBEACON);
         double downBeaconY = reefPosition.getY() - normalVectorY * (circleRadius + Beacon.RADIUSBEACON);
         Beacon downBeacon = new Beacon(new Position(downBeaconX, downBeaconY));
         beaconList.add(downBeacon);
-
-        return downBeacon;
     }
 
     /**
