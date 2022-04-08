@@ -163,7 +163,7 @@ public class GeometryCircle {
      * @param circlePosition the circle position
      * @return a segment we can work on
      */
-    static Segment segmentToWorkOn(Segment segment, Position circlePosition) {
+    public static Segment segmentToWorkOn(Segment segment, Position circlePosition) {
         segment = new Segment(segment.getPointA(), segment.getPointB());
 
         segment.setPointA(new Position(segment.getPointA().getX(), segment.getPointA().getY()));
@@ -187,7 +187,7 @@ public class GeometryCircle {
      * @param radius constant value of the quadratic equation
      * @return the positive, zero or negative value of the discriminant
      */
-    static double discriminant(double segmentToWorkOnA, double segmentToWorkOnB, double radius) {
+    public static double discriminant(double segmentToWorkOnA, double segmentToWorkOnB, double radius) {
         return 4 * Math.pow(segmentToWorkOnA, 2) * Math.pow(segmentToWorkOnB, 2) - 4 * (Math.pow(segmentToWorkOnA, 2) + 1) * (Math.pow(segmentToWorkOnB, 2) - Math.pow(radius, 2));
     }
 
@@ -246,9 +246,9 @@ public class GeometryCircle {
         }
 
         else if(Position1Position2InSegment){
-                if (conditionWithPosition2real) intersectionList.add(position2real);
+            if (conditionWithPosition2real) intersectionList.add(position2real);
 
-                if (conditionWithPosition1real) intersectionList.add(position1real);
+            if (conditionWithPosition1real) intersectionList.add(position1real);
         }
     }
 

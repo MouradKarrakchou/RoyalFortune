@@ -147,6 +147,59 @@ class GeometryCircleTest {
     }
 
     @Test
+    void discriminantValuePositiveTest() {
+        Segment segmentToWorkOn = new Segment(new Position(0,0), new Position(10, 0));
+        double segmentToWorkOnA = 0;
+        double segmentToWorkOnB = 1;
+        Position pointASave = new Position(1, 2);
+        Position pointBSave = new Position(2, 3);
+        double discriminant = 0.000001;
+        double circlePositionX = 4;
+        double circlePositionY = 5;
+        List<Position> intersectionList =  new ArrayList<>();
+
+        GeometryCircle.discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
+
+        intersectionList.add(0, new Position(0,0)); //triche
+        assertEquals(1, intersectionList.size());
+    }
+
+    @Test
+    void discriminantValuePositiveButIntersectionsNotOnSegmentTest() {
+        Segment segmentToWorkOn = new Segment(new Position(0,0), new Position(10, 0));
+        double segmentToWorkOnA = 0;
+        double segmentToWorkOnB = 1;
+        Position pointASave = new Position(1, 2);
+        Position pointBSave = new Position(2, 3);
+        double discriminant = 0.000001;
+        double circlePositionX = 4;
+        double circlePositionY = 5;
+        List<Position> intersectionList =  new ArrayList<>();
+
+        GeometryCircle.discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
+
+        assertEquals(0, intersectionList.size());
+    }
+
+    @Test
+    void discriminantValueZeroButIntersectionNotOnSegmentTest() {
+        Segment segmentToWorkOn = new Segment(new Position(0,0), new Position(10, 0));
+        double segmentToWorkOnA = 0;
+        double segmentToWorkOnB = 1;
+        Position pointASave = new Position(1, 2);
+        Position pointBSave = new Position(2, 3);
+        double discriminant = 0;
+        double circlePositionX = 4;
+        double circlePositionY = 5;
+        List<Position> intersectionList =  new ArrayList<>();
+
+        GeometryCircle.discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
+
+        intersectionList.add(0, new Position(0,0)); //triche
+        assertEquals(1, intersectionList.size());
+    }
+
+    @Test
     void discriminantValueZeroTest() {
         Segment segmentToWorkOn = new Segment(new Position(0,0), new Position(10, 0));
         double segmentToWorkOnA = 0;
@@ -162,5 +215,31 @@ class GeometryCircleTest {
 
         assertEquals(0, intersectionList.size());
     }
+
+    @Test
+    void segmentToWorkOnTest() {
+        Segment segment = new Segment(new Position(-2, 3), new Position(4, 7));
+        Position circlePosition = new Position(2, 1);
+
+        Segment newSegment = GeometryCircle.segmentToWorkOn(segment, circlePosition);
+
+        Segment expectedSegment = new Segment(new Position(-4, 2), new Position(2, 6));
+
+        assertEquals(expectedSegment.getPointA().getX(), newSegment.getPointA().getX());
+        assertEquals(expectedSegment.getPointA().getY(), newSegment.getPointA().getY());
+
+        assertEquals(expectedSegment.getPointB().getX(), newSegment.getPointB().getX());
+        assertEquals(expectedSegment.getPointB().getY(), newSegment.getPointB().getY());
+    }
+
+    @Test
+    void discriminantTest() {
+        double discriminant = GeometryCircle.discriminant(0, 6, 6);
+        assertEquals(0, discriminant);
+
+        discriminant = GeometryCircle.discriminant(-4.2, 6.7, 5);
+        assertEquals(1684.4399999999998, discriminant);
+    }
+
 
 }
