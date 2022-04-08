@@ -79,10 +79,10 @@ class GeometryCircleTest {
 
         assertEquals(4, beaconList.size());
 
-        assertEquals(200, beaconList.get(0).getPosition().getX());
+        assertEquals(330, beaconList.get(0).getPosition().getX());
         assertEquals(-10, beaconList.get(0).getPosition().getY());
 
-        assertEquals(330, beaconList.get(1).getPosition().getX());
+        assertEquals(-130, beaconList.get(1).getPosition().getX());
         assertEquals(-10, beaconList.get(1).getPosition().getY());
 
         assertEquals(100, beaconList.get(2).getPosition().getX());
@@ -98,16 +98,20 @@ class GeometryCircleTest {
         Position checkpointPosition = new Position(1000, 0, 0);
 
         double[] vectors = GeometryCircle.computeDirectorAndNormalVectorsShipCheckpoint(shipPosition, checkpointPosition);
-        assertEquals(-0.0, vectors[0]);
-        assertEquals(1, vectors[1]);
+        assertEquals(1, vectors[0]);
+        assertEquals(0, vectors[1]);
+        assertEquals(-0.0, vectors[2]);
+        assertEquals(1, vectors[3]);
 
 
         shipPosition = new Position(23.6, -11.4, 0);
         checkpointPosition = new Position(-4.4, 3.2, 0);
 
         vectors = GeometryCircle.computeDirectorAndNormalVectorsShipCheckpoint(shipPosition, checkpointPosition);
-        assertEquals(-0.4623495415374716, vectors[0]);
-        assertEquals(-0.8866977508937811, vectors[1]);
+        assertEquals(-0.8866977508937811, vectors[0]);
+        assertEquals(0.4623495415374716, vectors[1]);
+        assertEquals(-0.4623495415374716, vectors[2]);
+        assertEquals(-0.8866977508937811, vectors[3]);
     }
 
 

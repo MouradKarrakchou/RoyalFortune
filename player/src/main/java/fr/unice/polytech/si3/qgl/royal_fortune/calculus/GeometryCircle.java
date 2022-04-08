@@ -41,10 +41,10 @@ public class GeometryCircle {
         List<Beacon> beaconList = new ArrayList<>();
 
         double[] vectorShipCheckpoint = computeDirectorAndNormalVectorsShipCheckpoint(shipPosition, checkpointPosition);
-        double normalVectorX = vectorShipCheckpoint[0];
-        double normalVectorY = vectorShipCheckpoint[1];
-        double directorVectorX = -vectorShipCheckpoint[1];
-        double directorVectorY = vectorShipCheckpoint[0];
+        double directorVectorX = vectorShipCheckpoint[0];
+        double directorVectorY = vectorShipCheckpoint[1];
+        double normalVectorX = vectorShipCheckpoint[2];
+        double normalVectorY = vectorShipCheckpoint[3];
         double circleRadius = reefShape.getRadius();
 
         createRightBeaconUsingCircleReef(reefPosition, directorVectorX, directorVectorY, circleRadius, beaconList);
@@ -67,9 +67,10 @@ public class GeometryCircle {
         double directorVectorShipCheckpointY = checkpointPosition.getY() - shipPosition.getY();
         double normShipCheckpoint = Math.sqrt(directorVectorShipCheckpointX * directorVectorShipCheckpointX + directorVectorShipCheckpointY * directorVectorShipCheckpointY);
 
-        double normalVectorX = -directorVectorShipCheckpointY / normShipCheckpoint;
-        double normalVectorY = directorVectorShipCheckpointX / normShipCheckpoint;
-        return new double[]{directorVectorShipCheckpointX, directorVectorShipCheckpointY, normalVectorX, normalVectorY};
+        double directorVectorNormedShipCheckpointX = directorVectorShipCheckpointX / normShipCheckpoint;
+        double directorVectorNormedShipCheckpointY = directorVectorShipCheckpointY / normShipCheckpoint;
+
+        return new double[] {directorVectorNormedShipCheckpointX, directorVectorNormedShipCheckpointY, -directorVectorNormedShipCheckpointY, directorVectorNormedShipCheckpointX};
     }
 
     /**
