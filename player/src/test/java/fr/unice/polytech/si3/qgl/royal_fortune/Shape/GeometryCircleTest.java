@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import org.junit.jupiter.api.BeforeEach;
@@ -143,6 +144,23 @@ class GeometryCircleTest {
         beaconExpectedPosition = new Position(-11107.3, -8248.6);
         assertEquals(beaconExpectedPosition.getX(), beaconList.get(3).getPosition().getX());
         assertEquals(beaconExpectedPosition.getY(), beaconList.get(3).getPosition().getY());
+    }
+
+    @Test
+    void discriminantValueZeroTest() {
+        Segment segmentToWorkOn = new Segment(new Position(0,0), new Position(10, 0));
+        double segmentToWorkOnA = 0;
+        double segmentToWorkOnB = 1;
+        Position pointASave = new Position(1, 2);
+        Position pointBSave = new Position(2, 3);
+        double discriminant = 0;
+        double circlePositionX = 4;
+        double circlePositionY = 5;
+        List<Position> intersectionList =  new ArrayList<>();
+
+        GeometryCircle.discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
+
+        assertEquals(0, intersectionList.size());
     }
 
 }

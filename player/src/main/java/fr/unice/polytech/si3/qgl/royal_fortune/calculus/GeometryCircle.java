@@ -203,7 +203,7 @@ public class GeometryCircle {
      * @param circlePositionY y circle position
      * @param intersectionList intersection List
      */
-    static void discriminantValue(Segment segmentToWorkOn, double segmentToWorkOnA, double segmentToWorkOnB, Position pointASave, Position pointBSave, double discriminant, double circlePositionX, double circlePositionY, List<Position> intersectionList) {
+    public static void discriminantValue(Segment segmentToWorkOn, double segmentToWorkOnA, double segmentToWorkOnB, Position pointASave, Position pointBSave, double discriminant, double circlePositionX, double circlePositionY, List<Position> intersectionList) {
         if(discriminant > 0) {
             positiveDiscriminant(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
         }
