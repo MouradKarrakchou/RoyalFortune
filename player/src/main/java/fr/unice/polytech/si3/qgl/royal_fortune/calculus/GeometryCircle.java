@@ -266,10 +266,27 @@ public class GeometryCircle {
     public static void zeroDiscriminant(Segment segmentToWorkOn, double segmentToWorkOnA, double segmentToWorkOnB, Position pointASave, Position pointBSave, double circlePositionX, double circlePositionY, List<Position> intersectionList) {
         double onlySolution = (-2 * segmentToWorkOnA * segmentToWorkOnB) / (2 * (Math.pow(segmentToWorkOnA, 2) + 1));
         Position position = new Position(onlySolution, segmentToWorkOnA * onlySolution + segmentToWorkOnB);
-        Position realPosition = new Position(onlySolution + circlePositionX, segmentToWorkOnA * onlySolution + segmentToWorkOnB + circlePositionY);
+        Position realPosition = realPosition(onlySolution, segmentToWorkOnA, segmentToWorkOnB, circlePositionX, circlePositionY);
 
-        if(segmentToWorkOn.pointInSegment(position) && !pointASave.equals(realPosition) && !pointBSave.equals(realPosition)) {
+        boolean inSegment = segmentToWorkOn.pointInSegment(position);
+        boolean aNotEquals = !pointASave.equals(realPosition);
+        boolean bNotEquals = !pointBSave.equals(realPosition);
+
+        if(inSegment && aNotEquals && bNotEquals) {
             intersectionList.add(new Position(onlySolution + circlePositionX, segmentToWorkOnA * onlySolution + segmentToWorkOnB + circlePositionY));
         }
+    }
+
+    /**
+     * Compute the real position of the intersection
+     * @param onlySolution solution of the only intersection possible
+     * @param segmentToWorkOnA value of the line equation ax+b
+     * @param segmentToWorkOnB value of the line equation ax+b
+     * @param circlePositionX x component of the circle position
+     * @param circlePositionY y component of the circle position
+     * @return the real position of the intersection
+     */
+    public static Position realPosition(double onlySolution, double segmentToWorkOnA, double segmentToWorkOnB, double circlePositionX, double circlePositionY) {
+        return new Position(onlySolution + circlePositionX, segmentToWorkOnA * onlySolution + segmentToWorkOnB + circlePositionY);
     }
 }
