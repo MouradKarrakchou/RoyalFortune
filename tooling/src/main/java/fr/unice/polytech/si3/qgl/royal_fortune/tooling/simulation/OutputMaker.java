@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 public class OutputMaker {
     static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static StringBuilder parameterOfGame = new StringBuilder();
@@ -92,19 +91,19 @@ public class OutputMaker {
     }
 
     public static StringBuilder createOutForReef(Reef reef, StringBuilder out) throws Exception {
-        Position streamPos = reef.getPosition();
+        Position reefPos = reef.getPosition();
         out.append("reef").append(";");
         Optional<Rectangle> isRectangle = reef.getShape().isRectangle();
         Optional<Circle> isCircle = reef.getShape().isCircle();
         if(isRectangle.isPresent()){
             Rectangle rect = isRectangle.get();
             out.append("rect").append(";").append(Math.round(rect.getHeight())).append(";").append(Math.round(rect.getWidth())).append(";");
-            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(streamPos.getOrientation());
+            out.append(Math.round(reefPos.getX())).append(";").append(Math.round(reefPos.getY())).append(";").append(reefPos.getOrientation());
         }
         else if(isCircle.isPresent()){
             Circle circle = isCircle.get();
             out.append("circle").append(";").append(Math.round(circle.getRadius())).append(";");
-            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(streamPos.getOrientation());
+            out.append(Math.round(reefPos.getX())).append(";").append(Math.round(reefPos.getY())).append(";").append(reefPos.getOrientation());
         }
         else
             throw new Exception("Stream with other shape than rectangle");
@@ -119,6 +118,7 @@ public class OutputMaker {
         parameterOfGame.append("---|\n");
     }
 
+    //reef;rect;height;width;x,y;orientation
     public static void writeOutputInFile(){
         parameterOfGame.append(shipPosition);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {

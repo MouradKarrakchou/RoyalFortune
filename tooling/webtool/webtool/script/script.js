@@ -58,6 +58,13 @@ class Reef_Rectangle {
     }
 }
 
+class Reef_Polygone {
+    constructor(width, height, x, y, orientation, listCorner) {
+        this.type = "Reef_Polygone"
+        this.position = new Position(x, y, orientation);
+        this.polygone = new Polygone(width, height, listCorner);
+    }
+}
 class Stream {
     constructor(width, height, strength, x, y, orientation) {
         this.type = "Stream"
@@ -77,6 +84,33 @@ class Rectangle {
 class Circle {
     constructor(radius) {
         this.radius = radius * 0.5;
+    }
+}
+
+class Polygone {
+    constructor(width, height, listCorner) {
+        this.width = width * 0.5;
+        this.height = height * 0.5;
+        this.listPosition = this.generateListPosition(listCorner);
+    }
+    getListPosition() {
+        let stringListPosition = this.listPosition[0].x + "," + this.listPosition[0].y;
+        for (let i = 1; i < this.listPosition.length; i++) {
+            let currentPosition = this.listPosition[i];
+            stringListPosition += " " + currentPosition.x + "," + currentPosition.y;
+        }
+        return stringListPosition;
+    }
+
+    generateListPosition(listCorner) {
+        //100/200 45/100 41/785
+        let finalListPosition = [];
+        let stringListPosition = listCorner.split(' ');
+        for (let i = 0; i < stringListPosition.length; i++) {
+            let stringPosition = stringListPosition[i].split('/');
+            finalListPosition.push(new Position(stringPosition[0], stringPosition[1], 0));
+        }
+        return finalListPosition;
     }
 }
 
@@ -103,10 +137,11 @@ function init() {
     getInputJson();
 }
 
+
+
 function scrollToTheBoat(x, y) {
     window.scroll(x + x / 2, y + y / 2);
 }
-
 
 function move(input) {
     placeBoatAtStart(input, 0);
@@ -188,6 +223,10 @@ function createSeaEntities(input) {
             } else if (parameters[1] == "circle") {
                 window.seaEntities.push(new Reef_Circle(parameters[2], parameters[3], parameters[4], parameters[5]));
                 seaEntitie = "<div id='seaEnt_" + i + "' class='seaEntitie Reef Reef_Circle'></div>"
+            } else if (parameters[1] == "poly") {
+                const polygoneReef = new Reef_Polygone(parameters[2], parameters[3], parameters[4], parameters[5], parameters[6], parameters[7])
+                window.seaEntities.push(polygoneReef);
+                seaEntitie = "<svg id='seaEnt_" + i + "' class='seaEntitie Reef Reef_Polygone' height='" + polygoneReef.polygone.height + "' width='" + polygoneReef.polygone.width + "'><polygon points='" + polygoneReef.polygone.getListPosition() + "' style='fill:lime;stroke:purple;stroke-width:1' /></svg>";
             }
         } else if (parameters[0] == "stream") {
             window.seaEntities.push(new Stream(parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6]));
@@ -255,6 +294,10 @@ function animateSeaEntities() {
             $(this).css('transform', 'rotate(' + seaEntite.position.orientation + 'rad)');
             $(this).css({ top: seaEntite.position.y - (seaEntite.rectangle.height / 2), left: seaEntite.position.x - (seaEntite.rectangle.width / 2) }, 1000);
             $(this).css({ height: seaEntite.rectangle.height, width: seaEntite.rectangle.width }, 1000);
+        } else if (seaEntite.type == "Reef_Polygone") {
+            $(this).css('transform', 'rotate(' + seaEntite.position.orientation + 'rad)');
+            $(this).css({ top: seaEntite.position.y - (seaEntite.polygone.height / 2), left: seaEntite.position.x - (seaEntite.polygone.width / 2) }, 1000);
+            $(this).css({ height: seaEntite.polygone.height, width: seaEntite.polygone.width }, 1000);
         } else if (seaEntite.type == "Reef_Circle") {
             $(this).css({ top: seaEntite.position.y - (seaEntite.circle.radius / 2), left: seaEntite.position.x - (seaEntite.circle.radius / 2) }, 1000);
             $(this).css({ height: seaEntite.circle.radius, width: seaEntite.circle.radius }, 1000);
@@ -457,4 +500,16 @@ function sendDataToBack() {
             }
         });
     });
+}
+
+function drawPolygone(listPoint) {
+    let height = "400vh";
+    let width = "400vw";
+    listPoint = translateX(-1000) + "," + translateY(-1000) + " " + translateX(1000) + "," + translateY(-1000) + " " + translateX(2000) + "," + translateY(0) + " " + translateX(1000) + "," + translateY(1000) + " " + translateX(-1000) + "," + translateY(1000);
+
+    var container = document.getElementById('sea'); // full page 
+    container.innerHTML += "<svg class='polygone' height='" + height + "' width='" + width + "'><polygon points='" + listPoint + "' style='fill:lime;stroke:purple;stroke-width:1' /></svg>"
+
+    listPoint = translateX(750) + "," + translateY(-125) + " " + translateX(350) + "," + translateY(125) + " " + translateX(-100) + "," + translateY(125) + " " + translateX(-250) + "," + translateY(-125);
+    container.innerHTML += "<svg height='" + height + "' width='" + width + "'><polygon points='" + listPoint + "' style='fill:red;stroke:purple;stroke-width:1' /></svg>"
 }
