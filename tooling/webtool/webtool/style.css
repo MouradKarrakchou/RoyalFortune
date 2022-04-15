@@ -16,11 +16,18 @@ body {
     z-index: 100;
 }
 
-#draw {
+.svg {
     position: absolute;
     height: 100%;
     width: 100%;
+}
+
+#draw {
     z-index: 5;
+}
+
+#polygone {
+    z-index: 6;
 }
 
 #sea {

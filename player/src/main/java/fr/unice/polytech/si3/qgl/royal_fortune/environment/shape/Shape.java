@@ -22,7 +22,8 @@ import java.util.logging.Logger;
 @JsonTypeInfo(use = Id.NAME, property = "type", include = As.EXTERNAL_PROPERTY)
 @JsonSubTypes(value = {
         @JsonSubTypes.Type(value = Circle.class, name = "circle"),
-        @JsonSubTypes.Type(value = Rectangle.class, name = "rectangle")
+        @JsonSubTypes.Type(value = Rectangle.class, name = "rectangle"),
+		@JsonSubTypes.Type(value = Polygone.class, name = "polygon")
 })
 public class Shape {
 	private String type;
@@ -77,4 +78,11 @@ public class Shape {
     public void updateForReef() {
 		//Make reefs bigger for safety
     }
+
+	public Optional<Polygone> isPolygone() {
+		if(this instanceof Polygone current){
+			return Optional.of(current);
+		}
+		return Optional.empty();
+	}
 }
