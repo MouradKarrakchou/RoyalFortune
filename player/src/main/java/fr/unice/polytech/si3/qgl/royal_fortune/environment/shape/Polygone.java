@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.awt.*;
 import java.util.logging.Level;
@@ -32,6 +33,11 @@ public class Polygone extends Shape{
 
     public Point[] getVertices() {
         return vertices;
+    }
+
+    public void updatePolygone(Position position){
+        //Kilian
+        //à faire
     }
 
     @Override
