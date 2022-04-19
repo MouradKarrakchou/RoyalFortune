@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
+
 /**
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
@@ -47,8 +49,8 @@ Rectangle extends Shape{
 	@Override
 	public void updateForReef() {
 		if (!super.updated) {
-			height+=40;
-			width+=40;
+			height+=SECURITY_UPSCALE;
+			width+=SECURITY_UPSCALE;
 		}
 		super.updated=true;
 	}
