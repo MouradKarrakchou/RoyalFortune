@@ -18,20 +18,21 @@ public class GeometryPolygoneTest {
 
     @Test
     void computeIntersection() {
-        Position start = new Position(0,10);
-        Position arrival = new Position(100, 10);
+        Position start = new Position(-200,10);
+        Position arrival = new Position(200, 10);
         Segment segment = new Segment(start, arrival);
 
         Position reefPosition = new Position(45, 33);
 
-        Point[] vertices = {new Point(10, 0), new Point(80, 0), new Point(45, 100)};
+        Point[] vertices = {new Point(-35, -33), new Point(35, -33), new Point(0, 66)};
 
-        Polygone polygone = new Polygone(vertices, 0);
 
+        Polygone polygone = new Polygone(vertices, Math.PI/2);
+        polygone.updatePolygone(reefPosition);
         polygone.computeSegmentsIfPossible(reefPosition);
         List<Position> positionList = GeometryPolygone.computeIntersectionWith(segment, reefPosition, polygone);
 
-        List<Beacon> beaconList = GeometryPolygone.generateBeacon(polygone);
+        List<Beacon> beaconList = GeometryPolygone.generateBeacon(reefPosition, polygone);
 
         assertTrue(true);
     }

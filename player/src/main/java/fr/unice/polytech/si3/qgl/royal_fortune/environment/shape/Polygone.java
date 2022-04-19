@@ -59,7 +59,9 @@ public class Polygone extends Shape{
                     (int) Math.ceil(currentPont.getY() + centerPointUnitVector.y * SECURITY_UPSCALE)
             );
         }
-        Mathematician.changeBasePointList(vertices, center);
+        Position position=new Position(center.getX(),center.getY(),this.orientation);
+        Mathematician.changeBasePointList(vertices, position);
+
     }
 
     @Override
