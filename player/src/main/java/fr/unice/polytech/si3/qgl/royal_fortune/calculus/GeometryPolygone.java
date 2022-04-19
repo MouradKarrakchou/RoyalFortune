@@ -89,9 +89,10 @@ public class GeometryPolygone {
     }
 
 
-    public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle, boolean isAReef) {
+    public static List<Beacon> generateBeacon(Position aPosition, Polygone polygone, boolean isAReef) {
         //Kilian
         //à faire.
+        /**
         double safetyLength = 150;
         List<Beacon> listOfPosition=new ArrayList<>();
         if (isAReef){
@@ -106,7 +107,8 @@ public class GeometryPolygone {
         listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height / 2,width / 2)));
         listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height / 2,-width / 2)));
 
-        return listOfPosition;
+        return listOfPosition;**/
+        return null;
     }
 
 
