@@ -51,6 +51,7 @@ public class Polygone extends Shape{
      * @param center The center of the shape.
      */
     public void updatePolygone(Position center){
+        if (!super.updated){
         for(int i = 0; i < vertices.length; i++){
             Point currentPont = vertices[i];
             Vector centerPointUnitVector = new Vector(new Point(0,0), currentPont).unitVector();
@@ -60,7 +61,9 @@ public class Polygone extends Shape{
             );
         }
         Position position=new Position(center.getX(),center.getY(),this.orientation);
-        Mathematician.changeBasePointList(vertices, position);
+        Mathematician.changeBasePointList(vertices, position);}
+
+        super.updated=true;
 
     }
 
