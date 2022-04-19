@@ -30,6 +30,10 @@ body {
     z-index: 6;
 }
 
+.poly {
+    transform-origin: 50% 50%;
+}
+
 #sea {
     position: relative;
     height: fit-content;

@@ -85,7 +85,7 @@ public class OutputMaker {
             Rectangle rectangle = isRectangle.get();
             out.append(Math.round(rectangle.getHeight())).append(";").append(Math.round(rectangle.getWidth())).append(";");
             out.append(Math.round(stream.getStrength())).append(";");
-            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(Math.round(streamPos.getOrientation()));
+            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(streamPos.getOrientation());
         }
         else
             throw new Exception("Stream with other shape than rectangle");

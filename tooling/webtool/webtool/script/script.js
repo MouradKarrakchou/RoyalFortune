@@ -89,9 +89,9 @@ class Circle {
 
 class Polygone {
     constructor(listCorner) {
-        this.width = this.findWidth(listCorner) * 0.5;
-        this.height = this.findHeight(listCorner) * 0.5;
         this.listPosition = this.generateListPosition(listCorner);
+        this.width = this.findWidth();
+        this.height = this.findHeight();
     }
     getListPosition() {
         let stringListPosition = this.listPosition[0].x + "," + this.listPosition[0].y;
@@ -113,30 +113,26 @@ class Polygone {
         return finalListPosition;
     }
 
-    findHeight(listPoints) {
+    findHeight() {
         //100/200 45/100 41/785
         //Y
-        let stringListPoint = listPoints.split(' ');
-        let min = stringListPoint[0].split('/')[1];
-        let max = stringListPoint[0].split('/')[1];
-        for (let i = 1; i < stringListPoint.length; i++) {
-            let stringPosition = stringListPoint[i].split('/');
-            if (min > stringPosition[1]) min = stringPosition[1];
-            if (max < stringPosition[1]) max = stringPosition[1];
+        let min = this.listPosition[0].y;
+        let max = this.listPosition[0].y;
+        for (let i = 1; i < this.listPosition.length; i++) {
+            if (min > this.listPosition[i].y) min = this.listPosition[i].y;
+            if (max < this.listPosition[i].y) max = this.listPosition[i].y;
         }
         return Math.abs(max - min);
     }
 
-    findWidth(listPoints) {
+    findWidth() {
         //100/200 45/100 41/785
         //X
-        let stringListPoint = listPoints.split(' ');
-        let min = stringListPoint[0].split('/')[0];
-        let max = stringListPoint[0].split('/')[0];
-        for (let i = 1; i < stringListPoint.length; i++) {
-            let stringPosition = stringListPoint[i].split('/');
-            if (min > stringPosition[0]) min = stringPosition[0];
-            if (max < stringPosition[0]) max = stringPosition[0];
+        let min = this.listPosition[0].x;
+        let max = this.listPosition[0].x;
+        for (let i = 1; i < this.listPosition.length; i++) {
+            if (min > this.listPosition[i].x) min = this.listPosition[i].x;
+            if (max < this.listPosition[i].x) max = this.listPosition[i].x;
         }
         return Math.abs(max - min);
     }
@@ -241,9 +237,9 @@ function createCheckpoints(input) {
 
 function createSeaEntities(input) {
     let seaEntitiesList = document.getElementById('sea');
-    let polygoneWrapper = document.getElementById('polygone');
 
     for (let i = 0; i < input.length; i++) {
+        let polygoneWrapper = document.getElementById('polygone');
         let isPolygone = false;
         let seaEntitie;
         let parameters = input[i].split(';');
@@ -255,18 +251,18 @@ function createSeaEntities(input) {
                 window.seaEntities.push(new Reef_Circle(parameters[2], parameters[3], parameters[4], parameters[5]));
                 seaEntitie = "<div id='seaEnt_" + i + "' class='seaEntitie Reef Reef_Circle'></div>"
             } else if (parameters[1] == "poly") {
-                isPolygone = true;
                 const polygoneReef = new Reef_Polygone(parameters[2], parameters[3], parameters[4], parameters[5])
                 window.seaEntities.push(polygoneReef);
-                seaEntitie = "<polygon id='seaEnt_" + i + "' class='seaEntitie Reef Reef_Polygone' points='" + polygoneReef.polygone.getListPosition() + "' style='fill:lime;stroke:purple;stroke-width:1' />";
+                seaEntitie = "<div class='seaEntitie Reef_Polygone' id='seaEnt_" + i + "'><svg class='svg' id='svgSeaEnt_" + i + "'><polygon class='Reef poly' id='polySeaEnt_" + i + "' points='" + polygoneReef.polygone.getListPosition() + "'></svg></div>";
+                "<div id="
+                container "><svg><polygon class="
+                poly " points=" + polygoneReef.polygone.listPosition + " transform='translate(" + 1500 + " " + 1000 + ")' style='fill:lime;stroke:purple;stroke-width:1' /></svg></div>"
             }
         } else if (parameters[0] == "stream") {
             window.seaEntities.push(new Stream(parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6]));
             seaEntitie = "<div id='seaEnt_" + i + "' class='seaEntitie Stream'> 5 </div>"
         }
-        if (isPolygone) polygoneWrapper.innerHTML += seaEntitie;
-        else
-            seaEntitiesList.innerHTML += seaEntitie;
+        seaEntitiesList.innerHTML += seaEntitie;
     }
 }
 
@@ -329,16 +325,21 @@ function animateSeaEntities() {
             $(this).css({ top: seaEntite.position.y - (seaEntite.rectangle.height / 2), left: seaEntite.position.x - (seaEntite.rectangle.width / 2) }, 1000);
             $(this).css({ height: seaEntite.rectangle.height, width: seaEntite.rectangle.width }, 1000);
         } else if (seaEntite.type == "Reef_Polygone") {
-            let newX = seaEntite.position.x + seaEntite.polygone.width / 2;
+            $(this).css('transform', 'rotate(' + seaEntite.position.orientation + 'rad)');
+            $(this).css({ top: seaEntite.position.y - (seaEntite.polygone.height / 2), left: seaEntite.position.x - (seaEntite.polygone.width / 2) }, 1000);
+            $(this).css({ height: seaEntite.polygone.height, width: seaEntite.polygone.width }, 1000);
+
+            /*let newX = seaEntite.position.x + seaEntite.polygone.width / 2;
             let newY = seaEntite.position.y + seaEntite.polygone.height / 2;
-            let value = 'rotate(' + radians_to_degrees(seaEntite.position.orientation) + ' ' + newX + ' ' + newY + ')';
-            $(this).attr('transform', value);
+            $(this).attr('transform', 'rotate(' + radians_to_degrees(seaEntite.position.orientation) + ' ' + newX + ' ' + newY + ')');
+            $(this).attr('transform', 'translate(' + seaEntite.position.x + ',' + seaEntite.position.y + ')');
+
             $(this).attr('x', seaEntite.position.x);
             $(this).attr('y', seaEntite.position.y);
             $(this).attr('width', seaEntite.polygone.width);
             $(this).attr('height', seaEntite.polygone.height);
 
-            $(this).css('transform', 'translate(' + seaEntite.position.x + ',' + seaEntite.position.y + ')');
+            $(this).css('transform', 'translate(' + seaEntite.position.x + ',' + seaEntite.position.y + ')');*/
             //$(this).css('transform', 'rotate(' + radians_to_degrees(seaEntite.position.orientation) + ',' + seaEntite.position.x + ',' + seaEntite.position.y + ')');
             //$(this).css({ "transform-origin": seaEntite.position.x + " " + seaEntite.position.y }, 1000);
             //$(this).css('transform', 'rotate(' + radians_to_degrees(seaEntite.position.orientation) + ' ' + seaEntite.position.x + seaEntite.polygone.width / 2 + ' ' + seaEntite.position.y + seaEntite.polygone.height / 2 + ')');
