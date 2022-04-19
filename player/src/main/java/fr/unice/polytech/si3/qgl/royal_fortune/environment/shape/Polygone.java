@@ -21,11 +21,12 @@ import java.util.logging.Logger;
 public class Polygone extends Shape{
     private static final Logger LOGGER = Logger.getLogger(Polygone.class.getName());
     private double orientation;
-    private Point vertices[];
+    private Point[] vertices;
+    private List<Segment> segmentList = new ArrayList<>();
 
     public Polygone() {}
 
-    public Polygone(Point vertices[], double orientation) {
+    public Polygone(Point[] vertices, double orientation) {
         super("polygon");
         this.vertices = vertices;
         this.orientation = orientation;
@@ -37,6 +38,10 @@ public class Polygone extends Shape{
 
     public Point[] getVertices() {
         return vertices;
+    }
+
+    public List<Segment> getSegmentList() {
+        return segmentList;
     }
 
     public void updatePolygone(Position position){

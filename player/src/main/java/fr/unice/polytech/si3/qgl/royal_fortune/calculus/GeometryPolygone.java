@@ -1,11 +1,13 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,24 +17,24 @@ public class GeometryPolygone {
     private GeometryPolygone() {}
 
     /**
-     * Compute the 4 segments of the rectangle
-     * @return a list that contain the 4 segment of the rectangle [H, D, B, G]
+     * Compute all the segments of the polygon
+     * @return a list that contain all the segments of the polygon
      */
-    public static List<Segment> computeSegments(Position seaEntitiesPos, Rectangle rectangle) {
-        //Ayoub
-        /**
-        List<Segment> rectangleSegment = new ArrayList<>();
-        List<Position> rectangleCorner = computeCorner(seaEntitiesPos, rectangle);
-        Position hg = rectangleCorner.get(0);
-        Position hd = rectangleCorner.get(1);
-        Position bd = rectangleCorner.get(2);
-        Position bg = rectangleCorner.get(3);
-        rectangleSegment.add(new Segment(hg, hd));
-        rectangleSegment.add(new Segment(hd, bd));
-        rectangleSegment.add(new Segment(bd, bg));
-        rectangleSegment.add(new Segment(bg, hg));
-        return rectangleSegment;**/
-        return null;
+    public static List<Segment> computeSegments(Point[] vertices) {
+        List<Segment> polygonSegment = new ArrayList<>();
+
+        int cornersNumber = vertices.length;
+        for(int i = 0; i < cornersNumber - 1; i++) {
+            Point startSegment = vertices[i];
+            Point arrivalSegment = vertices[i+1];
+
+            polygonSegment.add(new Segment(startSegment, arrivalSegment));
+        }
+
+        int lastElementIndex = cornersNumber - 1;
+        polygonSegment.add(new Segment(vertices[lastElementIndex], vertices[0]));
+
+        return polygonSegment;
     }
 
 
@@ -41,10 +43,8 @@ public class GeometryPolygone {
      * @param segment a segment
      * @return the 2 positions of the intersection
      */
-    public static List<Position> computeIntersectionWith(Segment segment,Position seaEntitiesPos, Rectangle rectangle){
-        //Ayoub
-        //juste verifier et rendre REctangle en polygone
-        List<Segment> segmentList = rectangle.getSegmentList();
+    public static List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos, Polygone polygon){
+        List<Segment> segmentList = polygon.getSegmentList();
         List<Position> intersectionsPosition = new ArrayList<>();
         Optional<Position> intersection;
         for(Segment seg : segmentList) {
