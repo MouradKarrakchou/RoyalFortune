@@ -4,7 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -25,6 +30,17 @@ public class Circle extends Shape{
     }
 
     public double getRadius() { return radius; }
+
+    @Override
+    public Boolean positionIsInTheShape(Position pointA, Position seaEntitiesPos) {
+        return(GeometryCircle.positionIsInTheCircle(pointA,seaEntitiesPos,this));
+    }
+
+    @Override
+    public List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos) {
+        return GeometryCircle.computeIntersectionWith(segment, seaEntitiesPos, this);
+    }
+
     @Override
     public void updateForReef() {
         if (!super.updated)

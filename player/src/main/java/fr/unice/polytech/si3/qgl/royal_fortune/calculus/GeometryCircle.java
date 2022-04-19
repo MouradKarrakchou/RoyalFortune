@@ -152,6 +152,8 @@ public class GeometryCircle {
 
         discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
 
+        intersectionList.add(0,segment.getPointA());
+        intersectionList.add( segment.getPointB());
         return intersectionList;
     }
 
@@ -288,5 +290,9 @@ public class GeometryCircle {
      */
     public static Position realPosition(double onlySolution, double segmentToWorkOnA, double segmentToWorkOnB, double circlePositionX, double circlePositionY) {
         return new Position(onlySolution + circlePositionX, segmentToWorkOnA * onlySolution + segmentToWorkOnB + circlePositionY);
+    }
+
+    public static boolean positionIsInTheCircle(Position pointA, Position position, Circle shape) {
+        return Mathematician.distanceFormula(pointA,position)< shape.getRadius();
     }
 }
