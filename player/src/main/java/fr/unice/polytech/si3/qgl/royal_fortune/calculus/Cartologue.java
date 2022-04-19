@@ -64,9 +64,9 @@ public class Cartologue {
      */
     public List<Segment> cutSegment(Segment path, Boolean isOnStream){
         List<Segment> segments=new ArrayList<>();
-        List<Position> intersections=new ArrayList<>();
+        List<Position> intersections;
         for (SeaEntities seaEntities:listSeaEntities){
-            intersections=new ArrayList<>(seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition()));
+            intersections= seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition());
             if (intersections.size()==3)
             {
                 segments.add(new Segment(intersections.get(0),intersections.get(1)));

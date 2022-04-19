@@ -67,6 +67,11 @@ public class Polygone extends Shape{
     }
 
     @Override
+    public List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos) {
+        return GeometryPolygone.computeIntersectionWith(segment, seaEntitiesPos, this);
+    }
+
+    @Override
     public List<Beacon> generateBeacon(Position aPosition, boolean isAReef) {
         return GeometryPolygone.generateBeacon(this);
     }
