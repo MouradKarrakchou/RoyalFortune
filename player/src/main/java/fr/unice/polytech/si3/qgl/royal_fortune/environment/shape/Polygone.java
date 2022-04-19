@@ -73,7 +73,7 @@ public class Polygone extends Shape{
 
     @Override
     public List<Beacon> generateBeacon(Position aPosition, boolean isAReef) {
-        return GeometryPolygone.generateBeacon(this);
+        return GeometryPolygone.generateBeacon(aPosition, this);
     }
 
     @Override
