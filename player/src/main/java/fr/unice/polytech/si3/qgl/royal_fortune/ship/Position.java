@@ -49,6 +49,10 @@ public class Position implements IPositionable {
 		return orientation;
 	}
 
+	public Point getPoint(){
+		return new Point((int) Math.ceil(x), (int) Math.ceil(y));
+	}
+
 	public void setX(double x) {
 		this.x = x;
 	}

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryPolygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Vector;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -62,6 +63,7 @@ public class Polygone extends Shape{
                     (int) Math.ceil(currentPont.getY() + centerPointUnitVector.y * SECURITY_UPSCALE)
             );
         }
+        Mathematician.changeBasePointList(vertices, center);
     }
 
     @Override
