@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryPolygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
@@ -78,6 +79,11 @@ public class Shape {
 			List<Segment> listSeg = GeometryRectangle.computeSegments(position, currentRectangle);
 			currentRectangle.getSegmentList().clear();
 			currentRectangle.getSegmentList().addAll(listSeg);
+		}
+		else if (this instanceof Polygone currentPoly) {
+			List<Segment> listSeg = GeometryPolygone.computeSegments(currentPoly.getVertices());
+			currentPoly.getSegmentList().clear();
+			currentPoly.getSegmentList().addAll(listSeg);
 		}
 	}
 
