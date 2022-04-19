@@ -44,8 +44,6 @@ public class GeometryPolygone {
      * @return the 2 positions of the intersection
      */
     public static List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos, Polygone polygon){
-        //Ayoub
-        //juste verifier et rendre REctangle en polygone
         List<Segment> segmentList = polygon.getSegmentList();
         List<Position> intersectionsPosition = new ArrayList<>();
         Optional<Position> intersection;
