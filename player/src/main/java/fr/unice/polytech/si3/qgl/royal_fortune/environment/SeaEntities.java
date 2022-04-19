@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
@@ -35,6 +36,9 @@ public class SeaEntities {
     }
 
     public Shape getShape() {
+        if (shape instanceof Polygone){
+            ((Polygone) shape).updatePolygone(position);
+        }
         shape.updateForReef();
         shape.computeSegmentsIfPossible(position);
         return shape;

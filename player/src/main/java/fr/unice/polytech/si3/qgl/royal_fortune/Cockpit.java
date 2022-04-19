@@ -25,7 +25,7 @@ public class Cockpit implements ICockpit {
 	private List<Sailor> sailors;
 	private Goal goal;
 	private Captain captain;
-	public static final int SECURITY_UPSCALE = 40;
+	public static final int SECURITY_UPSCALE = 30;
 	private static final Logger LOGGER = Logger.getLogger(Cockpit.class.getName());
 
 	public Cockpit(){}

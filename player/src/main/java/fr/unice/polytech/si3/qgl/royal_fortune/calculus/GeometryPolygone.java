@@ -91,12 +91,12 @@ public class GeometryPolygone {
     }
 
 
-    public static List<Beacon> generateBeacon(Polygone polygone) {
+    public static List<Beacon> generateBeacon(Position position, Polygone polygone) {
         Point[] vertices = polygone.getVertices();
         List<Beacon> generatedBeacons = new ArrayList<>();
 
         for (Point currentPoint : vertices) {
-            Vector centerPointUnitVector = new Vector(new Point(0, 0), currentPoint).unitVector();
+            Vector centerPointUnitVector = new Vector(position.getPoint(), currentPoint).unitVector();
             generatedBeacons.add(new Beacon(new Position(
                     currentPoint.getX() + centerPointUnitVector.x * SECURITY_UPSCALE,
                     currentPoint.getY() + centerPointUnitVector.y * SECURITY_UPSCALE)

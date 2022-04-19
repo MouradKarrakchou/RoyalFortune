@@ -3,19 +3,15 @@ package fr.unice.polytech.si3.qgl.royal_fortune.environment.shape;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryPolygone;
-import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Vector;
-import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
@@ -55,6 +51,7 @@ public class Polygone extends Shape{
      * @param center The center of the shape.
      */
     public void updatePolygone(Position center){
+        if (!super.updated){
         for(int i = 0; i < vertices.length; i++){
             Point currentPont = vertices[i];
             Vector centerPointUnitVector = new Vector(new Point(0,0), currentPont).unitVector();
@@ -63,7 +60,11 @@ public class Polygone extends Shape{
                     (int) Math.ceil(currentPont.getY() + centerPointUnitVector.y * SECURITY_UPSCALE)
             );
         }
-        Mathematician.changeBasePointList(vertices, center);
+        Position position=new Position(center.getX(),center.getY(),this.orientation);
+        Mathematician.changeBasePointList(vertices, position);}
+
+        super.updated=true;
+
     }
 
     @Override
@@ -73,7 +74,7 @@ public class Polygone extends Shape{
 
     @Override
     public List<Beacon> generateBeacon(Position aPosition, boolean isAReef) {
-        return GeometryPolygone.generateBeacon(this);
+        return GeometryPolygone.generateBeacon(aPosition, this);
     }
 
     @Override
