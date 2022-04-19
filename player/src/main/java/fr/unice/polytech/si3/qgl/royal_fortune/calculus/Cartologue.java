@@ -66,13 +66,7 @@ public class Cartologue {
         List<Segment> segments=new ArrayList<>();
         List<Position> intersections=new ArrayList<>();
         for (SeaEntities seaEntities:listSeaEntities){
-            if (seaEntities.getShape() instanceof Rectangle rectangle)
-                intersections = new ArrayList<>(GeometryRectangle.computeIntersectionWith(path, seaEntities.getPosition(), rectangle));
-            if (seaEntities.getShape() instanceof Circle circle) {
-                intersections = new ArrayList<>(GeometryCircle.computeIntersectionWith(path, seaEntities.getPosition(), circle));
-                intersections.add(0,path.getPointA());
-                intersections.add( path.getPointB());
-            }
+            intersections=new ArrayList<>(seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition()));
             if (intersections.size()==3)
             {
                 segments.add(new Segment(intersections.get(0),intersections.get(1)));
@@ -104,14 +98,7 @@ public class Cartologue {
      */
     private boolean positionIsOnASeaEntities(Position pointA) {
         for (SeaEntities seaEntities:listSeaEntities){
-            if (seaEntities.getShape() instanceof Rectangle rectangle) {
-                if (GeometryRectangle.positionIsInTheRectangle(pointA, seaEntities.getPosition(), rectangle)) {
-                    return true;
-                }
-            }
-            else if (seaEntities.getShape() instanceof Circle circle && GeometryRectangle.positionIsInTheCircle(pointA, seaEntities.getPosition(), circle)) {
-                return true;
-            }
+            if (seaEntities.getShape().positionIsInTheShape(pointA, seaEntities.getPosition())) return true;
         }
         return false;
     }

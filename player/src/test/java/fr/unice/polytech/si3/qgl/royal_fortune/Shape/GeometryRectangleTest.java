@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
@@ -189,10 +190,10 @@ class GeometryRectangleTest {
         Position position = new Position(7.84, 1.23);
         Circle shape = new Circle(2.47);
 
-        assertFalse(GeometryRectangle.positionIsInTheCircle(pointA, position, shape));
+        assertFalse(GeometryCircle.positionIsInTheCircle(pointA, position, shape));
 
         shape = new Circle(10.47);
-        assertTrue(GeometryRectangle.positionIsInTheCircle(pointA, position, shape));
+        assertTrue(GeometryCircle.positionIsInTheCircle(pointA, position, shape));
     }
 
 }

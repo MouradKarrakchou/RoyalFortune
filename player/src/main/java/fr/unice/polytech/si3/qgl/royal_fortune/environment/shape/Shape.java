@@ -9,7 +9,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -28,9 +30,11 @@ import java.util.logging.Logger;
 public class Shape {
 	private String type;
 	final Logger logger = Logger.getLogger(Shape.class.getName());
-	boolean updated=false;
+	boolean updated = false;
 
-	public Shape() {}
+	public Shape() {
+	}
+
 	public Shape(String type) {
 		this.type = type;
 	}
@@ -39,6 +43,7 @@ public class Shape {
 	public String getType() {
 		return type;
 	}
+
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();
@@ -54,35 +59,50 @@ public class Shape {
 	}
 
 
-	public Optional<Circle> isCircle(){
-		if(this instanceof Circle current){
+	public Optional<Circle> isCircle() {
+		if (this instanceof Circle current) {
 			return Optional.of(current);
 		}
 		return Optional.empty();
 	}
-	public Optional<Rectangle> isRectangle(){
-		if(this instanceof Rectangle current){
+
+	public Optional<Rectangle> isRectangle() {
+		if (this instanceof Rectangle current) {
 			return Optional.of(current);
 		}
 		return Optional.empty();
 	}
 
 	public void computeSegmentsIfPossible(Position position) {
-		if(this instanceof Rectangle currentRectangle){
-			List<Segment> listSeg = GeometryRectangle.computeSegments(position,  currentRectangle);
+		if (this instanceof Rectangle currentRectangle) {
+			List<Segment> listSeg = GeometryRectangle.computeSegments(position, currentRectangle);
 			currentRectangle.getSegmentList().clear();
 			currentRectangle.getSegmentList().addAll(listSeg);
 		}
 	}
 
-    public void updateForReef() {
+	public void updateForReef() {
 		//Make reefs bigger for safety
-    }
+	}
+
+	public Boolean positionIsInTheShape(Position pointA, Position seaEntitiesPos) {
+		return false;
+	}
+
+	public List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos) {
+		return null;
+	}
+
+	public List<Beacon> generateBeacon(Position aPosition, boolean isAReef) {
+		return null;
+	}
+
 
 	public Optional<Polygone> isPolygone() {
-		if(this instanceof Polygone current){
+		if (this instanceof Polygone current) {
 			return Optional.of(current);
 		}
 		return Optional.empty();
 	}
+
 }
