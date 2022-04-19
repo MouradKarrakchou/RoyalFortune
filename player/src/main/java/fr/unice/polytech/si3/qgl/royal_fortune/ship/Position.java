@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.IPositionable;
 
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,6 +32,12 @@ public class Position implements IPositionable {
 		this.y = y;
 		this.orientation = 0.0;
 	}
+
+	public Position(Point p) {
+		this.x = p.getX();
+		this.y = p.getY();
+		this.orientation = 0.0;
+	}
 	
 	public double getX() {
 		return x;
@@ -40,6 +47,10 @@ public class Position implements IPositionable {
 	}
 	public double getOrientation() {
 		return orientation;
+	}
+
+	public Point getPoint(){
+		return new Point((int) Math.ceil(x), (int) Math.ceil(y));
 	}
 
 	public void setX(double x) {

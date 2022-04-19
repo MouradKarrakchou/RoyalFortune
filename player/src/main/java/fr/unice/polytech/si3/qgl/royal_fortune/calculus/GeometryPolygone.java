@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
+
 public class GeometryPolygone {
 
     private GeometryPolygone() {}
@@ -89,27 +91,18 @@ public class GeometryPolygone {
     }
 
 
-    public static List<Beacon> generateBeacon(Position aPosition, Polygone polygone, boolean isAReef) {
-        //Kilian
-        //à faire.
-        /**
-        double safetyLength = 150;
-        List<Beacon> listOfPosition=new ArrayList<>();
-        if (isAReef){
-            rectangle=new Rectangle(rectangle.getWidth()+safetyLength,rectangle.getHeight()+safetyLength,rectangle.getOrientation());
+    public static List<Beacon> generateBeacon(Polygone polygone) {
+        Point[] vertices = polygone.getVertices();
+        List<Beacon> generatedBeacons = new ArrayList<>();
+
+        for (Point currentPoint : vertices) {
+            Vector centerPointUnitVector = new Vector(new Point(0, 0), currentPoint).unitVector();
+            generatedBeacons.add(new Beacon(new Position(
+                    currentPoint.getX() + centerPointUnitVector.x * SECURITY_UPSCALE,
+                    currentPoint.getY() + centerPointUnitVector.y * SECURITY_UPSCALE)
+            ));
         }
 
-        double width = rectangle.getWidth();
-        double height = rectangle.getHeight();
-
-        listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height / 2,-width / 2)));
-        listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height / 2,width / 2)));
-        listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height / 2,width / 2)));
-        listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height / 2,-width / 2)));
-
-        return listOfPosition;**/
-        return null;
+        return generatedBeacons;
     }
-
-
 }

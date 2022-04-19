@@ -6,6 +6,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Route;
 
+import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +42,13 @@ public class Mathematician {
         newPosition.setX(newPosition.getX()+position.getX());
         newPosition.setY(newPosition.getY()+position.getY());
         return newPosition;
+    }
+
+    public static void changeBasePointList(Point[] points, Position newBasePosition){
+        for(int i=0; i<points.length; i++){
+            Position current = changeBase(newBasePosition, points[i].getX(), points[i].getY());
+            points[i] = new Point(current.getPoint());
+        }
     }
 
     /**
