@@ -17,8 +17,9 @@ import java.util.logging.Logger;
 import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
 
 @JsonIgnoreProperties(value = {
-        "type"
-})
+        "type",
+        "segmentList"
+        })
 public class Polygone extends Shape{
     private static final Logger LOGGER = Logger.getLogger(Polygone.class.getName());
     private double orientation;
