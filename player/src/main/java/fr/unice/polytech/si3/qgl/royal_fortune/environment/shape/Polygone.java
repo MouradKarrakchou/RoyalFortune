@@ -21,7 +21,7 @@ import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
         "segmentList"
         })
 public class Polygone extends Shape{
-    private static final Logger LOGGER = Logger.getLogger(Polygone.class.getName());
+    private static final Logger Log = Logger.getLogger(Polygone.class.getName());
     private double orientation;
     private Point[] vertices;
     private List<Segment> segmentList = new ArrayList<>();
@@ -84,7 +84,7 @@ public class Polygone extends Shape{
         try {
             return mapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {
-            LOGGER.info("Json Exception");
+            Log.info("Json Exception");
         }
         return "";
     }

@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryPolygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
@@ -9,12 +8,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GeometryPolygoneTest {
+class GeometryPolygoneTest {
 
     @Test
     void computeIntersection() {

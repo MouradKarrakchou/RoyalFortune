@@ -1,0 +1,20 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Discord WebHook
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord Webhook Action
+        uses: tsickert/discord-webhook@v4.0.0
+        with:
+          webhook-url: "https://discord.com/api/webhooks/969139322269884416/WwxgjuYywF5c7tuTS6cC7lLdzYecGfmy_s7kzNbcUDe5EZKP0TfJrvQDYJfQUDX6vmdo"
+          content: "Yohooo, mousaillon ! Une nouvelle version de royal fortune est disponible!"
