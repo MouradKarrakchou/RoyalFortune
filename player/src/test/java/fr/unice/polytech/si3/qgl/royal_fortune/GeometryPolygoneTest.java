@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GeometryPolygoneTest {
+class GeometryPolygoneTest {
 
     @Test
     void computeIntersection() {
