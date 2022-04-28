@@ -9,7 +9,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Stream.class, name = "stream"),
@@ -36,8 +35,8 @@ public class SeaEntities {
     }
 
     public Shape getShape() {
-        if (shape instanceof Polygone){
-            ((Polygone) shape).updatePolygone(position);
+        if (shape instanceof Polygone polygone){
+            polygone.updatePolygone(position);
         }
         shape.updateForReef();
         shape.computeSegmentsIfPossible(position);
