@@ -66,24 +66,32 @@ public class Cartologue {
         List<Position> intersections;
         for (SeaEntities seaEntities:listSeaEntities){
             intersections= seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition());
-            if (intersections.size()==3)
-            {
-                segments.add(new Segment(intersections.get(0),intersections.get(1)));
-                segments.add(new Segment(intersections.get(1),intersections.get(2)));
-                if(isOnStream)
-                    map.put(segments.get(0),seaEntities);
-                else
+
+            if (seaEntities instanceof Stream) {
+                if (intersections.size()==3)
+                {
+                    segments.add(new Segment(intersections.get(0),intersections.get(1)));
+                    segments.add(new Segment(intersections.get(1),intersections.get(2)));
+                    if(isOnStream)
+                        map.put(segments.get(0),seaEntities);
+                    else
+                        map.put(segments.get(1),seaEntities);
+                    return segments;
+                }
+                else if (intersections.size()==4)
+                {
+                    segments.add(new Segment(intersections.get(0),intersections.get(1)));
+                    segments.add(new Segment(intersections.get(1),intersections.get(2)));
+                    segments.add(new Segment(intersections.get(2),intersections.get(3)));
                     map.put(segments.get(1),seaEntities);
-                return segments;
+                    return segments;
+                }
             }
-            else if (intersections.size()==4)
-            {
-                segments.add(new Segment(intersections.get(0),intersections.get(1)));
-                segments.add(new Segment(intersections.get(1),intersections.get(2)));
-                segments.add(new Segment(intersections.get(2),intersections.get(3)));
-                map.put(segments.get(1),seaEntities);
-                return segments;
+
+            else if (intersections.size() > 2) {
+                map.put(path, seaEntities);
             }
+
         }
         return segments;
     }

@@ -55,6 +55,26 @@ public class SeaEntities {
         return this instanceof Reef;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
 
+        if (o == null || getClass() != o.getClass())
+            return false;
 
+        SeaEntities that = (SeaEntities) o;
+
+        if (!position.equals(that.position))
+            return false;
+
+        return shape.equals(that.shape);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = position != null ? position.hashCode() : 0;
+        result = 31 * result + (shape != null ? shape.hashCode() : 0);
+        return result;
+    }
 }
