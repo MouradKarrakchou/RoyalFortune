@@ -39,7 +39,7 @@ public class Cartologue {
 
                 Vector vector = new Vector(segment.getPointB(), segment.getPointA());
 
-                if(Math.abs(vector.getOrientationFromSegment(segment) - stream.getPosition().getOrientation()) >= Math.PI) return (Double.POSITIVE_INFINITY);
+                if(Math.abs(vector.getOrientationFromSegment(segment) - stream.getPosition().getOrientation()) >= Math.PI/2) return (Double.POSITIVE_INFINITY);
                 else return dist;
             }
 
