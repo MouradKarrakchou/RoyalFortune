@@ -628,22 +628,24 @@ function sendDataToBack() {
         width: 1200,
         height: 1200
     }).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/png');
-        var form_data = new FormData();
-        form_data.append('file', imgData);
-        //alert(form_data);
-        $.ajax({
-            url: '../backend/decode64.php', // <-- point to server-side PHP script 
-            dataType: 'text', // <-- what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: 'post',
-            success: function(php_script_response) {
-                console.log(php_script_response); // <-- display response from the PHP script, if any
-            }
+        var imgData = canvas.toDataURL('image/jpeg', 0.1);
+        resizeBase64Img(imgData, 200, 200).then(resized => {
+            var form_data = new FormData();
+            form_data.append('file', resized);
+            $.ajax({
+                url: '../backend/decode64.php', // <-- point to server-side PHP script 
+                dataType: 'text', // <-- what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function(php_script_response) {
+                    console.log(php_script_response); // <-- display response from the PHP script, if any
+                }
+            });
         });
+
     });
 }
 
