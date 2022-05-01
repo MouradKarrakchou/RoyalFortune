@@ -56,7 +56,7 @@ public class Vector {
      */
     public Vector unitNormalVector(){
         Vector unitVector = this.unitVector();
-        return new Vector(-unitVector.y, unitVector.y);
+        return new Vector(-unitVector.y, unitVector.x);
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.Stack;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DijkstraNodeTest {
+class DijkstraNodeTest {
     private DijkstraNode departureNode;
     private DijkstraNode node;
 

@@ -1,8 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
@@ -96,7 +94,9 @@ public class GeometryPolygone {
         List<Beacon> generatedBeacons = new ArrayList<>();
 
         for (Point currentPoint : vertices) {
-            Vector centerPointUnitVector = new Vector(position.getPoint(), currentPoint).unitVector();
+            Vector tmp = new Vector(position, new Position(currentPoint.x, currentPoint.y));
+            Vector centerPointUnitVector = tmp.unitVector();
+
             generatedBeacons.add(new Beacon(new Position(
                     currentPoint.getX() + centerPointUnitVector.x * SECURITY_UPSCALE,
                     currentPoint.getY() + centerPointUnitVector.y * SECURITY_UPSCALE)

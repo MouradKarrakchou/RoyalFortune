@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryPolygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
@@ -9,12 +8,14 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
+import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GeometryPolygoneTest {
+class GeometryPolygoneTest {
+    private final double ACCURACY = 0.001;
 
     @Test
     void computeIntersection() {
@@ -49,5 +50,33 @@ public class GeometryPolygoneTest {
         polygone.updatePolygone(reefPosition);
 
         assertTrue(true);
+    }
+
+    @Test
+    void beaconPositionTest(){
+        Point[] points = {
+                new Point(10, 5),
+                new Point(10, 10),
+                new Point(15, 5),
+                new Point(15, 10)
+        };
+        Polygone p = new Polygone(points, 0);
+
+        List<Beacon> beacons = GeometryPolygone.generateBeacon(new Position(12.5, 7.5), p);
+
+        assertEquals(4, beacons.size());
+        double coef = Math.sqrt((SECURITY_UPSCALE * SECURITY_UPSCALE)/2.0);
+
+        assertTrue(Math.abs(10 - coef - beacons.get(0).getPosition().getX()) < ACCURACY);
+        assertTrue(Math.abs(5 - coef - beacons.get(0).getPosition().getY()) < ACCURACY);
+
+        assertTrue(Math.abs(10 - coef - beacons.get(1).getPosition().getX()) < ACCURACY);
+        assertTrue(Math.abs(10 + coef - beacons.get(1).getPosition().getY()) < ACCURACY);
+
+        assertTrue(Math.abs(15 + coef - beacons.get(2).getPosition().getX()) < ACCURACY);
+        assertTrue(Math.abs(5 - coef - beacons.get(2).getPosition().getY()) < ACCURACY);
+
+        assertTrue(Math.abs(15 + coef - beacons.get(3).getPosition().getX()) < ACCURACY);
+        assertTrue(Math.abs(10 + coef - beacons.get(3).getPosition().getY()) < ACCURACY);
     }
 }

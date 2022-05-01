@@ -1,7 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra.Dijkstra;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Route;
@@ -9,7 +8,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Route;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.Optional;
 
 public class Mathematician {
     HashMap<Route, Beacon> beaconHashMap;

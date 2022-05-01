@@ -16,7 +16,7 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DijkstraTest {
+class DijkstraTest {
     List<Reef> reefList;
     List<Beacon> beaconList;
 
