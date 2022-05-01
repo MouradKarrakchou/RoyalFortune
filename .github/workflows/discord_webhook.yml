@@ -18,7 +18,7 @@ jobs:
         with:
           webhook-url: "https://discord.com/api/webhooks/969139322269884416/WwxgjuYywF5c7tuTS6cC7lLdzYecGfmy_s7kzNbcUDe5EZKP0TfJrvQDYJfQUDX6vmdo"
           content: "Yohooo, mousaillon ! Une nouvelle version de royal fortune est disponible!
-          Voici une reconstitution de la dernière traversé du Royal Fortune réalisée par notre meilleur matelo peintre:
+          Voici une reconstitution de la dernière traversé du Royal Fortune réalisée par notre meilleur matelo peintre:\n
           https://raw.githubusercontent.com/pns-si3-qgl/qgl-21-22-royal_fortune/develop/tooling/webtool/webtool/uploads/lastRun.png?token=GHSAT0AAAAAABTHYP4KS52HBEQJV3X2I5FAYTO6K4Q
           "
 
