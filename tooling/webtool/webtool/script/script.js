@@ -458,6 +458,7 @@ function startRun(jsonIn) {
     setUsedBeacon(beaconsUsed);*/
     console.log("---move boat---");
     move(coord);
+    sendDataToBack();
 }
 
 function addListener() {
