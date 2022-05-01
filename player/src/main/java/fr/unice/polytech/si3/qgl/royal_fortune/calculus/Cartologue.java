@@ -38,7 +38,7 @@ public class Cartologue {
                 dist = segment.getLength() / distancePushByStream;
             if(Math.PI > angle && angle > -Math.PI/2) return (Double.POSITIVE_INFINITY);
             } else {
-                return (Double.POSITIVE_INFINITY);
+                return segment.getLength() / 165;
             }
         }
         else {
