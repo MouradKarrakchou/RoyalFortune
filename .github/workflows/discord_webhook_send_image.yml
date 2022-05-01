@@ -18,7 +18,7 @@ jobs:
         uses: tsickert/discord-webhook@v4.0.0
         with:
           webhook-url: "https://discord.com/api/webhooks/969139322269884416/WwxgjuYywF5c7tuTS6cC7lLdzYecGfmy_s7kzNbcUDe5EZKP0TfJrvQDYJfQUDX6vmdo"
-          filename: test.txt
+          filename: discord_webhook.yml
 
 
 
