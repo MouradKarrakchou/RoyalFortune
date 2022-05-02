@@ -70,11 +70,11 @@ class SegmentTest {
     @Test
     void angleIntersectionBetweenSegmentAndRectangleTest(){
         Rectangle r = new Rectangle(10.,10.,0.);
-        double res = s.angleIntersectionBetweenSegmentAndRectangle(r);
+        double res = s.angleIntersectionBetweenSegmentAndRectangle(r.getOrientation());
         assertEquals(0., res);
 
         r = new Rectangle(-10.,10.,Math.PI/2);
-        res = s.angleIntersectionBetweenSegmentAndRectangle(r);
+        res = s.angleIntersectionBetweenSegmentAndRectangle(r.getOrientation());
         assertEquals(Math.PI/2, res);
     }
 

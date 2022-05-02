@@ -33,7 +33,7 @@ public class Cartologue {
         if (map.containsKey(segment)) {
             if (map.get(segment).isStream()) {
                 Stream stream = (Stream) map.get(segment);
-                double angle = segment.angleIntersectionBetweenSegmentAndRectangle((Rectangle) stream.getShape());
+                double angle = segment.angleIntersectionBetweenSegmentAndRectangle(stream.getPosition().getOrientation());
                 double distancePushByStream = (165 + stream.getStrength() * Math.cos(angle));
                 dist = segment.getLength() / distancePushByStream;
                 if (distancePushByStream<0)
