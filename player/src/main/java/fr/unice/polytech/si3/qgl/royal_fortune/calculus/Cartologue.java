@@ -36,11 +36,9 @@ public class Cartologue {
                 double angle = segment.angleIntersectionBetweenSegmentAndRectangle((Rectangle) stream.getShape());
                 double distancePushByStream = (165 + stream.getStrength() * Math.cos(angle));
                 dist = segment.getLength() / distancePushByStream;
-
-                Vector vector = new Vector(segment.getPointB(), segment.getPointA());
-
-                if(Math.abs(vector.getOrientationFromSegment(segment) - stream.getPosition().getOrientation()) >= Math.PI/2) return (Double.POSITIVE_INFINITY);
-                else return dist;
+                if (distancePushByStream<0)
+                    return (Double.POSITIVE_INFINITY);
+                return dist;
             }
 
             else {

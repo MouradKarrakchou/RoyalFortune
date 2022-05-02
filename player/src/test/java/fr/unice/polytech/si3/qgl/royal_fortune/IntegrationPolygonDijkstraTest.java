@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra.Dijkstra;
@@ -136,4 +137,5 @@ public class IntegrationPolygonDijkstraTest {
 
         assertEquals(0, cartologue.getMap().size());
     }
+    
 }

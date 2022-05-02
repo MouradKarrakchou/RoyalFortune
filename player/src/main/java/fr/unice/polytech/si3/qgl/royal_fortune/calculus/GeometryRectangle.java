@@ -147,15 +147,15 @@ public class GeometryRectangle {
 
         return listOfPosition;
     }
-    
+
     private static List<Beacon> generateBeaconforStream(Position aPosition, Rectangle rectangle) {
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
         List<Beacon> listOfPosition=new ArrayList<>();
-        int precision=5;
+        int precision=4;
         double widthUnit=width/ precision;
         double heightUnit=height/ precision;
-        for (int k = -precision ; k< 2*precision; k++){
+        for (int k = 0 ; k< precision; k++){
             listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-width/2+k*widthUnit,height/2)));
             listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2,height/2-k*heightUnit)));
             listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2-k*widthUnit,-height/2)));
