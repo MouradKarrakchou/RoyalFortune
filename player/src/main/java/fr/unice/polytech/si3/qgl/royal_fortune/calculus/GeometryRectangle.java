@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -125,10 +126,16 @@ public class GeometryRectangle {
 
     public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle, boolean isAReef) {
         double safetyLength = 150;
+        rectangle=new Rectangle(rectangle.getWidth()+safetyLength,rectangle.getHeight()+safetyLength,rectangle.getOrientation());
+        if (isAReef)
+            return generateBeaconForReef(aPosition,rectangle);
+        else
+            return generateBeaconforStream(aPosition,rectangle);
+    }
+
+
+    private static List<Beacon> generateBeaconForReef(Position aPosition, Rectangle rectangle) {
         List<Beacon> listOfPosition=new ArrayList<>();
-        if (isAReef){
-            rectangle=new Rectangle(rectangle.getWidth()+safetyLength,rectangle.getHeight()+safetyLength,rectangle.getOrientation());
-        }
 
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
@@ -140,5 +147,21 @@ public class GeometryRectangle {
 
         return listOfPosition;
     }
+    
+    private static List<Beacon> generateBeaconforStream(Position aPosition, Rectangle rectangle) {
+        double width = rectangle.getWidth();
+        double height = rectangle.getHeight();
+        List<Beacon> listOfPosition=new ArrayList<>();
+        int precision=5;
+        double widthUnit=width/ precision;
+        double heightUnit=height/ precision;
+        for (int k = -precision ; k< 2*precision; k++){
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-width/2+k*widthUnit,height/2)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2,height/2-k*heightUnit)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2-k*widthUnit,-height/2)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-width/2,-height/2+k*heightUnit)));}
+        return listOfPosition;
+    }
+
 
 }
