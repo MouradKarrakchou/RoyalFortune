@@ -54,11 +54,11 @@ class CartologueTest {
         map.put(segment,stream);
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-6.06)<0.01);
 
-
+/*
         stream = new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
         segment = new Segment(new Position(0,0),new Position(0,1000));
         map.put(segment,stream);
-        assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-6.06)<0.01);
+        assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)-6.06)<0.01);*/
     }
 
     @Test
@@ -109,4 +109,5 @@ class CartologueTest {
         assertFalse(map.containsKey(cartoCut.get(0)));
         assertFalse(map.containsKey(cartoCut.get(2)));
     }*/
+
 }
