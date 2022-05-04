@@ -336,7 +336,7 @@ function animateSeaEntities() {
             //$(this).css({ top: seaEntite.position.y - (seaEntite.polygone.height / 2), left: seaEntite.position.x - (seaEntite.polygone.width / 3) }, 1000);
             $(this).css({
                 top: seaEntite.position.y - ((seaEntite.polygone.height / 2) + ((seaEntite.polygone.height / 2) - (seaEntite.polygone.height / 3))),
-                left: seaEntite.position.x - ((seaEntite.polygone.width / 2) - ((seaEntite.polygone.width / 2) - (seaEntite.polygone.width / 3)))
+                left: seaEntite.position.x - ((seaEntite.polygone.width / 2.6)) //- ((seaEntite.polygone.width / 2) - (seaEntite.polygone.width / 3))
             }, 1000);
             $(this).css('transform', 'rotate(' + seaEntite.position.orientation + 'rad)');
 
