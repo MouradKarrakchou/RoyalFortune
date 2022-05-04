@@ -264,7 +264,7 @@ function createSeaEntities(input) {
                 //seaEntitie = "<div class='seaEntitie Reef_Polygone' id='seaEnt_" + i + "'><svg class='svg' id='svgSeaEnt_" + i + "'><polygon class='Reef poly' id='polySeaEnt_" + i + "' points='" + polygoneReef.polygone.getListPosition() + "'></svg></div>";
                 let top = polygoneReef.position.y - (polygoneReef.polygone.height / 2);
                 let left = polygoneReef.position.x - (polygoneReef.polygone.width / 2);
-                seaEntitie = "<div x=" + polygoneReef.position.x + " y=" + polygoneReef.position.y + " style='height:" + polygoneReef.polygone.height + "px; width:" + polygoneReef.polygone.width + "px; top:" + top + "px; left:" + left + "px' class='seaEntitie Reef_Polygone' id='seaEnt_" + i + "'><svg class='svg' id='svgSeaEnt_" + i + "' style='height:" + polygoneReef.polygone.height + "px; width:" + polygoneReef.polygone.width + "px'><polygon class='Reef polygon' id='polySeaEnt_" + i + "' points='" + polygoneReef.polygone.getListPosition() + "' transform='translate(" + polygoneReef.polygone.width / 3 + " " + polygoneReef.polygone.height / 2 + ")' style='fill:lime;stroke:purple;stroke-width:1'/></svg></div>"
+                seaEntitie = "<div x=" + polygoneReef.position.x + " y=" + polygoneReef.position.y + " style='height:" + polygoneReef.polygone.height + "px; width:" + polygoneReef.polygone.width + "px; top:" + top + "px; left:" + left + "px' class='seaEntitie Reef_Polygone' id='seaEnt_" + i + "'><svg class='svg' id='svgSeaEnt_" + i + "' style='height:" + polygoneReef.polygone.height + "px; width:" + polygoneReef.polygone.width + "px'><polygon class='Reef polygon' id='polySeaEnt_" + i + "' points='" + polygoneReef.polygone.getListPosition() + "' transform='translate(" + polygoneReef.polygone.width / 2 + " " + polygoneReef.polygone.height / 2 + ")' style='fill:lime;stroke:purple;stroke-width:1'/></svg></div>"
             }
         } else if (parameters[0] == "stream") {
             window.seaEntities.push(new Stream(parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6]));
@@ -458,6 +458,7 @@ function startRun(jsonIn) {
     setUsedBeacon(beaconsUsed);*/
     console.log("---move boat---");
     move(coord);
+    $('#sea').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
     sendDataToBack();
 }
 
