@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #app {
+        height: 5000px;
+        width: 5000px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #svg1 {
+        height: 2000px;
+        width: 3000px;
+    }
+    
+    #svg2 {
+        height: 250px;
+        width: 1000px;
+    }
+    
+    #cssRecta {
+        transform: rotate(45deg);
+        /* doesn't work as intended in Firefox 
+   * % values are taken relative to the SVG, not the element
+   * which actually seems to be correct */
+        transform-origin: 50% 50%;
+    }
+    
+    #divRect {
+        background-color: red;
+        width: 100px;
+        height: 100px;
+        z-index: -1;
+    }
+    
+    .poly {
+        background-color: blue;
+        z-index: 2;
+        transform-origin: 100% 100%;
+    }
+    
+    #container {
+        height: 2000px;
+        width: 3000px;
+    }
+    
+    #container2 {
+        height: 250px;
+        width: 1000px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div id="container"><svg id="svg1"><polygon class="poly" points="-1000,-1000 1000,-1000 2000,0 1000,1000 -1000,1000" transform='translate(1000 1000)' style="fill:lime;stroke:purple;stroke-width:1" /></svg></div>
+        <div id="container2"><svg id="svg2"><polygon class="poly" points="750,-125 350,125 -100,125 -250,-125" transform='translate(250 125)' style="fill:lime;stroke:purple;stroke-width:1" /></svg></div>
+    </div>
+</body>
+
+</html>
