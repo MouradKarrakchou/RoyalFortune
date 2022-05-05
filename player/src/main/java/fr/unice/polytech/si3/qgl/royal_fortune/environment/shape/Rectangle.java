@@ -84,6 +84,7 @@ Rectangle extends Shape{
 				this.orientation == rectangle.orientation;
 	}
 
+	/*
 	@Override
 	public int hashCode() {
 		int result = 17;
@@ -91,7 +92,7 @@ Rectangle extends Shape{
 		result = 31 * result + Integer.parseInt(String.valueOf(height));
 		result = 31 * result + String.valueOf(orientation).hashCode();
 		return result;
-	}
+	}*/
 
 	@Override
 	public String toString() {

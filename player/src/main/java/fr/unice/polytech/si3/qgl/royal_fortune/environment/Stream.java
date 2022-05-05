@@ -22,6 +22,7 @@ public class Stream extends SeaEntities{
                 && this.shape.equals(stream.shape);
     }
 
+    /*
     @Override
     public int hashCode() {
         int result = 17;
@@ -29,5 +30,5 @@ public class Stream extends SeaEntities{
         result = 31 * result + Integer.parseInt(String.valueOf(strength));
         result = 31 * result + String.valueOf(shape.getType()).hashCode();
         return result;
-    }
+    }*/
 }

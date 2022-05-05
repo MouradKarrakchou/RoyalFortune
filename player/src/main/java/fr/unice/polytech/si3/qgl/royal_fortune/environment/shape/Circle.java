@@ -52,12 +52,13 @@ public class Circle extends Shape{
         return this.radius == circle.getRadius();
     }
 
+    /*
     @Override
     public int hashCode() {
         int result = 17;
         result = 31 * result + String.valueOf(radius).hashCode();
         return result;
-    }
+    }*/
     
     @Override
     public String toString() {
