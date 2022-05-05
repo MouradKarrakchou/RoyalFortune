@@ -15,7 +15,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import java.util.*;
 
 public class Observer {
-    public static final int MAX_RANGE = 1000;
+    public static final int MAX_RANGE = 1000000000;
     private List<SeaEntities> currentSeaEntities;
     private Position shipPosition;
     private Mathematician mathematician;
@@ -51,8 +51,9 @@ public class Observer {
      * @return boolean
      */
     public Boolean checkIfNewSeaEntities(List<SeaEntities> newSeaEntities){
-        for (SeaEntities seaEntitie: newSeaEntities){
-            if (!currentSeaEntities.contains(seaEntitie))
+        for (SeaEntities newSeaEntity : newSeaEntities){
+            newSeaEntity.getShape(); // Le getShape qui cache un update super important ça pue.
+            if (!currentSeaEntities.contains(newSeaEntity))
                 return true;
         }
         return false;
@@ -71,15 +72,14 @@ public class Observer {
      * @param newSeaEntities a potential new sea entity
      * @return If return empty we target the checkpoint else we target the Beacon
      */
-    public Optional<Beacon> watchSea(List<SeaEntities> newSeaEntities){
+    public Stack<Beacon> watchSea(List<SeaEntities> newSeaEntities){
         currentSeaEntities=newSeaEntities;
         List<Beacon> beacons=new ArrayList<>();
         for (SeaEntities seaEntities:newSeaEntities){
-            if (seaEntities.getShape() instanceof Rectangle)
-                beacons.addAll(GeometryRectangle.generateBeacon(seaEntities.getPosition(), (Rectangle) seaEntities.getShape(),seaEntities.isReef()));
             if (seaEntities.getShape() instanceof Circle)
                 beacons.addAll(GeometryCircle.generateBeacon(shipPosition, nextCheckPointPosition,seaEntities.getPosition(),(Circle) seaEntities.getShape()));
-
+            else
+                beacons.addAll(seaEntities.getShape().generateBeacon(seaEntities.getPosition(),seaEntities.isReef()));
         }
         cartologue.setListSeaEntities(newSeaEntities);
         return mathematician.computeTrajectory(beacons,shipPosition,nextCheckPointPosition);

@@ -5,10 +5,12 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +18,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 public class OutputMaker {
     static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static StringBuilder parameterOfGame = new StringBuilder();
@@ -84,7 +85,7 @@ public class OutputMaker {
             Rectangle rectangle = isRectangle.get();
             out.append(Math.round(rectangle.getHeight())).append(";").append(Math.round(rectangle.getWidth())).append(";");
             out.append(Math.round(stream.getStrength())).append(";");
-            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(Math.round(streamPos.getOrientation()));
+            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(streamPos.getOrientation());
         }
         else
             throw new Exception("Stream with other shape than rectangle");
@@ -92,19 +93,27 @@ public class OutputMaker {
     }
 
     public static StringBuilder createOutForReef(Reef reef, StringBuilder out) throws Exception {
-        Position streamPos = reef.getPosition();
+        Position reefPos = reef.getPosition();
         out.append("reef").append(";");
         Optional<Rectangle> isRectangle = reef.getShape().isRectangle();
         Optional<Circle> isCircle = reef.getShape().isCircle();
+        Optional<Polygone> isPolygone = reef.getShape().isPolygone();
+
         if(isRectangle.isPresent()){
             Rectangle rect = isRectangle.get();
             out.append("rect").append(";").append(Math.round(rect.getHeight())).append(";").append(Math.round(rect.getWidth())).append(";");
-            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(streamPos.getOrientation());
+            out.append(Math.round(reefPos.getX())).append(";").append(Math.round(reefPos.getY())).append(";").append(reefPos.getOrientation());
         }
         else if(isCircle.isPresent()){
             Circle circle = isCircle.get();
             out.append("circle").append(";").append(Math.round(circle.getRadius())).append(";");
-            out.append(Math.round(streamPos.getX())).append(";").append(Math.round(streamPos.getY())).append(";").append(streamPos.getOrientation());
+            out.append(Math.round(reefPos.getX())).append(";").append(Math.round(reefPos.getY())).append(";").append(reefPos.getOrientation());
+        }
+        else if(isPolygone.isPresent()){
+            Polygone polygone = isPolygone.get();
+            out.append("poly").append(";");
+            out.append(Math.round(reefPos.getX())).append(";").append(Math.round(reefPos.getY())).append(";").append(reefPos.getOrientation()).append(";");
+            out.append(formatPolygoneVertice(polygone.getVertices()));
         }
         else
             throw new Exception("Stream with other shape than rectangle");
@@ -119,6 +128,7 @@ public class OutputMaker {
         parameterOfGame.append("---|\n");
     }
 
+    //reef;rect;height;width;x,y;orientation
     public static void writeOutputInFile(){
         parameterOfGame.append(shipPosition);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
@@ -132,5 +142,13 @@ public class OutputMaker {
         }
     }
 
+    private static StringBuilder formatPolygoneVertice(Point[] list){
+        StringBuilder verticesString = new StringBuilder();
+        verticesString.append(Math.round(list[0].getX())).append("/").append(Math.round(list[0].getY()));
+        for(int i = 1 ; i < list.length ; i++){
+            verticesString.append(" ").append(Math.round(list[i].getX())).append("/").append(Math.round(list[i].getY()));
+        }
+        return verticesString;
+    }
 
 }

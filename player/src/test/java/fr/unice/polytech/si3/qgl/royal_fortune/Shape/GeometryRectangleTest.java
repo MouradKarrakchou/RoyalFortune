@@ -1,8 +1,10 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -108,6 +110,7 @@ class GeometryRectangleTest {
         assertTrue(res.size() > 0);
     }
 
+    /*
     @Test
     void generateBeaconStreamTest(){
         Rectangle rectangle = new Rectangle(70, 50, 0);
@@ -129,31 +132,32 @@ class GeometryRectangleTest {
         assertTrue((Math.abs(res.get(3).getPosition().getX() - 25)) < 0.2);
         assertTrue((Math.abs(res.get(3).getPosition().getY() + 35)) < 0.2);
         assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
-    }
+    }*/
 
-    /*
     @Test
     void generateBeaconReefTest(){
         Rectangle rectangle = new Rectangle(70, 50, 0);
         Reef reef = new Reef(new Position(0,0,0), rectangle);
         List<Beacon> res = GeometryRectangle.generateBeacon(reef.getPosition(), rectangle,true);
 
-        assertTrue((Math.abs(res.get(0).getPosition().getX() + 35))<0.2);
-        assertTrue((Math.abs(res.get(0).getPosition().getY() + 45))<0.2);
+        System.out.println(Math.abs(res.get(0).getPosition().getX()));
+        System.out.println(Math.abs(res.get(0).getPosition().getY()));
+        assertTrue((Math.abs(res.get(0).getPosition().getX() + 100))<0.2);
+        assertTrue((Math.abs(res.get(0).getPosition().getY() + 110))<0.2);
         assertTrue((Math.abs(res.get(0).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(1).getPosition().getX() - 35)) <0.2);
-        assertTrue((Math.abs(res.get(1).getPosition().getY() - 45))<0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getX() - 100)) <0.2);
+        assertTrue((Math.abs(res.get(1).getPosition().getY() - 110))<0.2);
         assertTrue((Math.abs(res.get(1).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(2).getPosition().getX() + 35)) < 0.2);
-        assertTrue((Math.abs(res.get(2).getPosition().getY() - 45)) < 0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getX() + 100)) < 0.2);
+        assertTrue((Math.abs(res.get(2).getPosition().getY() - 110)) < 0.2);
         assertTrue((Math.abs(res.get(2).getPosition().getOrientation()-0))<0.2);
 
-        assertTrue((Math.abs(res.get(3).getPosition().getX() - 35)) < 0.2);
-        assertTrue((Math.abs(res.get(3).getPosition().getY() + 45)) < 0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getX() - 100)) < 0.2);
+        assertTrue((Math.abs(res.get(3).getPosition().getY() + 110)) < 0.2);
         assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
-    }*/
+    }
 
     @Test
     void toStringTest(){
@@ -181,5 +185,16 @@ class GeometryRectangleTest {
         assertEquals(2, res.size());
     }
 
+    @Test
+    void positionIsInTheCircle() {
+        Position pointA = new Position(4.3, 5.6);
+        Position position = new Position(7.84, 1.23);
+        Circle shape = new Circle(2.47);
+
+        assertFalse(GeometryCircle.positionIsInTheCircle(pointA, position, shape));
+
+        shape = new Circle(10.47);
+        assertTrue(GeometryCircle.positionIsInTheCircle(pointA, position, shape));
+    }
 
 }

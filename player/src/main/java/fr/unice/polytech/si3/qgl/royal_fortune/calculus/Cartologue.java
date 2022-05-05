@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
@@ -34,11 +33,15 @@ public class Cartologue {
         if (map.containsKey(segment)) {
             if (map.get(segment).isStream()) {
                 Stream stream = (Stream) map.get(segment);
-                double angle = segment.angleIntersectionBetweenSegmentAndRectangle((Rectangle) stream.getShape());
+                double angle = segment.angleIntersectionBetweenSegmentAndRectangle(stream.getPosition().getOrientation());
                 double distancePushByStream = (165 + stream.getStrength() * Math.cos(angle));
                 dist = segment.getLength() / distancePushByStream;
-            if(distancePushByStream < 0) return (Double.POSITIVE_INFINITY);
-            } else {
+                if (distancePushByStream<0)
+                    return (Double.POSITIVE_INFINITY);
+                return dist;
+            }
+
+            else {
                 return (Double.POSITIVE_INFINITY);
             }
         }
@@ -64,33 +67,35 @@ public class Cartologue {
      */
     public List<Segment> cutSegment(Segment path, Boolean isOnStream){
         List<Segment> segments=new ArrayList<>();
-        List<Position> intersections=new ArrayList<>();
+        List<Position> intersections;
         for (SeaEntities seaEntities:listSeaEntities){
-            if (seaEntities.getShape() instanceof Rectangle rectangle)
-                intersections = new ArrayList<>(GeometryRectangle.computeIntersectionWith(path, seaEntities.getPosition(), rectangle));
-            if (seaEntities.getShape() instanceof Circle circle) {
-                intersections = new ArrayList<>(GeometryCircle.computeIntersectionWith(path, seaEntities.getPosition(), circle));
-                intersections.add(0,path.getPointA());
-                intersections.add( path.getPointB());
-            }
-            if (intersections.size()==3)
-            {
-                segments.add(new Segment(intersections.get(0),intersections.get(1)));
-                segments.add(new Segment(intersections.get(1),intersections.get(2)));
-                if(isOnStream)
-                    map.put(segments.get(0),seaEntities);
-                else
+            intersections= seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition());
+
+            if (seaEntities instanceof Stream) {
+                if (intersections.size()==3)
+                {
+                    segments.add(new Segment(intersections.get(0),intersections.get(1)));
+                    segments.add(new Segment(intersections.get(1),intersections.get(2)));
+                    if(isOnStream)
+                        map.put(segments.get(0),seaEntities);
+                    else
+                        map.put(segments.get(1),seaEntities);
+                    return segments;
+                }
+                else if (intersections.size()==4)
+                {
+                    segments.add(new Segment(intersections.get(0),intersections.get(1)));
+                    segments.add(new Segment(intersections.get(1),intersections.get(2)));
+                    segments.add(new Segment(intersections.get(2),intersections.get(3)));
                     map.put(segments.get(1),seaEntities);
-                return segments;
+                    return segments;
+                }
             }
-            else if (intersections.size()==4)
-            {
-                segments.add(new Segment(intersections.get(0),intersections.get(1)));
-                segments.add(new Segment(intersections.get(1),intersections.get(2)));
-                segments.add(new Segment(intersections.get(2),intersections.get(3)));
-                map.put(segments.get(1),seaEntities);
-                return segments;
+
+            else if (intersections.size() > 2) {
+                map.put(path, seaEntities);
             }
+
         }
         return segments;
     }
@@ -104,16 +109,7 @@ public class Cartologue {
      */
     private boolean positionIsOnASeaEntities(Position pointA) {
         for (SeaEntities seaEntities:listSeaEntities){
-            if (seaEntities.getShape() instanceof Rectangle rectangle) {
-                if (GeometryRectangle.positionIsInTheRectangle(pointA, seaEntities.getPosition(), rectangle)) {
-                    return true;
-                }
-            }
-            else if (seaEntities.getShape() instanceof Circle circle) {
-                    if (GeometryRectangle.positionIsInTheCircle(pointA, seaEntities.getPosition(), circle)) {
-                        return true;
-                    }
-                }
+            if (seaEntities.getShape().positionIsInTheShape(pointA, seaEntities.getPosition())) return true;
         }
         return false;
     }

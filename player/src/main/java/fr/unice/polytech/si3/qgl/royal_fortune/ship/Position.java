@@ -1,9 +1,12 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.ship;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.IPositionable;
 
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,7 +14,7 @@ import java.util.logging.Logger;
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
-public class Position {
+public class Position implements IPositionable {
 	private double x;
 	private double y;
 	private double orientation;
@@ -29,6 +32,12 @@ public class Position {
 		this.y = y;
 		this.orientation = 0.0;
 	}
+
+	public Position(Point p) {
+		this.x = p.getX();
+		this.y = p.getY();
+		this.orientation = 0.0;
+	}
 	
 	public double getX() {
 		return x;
@@ -38,6 +47,10 @@ public class Position {
 	}
 	public double getOrientation() {
 		return orientation;
+	}
+
+	public Point getPoint(){
+		return new Point((int) Math.ceil(x), (int) Math.ceil(y));
 	}
 
 	public void setX(double x) {
@@ -90,5 +103,10 @@ public class Position {
 		result = 31 * result + String.valueOf(orientation).hashCode();
 		return result;
 	}
-	
+
+	@JsonIgnore
+	@Override
+	public Position getPosition(){
+		return this;
+	}
 }

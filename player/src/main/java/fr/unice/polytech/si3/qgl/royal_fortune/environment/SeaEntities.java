@@ -3,12 +3,12 @@ package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Stream.class, name = "stream"),
@@ -35,6 +35,9 @@ public class SeaEntities {
     }
 
     public Shape getShape() {
+        if (shape instanceof Polygone polygone){
+            polygone.updatePolygone(position);
+        }
         shape.updateForReef();
         shape.computeSegmentsIfPossible(position);
         return shape;
@@ -52,6 +55,26 @@ public class SeaEntities {
         return this instanceof Reef;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
 
+        if (o == null || getClass() != o.getClass())
+            return false;
 
+        SeaEntities that = (SeaEntities) o;
+
+        if (!position.equals(that.position))
+            return false;
+
+        return shape.equals(that.shape);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = position != null ? position.hashCode() : 0;
+        result = 31 * result + (shape != null ? shape.hashCode() : 0);
+        return result;
+    }
 }

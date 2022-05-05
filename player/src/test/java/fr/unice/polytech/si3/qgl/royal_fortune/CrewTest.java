@@ -12,10 +12,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -115,4 +111,15 @@ class CrewTest {
 
     }
 
+    @Test
+    void useWatchTest() {
+        sailors.add(new Sailor(0, 0, 0, "sailor0"));
+        entities.add(new Watch(0, 0));
+        String action = crew.useWatch().toString();
+        assertEquals("[]", action);
+
+        associations.addAssociation(sailors.get(0), entities.get(0));
+        action = crew.useWatch().toString();
+        assertEquals("[{\"sailorId\":0,\"type\":\"USE_WATCH\"}]", action);
+    }
 }

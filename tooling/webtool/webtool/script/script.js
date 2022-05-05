@@ -58,6 +58,13 @@ class Reef_Rectangle {
     }
 }
 
+class Reef_Polygone {
+    constructor(x, y, orientation, listCorner) {
+        this.type = "Reef_Polygone"
+        this.position = new Position(x, y, orientation);
+        this.polygone = new Polygone(listCorner, this.position);
+    }
+}
 class Stream {
     constructor(width, height, strength, x, y, orientation) {
         this.type = "Stream"
@@ -76,7 +83,66 @@ class Rectangle {
 
 class Circle {
     constructor(radius) {
-        this.radius = radius * 0.5;
+        this.radius = radius;
+    }
+}
+
+class Polygone {
+    constructor(listCorner, center) {
+        this.listPosition = this.generateListPosition(listCorner, center);
+        this.width = this.findWidth();
+        this.height = this.findHeight();
+    }
+    getListPosition() {
+        let stringListPosition = this.listPosition[0].x + "," + this.listPosition[0].y;
+        for (let i = 1; i < this.listPosition.length; i++) {
+            let currentPosition = this.listPosition[i];
+            stringListPosition += " " + currentPosition.x + "," + currentPosition.y;
+        }
+        return stringListPosition;
+    }
+
+    generateListPosition(listCorner, center) {
+        //100/200 45/100 41/785
+        let finalListPosition = [];
+        let stringListPosition = listCorner.split(' ');
+        for (let i = 0; i < stringListPosition.length; i++) {
+            let stringPosition = stringListPosition[i].split('/');
+            finalListPosition.push(new Position(stringPosition[0], stringPosition[1], 0));
+        }
+        return this.convertListPositionForSvg(finalListPosition, center);
+    }
+
+    findHeight() {
+        //100/200 45/100 41/785
+        //Y
+        let min = this.listPosition[0].y;
+        let max = this.listPosition[0].y;
+        for (let i = 1; i < this.listPosition.length; i++) {
+            if (min > this.listPosition[i].y) min = this.listPosition[i].y;
+            if (max < this.listPosition[i].y) max = this.listPosition[i].y;
+        }
+        return Math.abs(max - min);
+    }
+
+    findWidth() {
+        //100/200 45/100 41/785
+        //X
+        let min = this.listPosition[0].x;
+        let max = this.listPosition[0].x;
+        for (let i = 1; i < this.listPosition.length; i++) {
+            if (min > this.listPosition[i].x) min = this.listPosition[i].x;
+            if (max < this.listPosition[i].x) max = this.listPosition[i].x;
+        }
+        return Math.abs(max - min);
+    }
+
+    convertListPositionForSvg(listPosition, center) {
+        for (let i = 0; i < listPosition.length; i++) {
+            listPosition[i].x -= center.x;
+            listPosition[i].y -= center.y;
+        }
+        return listPosition;
     }
 }
 
@@ -103,10 +169,11 @@ function init() {
     getInputJson();
 }
 
+
+
 function scrollToTheBoat(x, y) {
     window.scroll(x + x / 2, y + y / 2);
 }
-
 
 function move(input) {
     placeBoatAtStart(input, 0);
@@ -178,8 +245,11 @@ function createCheckpoints(input) {
 
 function createSeaEntities(input) {
     let seaEntitiesList = document.getElementById('sea');
-    let seaEntitie;
+
     for (let i = 0; i < input.length; i++) {
+        let polygoneWrapper = document.getElementById('polygone');
+        let isPolygone = false;
+        let seaEntitie;
         let parameters = input[i].split(';');
         if (parameters[0] == "reef") {
             if (parameters[1] == "rect") {
@@ -188,6 +258,13 @@ function createSeaEntities(input) {
             } else if (parameters[1] == "circle") {
                 window.seaEntities.push(new Reef_Circle(parameters[2], parameters[3], parameters[4], parameters[5]));
                 seaEntitie = "<div id='seaEnt_" + i + "' class='seaEntitie Reef Reef_Circle'></div>"
+            } else if (parameters[1] == "poly") {
+                const polygoneReef = new Reef_Polygone(parameters[2], parameters[3], parameters[4], parameters[5])
+                window.seaEntities.push(polygoneReef);
+                //seaEntitie = "<div class='seaEntitie Reef_Polygone' id='seaEnt_" + i + "'><svg class='svg' id='svgSeaEnt_" + i + "'><polygon class='Reef poly' id='polySeaEnt_" + i + "' points='" + polygoneReef.polygone.getListPosition() + "'></svg></div>";
+                //let top = polygoneReef.position.y - (polygoneReef.polygone.height / 2);
+                //let left = polygoneReef.position.x - (polygoneReef.polygone.width / 2);
+                seaEntitie = "<div x=" + polygoneReef.position.x + " y=" + polygoneReef.position.y + " style='height:" + polygoneReef.polygone.height + "px; width:" + polygoneReef.polygone.width + "px; ' class='seaEntitie Reef_Polygone' id='seaEnt_" + i + "'><svg class='svg' id='svgSeaEnt_" + i + "' style='height:" + polygoneReef.polygone.height + "px; width:" + polygoneReef.polygone.width + "px'><polygon class='Reef polygon' id='polySeaEnt_" + i + "' points='" + polygoneReef.polygone.getListPosition() + "' transform='translate(" + polygoneReef.polygone.width / 3 + " " + polygoneReef.polygone.height / 2 + ")' style='fill:rgb(39, 39, 39);'/></svg></div>"
             }
         } else if (parameters[0] == "stream") {
             window.seaEntities.push(new Stream(parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], parameters[6]));
@@ -255,6 +332,33 @@ function animateSeaEntities() {
             $(this).css('transform', 'rotate(' + seaEntite.position.orientation + 'rad)');
             $(this).css({ top: seaEntite.position.y - (seaEntite.rectangle.height / 2), left: seaEntite.position.x - (seaEntite.rectangle.width / 2) }, 1000);
             $(this).css({ height: seaEntite.rectangle.height, width: seaEntite.rectangle.width }, 1000);
+        } else if (seaEntite.type == "Reef_Polygone") {
+            //$(this).css({ top: seaEntite.position.y - (seaEntite.polygone.height / 2), left: seaEntite.position.x - (seaEntite.polygone.width / 3) }, 1000);
+            $(this).css({
+                top: seaEntite.position.y - ((seaEntite.polygone.height / 2) + ((seaEntite.polygone.height / 2) - (seaEntite.polygone.height / 3))),
+                left: seaEntite.position.x - ((seaEntite.polygone.width / 2.6)) //- ((seaEntite.polygone.width / 2) - (seaEntite.polygone.width / 3))
+            }, 1000);
+            $(this).css('transform', 'rotate(' + seaEntite.position.orientation + 'rad)');
+
+            //$(this).css({ height: seaEntite.polygone.height, width: seaEntite.polygone.width }, 1000);
+
+            /*let newX = seaEntite.position.x + seaEntite.polygone.width / 2;
+            let newY = seaEntite.position.y + seaEntite.polygone.height / 2;
+            $(this).attr('transform', 'rotate(' + radians_to_degrees(seaEntite.position.orientation) + ' ' + newX + ' ' + newY + ')');
+            $(this).attr('transform', 'translate(' + seaEntite.position.x + ',' + seaEntite.position.y + ')');
+
+            $(this).attr('x', seaEntite.position.x);
+            $(this).attr('y', seaEntite.position.y);
+            $(this).attr('width', seaEntite.polygone.width);
+            $(this).attr('height', seaEntite.polygone.height);
+
+            $(this).css('transform', 'translate(' + seaEntite.position.x + ',' + seaEntite.position.y + ')');*/
+            //$(this).css('transform', 'rotate(' + radians_to_degrees(seaEntite.position.orientation) + ',' + seaEntite.position.x + ',' + seaEntite.position.y + ')');
+            //$(this).css({ "transform-origin": seaEntite.position.x + " " + seaEntite.position.y }, 1000);
+            //$(this).css('transform', 'rotate(' + radians_to_degrees(seaEntite.position.orientation) + ' ' + seaEntite.position.x + seaEntite.polygone.width / 2 + ' ' + seaEntite.position.y + seaEntite.polygone.height / 2 + ')');
+            //;
+            //$(this).css({ top: seaEntite.position.y - (seaEntite.polygone.height / 2), left: seaEntite.position.x - (seaEntite.polygone.width / 2) }, 1000);
+            //$(this).css({ height: seaEntite.polygone.height, width: seaEntite.polygone.width }, 1000);
         } else if (seaEntite.type == "Reef_Circle") {
             $(this).css({ top: seaEntite.position.y - (seaEntite.circle.radius / 2), left: seaEntite.position.x - (seaEntite.circle.radius / 2) }, 1000);
             $(this).css({ height: seaEntite.circle.radius, width: seaEntite.circle.radius }, 1000);
@@ -359,6 +463,8 @@ function startRun(jsonIn) {
     setUsedBeacon(beaconsUsed);*/
     console.log("---move boat---");
     move(coord);
+    $('#sea').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
+    sendDataToBack();
 }
 
 function addListener() {
@@ -424,37 +530,156 @@ function getInputJson() {
 
 function downloadimage() {
     $('#sea').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
-    var container = document.getElementById('sea'); // full page 
-    html2canvas(container, { allowTaint: true }).then(function(canvas) {
+    var sea = document.getElementById('sea'); // full page 
+    elementToLinkImage(sea);
+    sendDataToBack();
+
+    //sendImageToImageBB();
+}
+
+function elementToLinkImage(element) {
+    html2canvas(element, { allowTaint: true, foreignObjectRendering: true }).then(function(canvas) {
         var link = document.createElement("a");
         document.body.appendChild(link);
         link.download = "html_image.png";
-        link.href = canvas.toDataURL();
+        var imgData = canvas.toDataURL('image/jpeg', 0.1);
+        //var imgData = canvas.toDataURL('image/png');
+        link.href = imgData;
+        link.target = '_blank';
+        link.click();
+        sendJSONToImageBB(imgData);
+        return imgData;
+    });
+    /*.then(function(newImg) {
+            resizeBase64Img(newImg, 1, 1).then(resized => {
+                let img = document.createElement("img");
+                img.id = "original";
+                img.src = resized;
+                document.body.innerHTML += resized;
+                //elementToLinkImage200x200(img);
+            });
+
+        });*/
+}
+
+function elementToImage(element) {
+    html2canvas(element, { allowTaint: true }).then(function(canvas) {
+        var link = document.createElement("a");
+        document.body.appendChild(link);
+        link.download = "html_image.png";
+        //link.href = canvas.toDataURL('image/jpeg', 0.1);
+        var imgData = canvas.toDataURL('image/png');
+
+    });
+}
+
+function sendJSONToImageBB(base64Img) {
+    var data = {
+        key: "522b74b1ff051383e00f9bf669be8d64",
+        image: base64Img,
+        name: "Royal_Fortune_Run"
+    };
+
+    var json = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://api.imgbb.com/1/upload");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.send(json);
+
+    /* $.ajax({
+         url: 'https://api.imgbb.com/1/upload',
+         type: 'POST',
+         data: JSON.stringify(data),
+         contentType: 'application/json; charset=utf-8'
+       })*/
+}
+
+function elementToLinkImage200x200(element) {
+    html2canvas(element, { allowTaint: true, width: 200, height: 200 }).then(function(canvas) {
+        var link = document.createElement("a");
+        document.body.appendChild(link);
+        link.download = "html_imageResized.png";
+        //link.href = canvas.toDataURL('image/jpeg', 0.1);
+        var imgData = canvas.toDataURL('image/png');
+        link.href = imgData;
         link.target = '_blank';
         link.click();
     });
 }
 
+function resizeBase64Img(base64, newWidth, newHeight) {
+    return new Promise((resolve, reject) => {
+        var canvas = document.createElement("canvas");
+        canvas.style.width = newWidth.toString() + "px";
+        canvas.style.height = newHeight.toString() + "px";
+        let context = canvas.getContext("2d");
+        let img = document.createElement("img");
+        img.src = base64;
+        img.onload = function() {
+            context.scale(newWidth / img.width, newHeight / img.height);
+            context.drawImage(img, 0, 0);
+            resolve(canvas.toDataURL());
+        }
+    });
+}
+
+
 
 function sendDataToBack() {
     $('#sea').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
     var container = document.getElementById('sea'); // full page 
-    html2canvas(container, { allowTaint: true }).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/png');
-        var form_data = new FormData();
-        form_data.append('file', imgData);
-        alert(form_data);
-        $.ajax({
-            url: '../backend/decode64.php', // <-- point to server-side PHP script 
-            dataType: 'text', // <-- what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: 'post',
-            success: function(php_script_response) {
-                alert(php_script_response); // <-- display response from the PHP script, if any
-            }
+    html2canvas(container, { allowTaint: true }, {
+        width: 1200,
+        height: 1200
+    }).then(function(canvas) {
+        var imgData = canvas.toDataURL('image/jpeg', 0.1);
+        resizeBase64Img(imgData, 200, 200).then(resized => {
+            var form_data = new FormData();
+            form_data.append('file', resized);
+            $.ajax({
+                url: '../backend/decode64.php', // <-- point to server-side PHP script 
+                dataType: 'text', // <-- what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function(php_script_response) {
+                    console.log(php_script_response); // <-- display response from the PHP script, if any
+                }
+            });
         });
+
     });
+}
+
+function sendImageToImageBB() {
+    $('#sea').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
+    var container = document.getElementById('sea'); // full page 
+    html2canvas(container, { allowTaint: true }).then(function(canvas) {
+        //var imgData = canvas.toDataURL('image/jpeg', 0.1);
+        var imgData = canvas.toDataURL('png');
+
+        resizeBase64Img(imgData, 200, 200).then(resized => {
+            alert("imgData = " + resized);
+            let key = "522b74b1ff051383e00f9bf669be8d64";
+            $.post('https://api.imgbb.com/1/upload', { key: key, image: resized, name: "Royal_Fortune" }, function(response) {
+                alert("success");
+            }).fail(alert("fail"));
+
+        });
+
+        /*const formData = new FormData();
+        formData.append("image", imgData); // has to be named 'image'!
+        let apiresponse = axios.post('https://api.imgbb.com/1/upload?key=' + key, formData)
+            .then(res => { alert(res.data) })
+            .catch(error => { alert("nooo") })*/
+    });
+}
+
+function radians_to_degrees(radians) {
+    var pi = Math.PI;
+    return radians * (180 / pi);
 }

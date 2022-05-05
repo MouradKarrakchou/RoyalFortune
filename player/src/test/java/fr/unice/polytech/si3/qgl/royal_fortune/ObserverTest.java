@@ -42,7 +42,7 @@ class ObserverTest {
         observer.setNextCheckPointPosition(nextCheckPointPosition);
         Optional<Beacon> beacon=observer.watchSea(currentSeaEntities);
         assertTrue(beacon.isPresent());
-    }*/
+    }
 
     @Test
     void watchSea2Test() {
@@ -53,6 +53,6 @@ class ObserverTest {
         Optional<Beacon> beacon=observer.watchSea(currentSeaEntities);
         assertTrue(beacon.isPresent());
     }
-
+    */
 
 }

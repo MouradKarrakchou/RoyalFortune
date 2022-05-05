@@ -88,14 +88,16 @@ public class Captain {
         Optional<Boolean> optionalSailDecision = getSailDecision();
         boolean useSail = optionalSailDecision.isPresent();
         boolean needRudder = getRudderDecision(angleMove, angleSailorsShouldMake);
+        boolean needWatch = ship.getWatch() != null;
 
-        SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail);
+        SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail, needWatch);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
 
         if(strategyAnswer.hasSail() && optionalSailDecision.isPresent())
             roundActions.addAll(crew.sailorsUseSail(optionalSailDecision.get()));
 
+        useWatch(strategyAnswer);
         turnWithRudderRoundAction(strategyAnswer, angleMove);
 
         roundActions.addAll(crew.sailorsMove());
@@ -162,6 +164,16 @@ public class Captain {
         else{
             int signOfAngleMove = (int) (angleMove/Math.abs(angleMove));
             return signOfAngleMove * Math.PI/4;
+        }
+    }
+
+    /**
+     * If a sailor can use the watch, we add the watchAction to the roundActions list
+     * @param strategyAnswer the answer to know if the watch can be used (sailor on it)
+     */
+    public void useWatch(SailorPlacement strategyAnswer) {
+        if(strategyAnswer.hasWatch()){
+            roundActions.addAll(crew.useWatch());
         }
     }
 

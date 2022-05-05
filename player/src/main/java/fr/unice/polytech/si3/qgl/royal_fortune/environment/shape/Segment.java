@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.environment.shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
+import java.awt.*;
 import java.util.Optional;
 
 public class Segment {
@@ -21,6 +22,14 @@ public class Segment {
         if (Math.abs(a)!=Float.POSITIVE_INFINITY)
             b = computeB(pointA);
         length= Mathematician.distanceFormula(pointA,pointB);
+    }
+    public Segment(Point pointA, Point pointB) {
+        this.pointA = new Position(pointA.getX(),pointA.getY());
+        this.pointB = new Position(pointB.getX(),pointB.getY());
+        a = computeA(this.pointA, this.pointB);
+        if (Math.abs(a)!=Float.POSITIVE_INFINITY)
+            b = computeB(this.pointA);
+        length= Mathematician.distanceFormula(this.pointA,this.pointB);
     }
 
     /**
@@ -75,12 +84,12 @@ public class Segment {
      * @param rectangle a rectangle
      * @return the angle between the segment and the orientation of a rectangle
      */
-    public double angleIntersectionBetweenSegmentAndRectangle(Rectangle rectangle) {
+    public double angleIntersectionBetweenSegmentAndRectangle(double orientationOfStream) {
         double distanceSegmentExtremityX = pointB.getX() - pointA.getX();
         double distanceSegmentExtremityY = pointB.getY() - pointA.getY();
         double distanceSegmentExtremity = Mathematician.distanceFormula(pointA, pointB);
 
-        double rectangleOrientation = rectangle.getOrientation();
+        double rectangleOrientation = orientationOfStream;
         double num = distanceSegmentExtremityX * Math.cos(rectangleOrientation) + distanceSegmentExtremityY * Math.sin(rectangleOrientation);
 
         return Math.acos(num / distanceSegmentExtremity);

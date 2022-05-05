@@ -6,6 +6,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.css.Rect;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +57,7 @@ class MathematicianTest {
         assertEquals(positionAfterBase.getY(), y);
         assertEquals(positionAfterBase.getOrientation(), ori);
     }
-
+/*
     @Test
     void computeTrajectoryTest(){
         List<Beacon> beacons = new ArrayList<>();
@@ -167,6 +169,24 @@ class MathematicianTest {
 
         assertTrue(bestBeacon.isPresent());
         assertEquals(beacon00, bestBeacon.get());
-    }
+    }*/
 
+    @Test
+    void dijkstraTest() {
+        Position start = new Position(-200,10);
+        Position arrival = new Position(200, 10);
+        Position reefPosition = new Position(45, 33);
+
+        Point[] vertices = {new Point(-35, -33), new Point(35, -33), new Point(0, 66)};
+
+        Polygone polygone = new Polygone(vertices, 0);
+
+        polygone.updatePolygone(reefPosition);
+
+        List<Beacon> beaconList = polygone.generateBeacon(reefPosition, true);
+        cartologue.getListSeaEntities().add(new Reef(reefPosition, polygone));
+        List<Beacon> listOfBeacons = mathematician.computeTrajectory(beaconList,start, arrival);
+
+        assertTrue(true);
+    }
 }

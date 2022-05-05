@@ -7,7 +7,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Stack;
 
 public class SeaMap {
     private final Goal goal;
@@ -35,16 +35,17 @@ public class SeaMap {
         }
         if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
         {
-            fictitiousCheckpoints.nextCheckPoint();
+
             observer.getCartologue().getListSeaEntities().clear();
             this.seaEntities.clear();
+            fictitiousCheckpoints.nextCheckPoint();
         }
 
-        observer.setNextCheckPointPosition(fictitiousCheckpoints.getCurrentCheckPoint().getPosition());
+        observer.setNextCheckPointPosition(goal.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);
         if (observer.checkIfNewSeaEntities(newSeaEntities)){
-            Optional<Beacon> beaconOptional=observer.watchSea(newSeaEntities);
-            beaconOptional.ifPresent(beacon -> fictitiousCheckpoints.addFictitiousCheckpoint(beacon));
+            Stack<Beacon> beaconStack=observer.watchSea(newSeaEntities);
+            fictitiousCheckpoints.addBeacons(beaconStack);
         }
     }
     public boolean isInCheckpoint(Checkpoint checkpoint) {
