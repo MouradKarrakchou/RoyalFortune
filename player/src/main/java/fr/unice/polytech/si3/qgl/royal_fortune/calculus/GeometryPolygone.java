@@ -88,7 +88,12 @@ public class GeometryPolygone {
         return intersectionsPositionOrdered;
     }
 
-
+    /**
+     * Generate Beacon 
+     * @param position
+     * @param polygone
+     * @return
+     */
     public static List<Beacon> generateBeacon(Position position, Polygone polygone) {
         Point[] vertices = polygone.getVertices();
         List<Beacon> generatedBeacons = new ArrayList<>();
