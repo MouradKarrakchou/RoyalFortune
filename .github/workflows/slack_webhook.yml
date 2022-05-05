@@ -10,17 +10,14 @@ on:
     branches: [ master, develop ]
 
 jobs:
-  message:
+  curl:
     runs-on: ubuntu-latest
     steps:
-      - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v4.0.0
+      - name: curl
+        uses: wei/curl@v1
         with:
-          webhook-url: "https://hooks.slack.com/services/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"
-          content: "Yohooo, mousaillon ! Une nouvelle version de royal fortune est disponible!
+          args: -X POST --data '{"text":"Yohooo, mousaillon ! Une nouvelle version de royal fortune est disponible!
           Voici une reconstitution de la dernière traversé du Royal Fortune réalisée par notre meilleur matelo peintre:\n
-          https://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@raw.githubusercontent.com/pns-si3-qgl/qgl-21-22-royal_fortune/develop/tooling/webtool/webtool/uploads/lastRun.png
-          "
-
+          https://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@raw.githubusercontent.com/pns-si3-qgl/qgl-21-22-royal_fortune/develop/tooling/webtool/webtool/uploads/lastRun.png"}' https://hooks.slack.com/services/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
 
 
