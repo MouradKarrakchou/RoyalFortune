@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 public class Main {
-
+	//
 	static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 	public static void main(String[] args) throws IOException {
 		String jsonWeekTest = "{\"goal\":{\"mode\":\"REGATTA\",\"checkpoints\":[{\"position\":{\"x\":5000,\"y\":0,\"orientation\":0.0},\"shape\":{\"type\":\"circle\",\"radius\":200.0}}]},\"ship\":{\"type\":\"ship\",\"position\":{\"x\":0,\"y\":0,\"orientation\":0.0},\"name\":\"royal_fortune\",\"deck\":{\"width\":3,\"length\":8},\"entities\":[{\"x\":1,\"y\":1,\"type\":\"rudder\"},{\"x\":6,\"y\":0,\"type\":\"oar\"},{\"x\":6,\"y\":2,\"type\":\"oar\"},{\"x\":5,\"y\":2,\"type\":\"oar\"},{\"x\":4,\"y\":2,\"type\":\"oar\"},{\"x\":3,\"y\":2,\"type\":\"oar\"},{\"x\":3,\"y\":0,\"type\":\"oar\"},{\"x\":4,\"y\":0,\"type\":\"oar\"},{\"x\":5,\"y\":0,\"type\":\"oar\"},{\"x\":6,\"y\":1,\"type\":\"sail\",\"openned\":false},{\"x\":7,\"y\":2,\"type\":\"oar\"},{\"x\":7,\"y\":0,\"type\":\"oar\"}],\"life\":1200,\"shape\":{\"type\":\"rectangle\",\"width\":3.0,\"height\":8.0,\"orientation\":0.0}},\"sailors\":[{\"x\":0,\"y\":0,\"id\":0,\"name\":\"Tom Teach\"},{\"x\":0,\"y\":1,\"id\":1,\"name\":\"Jack Pouce\"},{\"x\":0,\"y\":2,\"id\":2,\"name\":\"Tom Teach\"},{\"x\":1,\"y\":0,\"id\":3,\"name\":\"Jack Teach\"},{\"x\":1,\"y\":1,\"id\":4,\"name\":\"Tom Teach\"},{\"x\":1,\"y\":2,\"id\":5,\"name\":\"Edward Teach\"},{\"x\":2,\"y\":0,\"id\":6,\"name\":\"Tom Teach\"},{\"x\":2,\"y\":1,\"id\":7,\"name\":\"Jack Pouce\"},{\"x\":2,\"y\":2,\"id\":8,\"name\":\"Luffy Pouce\"},{\"x\":3,\"y\":0,\"id\":9,\"name\":\"Edward Teach\"},{\"x\":3,\"y\":1,\"id\":10,\"name\":\"Edward Teach\"},{\"x\":3,\"y\":2,\"id\":11,\"name\":\"Jack Pouce\"}],\"shipCount\":1}";
