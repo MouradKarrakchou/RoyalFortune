@@ -84,12 +84,12 @@ public class Segment {
      * @param rectangle a rectangle
      * @return the angle between the segment and the orientation of a rectangle
      */
-    public double angleIntersectionBetweenSegmentAndRectangle(Rectangle rectangle) {
+    public double angleIntersectionBetweenSegmentAndRectangle(double orientationOfStream) {
         double distanceSegmentExtremityX = pointB.getX() - pointA.getX();
         double distanceSegmentExtremityY = pointB.getY() - pointA.getY();
         double distanceSegmentExtremity = Mathematician.distanceFormula(pointA, pointB);
 
-        double rectangleOrientation = rectangle.getOrientation();
+        double rectangleOrientation = orientationOfStream;
         double num = distanceSegmentExtremityX * Math.cos(rectangleOrientation) + distanceSegmentExtremityY * Math.sin(rectangleOrientation);
 
         return Math.acos(num / distanceSegmentExtremity);

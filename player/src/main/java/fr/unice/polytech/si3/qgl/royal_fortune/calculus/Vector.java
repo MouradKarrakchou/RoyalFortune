@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.awt.*;
@@ -58,5 +59,4 @@ public class Vector {
         Vector unitVector = this.unitVector();
         return new Vector(-unitVector.y, unitVector.x);
     }
-
 }

@@ -32,6 +32,10 @@ public class Shape {
 	final Logger logger = Logger.getLogger(Shape.class.getName());
 	boolean updated = false;
 
+	public void setUpdated(boolean updated) {
+		this.updated = updated;
+	}
+
 	public Shape() {
 	}
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import fr.unice.polytech.si3.qgl.royal_fortune.Cockpit;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
@@ -42,7 +43,7 @@ public class Circle extends Shape{
     @Override
     public void updateForReef() {
         if (!super.updated)
-            radius+=15;
+            radius+= Cockpit.SECURITY_UPSCALE;
         super.updated=true;
     }
     @Override
