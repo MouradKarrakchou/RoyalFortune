@@ -33,11 +33,15 @@ public class Cartologue {
         if (map.containsKey(segment)) {
             if (map.get(segment).isStream()) {
                 Stream stream = (Stream) map.get(segment);
-                double angle = segment.angleIntersectionBetweenSegmentAndRectangle((Rectangle) stream.getShape());
+                double angle = segment.angleIntersectionBetweenSegmentAndRectangle(stream.getPosition().getOrientation());
                 double distancePushByStream = (165 + stream.getStrength() * Math.cos(angle));
                 dist = segment.getLength() / distancePushByStream;
-            if(distancePushByStream < 0) return (Double.POSITIVE_INFINITY);
-            } else {
+                if (distancePushByStream<0)
+                    return (Double.POSITIVE_INFINITY);
+                return dist;
+            }
+
+            else {
                 return (Double.POSITIVE_INFINITY);
             }
         }
@@ -66,24 +70,32 @@ public class Cartologue {
         List<Position> intersections;
         for (SeaEntities seaEntities:listSeaEntities){
             intersections= seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition());
-            if (intersections.size()==3)
-            {
-                segments.add(new Segment(intersections.get(0),intersections.get(1)));
-                segments.add(new Segment(intersections.get(1),intersections.get(2)));
-                if(isOnStream)
-                    map.put(segments.get(0),seaEntities);
-                else
+
+            if (seaEntities instanceof Stream) {
+                if (intersections.size()==3)
+                {
+                    segments.add(new Segment(intersections.get(0),intersections.get(1)));
+                    segments.add(new Segment(intersections.get(1),intersections.get(2)));
+                    if(isOnStream)
+                        map.put(segments.get(0),seaEntities);
+                    else
+                        map.put(segments.get(1),seaEntities);
+                    return segments;
+                }
+                else if (intersections.size()==4)
+                {
+                    segments.add(new Segment(intersections.get(0),intersections.get(1)));
+                    segments.add(new Segment(intersections.get(1),intersections.get(2)));
+                    segments.add(new Segment(intersections.get(2),intersections.get(3)));
                     map.put(segments.get(1),seaEntities);
-                return segments;
+                    return segments;
+                }
             }
-            else if (intersections.size()==4)
-            {
-                segments.add(new Segment(intersections.get(0),intersections.get(1)));
-                segments.add(new Segment(intersections.get(1),intersections.get(2)));
-                segments.add(new Segment(intersections.get(2),intersections.get(3)));
-                map.put(segments.get(1),seaEntities);
-                return segments;
+
+            else if (intersections.size() > 2) {
+                map.put(path, seaEntities);
             }
+
         }
         return segments;
     }

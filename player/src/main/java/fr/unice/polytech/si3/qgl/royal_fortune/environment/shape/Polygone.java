@@ -11,6 +11,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -53,16 +54,16 @@ public class Polygone extends Shape{
      */
     public void updatePolygone(Position center){
         if (!super.updated){
-        for(int i = 0; i < vertices.length; i++){
-            Point currentPont = vertices[i];
-            Vector centerPointUnitVector = new Vector(new Point(0,0), currentPont).unitVector();
-            vertices[i] = new Point(
-                    (int) Math.ceil(currentPont.getX() + centerPointUnitVector.x * SECURITY_UPSCALE),
-                    (int) Math.ceil(currentPont.getY() + centerPointUnitVector.y * SECURITY_UPSCALE)
-            );
+            for(int i = 0; i < vertices.length; i++){
+                Point currentPont = vertices[i];
+                Vector centerPointUnitVector = new Vector(new Point(0,0), currentPont).unitVector();
+                vertices[i] = new Point(
+                        (int) Math.ceil(currentPont.getX() + centerPointUnitVector.x * SECURITY_UPSCALE),
+                        (int) Math.ceil(currentPont.getY() + centerPointUnitVector.y * SECURITY_UPSCALE)
+                );
+            }
+            Mathematician.changeBasePointList(vertices, center);
         }
-        Position position=new Position(center.getX(),center.getY(),this.orientation);
-        Mathematician.changeBasePointList(vertices, position);}
 
         super.updated=true;
 
@@ -87,5 +88,32 @@ public class Polygone extends Shape{
             Log.info("Json Exception");
         }
         return "";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Polygone polygone = (Polygone) o;
+
+        if (Double.compare(polygone.orientation, orientation) != 0)
+            return false;
+
+        return (Arrays.equals(vertices, polygone.vertices));
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(orientation);
+        result = (int) (temp ^ (temp >>> 32));
+        result = 31 * result + Arrays.hashCode(vertices);
+        result = 31 * result + (segmentList != null ? segmentList.hashCode() : 0);
+        return result;
     }
 }
