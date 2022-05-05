@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Curl Slack WebHook
+name: Slack WebHook
 
 on:
   push:
@@ -10,9 +10,14 @@ on:
     branches: [ master, develop ]
 
 jobs:
-  run-updater:
+  slackNotification:
+    name: Slack Notification Demo
     runs-on: ubuntu-latest
     steps:
-      - name: REST API with curl
-        run: |
-              curl -X POST --data '{"text":"Yohoo, mousaillon ! Une nouvelle version de royal fortune est disponible!\nVoici une reconstitution de la dernière traversé du Royal Fortune réalisée par notre meilleur matelo peintre:\n https://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@raw.githubusercontent.com/pns-si3-qgl/qgl-21-22-royal_fortune/develop/tooling/webtool/webtool/uploads/lastRun.png"}' https://hooks.slack.com/services/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
+      - uses: actions/checkout@master
+      - name: Slack Notification Demo
+        uses: bryannice/gitactions-slack-notification@2.0.0
+        env:
+          SLACK_INCOMING_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_MESSAGE: "Yohooo, moussaillon ! Une nouvelle version de royale fortune est disponible!\voici une reconstitution de la dernière traversée du Royal Fortune réalisée par notre meilleur matelot peintre:\n https://raw.githubusercontent.com/pns-si3-qgl/qgl-21-22-royal_fortune/develop/tooling/webtool/webtool/uploads/lastRun.png"
+          SLACK_TITLE: 'Les actualités de Royal Fortune'
