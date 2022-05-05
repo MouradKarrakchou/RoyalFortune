@@ -5,7 +5,7 @@ name: Curl Slack WebHook
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ master]
   pull_request:
     branches: [ master, develop ]
 
@@ -15,4 +15,4 @@ jobs:
     steps:
       - name: REST API with curl
         run: |
-              curl -X POST --data '{"text":"Yohoo, mousaillon ! Une nouvelle version de royal fortune est disponible!\nVoici une reconstitution de la dernière traversé du Royal Fortune réalisée par notre meilleur matelo peintre:\n https://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@raw.githubusercontent.com/pns-si3-qgl/qgl-21-22-royal_fortune/develop/tooling/webtool/webtool/uploads/lastRun.png"}' https://hooks.slack.com/services/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
+              curl -X POST --data '{"text":"Yohoo, mousaillon ! Une nouvelle version de royal fortune est disponible!\nVoici une reconstitution de la dernière traversé du Royal Fortune réalisée par notre meilleur matelo peintre:\n https://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@raw.githubusercontent.com/pns-si3-qgl/qgl-21-22-royal_fortune/develop/tooling/webtool/webtool/uploads/lastRun.png"}' https://hooks.slack.com/services/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
