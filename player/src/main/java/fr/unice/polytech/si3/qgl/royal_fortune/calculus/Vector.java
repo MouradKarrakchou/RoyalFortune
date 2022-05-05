@@ -59,13 +59,4 @@ public class Vector {
         Vector unitVector = this.unitVector();
         return new Vector(-unitVector.y, unitVector.x);
     }
-
-    public double getOrientationFromSegment(Segment segment) {
-        double x = segment.getPointB().getX() - segment.getPointA().getX();
-        double y = segment.getPointB().getY() - segment.getPointA().getY();
-        double norm = Mathematician.distanceFormula(segment.getPointA(), segment.getPointB());
-
-        return Math.acos( (x*1 + y*0) / (norm*1) );
-    }
-
 }
