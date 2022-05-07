@@ -58,14 +58,6 @@ public class Observer {
         }
         return false;
     }
-    public List<Beacon> generateRandomBeacon(Position shipPosition){
-        Random random=new Random(1000);
-        List<Beacon> listBeacon=new ArrayList<>();
-        for (int k=0;k<1000;k++){
-            listBeacon.add(new Beacon(new Position(shipPosition.getX()+(random.nextInt()-500),shipPosition.getY()+(random.nextInt()-500),0)));
-        }
-        return listBeacon;
-    }
 
     /**
      *If there is new Entities in RANGE ask Mathematician to find the best path through a beacon.
