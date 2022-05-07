@@ -40,37 +40,17 @@ public class GeometryCircle {
     public static List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
         List<Beacon> beaconList = new ArrayList<>();
 
-        double[] vectorShipCheckpoint = computeDirectorAndNormalVectorsShipCheckpoint(shipPosition, checkpointPosition);
-        double directorVectorX = vectorShipCheckpoint[0];
-        double directorVectorY = vectorShipCheckpoint[1];
-        double normalVectorX = vectorShipCheckpoint[2];
-        double normalVectorY = vectorShipCheckpoint[3];
+        Vector unitShipCheckpointVector = new Vector(shipPosition, checkpointPosition).unitVector();
+        Vector normaUnitShipCheckpointVector = unitShipCheckpointVector.unitNormalVector();
         double circleRadius = reefShape.getRadius();
 
-        createRightBeaconUsingCircleReef(reefPosition, directorVectorX, directorVectorY, circleRadius, beaconList);
-        createLeftBeaconUsingCircleReef(reefPosition, directorVectorX, directorVectorY, circleRadius, beaconList);
+        createRightBeaconUsingCircleReef(reefPosition, unitShipCheckpointVector.x, unitShipCheckpointVector.y, circleRadius, beaconList);
+        createLeftBeaconUsingCircleReef(reefPosition, unitShipCheckpointVector.x, unitShipCheckpointVector.y, circleRadius, beaconList);
 
-        createUpBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, beaconList);
-        createDownBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, beaconList);
+        createUpBeaconUsingCircleReef(reefPosition, normaUnitShipCheckpointVector.x, normaUnitShipCheckpointVector.y, circleRadius, beaconList);
+        createDownBeaconUsingCircleReef(reefPosition, normaUnitShipCheckpointVector.x, normaUnitShipCheckpointVector.y, circleRadius, beaconList);
 
         return beaconList;
-    }
-
-    /**
-     * Compute the director and normal vectors on the trajectory ship - checkpoint
-     * @param shipPosition ship position
-     * @param checkpointPosition checkpoint position
-     * @return a tab of double of size 4, having directorVectorX, directorVectorY, normalVectorX and normalVectorY (in that order)
-     */
-    public static double[] computeDirectorAndNormalVectorsShipCheckpoint(Position shipPosition, Position checkpointPosition){
-        double directorVectorShipCheckpointX = checkpointPosition.getX() - shipPosition.getX();
-        double directorVectorShipCheckpointY = checkpointPosition.getY() - shipPosition.getY();
-        double normShipCheckpoint = Math.sqrt(directorVectorShipCheckpointX * directorVectorShipCheckpointX + directorVectorShipCheckpointY * directorVectorShipCheckpointY);
-
-        double directorVectorNormedShipCheckpointX = directorVectorShipCheckpointX / normShipCheckpoint;
-        double directorVectorNormedShipCheckpointY = directorVectorShipCheckpointY / normShipCheckpoint;
-
-        return new double[] {directorVectorNormedShipCheckpointX, directorVectorNormedShipCheckpointY, -directorVectorNormedShipCheckpointY, directorVectorNormedShipCheckpointX};
     }
 
     /**
