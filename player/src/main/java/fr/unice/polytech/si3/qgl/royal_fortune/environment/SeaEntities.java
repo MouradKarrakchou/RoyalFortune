@@ -6,13 +6,16 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Stream.class, name = "stream"),
-        @JsonSubTypes.Type(value = Reef.class, name = "reef")
+        @JsonSubTypes.Type(value = Reef.class, name = "reef"),
+        @JsonSubTypes.Type(value = Ship.class, name = "ship")
+
 })
 @JsonIgnoreProperties(value = {
         "stream",
