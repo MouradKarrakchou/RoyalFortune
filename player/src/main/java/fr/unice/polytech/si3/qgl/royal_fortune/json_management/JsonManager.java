@@ -44,7 +44,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(game, InitGameDAO.class);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, exception);
+			LOGGER.log(Level.INFO, e.toString());
 		}
 		return null;
 	}
@@ -60,7 +60,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(round, NextRoundDAO.class);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, exception);
+			LOGGER.log(Level.INFO, e.toString());
 		}
 		return null;
 	}
@@ -76,7 +76,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, Ship.class);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, exception);
+			LOGGER.log(Level.INFO, e.toString());
 		}
 		return null;
 	}

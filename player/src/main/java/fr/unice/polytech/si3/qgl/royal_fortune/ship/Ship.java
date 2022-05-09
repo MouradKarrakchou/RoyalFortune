@@ -4,6 +4,10 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
@@ -16,7 +20,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
-public class Ship extends SeaEntities {
+public class Ship {
 	private String type;
 	private int life;
 	private Position position;

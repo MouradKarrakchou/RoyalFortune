@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.OtherShip;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
 public class NextRoundDAO {
@@ -34,7 +35,7 @@ public class NextRoundDAO {
 	}
 
 	public void removeShipFromSeaEntities(){
-		visibleEntities.removeIf(ent -> ent instanceof Ship);
+		visibleEntities.removeIf(ent -> ent instanceof OtherShip);
 	}
 
 	@Override
