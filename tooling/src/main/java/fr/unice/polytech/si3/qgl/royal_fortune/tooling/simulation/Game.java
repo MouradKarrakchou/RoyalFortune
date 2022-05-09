@@ -142,7 +142,7 @@ public class Game {
             if(seaEntity.getShape() instanceof Rectangle)
                 allBeacon.addAll(GeometryRectangle.generateBeacon(seaEntity.getPosition(), (Rectangle) seaEntity.getShapeForTool(),seaEntity.isReef()));
             if(seaEntity.getShape() instanceof Circle)
-                allBeacon.addAll(GeometryCircle.generateBeacon(ship.getPosition(),goal.getCheckPoints().get(0).getPosition(),seaEntity.getPosition(), (Circle) seaEntity.getShapeForTool()));
+                allBeacon.addAll(GeometryCircle.generateBeacon(seaEntity.getPosition(), (Circle) seaEntity.getShapeForTool()));
 
         }
         return allBeacon;

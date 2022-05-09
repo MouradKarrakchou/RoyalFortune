@@ -77,7 +77,7 @@ public class Observer {
         List<Beacon> beacons=new ArrayList<>();
         for (SeaEntities seaEntities:newSeaEntities){
             if (seaEntities.getShape() instanceof Circle)
-                beacons.addAll(GeometryCircle.generateBeacon(shipPosition, nextCheckPointPosition,seaEntities.getPosition(),(Circle) seaEntities.getShape()));
+                beacons.addAll(GeometryCircle.generateBeacon(seaEntities.getPosition(),(Circle) seaEntities.getShape()));
             else
                 beacons.addAll(seaEntities.getShape().generateBeacon(seaEntities.getPosition(),seaEntities.isReef()));
         }
