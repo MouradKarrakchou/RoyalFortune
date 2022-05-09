@@ -33,6 +33,10 @@ public class NextRoundDAO {
 		return visibleEntities;
 	}
 
+	public void removeShipFromSeaEntities(){
+		visibleEntities.removeIf(ent -> ent instanceof Ship);
+	}
+
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();
