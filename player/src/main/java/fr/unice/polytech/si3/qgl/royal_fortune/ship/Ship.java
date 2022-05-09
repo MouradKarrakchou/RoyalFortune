@@ -16,7 +16,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
  * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
-public class Ship /*extends SeaEntities*/ {
+public class Ship extends SeaEntities {
 	private String type;
 	private int life;
 	private Position position;
