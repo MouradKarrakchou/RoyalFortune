@@ -19,6 +19,7 @@ public class NextRoundDAO {
 	public NextRoundDAO(Ship ship, List<SeaEntities> visibleEntities, Wind wind) {
 		super();
 		this.ship = ship;
+		removeShipFromSeaEntities(visibleEntities);
 		this.visibleEntities = visibleEntities;
 		this.wind = wind;
 	}
