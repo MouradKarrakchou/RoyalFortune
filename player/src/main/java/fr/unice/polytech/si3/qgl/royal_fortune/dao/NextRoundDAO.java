@@ -19,7 +19,7 @@ public class NextRoundDAO {
 	public NextRoundDAO(Ship ship, List<SeaEntities> visibleEntities, Wind wind) {
 		super();
 		this.ship = ship;
-		removeShipFromSeaEntities(visibleEntities);
+		//removeShipFromSeaEntities(visibleEntities);
 		this.visibleEntities = visibleEntities;
 		this.wind = wind;
 	}
@@ -34,10 +34,10 @@ public class NextRoundDAO {
 		return visibleEntities;
 	}
 
-	private void removeShipFromSeaEntities(List<SeaEntities> visibleEntities){
+	/*private void removeShipFromSeaEntities(List<SeaEntities> visibleEntities){
 		for(SeaEntities ent: visibleEntities)
 			if(ent instanceof Ship) visibleEntities.remove(ent);
-	}
+	}*/
 
 	@Override
 	public String toString() {
