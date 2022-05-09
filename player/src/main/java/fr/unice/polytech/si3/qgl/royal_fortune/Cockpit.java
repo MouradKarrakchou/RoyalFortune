@@ -90,6 +90,7 @@ public class Cockpit implements ICockpit {
 		if(nextRoundDAO == null) {
 			throw new EmptyDaoException("NextRoundDAO is null check the NextRound JSON");
 		}
+		nextRoundDAO.removeShipFromSeaEntities();
 		return nextRoundDAO;
 	}
 
