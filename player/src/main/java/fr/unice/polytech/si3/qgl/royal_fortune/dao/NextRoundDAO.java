@@ -34,9 +34,7 @@ public class NextRoundDAO {
 	}
 
 	public void removeShipFromSeaEntities(){
-		for(SeaEntities ent: visibleEntities)
-			if(ent instanceof Ship) visibleEntities.remove(ent);
-
+		visibleEntities.removeIf(ent -> ent instanceof Ship);
 	}
 
 	@Override
