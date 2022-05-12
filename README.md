@@ -18,7 +18,7 @@ Dans le cadre de la course de bateau du module QGL, nous avons réalisé un bot 
 
 
 # The Royal Fortune Simulation (RFS)
-Nous avons développé notre propre runner de course. Il est composé de 2 parties:
+Nous avons développé notre propre runner de course afin de nous aider durant le projet. Il est composé de 2 parties:
 * Le tool Java, simule l'avancée du bateau et crée un fichier destiné au webtool
 * Le Webtool, présente un rendu graphique de la course en utilisant le fichier généré par le tool Java
 
