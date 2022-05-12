@@ -27,9 +27,11 @@ Nous avons développé notre propre runner de course. Il est composé de 2 parti
 Notre tool Java va donc simuler l'avancer du bateau et nous permettre de voir comment va se comporter notre bot. On a réalisé le tool en utilisant la doc de l'arbitre de runner officiel, afin de pouvoir avoir une course identique à celle du runner
 
 ## Le Webtool
+*Image d'exemple de Royal Fortune Simulation:*
+![](/ressources/Image_RFS.png)
+
 ### Le front-end
 Nous avons developpé le webtool en HTML/JS/CSS et par la suite nous avons ajouté un backend PHP.
-![](/ressources/Image_RFS.png)
 Lorsqu'on lance le webtool on remarque deux parties différentes:
 * Le panneaux de contrôle en haut à gauche, dans lequel on insère l'input de la course que l'on souhaite visualiser, on aussi d'autre options, comme "lock/unlock" la caméra afin de suivre le bateau durant son trajet, et un bouton pour télécharger une image de la course
 * C'est la mer, là ou le bateau va se déplacer et là ou l'on va afficher les récifs, les courants, les checkpoints, les balises utilisées pour le pathfinding et enfin le trajet du bateau
