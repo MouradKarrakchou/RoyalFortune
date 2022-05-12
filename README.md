@@ -29,7 +29,7 @@ Notre tool Java va donc simuler l'avancer du bateau et nous permettre de voir co
 ## Le Webtool
 ### Le front-end
 Nous avons developpé le webtool en HTML/JS/CSS et par la suite nous avons ajouté un backend PHP.
-[INSERER IMAGE DU WEBTOOL]
+![](/ressources/Image_RFS.png)
 Lorsqu'on lance le webtool on remarque deux parties différentes:
 * Le panneaux de contrôle en haut à gauche, dans lequel on insère l'input de la course que l'on souhaite visualiser, on aussi d'autre options, comme "lock/unlock" la caméra afin de suivre le bateau durant son trajet, et un bouton pour télécharger une image de la course
 * C'est la mer, là ou le bateau va se déplacer et là ou l'on va afficher les récifs, les courants, les checkpoints, les balises utilisées pour le pathfinding et enfin le trajet du bateau
