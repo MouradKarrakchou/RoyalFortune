@@ -63,12 +63,30 @@ class CartologueTest {
     }
 
     @Test
-    void testComputeDistance6(){
+    void testComputeDistance3(){
         Stream stream= new Stream(new Position(0,0),new Rectangle(1000,1000,0),50);
         Segment segment=new Segment(new Position(0,0),new Position(500,500));
         map.put(segment,stream);
         double dist=segment.getLength()/(165+stream.getStrength()*Math.cos(Math.PI/4));
         assertTrue(Math.abs(cartologue.computeNumberOfRoundsNeeded(segment)- dist)<0.01);
+    }
+
+    @Test
+    void testComputeDistanceInfinity1() {
+        Stream stream = new Stream(new Position(0,0, Math.PI),new Rectangle(1000,1000, Math.PI),165);
+        Segment segment = new Segment(new Position(0,0),new Position(1000,0));
+        map.put(segment,stream);
+
+        assertEquals(Double.POSITIVE_INFINITY, cartologue.computeNumberOfRoundsNeeded(segment));
+    }
+
+    @Test
+    void testComputeDistanceInfinity2() {
+        Stream stream = new Stream(new Position(0,0, Math.PI),new Rectangle(1000,1000, Math.PI),166);
+        Segment segment = new Segment(new Position(0,0),new Position(1000,0));
+        map.put(segment,stream);
+
+        assertEquals(Double.POSITIVE_INFINITY, cartologue.computeNumberOfRoundsNeeded(segment));
     }
 
     @Test
@@ -109,6 +127,85 @@ class CartologueTest {
         assertEquals(stream, map.get(cartoCut.get(1)));
         assertFalse(map.containsKey(cartoCut.get(0)));
         assertFalse(map.containsKey(cartoCut.get(2)));
+    }
+
+    @Test
+    void cutSegmentNotStream() {
+        Reef reef = new Reef(new Position(0,200),new Rectangle(100,100,0));
+        Segment segment = new Segment(new Position(0,0),new Position(0,1000));
+
+        listReef.add(reef);
+        cartologue = new Cartologue(listStream,listReef);
+        map = cartologue.getMap();
+
+        assertEquals(new ArrayList<>(), cartologue.cutSegment(segment, false));
+    }
+
+    @Test
+    void cutSegment3Intersections1() {
+        Stream stream = new Stream(new Position(300,0), new Rectangle(70,70,0), 50);
+        Segment segment = new Segment(new Position(0,0),new Position(300,0));
+
+        listStream.add(stream);
+        cartologue = new Cartologue(listStream,listReef);
+        map = cartologue.getMap();
+
+        List<Segment> cartoCut = cartologue.cutSegment(segment, false);
+
+        assertEquals(2, cartoCut.size());
+
+        assertEquals(0, cartoCut.get(0).getPointA().getX());
+        assertEquals(0, cartoCut.get(0).getPointA().getY());
+        assertEquals(250, cartoCut.get(0).getPointB().getX());
+        assertEquals(0, cartoCut.get(0).getPointB().getY());
+
+        assertEquals(250, cartoCut.get(1).getPointA().getX());
+        assertEquals(0, cartoCut.get(1).getPointA().getY());
+        assertEquals(300, cartoCut.get(1).getPointB().getX());
+        assertEquals(0, cartoCut.get(1).getPointB().getY());
+
+        assertFalse(map.containsKey(cartoCut.get(0)));
+        assertTrue(map.containsKey(cartoCut.get(1)));
+    }
+
+    @Test
+    void cutSegment3Intersections2() {
+        Stream stream = new Stream(new Position(300,0), new Rectangle(70,70,0), 50);
+        Segment segment = new Segment(new Position(0,0),new Position(300,0));
+
+        listStream.add(stream);
+        cartologue = new Cartologue(listStream,listReef);
+        map = cartologue.getMap();
+
+        List<Segment> cartoCut = cartologue.cutSegment(segment, true);
+
+        assertEquals(2, cartoCut.size());
+
+        assertEquals(0, cartoCut.get(0).getPointA().getX());
+        assertEquals(0, cartoCut.get(0).getPointA().getY());
+        assertEquals(250, cartoCut.get(0).getPointB().getX());
+        assertEquals(0, cartoCut.get(0).getPointB().getY());
+
+        assertEquals(250, cartoCut.get(1).getPointA().getX());
+        assertEquals(0, cartoCut.get(1).getPointA().getY());
+        assertEquals(300, cartoCut.get(1).getPointB().getX());
+        assertEquals(0, cartoCut.get(1).getPointB().getY());
+
+        assertTrue(map.containsKey(cartoCut.get(0)));
+        assertFalse(map.containsKey(cartoCut.get(1)));
+    }
+
+    @Test
+    void positionIsOnASeaEntities() {
+        Stream stream = new Stream(new Position(300,0), new Rectangle(70,70,0), 50);
+        Position position1 = new Position(300, 0);
+        Position position2 = new Position(0, 0);
+
+        listStream.add(stream);
+        cartologue = new Cartologue(listStream,listReef);
+
+        assertTrue(cartologue.positionIsOnASeaEntities(position1));
+        assertFalse(cartologue.positionIsOnASeaEntities(position2));
     }
 
 }

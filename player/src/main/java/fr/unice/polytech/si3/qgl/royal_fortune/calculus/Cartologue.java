@@ -34,7 +34,7 @@ public class Cartologue {
             if (map.get(segment).isStream()) {
                 Stream stream = (Stream) map.get(segment);
                 double angle = segment.angleIntersectionBetweenSegmentAndRectangle(stream.getPosition().getOrientation());
-                double distancePushByStream = (165 + stream.getStrength() * Math.cos(angle));
+                double distancePushByStream = 165 + stream.getStrength() * Math.cos(angle);
                 dist = segment.getLength() / distancePushByStream;
                 if (distancePushByStream < 0)
                     return (Double.POSITIVE_INFINITY);
@@ -107,7 +107,7 @@ public class Cartologue {
      * @return true if the point is in the rectangle
      * @param pointA a point
      */
-    private boolean positionIsOnASeaEntities(Position pointA) {
+    public boolean positionIsOnASeaEntities(Position pointA) {
         for (SeaEntities seaEntities:listSeaEntities){
             if (seaEntities.getShape().positionIsInTheShape(pointA, seaEntities.getPosition())) return true;
         }
