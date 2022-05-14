@@ -37,7 +37,7 @@ public class GeometryRectangle {
      * @return a list that contain the 4 corner of the rectangle [HG, HD, BD, BG]
      */
     public static List<Position> computeCorner(Position aPosition, Rectangle rectangle) {
-        List<Position> listOfPosition=new ArrayList<>();
+        List<Position> listOfPosition = new ArrayList<>();
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
         listOfPosition.add(Mathematician.changeBase(aPosition,-height/2,width/2));

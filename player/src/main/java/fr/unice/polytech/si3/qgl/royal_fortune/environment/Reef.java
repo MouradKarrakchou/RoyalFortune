@@ -18,7 +18,6 @@ public class Reef extends SeaEntities {
                 && this.shape.equals(reef.shape);
     }
 
-    /*
     @Override
     public int hashCode() {
         int result = 17;
@@ -26,5 +25,5 @@ public class Reef extends SeaEntities {
         result = 31 * result + Integer.parseInt(String.valueOf(position.getY()));
         result = 31 * result + String.valueOf(shape.getType()).hashCode();
         return result;
-    }*/
+    }
 }

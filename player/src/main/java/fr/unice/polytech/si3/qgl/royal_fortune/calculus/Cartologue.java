@@ -36,7 +36,7 @@ public class Cartologue {
                 double angle = segment.angleIntersectionBetweenSegmentAndRectangle(stream.getPosition().getOrientation());
                 double distancePushByStream = (165 + stream.getStrength() * Math.cos(angle));
                 dist = segment.getLength() / distancePushByStream;
-                if (distancePushByStream<0)
+                if (distancePushByStream < 0)
                     return (Double.POSITIVE_INFINITY);
                 return dist;
             }
@@ -66,10 +66,10 @@ public class Cartologue {
      * @return list of segments
      */
     public List<Segment> cutSegment(Segment path, Boolean isOnStream){
-        List<Segment> segments=new ArrayList<>();
+        List<Segment> segments = new ArrayList<>();
         List<Position> intersections;
-        for (SeaEntities seaEntities:listSeaEntities){
-            intersections= seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition());
+        for (SeaEntities seaEntities : listSeaEntities){
+            intersections = seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition());
 
             if (seaEntities instanceof Stream) {
                 if (intersections.size()==3)

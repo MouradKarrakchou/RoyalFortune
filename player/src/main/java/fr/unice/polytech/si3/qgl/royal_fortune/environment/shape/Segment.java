@@ -81,7 +81,7 @@ public class Segment {
 
     /**
      * Calculate the angle between the segment and the orientation of a rectangle
-     * @param rectangle a rectangle
+     * @param orientationOfStream orientation of the stream
      * @return the angle between the segment and the orientation of a rectangle
      */
     public double angleIntersectionBetweenSegmentAndRectangle(double orientationOfStream) {
