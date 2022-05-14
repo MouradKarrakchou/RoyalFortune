@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.OtherShip;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
@@ -14,13 +15,13 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Stream.class, name = "stream"),
         @JsonSubTypes.Type(value = Reef.class, name = "reef"),
-        @JsonSubTypes.Type(value = Ship.class, name = "ship")
-
+        @JsonSubTypes.Type(value = OtherShip.class, name = "ship")
 })
 @JsonIgnoreProperties(value = {
         "stream",
         "reef"
 })
+
 public class SeaEntities {
     Position position;
     Shape shape;

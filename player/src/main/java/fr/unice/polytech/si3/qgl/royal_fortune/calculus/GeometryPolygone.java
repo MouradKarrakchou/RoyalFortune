@@ -89,7 +89,7 @@ public class GeometryPolygone {
     }
 
     /**
-     * Generate Beacon 
+     * Generate a Beacon in each corner
      * @param position
      * @param polygone
      * @return

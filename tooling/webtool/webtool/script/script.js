@@ -533,7 +533,6 @@ function downloadimage() {
     var sea = document.getElementById('sea'); // full page 
     elementToLinkImage(sea);
     sendDataToBack();
-
     //sendImageToImageBB();
 }
 
@@ -547,68 +546,9 @@ function elementToLinkImage(element) {
         link.href = imgData;
         link.target = '_blank';
         link.click();
-        sendJSONToImageBB(imgData);
         return imgData;
     });
-    /*.then(function(newImg) {
-            resizeBase64Img(newImg, 1, 1).then(resized => {
-                let img = document.createElement("img");
-                img.id = "original";
-                img.src = resized;
-                document.body.innerHTML += resized;
-                //elementToLinkImage200x200(img);
-            });
-
-        });*/
 }
-
-function elementToImage(element) {
-    html2canvas(element, { allowTaint: true }).then(function(canvas) {
-        var link = document.createElement("a");
-        document.body.appendChild(link);
-        link.download = "html_image.png";
-        //link.href = canvas.toDataURL('image/jpeg', 0.1);
-        var imgData = canvas.toDataURL('image/png');
-
-    });
-}
-
-function sendJSONToImageBB(base64Img) {
-    var data = {
-        key: "522b74b1ff051383e00f9bf669be8d64",
-        image: base64Img,
-        name: "Royal_Fortune_Run"
-    };
-
-    var json = JSON.stringify(data);
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://api.imgbb.com/1/upload");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.send(json);
-
-    /* $.ajax({
-         url: 'https://api.imgbb.com/1/upload',
-         type: 'POST',
-         data: JSON.stringify(data),
-         contentType: 'application/json; charset=utf-8'
-       })*/
-}
-
-function elementToLinkImage200x200(element) {
-    html2canvas(element, { allowTaint: true, width: 200, height: 200 }).then(function(canvas) {
-        var link = document.createElement("a");
-        document.body.appendChild(link);
-        link.download = "html_imageResized.png";
-        //link.href = canvas.toDataURL('image/jpeg', 0.1);
-        var imgData = canvas.toDataURL('image/png');
-        link.href = imgData;
-        link.target = '_blank';
-        link.click();
-    });
-}
-
 function resizeBase64Img(base64, newWidth, newHeight) {
     return new Promise((resolve, reject) => {
         var canvas = document.createElement("canvas");
@@ -625,61 +565,27 @@ function resizeBase64Img(base64, newWidth, newHeight) {
     });
 }
 
-
-
 function sendDataToBack() {
-    $('#sea').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
-    var container = document.getElementById('sea'); // full page 
-    html2canvas(container, { allowTaint: true }, {
-        width: 1200,
-        height: 1200
-    }).then(function(canvas) {
+    $('#sea').css({"min-height": window.maxY + 1000, "min-width": window.maxX + 1000});
+    var container = document.getElementById('sea'); // full page
+    html2canvas(container, {allowTaint: true, foreignObjectRendering: true}).then(function (canvas) {
+        var link = document.createElement("a");
+        document.body.appendChild(link);
+        link.download = "html_image.png";
         var imgData = canvas.toDataURL('image/jpeg', 0.1);
-        resizeBase64Img(imgData, 200, 200).then(resized => {
-            var form_data = new FormData();
-            form_data.append('file', resized);
-            $.ajax({
-                url: '../backend/decode64.php', // <-- point to server-side PHP script 
-                dataType: 'text', // <-- what to expect back from the PHP script, if anything
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-                type: 'post',
-                success: function(php_script_response) {
-                    console.log(php_script_response); // <-- display response from the PHP script, if any
-                }
-            });
+        var form_data = new FormData();
+        form_data.append('file', imgData);
+        $.ajax({
+            url: '../backend/decode64.php', // <-- point to server-side PHP script
+            dataType: 'text', // <-- what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(php_script_response) {
+                console.log(php_script_response); // <-- display response from the PHP script, if any
+            }
         });
-
     });
-}
-
-function sendImageToImageBB() {
-    $('#sea').css({ "min-height": window.maxY + 1000, "min-width": window.maxX + 1000 });
-    var container = document.getElementById('sea'); // full page 
-    html2canvas(container, { allowTaint: true }).then(function(canvas) {
-        //var imgData = canvas.toDataURL('image/jpeg', 0.1);
-        var imgData = canvas.toDataURL('png');
-
-        resizeBase64Img(imgData, 200, 200).then(resized => {
-            alert("imgData = " + resized);
-            let key = "522b74b1ff051383e00f9bf669be8d64";
-            $.post('https://api.imgbb.com/1/upload', { key: key, image: resized, name: "Royal_Fortune" }, function(response) {
-                alert("success");
-            }).fail(alert("fail"));
-
-        });
-
-        /*const formData = new FormData();
-        formData.append("image", imgData); // has to be named 'image'!
-        let apiresponse = axios.post('https://api.imgbb.com/1/upload?key=' + key, formData)
-            .then(res => { alert(res.data) })
-            .catch(error => { alert("nooo") })*/
-    });
-}
-
-function radians_to_degrees(radians) {
-    var pi = Math.PI;
-    return radians * (180 / pi);
 }

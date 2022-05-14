@@ -163,7 +163,7 @@
 							<targetTests>
 								<param>fr.unice.polytech.si3.qgl.${artifactId}*</param>
 							</targetTests>
-							<mutationThreshold>30</mutationThreshold>
+							<mutationThreshold>60</mutationThreshold>
 						</configuration>
 					</plugin>
 				</plugins>
