@@ -82,16 +82,12 @@ class GeometryCircleTest {
         assertEquals(330, beaconList.get(0).getPosition().getX());
         assertEquals(-10, beaconList.get(0).getPosition().getY());
 
-        /*
-        assertEquals(-130, beaconList.get(1).getPosition().getX());
-        assertEquals(-10, beaconList.get(1).getPosition().getY());
+        assertEquals(100 + Math.cos((2 * Math.PI) / 45) * (30 + Beacon.RADIUSBEACON), beaconList.get(1).getPosition().getX());
+        assertEquals(-10 + Math.sin((2 * Math.PI) / 45) * (30 + Beacon.RADIUSBEACON), beaconList.get(1).getPosition().getY());
 
-        assertEquals(100, beaconList.get(2).getPosition().getX());
-        assertEquals(220, beaconList.get(2).getPosition().getY());
+        assertEquals(100 + Math.cos(37*(2 * Math.PI) / 45) * (30 + Beacon.RADIUSBEACON), beaconList.get(37).getPosition().getX());
+        assertEquals(-10 + Math.sin(37*(2 * Math.PI) / 45) * (30 + Beacon.RADIUSBEACON), beaconList.get(37).getPosition().getY());
 
-        assertEquals(100, beaconList.get(3).getPosition().getX());
-        assertEquals(-240, beaconList.get(3).getPosition().getY());
-        */
     }
 
     @Test
@@ -297,5 +293,29 @@ class GeometryCircleTest {
         assertEquals(3127.92587438173, intersectionList.get(1).getX());
         assertEquals(3595.1378149963166, intersectionList.get(1).getY());
         assertEquals(0, intersectionList.get(1).getOrientation());
+    }
+
+    @Test
+    void computeIntersectionWithTest() {
+        Segment segment = new Segment(new Position(0,0), new Position(100, 0));
+        Position circlePosition = new Position(50, 0);
+        Circle circle = new Circle(20);
+
+        List<Position> intersectionList = GeometryCircle.computeIntersectionWith(segment, circlePosition, circle);
+
+        assertEquals(4, intersectionList.size());
+
+        assertEquals(0, intersectionList.get(0).getX());
+        assertEquals(0, intersectionList.get(0).getY());
+
+        assertEquals(30, intersectionList.get(1).getX());
+        assertEquals(0, intersectionList.get(1).getY());
+
+        assertEquals(70, intersectionList.get(2).getX());
+        assertEquals(0, intersectionList.get(2).getY());
+
+        assertEquals(100, intersectionList.get(3).getX());
+        assertEquals(0, intersectionList.get(3).getY());
+
     }
 }
