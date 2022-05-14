@@ -138,7 +138,8 @@ class CartologueTest {
         cartologue = new Cartologue(listStream,listReef);
         map = cartologue.getMap();
 
-        assertEquals(new ArrayList<>(), cartologue.cutSegment(segment, false));
+        List<Segment> segmentList = new ArrayList<>();
+        assertEquals(segmentList, cartologue.cutSegment(segment, false));
     }
 
     @Test

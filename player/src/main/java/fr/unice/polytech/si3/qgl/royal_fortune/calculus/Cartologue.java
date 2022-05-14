@@ -100,8 +100,6 @@ public class Cartologue {
         return segments;
     }
 
-
-
     /**
      * check if the point is on a Stream
      * @return true if the point is in the rectangle
