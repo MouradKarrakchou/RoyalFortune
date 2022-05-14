@@ -110,29 +110,28 @@ class GeometryRectangleTest {
         assertTrue(res.size() > 0);
     }
 
-    /*
+
     @Test
     void generateBeaconStreamTest(){
-        Rectangle rectangle = new Rectangle(70, 50, 0);
+        Rectangle rectangle = new Rectangle(50, 70, 0);
+        double width=25;
+        double height=35;
         Stream stream = new Stream(new Position(0,0,0), rectangle, 5);
-        List<Beacon> res = GeometryRectangle.generateBeacon(stream.getPosition(), rectangle,false);
+        List<Beacon> res = GeometryRectangle.generateBeaconforStream(stream.getPosition(), rectangle);
+        for (int k=0;k<4;k++)
+        {
+            assertTrue((Math.abs(res.get(0+k*4).getPosition().getX() + width))<0.2);
+        assertTrue((Math.abs(res.get(0+k*4).getPosition().getY() + height-k*height/2))<0.2);
 
-        assertTrue((Math.abs(res.get(0).getPosition().getX() + 25))<0.2);
-        assertTrue((Math.abs(res.get(0).getPosition().getY() + 35))<0.2);
-        assertTrue((Math.abs(res.get(0).getPosition().getOrientation()-0))<0.2);
+        assertTrue((Math.abs(res.get(1+k*4).getPosition().getX() - width)) <0.2);
+        assertTrue((Math.abs(res.get(1+k*4).getPosition().getY() - height+k*height/2))<0.2);
 
-        assertTrue((Math.abs(res.get(1).getPosition().getX() - 25)) <0.2);
-        assertTrue((Math.abs(res.get(1).getPosition().getY() - 35))<0.2);
-        assertTrue((Math.abs(res.get(1).getPosition().getOrientation()-0))<0.2);
+        assertTrue((Math.abs(res.get(2+k*4).getPosition().getX() + width-k*width/2)) < 0.2);
+        assertTrue((Math.abs(res.get(2+k*4).getPosition().getY() - height)) < 0.2);
 
-        assertTrue((Math.abs(res.get(2).getPosition().getX() + 25)) < 0.2);
-        assertTrue((Math.abs(res.get(2).getPosition().getY() - 35)) < 0.2);
-        assertTrue((Math.abs(res.get(2).getPosition().getOrientation()-0))<0.2);
-
-        assertTrue((Math.abs(res.get(3).getPosition().getX() - 25)) < 0.2);
-        assertTrue((Math.abs(res.get(3).getPosition().getY() + 35)) < 0.2);
-        assertTrue((Math.abs(res.get(3).getPosition().getOrientation()-0))<0.2);
-    }*/
+        assertTrue((Math.abs(res.get(3+k*4).getPosition().getX() - width+k*width/2)) < 0.2);
+        assertTrue((Math.abs(res.get(3+k*4).getPosition().getY() + height)) < 0.2);}
+    }
 
     @Test
     void generateBeaconReefTest(){

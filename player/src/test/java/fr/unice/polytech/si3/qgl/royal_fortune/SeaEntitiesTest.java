@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,19 @@ class SeaEntitiesTest {
         assertEquals(position.getX(), seaEntityPosition.getX());
         assertEquals(position.getY(), seaEntityPosition.getY());
         assertEquals(position.getOrientation(), seaEntityPosition.getOrientation());
+    }
+    @Test
+    void equalsTest(){
+        SeaEntities stream1= new SeaEntities(new Position(200,0),new Rectangle(100,100,0));
+        SeaEntities stream2= new SeaEntities(new Position(200,0),new Rectangle(100,100,0));
+        assertEquals(true,stream1.equals(stream2));
+    }
+    @Test
+    void getShapeTest(){
+        SeaEntities stream1= new Stream(new Position(200,0),new Rectangle(100,100,0),50);
+        assertEquals(100,((Rectangle)stream1.getShapeForTool()).getWidth());
+        assertEquals(130,((Rectangle)stream1.getShape()).getWidth());
+        assertEquals(130,((Rectangle)stream1.getShape()).getHeight());
     }
 
     @Test
