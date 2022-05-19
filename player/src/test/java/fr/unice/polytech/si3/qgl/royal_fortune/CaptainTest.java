@@ -276,4 +276,20 @@ class CaptainTest {
         String actions = captain.createAction();
         assertEquals("{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":12.0},{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":42.0}", actions);
     }
+
+    @Test
+    void roundDecisionTest() {
+        //First association that will check the associations.dissociateAll() from roundDecision
+        Sailor sailor = new Sailor(0, 0, 0, "Sailor0");
+        sailors.add(sailor);
+        Oar oar = new Oar(0, 0);
+        entities.add(oar);
+        captain.getAssociations().addAssociation(sailor, oar);
+
+        //First association that will check the roundActions.clear() from roundDecision
+        captain.getRoundActions().add(sailor.turnWithRudder(12));
+
+
+        assertEquals("[]", captain.roundDecisions());
+    }
 }
