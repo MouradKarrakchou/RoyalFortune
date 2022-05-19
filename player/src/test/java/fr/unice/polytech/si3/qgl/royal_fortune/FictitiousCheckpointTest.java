@@ -146,13 +146,23 @@ class FictitiousCheckpointTest {
         beaconStack.add(new Beacon(new Position(0, 0, 0)));
         beaconStack.add(new Beacon(new Position(1, 0, 0)));
         beaconStack.add(new Beacon(new Position(2, 0, 0)));
-        FictitiousCheckpoint fictitiousCheckpoints = new FictitiousCheckpoint(new ArrayList<>());
+        List<Checkpoint> initialCheckpoints = new ArrayList<>();
+        initialCheckpoints.add(new Checkpoint(new Position(0, 0), new Circle(0)));
+
+
+        FictitiousCheckpoint fictitiousCheckpoints = new FictitiousCheckpoint(initialCheckpoints);
 
         fictitiousCheckpoints.addBeacons(beaconStack);
         List<Checkpoint> checkpoints = fictitiousCheckpoints.getFictitiousCheckpoints();
         assertEquals(2, checkpoints.get(0).getPosition().getX());
         assertEquals(1, checkpoints.get(1).getPosition().getX());
         assertEquals(0, checkpoints.get(2).getPosition().getX());
+
+        beaconStack = new Stack<>();
+        beaconStack.add(new Beacon(new Position(4, 0, 0)));
+        fictitiousCheckpoints.addBeacons(beaconStack);
+        assertEquals(2, fictitiousCheckpoints.getFictitiousCheckpoints().size());
+        assertEquals(4, checkpoints.get(0).getPosition().getX());
     }
 
 
