@@ -143,7 +143,7 @@ public class Captain {
      * @param strategyAnswer
      * @param angleMove
      */
-    void turnWithRudderRoundAction(SailorPlacement strategyAnswer, double angleMove) {
+    public void turnWithRudderRoundAction(SailorPlacement strategyAnswer, double angleMove) {
         if(strategyAnswer.hasRudder()){
             double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
             double angleToTurnRudder = computeAngleToTurnRudder(angleMove, angleMadeBySailors);

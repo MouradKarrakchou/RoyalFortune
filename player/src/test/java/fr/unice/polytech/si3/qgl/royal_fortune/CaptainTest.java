@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorMovementStrategy;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
@@ -14,10 +15,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Watch;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -207,6 +205,30 @@ class CaptainTest {
 
         captain.useWatch(new SailorPlacement(0, false, false, true));
         assertEquals("[{\"sailorId\":0,\"type\":\"USE_WATCH\"}]", captain.getRoundActions().toString());
+    }
+
+    @Test
+    void turnWithRudderRoundActionTest() {
+        sailors.clear();
+        entities.clear();
+        for(int i = 0; i < 7; i++) {
+            sailors.add(new Sailor(0, 0, 0, "Sailor0"));
+            entities.add(new Oar());
+        }
+        entities.add(new Rudder(0, 0));
+
+        captain.getAssociations().addAssociation(sailors.get(0), basicShip.getRudder());
+
+        SailorPlacement sailorPlacement = new SailorPlacement(2, true, false);
+        sailorPlacement.incrementNbLeftSailor(5);
+        sailorPlacement.incrementNbRightSailor(3);
+
+        captain.turnWithRudderRoundAction(sailorPlacement, 13);
+        assertEquals("[{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":0.7853981633974483}]", captain.getRoundActions().toString());
+
+        captain.getRoundActions().clear();
+        captain.turnWithRudderRoundAction(sailorPlacement, -1.2);
+        assertEquals("[{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":-0.3024020989743448}]", captain.getRoundActions().toString());
     }
 
 }
