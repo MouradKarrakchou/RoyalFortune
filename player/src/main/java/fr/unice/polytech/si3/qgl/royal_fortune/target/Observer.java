@@ -25,11 +25,11 @@ public class Observer {
 
     public Observer(){
         this.currentSeaEntities=new ArrayList<>();
-        cartologue=new Cartologue(getStream(currentSeaEntities),getReef(currentSeaEntities));
+        this.cartologue=new Cartologue(getStream(currentSeaEntities),getReef(currentSeaEntities));
         this.mathematician = new Mathematician(cartologue);
     }
 
-    private List<Stream> getStream(List<SeaEntities> newSeaEntities){
+    public List<Stream> getStream(List<SeaEntities> newSeaEntities){
         List<Stream> listOfStream=new ArrayList<>();
         for(SeaEntities seaEntities:newSeaEntities){
             if (seaEntities instanceof Stream)
@@ -37,7 +37,7 @@ public class Observer {
         }
         return listOfStream;
     }
-    private List<Reef> getReef(List<SeaEntities> newSeaEntities){
+    public List<Reef> getReef(List<SeaEntities> newSeaEntities){
         List<Reef> listOfReef=new ArrayList<>();
         for(SeaEntities seaEntities:newSeaEntities){
             if (seaEntities instanceof Reef)

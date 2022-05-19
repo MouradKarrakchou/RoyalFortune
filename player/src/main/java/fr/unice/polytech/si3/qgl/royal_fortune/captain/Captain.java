@@ -254,4 +254,8 @@ public class Captain {
 
     public void updateSeaEntities(List<SeaEntities> seaEntities) {this.seaEntities=seaEntities;
     }
+
+    public List<SeaEntities> getSeaEntities() {
+        return seaEntities;
+    }
 }

@@ -2,10 +2,16 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
+import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.exception.EmptyDaoException;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -116,5 +122,58 @@ class CockpitTest {
         assertNotNull(cockpit.getSailors());
         assertNotNull(cockpit.getCaptain());
         assertNotNull(cockpit.getGoal());
+    }
+
+    @Test
+    void updateWithNextRoundShipPosition(){
+        Ship ship1 = new Ship("ship", 100, new Position(0,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
+        Ship ship2 = new Ship("ship", 100, new Position(100,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
+        Captain captain = new Captain(ship1, new ArrayList<>(), new Goal(), new FictitiousCheckpoint(new ArrayList<>()), new Wind());
+        NextRoundDAO nextRoundDAO = new NextRoundDAO(ship2, new ArrayList<>(), new Wind(0, 0));
+        Cockpit cockpit = new Cockpit(ship1, new ArrayList<>(), new Goal(), captain);
+
+        cockpit.updateWithNextRound(nextRoundDAO);
+        assertTrue(ship1.getPosition().equals(ship2.getPosition()));
+    }
+
+    @Test
+    void updateWithNextRoundShipEntities(){
+        List listShipEntities2 = new ArrayList<Entities>();
+        listShipEntities2.add(new Entities());
+        Ship ship1 = new Ship("ship", 100, new Position(0,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
+        Ship ship2 = new Ship("ship", 100, new Position(100,0,0), "bateau", new Deck(), listShipEntities2, new Shape());
+        Captain captain = new Captain(ship1, new ArrayList<>(), new Goal(), new FictitiousCheckpoint(new ArrayList<>()), new Wind());
+        NextRoundDAO nextRoundDAO = new NextRoundDAO(ship2, new ArrayList<>(), new Wind(0, 0));
+        Cockpit cockpit = new Cockpit(ship1, new ArrayList<>(), new Goal(), captain);
+
+        cockpit.updateWithNextRound(nextRoundDAO);
+        assertTrue(ship1.getEntities().equals(ship2.getEntities()));
+    }
+
+    @Test
+    void updateWithNextRoundSeaEntities(){
+        List listSeaEntities2 = new ArrayList<SeaEntities>();
+        listSeaEntities2.add(new SeaEntities());
+        Ship ship1 = new Ship("ship", 100, new Position(0,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
+        Ship ship2 = new Ship("ship", 100, new Position(100,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
+        Captain captain = new Captain(ship1, new ArrayList<>(), new Goal(), new FictitiousCheckpoint(new ArrayList<>()), new Wind());
+        NextRoundDAO nextRoundDAO = new NextRoundDAO(ship2, listSeaEntities2, new Wind(0, 0));
+        Cockpit cockpit = new Cockpit(ship1, new ArrayList<>(), new Goal(), captain);
+
+        cockpit.updateWithNextRound(nextRoundDAO);
+        assertTrue(cockpit.getCaptain().getSeaEntities().equals(listSeaEntities2));
+    }
+
+    @Test
+    void updateWithNextRoundSetWind(){
+        Wind wind = new Wind(0,0);
+        Ship ship1 = new Ship("ship", 100, new Position(0,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
+        Ship ship2 = new Ship("ship", 100, new Position(100,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
+        Captain captain = new Captain(ship1, new ArrayList<>(), new Goal(), new FictitiousCheckpoint(new ArrayList<>()), wind);
+        NextRoundDAO nextRoundDAO = new NextRoundDAO(ship2, new ArrayList<>(), wind);
+        Cockpit cockpit = new Cockpit(ship1, new ArrayList<>(), new Goal(), captain);
+
+        cockpit.updateWithNextRound(nextRoundDAO);
+        assertTrue(cockpit.getCaptain().getPreCalculator().getWind().equals(wind));
     }
 }

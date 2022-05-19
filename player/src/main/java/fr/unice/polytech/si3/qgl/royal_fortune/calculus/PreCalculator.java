@@ -69,4 +69,8 @@ public class PreCalculator {
     public void setWind(Wind wind) {
         this.wind = wind;
     }
+
+    public Wind getWind() {
+        return wind;
+    }
 }
