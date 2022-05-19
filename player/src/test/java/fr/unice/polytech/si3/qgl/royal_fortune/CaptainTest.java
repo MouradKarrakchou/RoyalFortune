@@ -265,6 +265,15 @@ class CaptainTest {
         entities.add(new Oar());
 
         assertEquals(1, captain.oarWeightNeeded(10));
+    }
 
+    @Test
+    void createActionTest() {
+        Sailor sailor = new Sailor(0, 0, 0, "Sailor");
+        captain.getRoundActions().add(sailor.turnWithRudder(12));
+        captain.getRoundActions().add(sailor.turnWithRudder(42));
+
+        String actions = captain.createAction();
+        assertEquals("{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":12.0},{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":42.0}", actions);
     }
 }
