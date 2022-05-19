@@ -2,16 +2,13 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorMovementStrategy;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
@@ -242,5 +239,32 @@ class CaptainTest {
         }
 
         assertTrue(captain.coneNotTooSmallAndNotInCone());
+    }
+
+    @Test
+    void angleSailorsShouldMakeNeededTest() {
+        captain.getDirectionsManager().setAngleMove(7);
+        captain.getDirectionsManager().setAngleCone(5);
+
+        entities.clear();
+        for(int i = 0; i < 11; i++) {
+            entities.add(new Oar());
+        }
+
+        double angle = captain.angleSailorsShouldMakeNeeded(3);
+
+        assertEquals(3*Math.PI/11, angle);
+    }
+
+    @Test
+    void oarWeightNeededTest() {
+        captain.getDirectionsManager().setAngleMove(7);
+        captain.getDirectionsManager().setAngleCone(5);
+
+        sailors.add(new Sailor(0, 0, 0, "Sailor0"));
+        entities.add(new Oar());
+
+        assertEquals(1, captain.oarWeightNeeded(10));
+
     }
 }

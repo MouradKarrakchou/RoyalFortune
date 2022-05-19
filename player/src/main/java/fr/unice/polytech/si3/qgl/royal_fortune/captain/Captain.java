@@ -111,7 +111,7 @@ public class Captain {
      * @param angleMove the ship needs to turn to
      * @return oar weight
      */
-    int oarWeightNeeded(double angleMove) {
+    public int oarWeightNeeded(double angleMove) {
         if (coneNotTooSmallAndNotInCone())
             return oarWeight(angleMove);
 
