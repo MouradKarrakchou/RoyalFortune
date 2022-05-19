@@ -4,11 +4,13 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -137,5 +139,22 @@ class FictitiousCheckpointTest {
         fictitiousCheckpoints.nextCheckPoint();
         assertNull(fictitiousCheckpoints.getCurrentCheckPoint());
     }
+
+    @Test
+    void addBeaconsTest(){
+        Stack<Beacon> beaconStack = new Stack<>();
+        beaconStack.add(new Beacon(new Position(0, 0, 0)));
+        beaconStack.add(new Beacon(new Position(1, 0, 0)));
+        beaconStack.add(new Beacon(new Position(2, 0, 0)));
+        FictitiousCheckpoint fictitiousCheckpoints = new FictitiousCheckpoint(new ArrayList<>());
+
+        fictitiousCheckpoints.addBeacons(beaconStack);
+        List<Checkpoint> checkpoints = fictitiousCheckpoints.getFictitiousCheckpoints();
+        assertEquals(2, checkpoints.get(0).getPosition().getX());
+        assertEquals(1, checkpoints.get(1).getPosition().getX());
+        assertEquals(0, checkpoints.get(2).getPosition().getX());
+    }
+
+
 
 }
