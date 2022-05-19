@@ -1,8 +1,10 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra.DijkstraNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class Main {
@@ -40,14 +42,13 @@ public class Main {
 		String seaEntitiesWeek10 ="[{\"position\":{\"x\":8272.490221642762,\"y\":-2851.5625000000005,\"orientation\":2.2165681500327987},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":200,\"height\":\"3000\"},\"strength\":250,\"id\":\"212747\"},{\"position\":{\"x\":8963.494132985665,\"y\":4596.354166666671,\"orientation\":1.43116998663535},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":\"250\",\"height\":\"5500\"},\"strength\":250,\"id\":\"143326\"},{\"position\":{\"x\":2157.757496740546,\"y\":2473.9583333333317,\"orientation\":1.3439035240356338},\"type\":\"stream\",\"shape\":{\"type\":\"rectangle\",\"width\":200,\"height\":\"5000\"},\"strength\":250,\"id\":\"560444\"},{\"position\":{\"x\":11844.850065189072,\"y\":-950.5208333333392,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"polygon\",\"vertices\":[{\"x\":\"-3500\",\"y\":\"1500\"},{\"x\":\"-1400\",\"y\":\"3500\"},{\"x\":\"500\",\"y\":\"3550\"},{\"x\":\"2200\",\"y\":\"3100\"},{\"x\":\"2200\",\"y\":\"400\"},{\"x\":0,\"y\":\"-500\"},{\"x\":\"-1800\",\"y\":\"-1000\"},{\"x\":\"-4200\",\"y\":\"300\"}]},\"id\":\"483392\"},{\"position\":{\"x\":10162.972620599741,\"y\":-1875.0000000000005,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"polygon\",\"vertices\":[{\"x\":0,\"y\":0},{\"x\":\"2600\",\"y\":\"800\"},{\"x\":\"3000\",\"y\":\"-1500\"},{\"x\":\"2500\",\"y\":\"-3500\"},{\"x\":\"2000\",\"y\":\"-4000\"},{\"x\":\"-600\",\"y\":\"-2000\"}]},\"id\":\"899920\"},{\"position\":{\"x\":7555.410691003901,\"y\":260.4166666666616,\"orientation\":-0.2617993877991494},\"type\":\"reef\",\"shape\":{\"type\":\"rectangle\",\"width\":\"2000\",\"height\":\"2000\"},\"id\":\"644760\"},{\"position\":{\"x\":5110.821382007823,\"y\":3072.9166666666665,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"polygon\",\"vertices\":[{\"x\":\"-2400\",\"y\":\"400\"},{\"x\":\"-1300\",\"y\":\"3000\"},{\"x\":\"2000\",\"y\":\"2300\"},{\"x\":\"2000\",\"y\":\"-500\"},{\"x\":\"1600\",\"y\":\"-3500\"},{\"x\":\"-1500\",\"y\":\"-5000\"},{\"x\":\"-2700\",\"y\":\"-3300\"}]},\"id\":\"271418\"},{\"position\":{\"x\":2288.135593220334,\"y\":-1874.9999999999995,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"circle\",\"radius\":\"250\"},\"id\":\"310400\"},{\"position\":{\"x\":11205.997392438076,\"y\":6406.2499999999945,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"circle\",\"radius\":\"1500\"},\"id\":\"594875\"},{\"position\":{\"x\":7027.379400260746,\"y\":-2792.968750000001,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"circle\",\"radius\":\"500\"},\"id\":\"994692\"},{\"position\":{\"x\":14048.239895697534,\"y\":2096.3541666666665,\"orientation\":0},\"type\":\"reef\",\"shape\":{\"type\":\"polygon\",\"vertices\":[{\"x\":0,\"y\":0},{\"x\":\"2500\",\"y\":\"400\"},{\"x\":\"1200\",\"y\":\"-2200\"},{\"x\":0,\"y\":\"-2550\"}]},\"id\":\"856245\"}]";
 		//------------------
 
-		Game game = new Game(jsonWeek8, seaEntitiesWeek8);
+		Game game = new Game(jsonWeek10, seaEntitiesWeek10);
 		OutputMaker.insertCheckpoints(game.getGoal().getCheckPoints());
 		OutputMaker.insertAllSeaEntities(game.getAllSeaEntities());
 		OutputMaker.insertBeacons(game.computeAllBeacons());
 		game.addFictiousCheckpoint();
-
 		int tour=0;
-		while (!game.isFinished() || tour < 50) {
+		while (!game.isFinished()) {
 			game.nextRound(wind);
 			LOGGER.info("round = "+ tour + "  "+String.valueOf(game));
 			OutputMaker.appendShipPosition(game.toString());

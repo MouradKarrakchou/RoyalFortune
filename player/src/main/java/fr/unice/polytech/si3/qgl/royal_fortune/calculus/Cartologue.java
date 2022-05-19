@@ -94,6 +94,7 @@ public class Cartologue {
 
             else if (intersections.size() > 2) {
                 map.put(path, seaEntities);
+                return segments;
             }
 
         }
