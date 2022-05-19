@@ -231,4 +231,16 @@ class CaptainTest {
         assertEquals("[{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":-0.3024020989743448}]", captain.getRoundActions().toString());
     }
 
+    @Test
+    void coneNotTooSmallAndNotInConeTest() {
+        captain.getDirectionsManager().setAngleMove(7);
+        captain.getDirectionsManager().setAngleCone(5);
+
+        entities.clear();
+        for(int i = 0; i < 3; i++) {
+            entities.add(new Oar());
+        }
+
+        assertTrue(captain.coneNotTooSmallAndNotInCone());
+    }
 }

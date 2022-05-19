@@ -258,4 +258,6 @@ public class Captain {
     public List<SeaEntities> getSeaEntities() {
         return seaEntities;
     }
+
+    public DirectionsManager getDirectionsManager() { return this.directionsManager; }
 }

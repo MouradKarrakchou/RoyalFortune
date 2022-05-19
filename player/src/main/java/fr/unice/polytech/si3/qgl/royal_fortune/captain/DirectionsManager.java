@@ -127,4 +127,8 @@ public class DirectionsManager {
     public int getDirection() {
         return angleMove > 0 ? RIGHT : LEFT;
     }
+
+    //These 2 setters are used for coneNotTooSmallAndNotInConeTest in CaptainTest
+    public void setAngleMove(double angleMove) { this.angleMove = angleMove; }
+    public void setAngleCone(double angleCone) { this.angleCone = angleCone; }
 }
