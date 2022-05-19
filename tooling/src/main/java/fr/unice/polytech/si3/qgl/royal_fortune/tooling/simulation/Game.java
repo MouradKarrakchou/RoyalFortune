@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryPolygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
@@ -9,6 +10,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.*;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -144,6 +146,8 @@ public class Game {
                 allBeacon.addAll(GeometryRectangle.generateBeacon(seaEntity.getPosition(), (Rectangle) seaEntity.getShapeForTool(),seaEntity.isReef()));
             if(seaEntity.getShape() instanceof Circle)
                 allBeacon.addAll(GeometryCircle.generateBeacon(seaEntity.getPosition(), (Circle) seaEntity.getShapeForTool()));
+            if(seaEntity.getShape() instanceof Polygone)
+                allBeacon.addAll(GeometryPolygone.generateBeacon(seaEntity.getPosition(), (Polygone) seaEntity.getShapeForTool()));
 
         }
         return allBeacon;
