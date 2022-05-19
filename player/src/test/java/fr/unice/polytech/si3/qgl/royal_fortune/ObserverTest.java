@@ -54,4 +54,34 @@ class ObserverTest {
         Stack<Beacon> beacons =observer.watchSea(currentSeaEntities);
         assertEquals(1, beacons.size());
     }
+
+    @Test
+    void getStreamTestNoStream(){
+        List<SeaEntities> listWithoutStream = new ArrayList<SeaEntities>();
+        listWithoutStream.add(new SeaEntities());
+        assertTrue(observer.getStream(listWithoutStream).isEmpty());
+    }
+
+    @Test
+    void getStreamTestOneStream(){
+        List<SeaEntities> listWithoutStream = new ArrayList<SeaEntities>();
+        listWithoutStream.add(new Stream());
+        assertEquals(1, observer.getStream(listWithoutStream).size());
+    }
+
+    @Test
+    void getReefTestNoReef(){
+        List<SeaEntities> listWithoutReef = new ArrayList<SeaEntities>();
+        listWithoutReef.add(new SeaEntities());
+        assertTrue(observer.getReef(listWithoutReef).isEmpty());
+    }
+
+    @Test
+    void getReefTestOneReef(){
+        List<SeaEntities> listWithoutReef = new ArrayList<SeaEntities>();
+        listWithoutReef.add(new Reef());
+        assertEquals(1, observer.getReef(listWithoutReef).size());
+    }
+
+
 }
