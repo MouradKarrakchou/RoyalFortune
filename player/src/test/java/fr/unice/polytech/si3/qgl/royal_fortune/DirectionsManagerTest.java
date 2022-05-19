@@ -293,5 +293,69 @@ class DirectionsManagerTest {
         assertTrue(Math.abs(computeDistance+3.14) < 0.2);
     }
 
+    @Test
+    void getAngleMoveTest(){
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle(3, 4, 0));
+
+        Checkpoint checkpoint = new Checkpoint(new Position(0, 50, 0), new Circle(50));
+
+        ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
+        checkpointArrayList.add(checkpoint);
+
+        dirMan = new DirectionsManager(ship, new FictitiousCheckpoint(checkpointArrayList));
+
+        double angle = dirMan.angleCalculator()[0];
+        assertEquals(1.5707963267948966, dirMan.getAngleMove());
+    }
+
+    @Test
+    void getAngleConeTest(){
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle(3, 4, 0));
+
+        Checkpoint checkpoint = new Checkpoint(new Position(0, 50, 0), new Circle(50));
+
+        ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
+        checkpointArrayList.add(checkpoint);
+
+        dirMan = new DirectionsManager(ship, new FictitiousCheckpoint(checkpointArrayList));
+
+        double angle = dirMan.angleCalculator()[0];
+        assertEquals(0.7853981633974483, dirMan.getAngleCone());
+    }
+    @Test
+    void getDirectionTest(){
+        Ship ship = new Ship(
+                "ship",
+                100,
+                new Position(0, 0, 0),
+                "ShipTest",
+                new Deck(3, 4),
+                entities,
+                new Rectangle(3, 4, 0));
+
+        Checkpoint checkpoint = new Checkpoint(new Position(0, 50, 0), new Circle(50));
+
+        ArrayList<Checkpoint> checkpointArrayList = new ArrayList<>();
+        checkpointArrayList.add(checkpoint);
+
+        dirMan = new DirectionsManager(ship, new FictitiousCheckpoint(checkpointArrayList));
+
+        double angle = dirMan.angleCalculator()[0];
+        assertEquals(1, dirMan.getDirection());
+    }
 
 }

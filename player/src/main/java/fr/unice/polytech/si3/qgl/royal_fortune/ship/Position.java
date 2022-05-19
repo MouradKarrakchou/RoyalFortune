@@ -33,12 +33,6 @@ public class Position implements IPositionable {
 		this.orientation = 0.0;
 	}
 
-	public Position(Point p) {
-		this.x = p.getX();
-		this.y = p.getY();
-		this.orientation = 0.0;
-	}
-	
 	public double getX() {
 		return x;
 	}
