@@ -18,6 +18,17 @@ public class Vector {
         this.x = headX - tailX;
         this.y = headY - tailY;
     }
+    public Vector(Segment segment) {
+        Position tail=segment.getPointA();
+        Position head=segment.getPointB();
+        double tailX = tail.getX();
+        double tailY = tail.getY();
+        double headX = head.getX();
+        double headY = head.getY();
+
+        this.x = headX - tailX;
+        this.y = headY - tailY;
+    }
 
     public Vector(Point tail, Point head) {
         double tailX = tail.getX();
