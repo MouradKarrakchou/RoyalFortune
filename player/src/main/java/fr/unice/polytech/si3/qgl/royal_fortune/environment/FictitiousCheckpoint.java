@@ -77,10 +77,6 @@ public class FictitiousCheckpoint {
         return fictitiousCheckpoints.get(0);
     }
 
-    public void addFictitiousCheckpoint(Checkpoint checkpoint){
-        fictitiousCheckpoints.add(0,checkpoint);
-    }
-
     public List<Checkpoint> getFictitiousCheckpoints() {
         return fictitiousCheckpoints;
     }
