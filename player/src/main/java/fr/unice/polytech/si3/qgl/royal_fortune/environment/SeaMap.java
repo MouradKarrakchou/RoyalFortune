@@ -25,7 +25,7 @@ public class SeaMap {
         this.seaEntities=seaEntities;
         observer=new Observer();
     }
-    public void updateCheckPoint(List<SeaEntities> newSeaEntities) {
+    public void updateCheckPoint(List<SeaEntities> newSeaEntities,double angleOfRotationOfPreviousRound) {
         if (isInCheckpoint(goal.getCheckPoints().get(0)))
         {
             goal.nextCheckPoint();
@@ -35,12 +35,12 @@ public class SeaMap {
         }
         if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
         {
-
             observer.getCartologue().getListSeaEntities().clear();
             this.seaEntities.clear();
             fictitiousCheckpoints.nextCheckPoint();
         }
-
+        if (angleOfRotationOfPreviousRound>Math.PI/5)
+            this.seaEntities.clear();
         observer.setNextCheckPointPosition(goal.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);
         if (observer.checkIfNewSeaEntities(newSeaEntities)){
