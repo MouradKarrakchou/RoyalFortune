@@ -15,6 +15,7 @@ public class SeaMap {
     private final Position shipPosition;
     private Wind wind;
     private List<SeaEntities> seaEntities;
+    int roundSinceLastCheckpoint;
     Observer observer;
 
     public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition,Wind wind,List<SeaEntities> seaEntities){
@@ -32,20 +33,23 @@ public class SeaMap {
             fictitiousCheckpoints.nextCheckPoint();
             observer.getCartologue().getListSeaEntities().clear();
             this.seaEntities.clear();
+            roundSinceLastCheckpoint=0;
         }
         if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
         {
             observer.getCartologue().getListSeaEntities().clear();
             this.seaEntities.clear();
             fictitiousCheckpoints.nextCheckPoint();
+            roundSinceLastCheckpoint=0;
         }
         if (Math.abs(angleOfRotationOfPreviousRound)>Math.PI/5)
             this.seaEntities.clear();
         observer.setNextCheckPointPosition(goal.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);
-        if (observer.checkIfNewSeaEntities(newSeaEntities)){
+        if (observer.checkIfNewSeaEntities(newSeaEntities)||roundSinceLastCheckpoint<6){
             Stack<Beacon> beaconStack=observer.watchSea(newSeaEntities);
             fictitiousCheckpoints.addBeacons(beaconStack);
+            roundSinceLastCheckpoint++;
         }
     }
     public boolean isInCheckpoint(Checkpoint checkpoint) {
