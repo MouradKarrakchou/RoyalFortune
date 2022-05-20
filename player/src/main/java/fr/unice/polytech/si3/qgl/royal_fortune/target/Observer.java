@@ -91,4 +91,8 @@ public class Observer {
     public Cartologue getCartologue() {
         return cartologue;
     }
+
+    public List<SeaEntities> getCurrentSeaEntities() {
+        return currentSeaEntities;
+    }
 }
