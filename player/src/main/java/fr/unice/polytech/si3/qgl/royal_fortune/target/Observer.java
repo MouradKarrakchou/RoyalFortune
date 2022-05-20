@@ -51,12 +51,15 @@ public class Observer {
      * @return boolean
      */
     public Boolean checkIfNewSeaEntities(List<SeaEntities> newSeaEntities){
+        boolean newSeaEntitybool=false;
         for (SeaEntities newSeaEntity : newSeaEntities){
-            newSeaEntity.getShape(); // Le getShape qui cache un update super important ça pue.
+            newSeaEntity.getShape();
             if (!currentSeaEntities.contains(newSeaEntity))
-                return true;
+            {newSeaEntitybool=true;
+                currentSeaEntities.add(newSeaEntity);
+            }
         }
-        return false;
+        return newSeaEntitybool;
     }
 
     /**

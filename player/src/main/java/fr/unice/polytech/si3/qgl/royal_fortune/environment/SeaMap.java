@@ -27,24 +27,23 @@ public class SeaMap {
         observer=new Observer();
     }
     public void updateCheckPoint(List<SeaEntities> newSeaEntities) {
+        boolean recheck=false;
         if (isInCheckpoint(goal.getCheckPoints().get(0)))
         {
             goal.nextCheckPoint();
             fictitiousCheckpoints.nextCheckPoint();
-            observer.getCartologue().getListSeaEntities().clear();
-            this.seaEntities.clear();
+            recheck=true;
             roundSinceLastCheckpoint=0;
         }
         if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
         {
             observer.getCartologue().getListSeaEntities().clear();
-            this.seaEntities.clear();
-            fictitiousCheckpoints.nextCheckPoint();
+            recheck=true;
             roundSinceLastCheckpoint=0;
         }
         observer.setNextCheckPointPosition(goal.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);
-        if (observer.checkIfNewSeaEntities(newSeaEntities)||roundSinceLastCheckpoint<6){
+        if (observer.checkIfNewSeaEntities(newSeaEntities)||roundSinceLastCheckpoint<6||recheck){
             Stack<Beacon> beaconStack=observer.watchSea(newSeaEntities);
             fictitiousCheckpoints.addBeacons(beaconStack);
             roundSinceLastCheckpoint++;
