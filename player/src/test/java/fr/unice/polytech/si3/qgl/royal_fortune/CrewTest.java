@@ -25,9 +25,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class CrewTest {
-    private Ship basicShip;
-    private Captain captain;
-    private List<Checkpoint> checkpoints;
     private List<Sailor> sailors;
     private List<Entities> entities;
     private Crew crew;
@@ -38,10 +35,10 @@ class CrewTest {
     void init(){
         sailors = new ArrayList<>();
         entities = new ArrayList<>();
-        checkpoints=new ArrayList<>();
+        List<Checkpoint> checkpoints = new ArrayList<>();
         checkpoints.add(new Checkpoint(new Position(5000,5000,0),new Circle(100)));
         goal=new Goal("",(ArrayList<Checkpoint>) checkpoints);
-        basicShip = new Ship(
+        Ship basicShip = new Ship(
                 "ship",
                 100,
                 new Position(0, 0, 0),
@@ -49,8 +46,8 @@ class CrewTest {
                 new Deck(3, 4),
                 entities,
                 new Rectangle(3, 4, 0));
-        captain=new Captain(basicShip,sailors,goal,new FictitiousCheckpoint(checkpoints), new Wind(0,0));
-        crew=captain.getCrew();
+        Captain captain = new Captain(basicShip, sailors, goal, new FictitiousCheckpoint(checkpoints), new Wind(0, 0));
+        crew= captain.getCrew();
         associations = captain.getAssociations();
     }
 
@@ -121,5 +118,45 @@ class CrewTest {
         associations.addAssociation(sailors.get(0), entities.get(0));
         action = crew.useWatch().toString();
         assertEquals("[{\"sailorId\":0,\"type\":\"USE_WATCH\"}]", action);
+    }
+
+    @Test
+    void makeBoatMoveTest() {
+        sailors.clear();
+        sailors.add(new Sailor(0, 0, 0, "Sailor0"));
+        entities.clear();
+        entities.add(new Oar(1, 1));
+        associations.addAssociation(sailors.get(0), entities.get(0));
+        assertEquals("[{\"sailorId\":0,\"type\":\"MOVING\",\"xdistance\":1,\"ydistance\":1}, {\"sailorId\":0,\"type\":\"OAR\"}]", crew.makeBoatMove().toString());
+    }
+
+    @Test
+    void sailorsActions() {
+        sailors.clear();
+        sailors.add(new Sailor(0, 0, 0, "Sailor0"));
+        entities.clear();
+
+        entities.add(new Oar(1, 1));
+        associations.addAssociation(sailors.get(0), entities.get(0));
+        assertEquals("[]", crew.sailorsOar().toString());
+        associations.dissociateAll();
+        entities.clear();
+
+        entities.add(new Rudder(1, 1));
+        associations.addAssociation(sailors.get(0), entities.get(0));
+        assertEquals("[]", crew.sailorsTurnWithRudder(2).toString());
+        associations.dissociateAll();
+        entities.clear();
+
+        entities.add(new Sail(1, 1, true));
+        associations.addAssociation(sailors.get(0), entities.get(0));
+        assertEquals("[]", crew.sailorsUseSail(true).toString());
+
+        assertEquals("[]", crew.useWatch().toString());
+        associations.dissociateAll();
+        entities.clear();
+        entities.add(new Watch(1, 1));
+        associations.addAssociation(sailors.get(0), entities.get(0));
+        assertEquals("[]", crew.useWatch().toString());
     }
 }
