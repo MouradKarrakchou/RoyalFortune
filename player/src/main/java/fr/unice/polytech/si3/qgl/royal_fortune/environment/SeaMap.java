@@ -39,7 +39,7 @@ public class SeaMap {
             this.seaEntities.clear();
             fictitiousCheckpoints.nextCheckPoint();
         }
-        if (angleOfRotationOfPreviousRound>Math.PI/5)
+        if (Math.abs(angleOfRotationOfPreviousRound)>Math.PI/5)
             this.seaEntities.clear();
         observer.setNextCheckPointPosition(goal.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);

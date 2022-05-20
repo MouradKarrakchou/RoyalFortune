@@ -29,7 +29,7 @@ public class Captain {
     private Wind wind;
     private Associations associations;
     private List<SeaEntities> seaEntities;
-    private Double angleRotationPreviousRound;
+    private double angleRotationPreviousRound=0;
 
     public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints, Wind wind) {
         this.ship = ship;
@@ -56,7 +56,7 @@ public class Captain {
     public String roundDecisions() {
         associations.dissociateAll();
         roundActions.clear();
-        seaMap.updateCheckPoint(seaEntities,0);
+        seaMap.updateCheckPoint(seaEntities,angleRotationPreviousRound);
         directionsManager.update();
         roundProceed();
         roundActions.addAll(crew.makeBoatMove());
