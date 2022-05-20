@@ -43,7 +43,7 @@ public class Circle extends Shape{
     @Override
     public void updateForReef() {
         if (!super.updated)
-            radius+= Cockpit.SECURITY_UPSCALE;
+            //radius+= Cockpit.SECURITY_UPSCALE;
         super.updated=true;
     }
     @Override
