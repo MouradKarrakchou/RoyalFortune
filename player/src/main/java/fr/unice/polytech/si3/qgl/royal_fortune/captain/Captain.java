@@ -56,7 +56,7 @@ public class Captain {
     public String roundDecisions() {
         associations.dissociateAll();
         roundActions.clear();
-        seaMap.updateCheckPoint(seaEntities,angleRotationPreviousRound);
+        seaMap.updateCheckPoint(seaEntities);
         directionsManager.update();
         roundProceed();
         roundActions.addAll(crew.makeBoatMove());
