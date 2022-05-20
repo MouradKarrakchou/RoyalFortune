@@ -49,6 +49,11 @@ public class GeometryCircle {
             Beacon rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
             beaconList.add(rightBeacon);
 
+            rightBeaconX = reefPositionX + Math.cos(i * BEACON_SHIFT) * (circleRadius*1.5 + Beacon.RADIUSBEACON);
+            rightBeaconY = reefPositionY + Math.sin(i * BEACON_SHIFT) * (circleRadius*1.5 + Beacon.RADIUSBEACON);
+            rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
+            beaconList.add(rightBeacon);
+
             rightBeaconX = reefPositionX + Math.cos(i * BEACON_SHIFT) * (circleRadius*2 + Beacon.RADIUSBEACON);
             rightBeaconY = reefPositionY + Math.sin(i * BEACON_SHIFT) * (circleRadius*2 + Beacon.RADIUSBEACON);
             rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
