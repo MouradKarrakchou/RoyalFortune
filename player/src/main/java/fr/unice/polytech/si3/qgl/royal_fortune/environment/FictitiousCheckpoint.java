@@ -84,11 +84,11 @@ public class FictitiousCheckpoint {
         return fictitiousCheckpoints;
     }
 
-    public void addBeacons(Stack<Beacon> beaconStack) {
+    public void addBeacons(List<Beacon> beaconList) {
         removeAllBeacons();
         int i=0;
-        while (!beaconStack.isEmpty()){
-            fictitiousCheckpoints.add(i,beaconStack.pop());
+        while (!beaconList.isEmpty()){
+            fictitiousCheckpoints.add(i,beaconList.remove(0));
             i++;
         }
     }

@@ -36,8 +36,8 @@ public class SeaMap {
         observer.setShipPosition(shipPosition);
 
         observer.updateSeaEntities(newSeaEntities);
-        Stack<Beacon> beaconStack=observer.watchSea(observer.getCurrentSeaEntities());
-        fictitiousCheckpoints.addBeacons(beaconStack);
+        List<Beacon> beaconList =observer.watchSea(observer.getCurrentSeaEntities());
+        fictitiousCheckpoints.addBeacons(beaconList);
         roundSinceLastCheckpoint++;
     }
     public boolean isInCheckpoint(Checkpoint checkpoint) {
