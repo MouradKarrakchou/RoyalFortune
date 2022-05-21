@@ -44,13 +44,13 @@ public class SeaMap {
         }
         observer.setNextCheckPointPosition(goal.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);
-        if (observer.checkIfNewSeaEntities(newSeaEntities) || roundSinceLastCheckpoint < 3 || recheck){
-            this.seaEntities = observer.getCurrentSeaEntities();
-            //observer.getCartologue().getListSeaEntities().clear();
-            Stack<Beacon> beaconStack=observer.watchSea(observer.getCurrentSeaEntities());
-            fictitiousCheckpoints.addBeacons(beaconStack);
-            roundSinceLastCheckpoint++;
-        }
+
+        observer.updateSeaEntities(newSeaEntities);
+        this.seaEntities = observer.getCurrentSeaEntities();
+        //observer.getCartologue().getListSeaEntities().clear();
+        Stack<Beacon> beaconStack=observer.watchSea(observer.getCurrentSeaEntities());
+        fictitiousCheckpoints.addBeacons(beaconStack);
+        roundSinceLastCheckpoint++;
     }
     public boolean isInCheckpoint(Checkpoint checkpoint) {
         return(isInCheckpointShipPos(checkpoint,shipPosition.getX(),shipPosition.getY()));

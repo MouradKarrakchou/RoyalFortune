@@ -120,6 +120,6 @@ public class Segment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(pointA, pointB, length, a, b);
+        return Objects.hash(pointA, pointB);
     }
 }
