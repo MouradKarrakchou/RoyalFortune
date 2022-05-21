@@ -50,10 +50,21 @@ public class SailorMovementStrategy {
             currentSailorPlacement.setRudder(true);
         }
 
-        // We are associating (if possible) the nearest sailor to the Sail. And if an association has been made.
-        if(requestedSailorPlacement.hasSail() && associateNearestSailor(ship.getSail())){
-            requestedSailorPlacement.setSail(false);
-            currentSailorPlacement.setSail(true);
+        // We are associating (if possible) the nearest sailor to the Sail.
+        if(requestedSailorPlacement.hasSail()){
+            int nbAssociations = 0;
+            List<Sail> sails = ship.getSail();
+
+            for(Sail sail : sails){
+                if(associations.isFree(sail)){
+                    if(associateNearestSailor(sail)) nbAssociations++;
+                    currentSailorPlacement.setSail(true);
+                }
+                else nbAssociations++;
+            }
+
+            if(nbAssociations == sails.size())
+                requestedSailorPlacement.setSail(false);
         }
 
         // We are associating (if possible) the left or right oar to the nearest sailor according to the oarWeight.
@@ -194,12 +205,20 @@ public class SailorMovementStrategy {
 
         // If we need a sail.
         if (requestedSailorPlacement.hasSail()){
-            Sail sail = ship.getSail();
-            // If an association has been made.
-            if(associateStarvingEntity(sail)){
-                requestedSailorPlacement.setSail(false);
-                currentSailorPlacement.setSail(true);
-                return true; // We are returning to be sure to keep the association priority.
+            List<Sail> sails = ship.getSail();
+            int nbAssociations = 0;
+
+            for(Sail sail : sails){
+                // If an association has been made.
+                if(associations.isFree(sail)){
+                    if(associateStarvingEntity(sail)) {
+                        currentSailorPlacement.setSail(true);
+                        if(++nbAssociations == sails.size())
+                            requestedSailorPlacement.setSail(false);
+                        return true; // We are returning to be sure to keep the association priority.
+                    }
+                }
+                else nbAssociations++;
             }
         }
 

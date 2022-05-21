@@ -101,7 +101,7 @@ public class Captain {
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail, needWatch);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
-
+        boolean a = strategyAnswer.hasSail();
         if(strategyAnswer.hasSail() && optionalSailDecision.isPresent())
             roundActions.addAll(crew.sailorsUseSail(optionalSailDecision.get()));
 
