@@ -25,7 +25,7 @@ public class Main {
 		OutputMaker.insertBeacons(game.computeAllBeacons());
 		game.addFictiousCheckpoint();
 		int tour=0;
-		while (!game.isFinished()&& tour<1) {
+		while (!game.isFinished()) {
 			game.nextRound(wind);
 			LOGGER.info("round = "+ tour + "  "+String.valueOf(game));
 			OutputMaker.appendShipPosition(game.toString());
