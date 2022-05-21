@@ -225,22 +225,23 @@ public class SailorMovementStrategy {
     }
 
     private boolean checkForSail(SailorPlacement requestedSailorPlacement){
-        if (requestedSailorPlacement.hasSail()){
-            List<Sail> sails = ship.getSail();
-            int nbAssociations = 0;
+        if (requestedSailorPlacement.hasSail())
+            return false;
 
-            for(Sail sail : sails){
-                // If an association has been made.
-                if(associations.isFree(sail)){
-                    if(associateStarvingEntity(sail)) {
-                        currentSailorPlacement.setSail(true);
-                        if(++nbAssociations == sails.size())
-                            requestedSailorPlacement.setSail(false);
-                        return true; // We are returning to be sure to keep the association priority.
-                    }
+        List<Sail> sails = ship.getSail();
+        int nbAssociations = 0;
+
+        for(Sail sail : sails){
+            // If an association has been made.
+            if(associations.isFree(sail)){
+                if(associateStarvingEntity(sail)) {
+                    currentSailorPlacement.setSail(true);
+                    if(++nbAssociations == sails.size())
+                        requestedSailorPlacement.setSail(false);
+                    return true; // We are returning to be sure to keep the association priority.
                 }
-                else nbAssociations++;
             }
+            else nbAssociations++;
         }
         return false;
     }
