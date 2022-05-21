@@ -19,7 +19,7 @@ public class Dijkstra {
      * @param beacons - The list of all the beacons on the map.
      * @return The shortest path as a stack of Beacons (departure & arrival positions are excluded).
      */
-    public static Stack<Beacon> proceedDijkstra(Position departure, Position arrival, Cartologue cartologue, List <Beacon> beacons){
+    public static List<Beacon> proceedDijkstra(Position departure, Position arrival, Cartologue cartologue, List <Beacon> beacons){
         List<DijkstraNode> availableNodes = generateDijkstraNodes(beacons);
         DijkstraNode arrivalNode = new DijkstraNode(arrival);
         availableNodes.add(arrivalNode);

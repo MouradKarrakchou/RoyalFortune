@@ -3,6 +3,8 @@ package fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra;
 import fr.unice.polytech.si3.qgl.royal_fortune.IPositionable;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class DijkstraNode implements Comparable<DijkstraNode> {
@@ -69,8 +71,8 @@ public class DijkstraNode implements Comparable<DijkstraNode> {
      * For a given DijkstraNode, returns all the Beacons that must be traversed to reach it.
      * @return The Beacons that must be traversed to reach the given DijkstraNode.
      */
-    public Stack<Beacon> getPath(){
-        return getPath(new Stack<>(), this);
+    public List<Beacon> getPath(){
+        return getPath(new ArrayList<>(), this);
     }
 
     /**
@@ -80,13 +82,13 @@ public class DijkstraNode implements Comparable<DijkstraNode> {
      * @param currentNode - The DijkstraNode to retrieve the path.
      * @return The Beacons that must be traversed to reach the given DijkstraNode.
      */
-    private Stack<Beacon> getPath(Stack<Beacon> currentPath, DijkstraNode currentNode){
+    private List<Beacon> getPath(List<Beacon> currentPath, DijkstraNode currentNode){
         if (currentNode == null)
             return currentPath;
 
         // We only add Beacon to the beacon list. Ship position & checkpoint position are ignored.
         if (currentNode.nodeObject instanceof Beacon beaconNode)
-            currentPath.add(beaconNode);
+            currentPath.add(0, beaconNode);
 
         return(getPath(currentPath, currentNode.previousNode));
     }

@@ -6,6 +6,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,11 +54,11 @@ class DijkstraNodeTest {
         DijkstraNode node04 = new DijkstraNode(beacon04);
         node04.setPreviousNode(node03);
 
-        Stack<Beacon> stack = node04.getPath();
+        List<Beacon> stack = node04.getPath();
         assertEquals(4, stack.size());
-        assertEquals(beacon01, stack.pop());
-        assertEquals(beacon02, stack.pop());
-        assertEquals(beacon03, stack.pop());
-        assertEquals(beacon04, stack.pop());
+        assertEquals(beacon01, stack.remove(0));
+        assertEquals(beacon02, stack.remove(0));
+        assertEquals(beacon03, stack.remove(0));
+        assertEquals(beacon04, stack.remove(0));
     }
 }
