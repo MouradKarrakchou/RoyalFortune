@@ -171,7 +171,7 @@ class GeometryCircleTest {
         Position circlePosition=new Position(circlePositionX,circlePositionY);
 
         GeometryCircle.discriminantValue(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
-        assertEquals(0, intersectionList.size());
+        assertEquals(1, intersectionList.size());
     }
 
     @Test
