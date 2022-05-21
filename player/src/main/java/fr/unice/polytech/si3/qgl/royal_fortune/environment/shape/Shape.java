@@ -12,6 +12,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -99,11 +100,11 @@ public class Shape {
 	}
 
 	public List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos) {
-		return null;
+		return Collections.emptyList();
 	}
 
 	public List<Beacon> generateBeacon(Position aPosition, boolean isAReef) {
-		return null;
+		return Collections.emptyList();
 	}
 
 
