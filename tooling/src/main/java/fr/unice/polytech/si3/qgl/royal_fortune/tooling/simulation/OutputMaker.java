@@ -8,7 +8,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.awt.*;
 import java.io.BufferedWriter;
@@ -18,6 +17,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class OutputMaker {
     static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static StringBuilder parameterOfGame = new StringBuilder();
@@ -40,7 +44,7 @@ public class OutputMaker {
         };
     }
 
-    public static void insertBeacons(List<Beacon> allBeacon){
+    public static void insertBeacons(List<Checkpoint> allBeacon){
         OutputMaker.getAllBeaconForOutput(allBeacon);
     }
 
@@ -120,8 +124,8 @@ public class OutputMaker {
         return out;
     }
 
-    private static void getAllBeaconForOutput(List<Beacon> allBeacon) {
-        for (Beacon beacon : allBeacon) {
+    private static void getAllBeaconForOutput(List<Checkpoint> allBeacon) {
+        for (Checkpoint beacon : allBeacon) {
             Position beaconPos = beacon.getPosition();
             parameterOfGame.append(Math.round(beaconPos.getX())).append(";").append(Math.round(beaconPos.getY())).append("|\n");
         }

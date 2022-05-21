@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 
@@ -12,6 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Cartologue {
     private List<SeaEntities> listSeaEntities;
     HashMap<Segment,SeaEntities> map;
@@ -22,6 +25,7 @@ public class Cartologue {
         this.listSeaEntities.addAll(listStream);
         this.listSeaEntities.addAll(listReef);
     }
+
     /**
      * Compute the distance of a route
      * @param segment a segment
@@ -34,9 +38,9 @@ public class Cartologue {
             if (map.get(segment).isStream()) {
                 Stream stream = (Stream) map.get(segment);
                 double angle = segment.angleIntersectionBetweenSegmentAndRectangle(stream.getPosition().getOrientation());
-                double distancePushByStream = (165 + stream.getStrength() * Math.cos(angle));
+                double distancePushByStream = 165 + stream.getStrength() * Math.cos(angle);
                 dist = segment.getLength() / distancePushByStream;
-                if (distancePushByStream<0)
+                if (distancePushByStream < 0)
                     return (Double.POSITIVE_INFINITY);
                 return dist;
             }
@@ -66,10 +70,10 @@ public class Cartologue {
      * @return list of segments
      */
     public List<Segment> cutSegment(Segment path, Boolean isOnStream){
-        List<Segment> segments=new ArrayList<>();
+        List<Segment> segments = new ArrayList<>();
         List<Position> intersections;
-        for (SeaEntities seaEntities:listSeaEntities){
-            intersections= seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition());
+        for (SeaEntities seaEntities : listSeaEntities){
+            intersections = seaEntities.getShape().computeIntersectionWith(path, seaEntities.getPosition());
 
             if (seaEntities instanceof Stream) {
                 if (intersections.size()==3)
@@ -94,20 +98,19 @@ public class Cartologue {
 
             else if (intersections.size() > 2) {
                 map.put(path, seaEntities);
+                return segments;
             }
 
         }
         return segments;
     }
 
-
-
     /**
      * check if the point is on a Stream
      * @return true if the point is in the rectangle
      * @param pointA a point
      */
-    private boolean positionIsOnASeaEntities(Position pointA) {
+    public boolean positionIsOnASeaEntities(Position pointA) {
         for (SeaEntities seaEntities:listSeaEntities){
             if (seaEntities.getShape().positionIsInTheShape(pointA, seaEntities.getPosition())) return true;
         }

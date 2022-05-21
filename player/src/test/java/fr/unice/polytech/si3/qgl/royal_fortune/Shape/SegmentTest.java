@@ -82,6 +82,12 @@ class SegmentTest {
     void pointInSegmentTest(){
         Position p = new Position(5,0,0);
         assertTrue(s.pointInSegment(p));
+        p = new Position(50,0,0);
+        assertTrue(s.pointInSegment(p));
+        s=new Segment(p1,new Position(0,50,0));
+        p = new Position(0,50,0);
+        assertTrue(s.pointInSegment(p));
+
     }
 
     @Test
@@ -97,6 +103,43 @@ class SegmentTest {
 
         p = new Position(5,-10,0);
         assertFalse(s.pointInSegment(p));
+
+        s=new Segment(this.p1,new Position(0,50,0));
+        p = new Position(0,55,0);
+        assertFalse(s.pointInSegment(p));
+
+    }
+
+    @Test
+    void computeIntersectionWithTest(){
+        Position p1 = new Position(-20,0,0);
+        Position p2 = new Position(-1,0,0);
+        assertTrue(s.computeIntersectionWith(new Segment(p1,p2)).isEmpty());
+
+
+        p1 = new Position(-20,0,0);
+        p2 = new Position(1,0,0);
+        assertTrue(s.computeIntersectionWith(new Segment(p1,p2)).isPresent());
+
+        p1 = new Position(2,0,0);
+        p2 = new Position(90,0,0);
+        assertTrue(s.computeIntersectionWith(new Segment(p1,p2)).isPresent());
+
+        s=new Segment(this.p1,new Position(0,50,0));
+
+        p1 = new Position(0,-20,0);
+        p2 = new Position(0,-1,0);
+        assertTrue(s.computeIntersectionWith(new Segment(p1,p2)).isEmpty());
+
+
+        p1 = new Position(0,-20,0);
+        p2 = new Position(0,1,0);
+        assertTrue(s.computeIntersectionWith(new Segment(p1,p2)).isPresent());
+
+        p1 = new Position(0,2,0);
+        p2 = new Position(0,200,0);
+        assertTrue(s.computeIntersectionWith(new Segment(p1,p2)).isPresent());
+
     }
 
 }

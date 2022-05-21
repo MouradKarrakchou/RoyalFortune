@@ -5,19 +5,29 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.OtherShip;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
+
+import java.util.Objects;
+
+/**
+ * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Stream.class, name = "stream"),
-        @JsonSubTypes.Type(value = Reef.class, name = "reef")
+        @JsonSubTypes.Type(value = Reef.class, name = "reef"),
+        @JsonSubTypes.Type(value = OtherShip.class, name = "ship")
 })
 @JsonIgnoreProperties(value = {
         "stream",
         "reef"
 })
+
 public class SeaEntities {
     Position position;
     Shape shape;
@@ -73,8 +83,6 @@ public class SeaEntities {
 
     @Override
     public int hashCode() {
-        int result = position != null ? position.hashCode() : 0;
-        result = 31 * result + (shape != null ? shape.hashCode() : 0);
-        return result;
+        return Objects.hash(position, shape);
     }
 }

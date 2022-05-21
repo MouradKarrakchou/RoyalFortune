@@ -35,7 +35,7 @@ public class JsonManager {
 
 	/**
 	 *Create a InitGameDAO with a the InitGame JSON
-	 * @param game a String formated as JSON 
+	 * @param game a String formated as JSON
 	 * @return a InitGameDAO that describe the game
 	 */
 	public static InitGameDAO readInitGameDAOJson(String game) {
@@ -44,7 +44,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(game, InitGameDAO.class);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, exception);
+			LOGGER.log(Level.INFO, e.toString());
 		}
 		return null;
 	}
@@ -60,7 +60,7 @@ public class JsonManager {
 		try {
 			return mapper.readValue(round, NextRoundDAO.class);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, exception);
+			LOGGER.log(Level.INFO, e.toString());
 		}
 		return null;
 	}
@@ -76,11 +76,10 @@ public class JsonManager {
 		try {
 			return mapper.readValue(json, Ship.class);
 		} catch (JsonProcessingException e) {
-			LOGGER.log(Level.INFO, exception);
+			LOGGER.log(Level.INFO, e.toString());
 		}
 		return null;
 	}
-
 
 	/**
 	 * For a given Json, will find the part concerning Sailors initialization and will instantiate the list.
@@ -130,6 +129,7 @@ public class JsonManager {
 		}
 		return null;
 	}
+
 	public static List<Entities> readEntitiesJson(String json) {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
@@ -141,6 +141,7 @@ public class JsonManager {
 		}
 		return Collections.emptyList();
 	}
+
 	public static List<Action> readActionJson(String json) {
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);

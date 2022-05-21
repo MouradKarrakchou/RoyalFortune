@@ -5,11 +5,27 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.awt.*;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Vector {
     public double x;
     public double y;
 
     public Vector(Position tail, Position head) {
+        double tailX = tail.getX();
+        double tailY = tail.getY();
+        double headX = head.getX();
+        double headY = head.getY();
+
+        this.x = headX - tailX;
+        this.y = headY - tailY;
+    }
+
+    public Vector(Segment segment) {
+        Position tail=segment.getPointA();
+        Position head=segment.getPointB();
         double tailX = tail.getX();
         double tailY = tail.getY();
         double headX = head.getX();
@@ -59,13 +75,4 @@ public class Vector {
         Vector unitVector = this.unitVector();
         return new Vector(-unitVector.y, unitVector.x);
     }
-
-    public double getOrientationFromSegment(Segment segment) {
-        double x = segment.getPointB().getX() - segment.getPointA().getX();
-        double y = segment.getPointB().getY() - segment.getPointA().getY();
-        double norm = Mathematician.distanceFormula(segment.getPointA(), segment.getPointB());
-
-        return Math.acos( (x*1 + y*0) / (norm*1) );
-    }
-
 }

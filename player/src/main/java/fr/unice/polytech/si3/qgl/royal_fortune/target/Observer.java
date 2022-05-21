@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra.Dijkstra;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
@@ -14,6 +15,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.util.*;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Observer {
     public static final int MAX_RANGE = 1000000000;
     private List<SeaEntities> currentSeaEntities;
@@ -25,11 +30,11 @@ public class Observer {
 
     public Observer(){
         this.currentSeaEntities=new ArrayList<>();
-        cartologue=new Cartologue(getStream(currentSeaEntities),getReef(currentSeaEntities));
+        this.cartologue=new Cartologue(getStream(currentSeaEntities),getReef(currentSeaEntities));
         this.mathematician = new Mathematician(cartologue);
     }
 
-    private List<Stream> getStream(List<SeaEntities> newSeaEntities){
+    public List<Stream> getStream(List<SeaEntities> newSeaEntities){
         List<Stream> listOfStream=new ArrayList<>();
         for(SeaEntities seaEntities:newSeaEntities){
             if (seaEntities instanceof Stream)
@@ -37,7 +42,7 @@ public class Observer {
         }
         return listOfStream;
     }
-    private List<Reef> getReef(List<SeaEntities> newSeaEntities){
+    public List<Reef> getReef(List<SeaEntities> newSeaEntities){
         List<Reef> listOfReef=new ArrayList<>();
         for(SeaEntities seaEntities:newSeaEntities){
             if (seaEntities instanceof Reef)
@@ -46,25 +51,17 @@ public class Observer {
         return listOfReef;
     }
     /**
-     * Check in half-circle all the seaEntities in RANGE. If newSeaEntities is different from currentSeaEntities return true.
+     * Check in a circle range view all the seaEntities in RANGE. If newSeaEntities is different from currentSeaEntities return true.
      * @param newSeaEntities a potential new sea entity
-     * @return boolean
      */
-    public Boolean checkIfNewSeaEntities(List<SeaEntities> newSeaEntities){
+    public void updateSeaEntities(List<SeaEntities> newSeaEntities){
         for (SeaEntities newSeaEntity : newSeaEntities){
-            newSeaEntity.getShape(); // Le getShape qui cache un update super important ça pue.
-            if (!currentSeaEntities.contains(newSeaEntity))
-                return true;
+            newSeaEntity.getShape();
+            if (!currentSeaEntities.contains(newSeaEntity)){
+                Dijkstra.clearMap();
+                currentSeaEntities.add(newSeaEntity);
+            }
         }
-        return false;
-    }
-    public List<Beacon> generateRandomBeacon(Position shipPosition){
-        Random random=new Random(1000);
-        List<Beacon> listBeacon=new ArrayList<>();
-        for (int k=0;k<1000;k++){
-            listBeacon.add(new Beacon(new Position(shipPosition.getX()+(random.nextInt()-500),shipPosition.getY()+(random.nextInt()-500),0)));
-        }
-        return listBeacon;
     }
 
     /**
@@ -72,12 +69,12 @@ public class Observer {
      * @param newSeaEntities a potential new sea entity
      * @return If return empty we target the checkpoint else we target the Beacon
      */
-    public Stack<Beacon> watchSea(List<SeaEntities> newSeaEntities){
-        currentSeaEntities=newSeaEntities;
+    public List<Beacon> watchSea(List<SeaEntities> newSeaEntities){
+        //this.currentSeaEntities=newSeaEntities;
         List<Beacon> beacons=new ArrayList<>();
         for (SeaEntities seaEntities:newSeaEntities){
             if (seaEntities.getShape() instanceof Circle)
-                beacons.addAll(GeometryCircle.generateBeacon(shipPosition, nextCheckPointPosition,seaEntities.getPosition(),(Circle) seaEntities.getShape()));
+                beacons.addAll(GeometryCircle.generateBeacon(seaEntities.getPosition(),(Circle) seaEntities.getShape()));
             else
                 beacons.addAll(seaEntities.getShape().generateBeacon(seaEntities.getPosition(),seaEntities.isReef()));
         }
@@ -95,5 +92,9 @@ public class Observer {
 
     public Cartologue getCartologue() {
         return cartologue;
+    }
+
+    public List<SeaEntities> getCurrentSeaEntities() {
+        return currentSeaEntities;
     }
 }

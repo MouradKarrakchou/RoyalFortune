@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.calculus;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Segment;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -10,12 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class GeometryRectangle {
 
     private GeometryRectangle() {}
 
     /**
-     * Compute the 4 segments of the rectangle
+     * Computes the 4 segments of the rectangle
      * @return a list that contain the 4 segment of the rectangle [H, D, B, G]
      */
     public static List<Segment> computeSegments(Position seaEntitiesPos, Rectangle rectangle) {
@@ -33,11 +36,11 @@ public class GeometryRectangle {
     }
 
     /**
-     * Compute the 4 corners of the rectangle
+     * Computes the 4 corners of the rectangle
      * @return a list that contain the 4 corner of the rectangle [HG, HD, BD, BG]
      */
     public static List<Position> computeCorner(Position aPosition, Rectangle rectangle) {
-        List<Position> listOfPosition=new ArrayList<>();
+        List<Position> listOfPosition = new ArrayList<>();
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
         listOfPosition.add(Mathematician.changeBase(aPosition,-height/2,width/2));
@@ -48,12 +51,11 @@ public class GeometryRectangle {
     }
     
     /**
-     * Compute the intersection between the current shape and a segment
+     * Computes the intersection between the current shape and a segment
      * @param segment a segment
      * @return the 2 positions of the intersection
      */
-    public static List<Position> computeIntersectionWith(Segment segment,Position seaEntitiesPos, Rectangle rectangle){
-        List<Segment> segmentList = rectangle.getSegmentList();
+    public static List<Position> computeIntersectionWith(Segment segment,Position seaEntitiesPos, List<Segment> segmentList){
         List<Position> intersectionsPosition = new ArrayList<>();
         Optional<Position> intersection;
         for(Segment seg : segmentList) {
@@ -63,6 +65,11 @@ public class GeometryRectangle {
         return distinct(ordered(intersectionsPosition,segment, seaEntitiesPos));
     }
 
+    /**
+     * Allows to get a list of unique positions
+     * @param ordered a list of ordered position
+     * @return list of distinct positions
+     */
     private static List<Position> distinct(List<Position> ordered) {
         List<Position> positionList=new ArrayList<>();
         List<Position> positionList2=new ArrayList<>();
@@ -77,6 +84,13 @@ public class GeometryRectangle {
         return positionList2;
     }
 
+    /**
+     * Sorts a list of position
+     * @param intersectionsPosition position of the intersections
+     * @param segment segment
+     * @param aPosition a position
+     * @return the list of position sorted
+     */
     private static List<Position> ordered(List<Position> intersectionsPosition, Segment segment, Position aPosition) {
         List<Position> intersectionsPositionOrdered= new ArrayList<>();
         intersectionsPositionOrdered.add(segment.getPointA());
@@ -98,7 +112,7 @@ public class GeometryRectangle {
     }
 
     /**
-     * check if the given Position is in the rectangle
+     * Checks if the given Position is in the rectangle
      * @return true if the point is in the rectangle
      * @param pointA a point
      */
@@ -124,6 +138,13 @@ public class GeometryRectangle {
         return !calculusHDHGx && !calculusHDHGy && !calculusBGHGx && !calculusBGHGy;
     }
 
+    /**
+     * Generates beacons around the rectangle
+     * @param aPosition a position
+     * @param rectangle rectangle
+     * @param isAReef is the rectangle considered a reef
+     * @return the list of beacons around the rectangle
+     */
     public static List<Beacon> generateBeacon(Position aPosition, Rectangle rectangle, boolean isAReef) {
         double safetyLength = 150;
         rectangle=new Rectangle(rectangle.getWidth()+safetyLength,rectangle.getHeight()+safetyLength,rectangle.getOrientation());
@@ -133,7 +154,12 @@ public class GeometryRectangle {
             return generateBeaconforStream(aPosition,rectangle);
     }
 
-
+    /**
+     * Generates only 4 beacons for the reef : one for each corner
+     * @param aPosition a position
+     * @param rectangle rectangle
+     * @return the list of 4 beacons for the reef
+     */
     private static List<Beacon> generateBeaconForReef(Position aPosition, Rectangle rectangle) {
         List<Beacon> listOfPosition=new ArrayList<>();
 
@@ -148,7 +174,13 @@ public class GeometryRectangle {
         return listOfPosition;
     }
 
-    private static List<Beacon> generateBeaconforStream(Position aPosition, Rectangle rectangle) {
+    /**
+     * Generates a list of many beacons for different places of a stream
+     * @param aPosition a position
+     * @param rectangle rectangle
+     * @return the list of beacons for the stream
+     */
+    public static List<Beacon> generateBeaconforStream(Position aPosition, Rectangle rectangle) {
         double width = rectangle.getWidth();
         double height = rectangle.getHeight();
         List<Beacon> listOfPosition=new ArrayList<>();
@@ -156,12 +188,13 @@ public class GeometryRectangle {
         double widthUnit=width/ precision;
         double heightUnit=height/ precision;
         for (int k = 0 ; k< precision; k++){
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-width/2+k*widthUnit,height/2)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2,height/2-k*heightUnit)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2-k*widthUnit,-height/2)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-width/2,-height/2+k*heightUnit)));}
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2+k*heightUnit,-width/2)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2-k*heightUnit,width/2)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2,-width/2+k*widthUnit)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2,width/2-k*widthUnit)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2+k*heightUnit,0)));
+        }
         return listOfPosition;
     }
-
 
 }

@@ -7,8 +7,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
 
+/**
+ * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class FictitiousCheckpoint {
     private final List<Checkpoint> fictitiousCheckpoints;
 
@@ -47,6 +50,9 @@ public class FictitiousCheckpoint {
      * @return The fictional checkpoint.
      */
     public Checkpoint createFictitiousCheckpoint(Checkpoint currentCheckpoint, Checkpoint nextCheckPoint) {
+        if(((Circle) currentCheckpoint.getShape()).getRadius() < 200)
+            return currentCheckpoint;
+
         double currentCheckpointX = currentCheckpoint.getPosition().getX();
         double currentCheckpointY = currentCheckpoint.getPosition().getY();
         double nextCheckPointX = nextCheckPoint.getPosition().getX();
@@ -77,27 +83,28 @@ public class FictitiousCheckpoint {
         return fictitiousCheckpoints.get(0);
     }
 
-    public void addFictitiousCheckpoint(Checkpoint checkpoint){
-        fictitiousCheckpoints.add(0,checkpoint);
-    }
-
     public List<Checkpoint> getFictitiousCheckpoints() {
         return fictitiousCheckpoints;
     }
 
-    public void addBeacons(Stack<Beacon> beaconStack) {
+    public void addBeacons(List<Beacon> beaconList) {
         removeAllBeacons();
         int i=0;
-        while (beaconStack.size()>0){
-            fictitiousCheckpoints.add(i,beaconStack.pop());
+        while (!beaconList.isEmpty()){
+            fictitiousCheckpoints.add(i,beaconList.remove(0));
             i++;
         }
     }
     public void removeAllBeacons(){
+        if (fictitiousCheckpoints.isEmpty())
+            return;
+
         Checkpoint checkpoint=fictitiousCheckpoints.get(0);
         while (checkpoint instanceof Beacon){
             fictitiousCheckpoints.remove(0);
             checkpoint=fictitiousCheckpoints.get(0);
         }
     }
+
+
 }

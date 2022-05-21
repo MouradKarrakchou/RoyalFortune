@@ -4,9 +4,15 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class PreCalculator {
     private final Ship ship;
     private final List<Sailor> sailors;
@@ -49,8 +55,17 @@ public class PreCalculator {
         double newY = ship.getPosition().getY();
         double angle = ship.getPosition().getOrientation();
 
-        if(ship.getSail().isOpenned()) {
-            double windNorm = wind.getStrength() * Math.cos(wind.getOrientation() - angle);
+        double numberOfOpenedSail = 0;
+        List<Boolean> sailsOpenedList = new ArrayList<>();
+        List<Sail> sailList = ship.getSail();
+        for(Sail sail : sailList) {
+            boolean isOpened = sail.isOpenned();
+            sailsOpenedList.add(isOpened);
+            if(isOpened) numberOfOpenedSail++;
+        }
+
+        if(ship.getSail() != null && sailsOpenedList.contains(true)) {
+            double windNorm = ( numberOfOpenedSail/ ship.getSail().size()) * wind.getStrength() * Math.cos(wind.getOrientation() - angle);
 
             newX += windNorm * Math.cos(angle);
             newY += windNorm * Math.sin(angle);
@@ -68,5 +83,9 @@ public class PreCalculator {
 
     public void setWind(Wind wind) {
         this.wind = wind;
+    }
+
+    public Wind getWind() {
+        return wind;
     }
 }

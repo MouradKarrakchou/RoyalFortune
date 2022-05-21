@@ -9,6 +9,10 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Mathematician {
     HashMap<Route, Beacon> beaconHashMap;
     Cartologue cartologue;
@@ -22,7 +26,7 @@ public class Mathematician {
      * @param listBeacon list of beacons
      * @return the best beacon to go through or empty
      */
-    public Stack<Beacon> computeTrajectory(List<Beacon> listBeacon,Position departure,Position arrival){
+    public List<Beacon> computeTrajectory(List<Beacon> listBeacon,Position departure,Position arrival){
         return Dijkstra.proceedDijkstra(departure,arrival,cartologue,listBeacon);
     }
 
@@ -42,6 +46,11 @@ public class Mathematician {
         return newPosition;
     }
 
+    /**
+     * Places points in another base
+     * @param points points
+     * @param newBasePosition new base
+     */
     public static void changeBasePointList(Point[] points, Position newBasePosition){
         for(int i=0; i<points.length; i++){
             Position current = changeBase(newBasePosition, points[i].getX(), points[i].getY());

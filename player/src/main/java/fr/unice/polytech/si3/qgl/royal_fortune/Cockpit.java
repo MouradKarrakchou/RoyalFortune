@@ -36,6 +36,10 @@ public class Cockpit implements ICockpit {
 		this.captain = captain;
 	}
 
+	/**
+	 * Initialize the run
+	 * @param game game data
+	 */
 	public void initGame(String game)  {
 		String out = "Init game input: " + game;
 		LOGGER.info(out);
@@ -52,6 +56,11 @@ public class Cockpit implements ICockpit {
 		captain = new Captain(ship, sailors, goal, new FictitiousCheckpoint(goal.getCheckPoints()), initGameDAO.getWind());
 	}
 
+	/**
+	 * Build the next round
+	 * @param round data of the round
+	 * @return actions for the next round
+	 */
 	public String nextRound(String round){
 		NextRoundDAO nextRoundDAO = null;
 		try {
@@ -63,11 +72,16 @@ public class Cockpit implements ICockpit {
 		assert nextRoundDAO != null;
 		updateWithNextRound(nextRoundDAO);
 		captain.setSeaEntities(nextRoundDAO.getVisibleEntities());
-		String actions  =captain.roundDecisions();
+		String actions = captain.roundDecisions();
 		LOGGER.log(Level.INFO, () -> "Actions = "+actions);
 
 		return actions;
 	}
+
+	/**
+	 * Update data for the next round
+	 * @param nextRoundDAO dao to get the data
+	 */
 	public void updateWithNextRound(NextRoundDAO nextRoundDAO){
 		Ship newShip = nextRoundDAO.getShip();
 		ship.updatePos(newShip.getPosition());
@@ -77,6 +91,12 @@ public class Cockpit implements ICockpit {
 		captain.getPreCalculator().setWind(captain.getWind());
 	}
 
+	/**
+	 * Get data from dao
+	 * @param json json containing the data of the run
+	 * @return data
+	 * @throws EmptyDaoException if InitGameDAO is null
+	 */
 	public InitGameDAO createInitGameDAO(String json)throws EmptyDaoException{
 		InitGameDAO initGameDAO = JsonManager.readInitGameDAOJson(json);
 		if(initGameDAO == null) {
@@ -85,11 +105,18 @@ public class Cockpit implements ICockpit {
 		return initGameDAO;
 	}
 
+	/**
+	 * Create next round from dao data
+	 * @param json json containing the data of the run
+	 * @return data
+	 * @throws EmptyDaoException if NextRoundDAO is null
+	 */
 	public NextRoundDAO createNextRoundDAO(String json)throws EmptyDaoException{
 		NextRoundDAO nextRoundDAO = JsonManager.readNextRoundDAOJson(json);
 		if(nextRoundDAO == null) {
 			throw new EmptyDaoException("NextRoundDAO is null check the NextRound JSON");
 		}
+		nextRoundDAO.removeShipFromSeaEntities();
 		return nextRoundDAO;
 	}
 
@@ -119,6 +146,5 @@ public class Cockpit implements ICockpit {
 	public ArrayList<String> getLogs() {
 		return new ArrayList<>();
 	}
-
 
 }

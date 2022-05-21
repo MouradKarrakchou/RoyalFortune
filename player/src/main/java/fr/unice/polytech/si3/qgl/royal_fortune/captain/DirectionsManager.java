@@ -6,6 +6,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class DirectionsManager {
     private final Ship ship;
     private final FictitiousCheckpoint fictitiousCheckpoints;
@@ -36,12 +40,24 @@ public class DirectionsManager {
         return new double[]{angleMove, angleCone};
     }
 
+    /**
+     * Compute distance between 2 positions
+     * @param currentCheckpointPosition target
+     * @param shipPosition location
+     * @return distance between location and target
+     */
     public double computeDistanceBetweenTwoPosition(Position currentCheckpointPosition, Position shipPosition){
         double distanceSCX = currentCheckpointPosition.getX() - shipPosition.getX();
         double distanceSCY = currentCheckpointPosition.getY() - shipPosition.getY();
         return Math.sqrt(Math.pow(distanceSCX, 2) + Math.pow(distanceSCY, 2));
     }
 
+    /**
+     * Numerator
+     * @param currentCheckpointPosition target
+     * @param shipPosition location
+     * @return numerator
+     */
     public double computeNumerateur(Position currentCheckpointPosition, Position shipPosition){
         double distanceSCX = currentCheckpointPosition.getX()- shipPosition.getX();
         double distanceSCY = currentCheckpointPosition.getY() - shipPosition.getY();
@@ -49,6 +65,12 @@ public class DirectionsManager {
         return distanceSCX * Math.cos(angleShip) + distanceSCY * Math.sin(angleShip);
     }
 
+    /**
+     * Angle in which the ship direction must be
+     * @param currentCheckpoint target
+     * @param shipPosition location
+     * @return angle
+     */
     public double computeAngleCone(Checkpoint currentCheckpoint, Position shipPosition){
         Position currentCheckpointPosition = currentCheckpoint.getPosition();
         double radius = ((Circle) currentCheckpoint.getShape()).getRadius();
@@ -58,6 +80,12 @@ public class DirectionsManager {
         return Math.atan(radius / distanceShipCheckpoint);
     }
 
+    /**
+     * Angle needed to be done by the ship
+     * @param currentCheckpointPosition target
+     * @param shipPosition location
+     * @return angle
+     */
     public double computeAngleMove(Position currentCheckpointPosition, Position shipPosition){
         double distanceShipCheckpoint = computeDistanceBetweenTwoPosition(currentCheckpointPosition, shipPosition);
         double numerateur = computeNumerateur(currentCheckpointPosition, shipPosition);
@@ -66,6 +94,11 @@ public class DirectionsManager {
         return Math.acos(numerateur / distanceShipCheckpoint);
     }
 
+    /**
+     * Puts the angle in an interval
+     * @param angleMove angle needed to be done by the ship
+     * @return angle in interval
+     */
     public double adjustAccuracy(double angleMove){
         while (angleMove > Math.PI) {
             angleMove -= 2 * Math.PI;
@@ -76,6 +109,13 @@ public class DirectionsManager {
         return angleMove;
     }
 
+    /**
+     * Checks sign to get trigonometric or hourly sens
+     * @param angleMove angle needed to be done by the ship
+     * @param checkpointPosition target
+     * @param shipPosition location
+     * @return rotational sens
+     */
     public double checkSign(double angleMove, Position checkpointPosition, Position shipPosition) {
         double distanceAngleMove = distToCheckPoint(angleMove, checkpointPosition, shipPosition);
         double distanceMinusAngleMove = distToCheckPoint(-angleMove, checkpointPosition, shipPosition);
@@ -85,6 +125,13 @@ public class DirectionsManager {
         else return -angleMove;
     }
 
+    /**
+     * Computes distance to checkpoint
+     * @param angleMove angle needed to be done by the ship
+     * @param checkpointPosition target
+     * @param shipPosition location
+     * @return distance
+     */
     public double distToCheckPoint(double angleMove, Position checkpointPosition, Position shipPosition) {
         double angleToRotate = angleMove + shipPosition.getOrientation();
         double newX = shipPosition.getX() + Math.cos(angleToRotate);
@@ -113,7 +160,6 @@ public class DirectionsManager {
     public void update() {
         angleMove = angleCalculator()[0];
         angleCone = angleCalculator()[1];
-
     }
 
     public double getAngleMove() {
@@ -127,4 +173,8 @@ public class DirectionsManager {
     public int getDirection() {
         return angleMove > 0 ? RIGHT : LEFT;
     }
+
+    //These 2 setters are used for coneNotTooSmallAndNotInConeTest in CaptainTest
+    public void setAngleMove(double angleMove) { this.angleMove = angleMove; }
+    public void setAngleCone(double angleCone) { this.angleCone = angleCone; }
 }

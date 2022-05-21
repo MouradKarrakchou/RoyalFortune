@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryPolygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
@@ -9,6 +10,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.dao.InitGameDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
 import fr.unice.polytech.si3.qgl.royal_fortune.dao.NextRoundDAO;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.*;
+import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.json_management.JsonManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
@@ -18,12 +20,13 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Logger;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Game {
     private Ship ship;
     private Cockpit cockpit;
@@ -32,7 +35,7 @@ public class Game {
     private Referee referee;
     private List<SeaEntities> allSeaEntities;
     private List<SeaEntities> visibleEntities;
-    private HashSet<Beacon> listBeaconUsed;
+    private HashSet<Checkpoint> listBeaconUsed;
     private FictitiousCheckpoint fictitiousCheckpoint;
 
     final Logger logger = Logger.getLogger(Game.class.getName());
@@ -86,6 +89,10 @@ public class Game {
             listBeaconUsed.add((Beacon) currentFictitiousCheckPoint);
     }
 
+    public void addFictiousCheckpoint(){
+        listBeaconUsed.addAll((Collection<? extends Checkpoint>) cockpit.getCaptain().getSeaMap().getFictitiousCheckpoints().getFictitiousCheckpoints());
+    }
+
     public String createJson(Wind wind) {
         checkVisibleEntities();
         NextRoundDAO next = new NextRoundDAO(ship, visibleEntities, wind);
@@ -136,19 +143,21 @@ public class Game {
         this.ship = ship;
     }
 
-    public List<Beacon> computeAllBeacons(){
-        List<Beacon> allBeacon = new ArrayList<>();
+    public List<Checkpoint> computeAllBeacons(){
+        List<Checkpoint> allBeacon = new ArrayList<>();
         for (SeaEntities seaEntity : allSeaEntities) {
             if(seaEntity.getShape() instanceof Rectangle)
                 allBeacon.addAll(GeometryRectangle.generateBeacon(seaEntity.getPosition(), (Rectangle) seaEntity.getShapeForTool(),seaEntity.isReef()));
             if(seaEntity.getShape() instanceof Circle)
-                allBeacon.addAll(GeometryCircle.generateBeacon(ship.getPosition(),goal.getCheckPoints().get(0).getPosition(),seaEntity.getPosition(), (Circle) seaEntity.getShapeForTool()));
+                allBeacon.addAll(GeometryCircle.generateBeacon(seaEntity.getPosition(), (Circle) seaEntity.getShapeForTool()));
+            if(seaEntity.getShape() instanceof Polygone)
+                allBeacon.addAll(GeometryPolygone.generateBeacon(seaEntity.getPosition(), (Polygone) seaEntity.getShapeForTool()));
 
         }
         return allBeacon;
     }
 
-    public List<Beacon> getListBeaconUsed() {
+    public List<Checkpoint> getListBeaconUsed() {
         return listBeaconUsed.stream().toList();
     }
 }

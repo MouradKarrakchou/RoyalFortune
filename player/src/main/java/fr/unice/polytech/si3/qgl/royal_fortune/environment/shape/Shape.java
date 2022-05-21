@@ -12,6 +12,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ import java.util.logging.Logger;
         @JsonSubTypes.Type(value = Rectangle.class, name = "rectangle"),
 		@JsonSubTypes.Type(value = Polygone.class, name = "polygon")
 })
+
 public class Shape {
 	private String type;
 	final Logger logger = Logger.getLogger(Shape.class.getName());
@@ -62,7 +64,6 @@ public class Shape {
 		return "";
 	}
 
-
 	public Optional<Circle> isCircle() {
 		if (this instanceof Circle current) {
 			return Optional.of(current);
@@ -77,6 +78,10 @@ public class Shape {
 		return Optional.empty();
 	}
 
+	/**
+	 * Computes a shape into segments
+	 * @param position position
+	 */
 	public void computeSegmentsIfPossible(Position position) {
 		if (this instanceof Rectangle currentRectangle) {
 			List<Segment> listSeg = GeometryRectangle.computeSegments(position, currentRectangle);
@@ -99,11 +104,11 @@ public class Shape {
 	}
 
 	public List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos) {
-		return null;
+		return Collections.emptyList();
 	}
 
 	public List<Beacon> generateBeacon(Position aPosition, boolean isAReef) {
-		return null;
+		return Collections.emptyList();
 	}
 
 

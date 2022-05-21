@@ -20,7 +20,7 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class IntegrationPolygonDijkstraTest {
+class IntegrationPolygonDijkstraTest {
 
     @Test
     void integrationTest(){
@@ -103,7 +103,7 @@ public class IntegrationPolygonDijkstraTest {
         Position departurePosition = new Position(3037.8096479791434, 2441.4062500000095);
         Position arrivalPosition = new Position(5769.230769230773, 260.41666666666896);
 
-        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beacons);
+        List<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beacons);
 
         assertEquals(4, beaconPath.size());
     }

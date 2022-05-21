@@ -1,11 +1,17 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.environment.shape;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Vector;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.awt.*;
+import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Segment {
     private Position pointA;
     private Position pointB;
@@ -23,6 +29,7 @@ public class Segment {
             b = computeB(pointA);
         length= Mathematician.distanceFormula(pointA,pointB);
     }
+
     public Segment(Point pointA, Point pointB) {
         this.pointA = new Position(pointA.getX(),pointA.getY());
         this.pointB = new Position(pointB.getX(),pointB.getY());
@@ -33,55 +40,50 @@ public class Segment {
     }
 
     /**
-     * Compute the intersection between this segment and another segment
-     * @param segment a segment
-     * @return the position of the intersection
+     * Computes intersections
+     * @param segment segment
+     * @return the eventual position of the intersection
      */
     public Optional<Position> computeIntersectionWith(Segment segment){
-        if (Math.abs(a)==Float.POSITIVE_INFINITY&& Math.abs(segment.getA())==Float.POSITIVE_INFINITY){
-            if (pointA.getX()==segment.getPointA().getX()) return Optional.of(pointA);
-        }
-        else if (a==segment.getA()){
-            boolean pointAIsInTheSegment=pointInSegment(pointA);
-            boolean pointBIsInTheSegment=pointInSegment(pointB);
+        if (a==segment.getA()||(Math.abs(a)==Float.POSITIVE_INFINITY&& Math.abs(segment.getA())==Float.POSITIVE_INFINITY)){
+            boolean pointAIsInTheSegment=pointInSegment(segment.pointA)||segment.pointInSegment(pointA);
+            boolean pointBIsInTheSegment=pointInSegment(segment.pointB)||segment.pointInSegment(pointB);
             if (b==segment.getB()){
                 if (pointAIsInTheSegment)
-                    return Optional.of(pointA);
+                    return Optional.of(segment.pointA);
                 else if (pointBIsInTheSegment)
-                    return Optional.of(pointB);
+                    return Optional.of(segment.pointB);
             }}
-        else if (Math.abs(a)==Float.POSITIVE_INFINITY){
-            double intersectionY=segment.getA()*pointA.getX()+segment.getB();
-            boolean rightY=this.pointInSegment(new Position(pointA.getX(),intersectionY));
-            boolean rightX=pointA.getX()<=Math.max(segment.getPointA().getX(),segment.getPointB().getX())
-                    &&pointA.getX()>=Math.min(segment.getPointA().getX(),segment.getPointB().getX());
-            if (rightX&& rightY) return (Optional.of(new Position(pointA.getX(),intersectionY)));
-        }
-        else if (Math.abs(segment.getA())==Float.POSITIVE_INFINITY){
-            return(segment.computeIntersectionWith(this));
-        }
-        else
-        {
-        double x=(segment.getB()-b)/(a-segment.getA());
-        double y=a*x+b;
-        Position newPoint=new Position(x,y);
-        if (segment.pointInSegment(newPoint)&&this.pointInSegment(newPoint)){
-            return Optional.of(new Position(x,y));
-        }}
-        return Optional.empty();
+
+        Vector i=new Vector(segment);
+        Vector j=new Vector(this);
+        Position aa=segment.getPointA();
+        Position c=this.pointA;
+        if(i.x*j.y-i.y*j.x == 0)
+            return Optional.empty();
+        double m = -(-i.x*aa.getY()+i.x*c.getY()+i.y*aa.getX()-i.y*c.getX())/(i.x*j.y-i.y*j.x);
+        double k = -(aa.getX()*j.y-c.getX()*j.y-j.x*aa.getY()+j.x*c.getY())/(i.x*j.y-i.y*j.x);
+        if (m>=1||m<=0||k>=1||k<=0)
+            return Optional.empty();
+        return (Optional.of(new Position(aa.getX()+k*i.x,aa.getY()+k*i.y )));
     }
 
+    /**
+     * Checks if a position is in the segment
+     * @param point position
+     * @return true if so
+     */
     public boolean pointInSegment(Position point){
         if (Mathematician.distanceFormula(point,pointA)>length||Mathematician.distanceFormula(point,pointB)>length)
             return false;
-        if (Math.abs(a)==Float.POSITIVE_INFINITY)
+        if (Math.abs(a)==Float.POSITIVE_INFINITY&&Mathematician.distanceFormula(point,pointA)<=length)
             return (point.getX()==pointA.getX());
         return(Math.abs(a*point.getX()+b-point.getY())<0.001);
     }
 
     /**
      * Calculate the angle between the segment and the orientation of a rectangle
-     * @param rectangle a rectangle
+     * @param orientationOfStream orientation of the stream
      * @return the angle between the segment and the orientation of a rectangle
      */
     public double angleIntersectionBetweenSegmentAndRectangle(double orientationOfStream) {
@@ -130,5 +132,18 @@ public class Segment {
     @Override
     public String toString() {
         return "PointA: {"+pointA.getX()+";"+pointA.getY()+"}   PointB: {"+pointB.getX()+";"+pointB.getY()+"}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Segment segment = (Segment) o;
+        return Double.compare(segment.length, length) == 0 && Double.compare(segment.a, a) == 0 && Double.compare(segment.b, b) == 0 && Objects.equals(pointA, segment.pointA) && Objects.equals(pointB, segment.pointB);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pointA, pointB);
     }
 }

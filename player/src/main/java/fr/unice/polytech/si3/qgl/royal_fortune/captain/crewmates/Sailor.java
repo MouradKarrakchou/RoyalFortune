@@ -118,5 +118,4 @@ public class Sailor{
 		this.x = x;
 	}
 
-
 }

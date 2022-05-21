@@ -11,6 +11,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class InitGameToolDAO extends InitGameDAO {
 
     private List<SeaEntities> seaEntities;
@@ -28,18 +32,6 @@ public class InitGameToolDAO extends InitGameDAO {
         this.minimumCrewSize = minumumCrewSize;
         this.startingPositions = startingPositions;
     }
-
-    /* NE PAS DELETE - UTIL
-    public int countCrew(int minumumCrewSize, int maximumCrewSize){
-        int crewSize = 0;
-        if(minumumCrewSize == maximumCrewSize) crewSize = minumumCrewSize;
-        else{
-            SecureRandom r = new SecureRandom();
-            crewSize = r.nextInt(maximumCrewSize-minumumCrewSize) + minumumCrewSize;
-        }
-        return crewSize;
-    }
-     */
 
     public List<Sailor> genSailors(int crewSize, Ship ship) throws Exception {
         List<Sailor> listSailor = new ArrayList<>();

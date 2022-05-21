@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.IPositionable;
 
 import java.awt.*;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,12 +34,6 @@ public class Position implements IPositionable {
 		this.orientation = 0.0;
 	}
 
-	public Position(Point p) {
-		this.x = p.getX();
-		this.y = p.getY();
-		this.orientation = 0.0;
-	}
-	
 	public double getX() {
 		return x;
 	}
@@ -86,6 +81,7 @@ public class Position implements IPositionable {
 		this.y=position.getY();
 		this.orientation=position.getOrientation();
     }
+
 	@Override
 	public boolean equals(Object object){
 		if (object == null) return false;
@@ -97,11 +93,7 @@ public class Position implements IPositionable {
 
 	@Override
 	public int hashCode() {
-		int result = 17;
-		result = 31 * result + String.valueOf(y).hashCode();
-		result = 31 * result + Integer.parseInt(String.valueOf(y));
-		result = 31 * result + String.valueOf(orientation).hashCode();
-		return result;
+		return Objects.hash(x, y, orientation, logger);
 	}
 
 	@JsonIgnore

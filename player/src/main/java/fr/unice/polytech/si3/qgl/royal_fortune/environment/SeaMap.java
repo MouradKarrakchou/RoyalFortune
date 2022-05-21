@@ -7,51 +7,64 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
 import java.util.List;
-import java.util.Stack;
 
+/**
+ * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class SeaMap {
     private final Goal goal;
     private FictitiousCheckpoint fictitiousCheckpoints;
     private final Position shipPosition;
-    private Wind wind;
-    private List<SeaEntities> seaEntities;
+    int roundSinceLastCheckpoint;
     Observer observer;
 
-    public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition,Wind wind,List<SeaEntities> seaEntities){
+    public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition){
         this.goal=goal;
         this.fictitiousCheckpoints=fictitiousCheckpoints;
         this.shipPosition=shipPosition;
-        this.wind=wind;
-        this.seaEntities=seaEntities;
         observer=new Observer();
     }
+
+    /**
+     * Update checkpoints to target
+     * @param newSeaEntities sea entities
+     */
     public void updateCheckPoint(List<SeaEntities> newSeaEntities) {
         if (isInCheckpoint(goal.getCheckPoints().get(0)))
         {
             goal.nextCheckPoint();
             fictitiousCheckpoints.nextCheckPoint();
-            observer.getCartologue().getListSeaEntities().clear();
-            this.seaEntities.clear();
+            roundSinceLastCheckpoint=0;
         }
-        if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
-        {
-
-            observer.getCartologue().getListSeaEntities().clear();
-            this.seaEntities.clear();
+        if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint())) {
             fictitiousCheckpoints.nextCheckPoint();
         }
-
         observer.setNextCheckPointPosition(goal.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);
-        if (observer.checkIfNewSeaEntities(newSeaEntities)){
-            Stack<Beacon> beaconStack=observer.watchSea(newSeaEntities);
-            fictitiousCheckpoints.addBeacons(beaconStack);
-        }
+
+        observer.updateSeaEntities(newSeaEntities);
+        List<Beacon> beaconList =observer.watchSea(observer.getCurrentSeaEntities());
+        fictitiousCheckpoints.addBeacons(beaconList);
+        roundSinceLastCheckpoint++;
     }
+
+    /**
+     * Checks if the ship is in the checkpoint
+     * @param checkpoint checkpoint
+     * @return true if so
+     */
     public boolean isInCheckpoint(Checkpoint checkpoint) {
         return(isInCheckpointShipPos(checkpoint,shipPosition.getX(),shipPosition.getY()));
     }
 
+    /**
+     * Checks if the ship position is in the checkpoint
+     * @param checkpoint checkpoint
+     * @param shipX ship position on x
+     * @param shipY ship position on y
+     * @return true if so
+     */
     public boolean isInCheckpointShipPos(Checkpoint checkpoint,double shipX,double shipY) {
         double distanceSCX = checkpoint.getPosition().getX() - shipX;
         double distanceSCY = checkpoint.getPosition().getY() - shipY;

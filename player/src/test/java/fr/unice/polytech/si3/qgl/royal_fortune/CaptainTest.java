@@ -2,7 +2,6 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Associations;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.Captain;
-import fr.unice.polytech.si3.qgl.royal_fortune.captain.DirectionsManager;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorPlacement;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
@@ -10,14 +9,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
-import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Deck;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Entities;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
-import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Watch;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.*;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -209,4 +204,92 @@ class CaptainTest {
         assertEquals("[{\"sailorId\":0,\"type\":\"USE_WATCH\"}]", captain.getRoundActions().toString());
     }
 
+    @Test
+    void turnWithRudderRoundActionTest() {
+        sailors.clear();
+        entities.clear();
+        for(int i = 0; i < 7; i++) {
+            sailors.add(new Sailor(0, 0, 0, "Sailor0"));
+            entities.add(new Oar());
+        }
+        entities.add(new Rudder(0, 0));
+
+        captain.getAssociations().addAssociation(sailors.get(0), basicShip.getRudder());
+
+        SailorPlacement sailorPlacement = new SailorPlacement(2, true, false);
+        sailorPlacement.incrementNbLeftSailor(5);
+        sailorPlacement.incrementNbRightSailor(3);
+
+        captain.turnWithRudderRoundAction(sailorPlacement, 13);
+        assertEquals("[{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":0.7853981633974483}]", captain.getRoundActions().toString());
+
+        captain.getRoundActions().clear();
+        captain.turnWithRudderRoundAction(sailorPlacement, -1.2);
+        assertEquals("[{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":-0.3024020989743448}]", captain.getRoundActions().toString());
+    }
+
+    @Test
+    void coneNotTooSmallAndNotInConeTest() {
+        captain.getDirectionsManager().setAngleMove(7);
+        captain.getDirectionsManager().setAngleCone(5);
+
+        entities.clear();
+        for(int i = 0; i < 3; i++) {
+            entities.add(new Oar());
+        }
+
+        assertTrue(captain.coneNotTooSmallAndNotInCone());
+    }
+
+    @Test
+    void angleSailorsShouldMakeNeededTest() {
+        captain.getDirectionsManager().setAngleMove(7);
+        captain.getDirectionsManager().setAngleCone(5);
+
+        entities.clear();
+        for(int i = 0; i < 11; i++) {
+            entities.add(new Oar());
+        }
+
+        double angle = captain.angleSailorsShouldMakeNeeded(3);
+
+        assertEquals(3*Math.PI/11, angle);
+    }
+
+    @Test
+    void oarWeightNeededTest() {
+        captain.getDirectionsManager().setAngleMove(7);
+        captain.getDirectionsManager().setAngleCone(5);
+
+        sailors.add(new Sailor(0, 0, 0, "Sailor0"));
+        entities.add(new Oar());
+
+        assertEquals(1, captain.oarWeightNeeded(10));
+    }
+
+    @Test
+    void createActionTest() {
+        Sailor sailor = new Sailor(0, 0, 0, "Sailor");
+        captain.getRoundActions().add(sailor.turnWithRudder(12));
+        captain.getRoundActions().add(sailor.turnWithRudder(42));
+
+        String actions = captain.createAction();
+        assertEquals("{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":12.0},{\"sailorId\":0,\"type\":\"TURN\",\"rotation\":42.0}", actions);
+    }
+
+    @Test
+    void roundDecisionTest() {
+        //First association that will check the associations.dissociateAll() from roundDecision
+        Sailor sailor = new Sailor(0, 0, 0, "Sailor0");
+        sailors.add(sailor);
+        Oar oar = new Oar(0, 0);
+        entities.add(oar);
+        captain.getAssociations().addAssociation(sailor, oar);
+
+        //First association that will check the roundActions.clear() from roundDecision
+        captain.getRoundActions().add(sailor.turnWithRudder(12));
+
+
+        assertEquals("[]", captain.roundDecisions());
+    }
 }

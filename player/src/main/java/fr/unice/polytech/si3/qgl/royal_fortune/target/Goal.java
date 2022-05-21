@@ -4,6 +4,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Checkpoint;
 
 import java.util.List;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Goal {
     String mode;
     List<Checkpoint> checkpoints;

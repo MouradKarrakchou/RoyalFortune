@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorPlacement
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
@@ -17,7 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Captain {
     private Ship ship;
     private List<Sailor> sailors;
@@ -38,7 +42,7 @@ public class Captain {
         associations = new Associations();
         roundActions = new ArrayList<>();
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
-        seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(),wind,seaEntities);
+        seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
         preCalculator = new PreCalculator(ship, sailors, seaMap,wind);
         crew = new Crew(sailors, associations);
 
@@ -79,15 +83,24 @@ public class Captain {
         return (actionsToDo.substring(0, actionsToDo.length()-1));
     }
 
-
+    /**
+     * Do all the necessary actions to place the sailors and fill the actions needed to be done
+     */
     public void roundProceed() {
         double angleMove = directionsManager.getAngleMove();
         int oarWeight = oarWeightNeeded(angleMove);
         double angleSailorsShouldMake = angleSailorsShouldMakeNeeded(oarWeight);
+        Optional<Boolean> optionalSailDecision = Optional.empty();
 
-        Optional<Boolean> optionalSailDecision = getSailDecision();
+        if (!ship.getSail().isEmpty())
+            optionalSailDecision = getSailDecision();
+
         boolean useSail = optionalSailDecision.isPresent();
-        boolean needRudder = getRudderDecision(angleMove, angleSailorsShouldMake);
+        boolean needRudder = false;
+
+        if (ship.getRudder()!=null)
+            needRudder = getRudderDecision(angleMove, angleSailorsShouldMake);
+
         boolean needWatch = ship.getWatch() != null;
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail, needWatch);
@@ -108,7 +121,7 @@ public class Captain {
      * @param angleMove the ship needs to turn to
      * @return oar weight
      */
-    int oarWeightNeeded(double angleMove) {
+    public int oarWeightNeeded(double angleMove) {
         if (coneNotTooSmallAndNotInCone())
             return oarWeight(angleMove);
 
@@ -137,10 +150,10 @@ public class Captain {
 
     /**
      * If there is a usable rudder, add a rudder action
-     * @param strategyAnswer
-     * @param angleMove
+     * @param strategyAnswer answer
+     * @param angleMove angle needed to be done by the ship
      */
-    void turnWithRudderRoundAction(SailorPlacement strategyAnswer, double angleMove) {
+    public void turnWithRudderRoundAction(SailorPlacement strategyAnswer, double angleMove) {
         if(strategyAnswer.hasRudder()){
             double angleMadeBySailors = (strategyAnswer.getNbRightSailors() - strategyAnswer.getNbLeftSailors()) * (Math.PI / ship.getNbrOar());
             double angleToTurnRudder = computeAngleToTurnRudder(angleMove, angleMadeBySailors);
@@ -186,21 +199,28 @@ public class Captain {
     public boolean getRudderDecision(double angleMove, double angleSailorsShouldMake) {
         return Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3);
     }
-        /**
-         * If we need to use the sail return the action to do, in the other case return optional.empty
-         * @return eventually true if we need the sail
-         */
+
+    /**
+     * If we need to use the sail return the action to do, in the other case return optional.empty
+     * @return eventually true if we need the sail
+     */
     public Optional<Boolean> getSailDecision() {
         if(wind.getStrength() == 0.0) return Optional.empty();
 
-        boolean windGoodForUs =  (ship.getPosition().getOrientation()) < (wind.getOrientation() + Math.PI/2) && (ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2));
-        boolean sailOpenned = ship.getSail().isOpenned();
+        boolean windGoodForUs = (Math.abs(wind.getOrientation() - ship.getPosition().getOrientation()%(2*Math.PI)) < Math.PI/2);
+
+        List<Boolean> sailsOpenedList = new ArrayList<>();
+        List<Sail> sailList = ship.getSail();
+        for(Sail sail : sailList) {
+            sailsOpenedList.add(sail.isOpenned());
+        }
+
         Optional<Boolean> openSail = Optional.empty();
 
-        if(windGoodForUs && !sailOpenned){
+        if(windGoodForUs && sailsOpenedList.contains(false)){
             openSail = Optional.of(true);
         }
-        else if(!windGoodForUs && sailOpenned){
+        else if(!windGoodForUs && sailsOpenedList.contains(true)) {
             openSail = Optional.of(false);
         }
 
@@ -251,4 +271,10 @@ public class Captain {
 
     public void updateSeaEntities(List<SeaEntities> seaEntities) {this.seaEntities=seaEntities;
     }
+
+    public List<SeaEntities> getSeaEntities() {
+        return seaEntities;
+    }
+
+    public DirectionsManager getDirectionsManager() { return this.directionsManager; }
 }

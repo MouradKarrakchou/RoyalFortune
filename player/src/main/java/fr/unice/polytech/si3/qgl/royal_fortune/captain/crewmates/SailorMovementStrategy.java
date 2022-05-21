@@ -8,6 +8,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.*;
 
 import java.util.*;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class SailorMovementStrategy {
     private final List<Sailor> sailors;
     private final Ship ship;
@@ -39,22 +43,13 @@ public class SailorMovementStrategy {
         continueAssociatingStarvingEntities(requestedSailorPlacement);
 
         // We are associating (if possible) the nearest sailor to the Watch. And if an association has been made.
-        if(requestedSailorPlacement.hasWatch() && associateNearestSailor(ship.getWatch())){
-            requestedSailorPlacement.setWatch(false);
-            currentSailorPlacement.setWatch(true);
-        }
+        associateNearestSailorWatch(requestedSailorPlacement);
 
         // We are associating (if possible) the nearest sailor to the Rudder. And if an association has been made.
-        if(requestedSailorPlacement.hasRudder() && associateNearestSailor(ship.getRudder())){
-            requestedSailorPlacement.setRudder(false);
-            currentSailorPlacement.setRudder(true);
-        }
+        associateNearestSailorRudder(requestedSailorPlacement);
 
-        // We are associating (if possible) the nearest sailor to the Sail. And if an association has been made.
-        if(requestedSailorPlacement.hasSail() && associateNearestSailor(ship.getSail())){
-            requestedSailorPlacement.setSail(false);
-            currentSailorPlacement.setSail(true);
-        }
+        // We are associating (if possible) the nearest sailor to the Sail.
+        associateNearestSailorSail(requestedSailorPlacement);
 
         // We are associating (if possible) the left or right oar to the nearest sailor according to the oarWeight.
         associateNearestSailorToOars(requestedSailorPlacement);
@@ -62,6 +57,50 @@ public class SailorMovementStrategy {
         continueAssociatingSailorsToOarEvenly();
 
         return currentSailorPlacement;
+    }
+
+    /**
+     * Associates the nearest sailor to the watch
+     * @param requestedSailorPlacement requests
+     */
+    private void associateNearestSailorWatch(SailorPlacement requestedSailorPlacement){
+        if(requestedSailorPlacement.hasWatch() && associateNearestSailor(ship.getWatch())){
+            requestedSailorPlacement.setWatch(false);
+            currentSailorPlacement.setWatch(true);
+        }
+    }
+
+    /**
+     * Associates the nearest sailor to the rudder
+     * @param requestedSailorPlacement requests
+     */
+    private void associateNearestSailorRudder(SailorPlacement requestedSailorPlacement){
+        if(requestedSailorPlacement.hasRudder() && associateNearestSailor(ship.getRudder())){
+            requestedSailorPlacement.setRudder(false);
+            currentSailorPlacement.setRudder(true);
+        }
+    }
+
+    /**
+     * Associates the nearest sailor to the sails
+     * @param requestedSailorPlacement requests
+     */
+    private void associateNearestSailorSail(SailorPlacement requestedSailorPlacement){
+        if(requestedSailorPlacement.hasSail()){
+            int nbAssociations = 0;
+            List<Sail> sails = ship.getSail();
+
+            for(Sail sail : sails){
+                if(associations.isFree(sail)){
+                    if(associateNearestSailor(sail)) nbAssociations++;
+                    currentSailorPlacement.setSail(true);
+                }
+                else nbAssociations++;
+            }
+
+            if(nbAssociations == sails.size())
+                requestedSailorPlacement.setSail(false);
+        }
     }
 
     /**
@@ -171,37 +210,16 @@ public class SailorMovementStrategy {
      */
     public boolean associateStarvingEntities(SailorPlacement requestedSailorPlacement){
         // If we need a watch.
-        if (requestedSailorPlacement.hasWatch()){
-            Watch watch = ship.getWatch();
-            // If an association has been made
-            if(associateStarvingEntity(watch)){
-                requestedSailorPlacement.setWatch(false);
-                currentSailorPlacement.setWatch(true);
-                return true; // We are returning to be sure to keep the association priority.
-            }
-        }
+        if(checkForWatch(requestedSailorPlacement))
+            return true;
 
         // If we need a rudder.
-        if (requestedSailorPlacement.hasRudder()){
-            Rudder rudder = ship.getRudder();
-            // If an association has been made
-            if(associateStarvingEntity(rudder)){
-                requestedSailorPlacement.setRudder(false);
-                currentSailorPlacement.setRudder(true);
-                return true; // We are returning to be sure to keep the association priority.
-            }
-        }
+        if(checkForRudder(requestedSailorPlacement))
+            return true;
 
         // If we need a sail.
-        if (requestedSailorPlacement.hasSail()){
-            Sail sail = ship.getSail();
-            // If an association has been made.
-            if(associateStarvingEntity(sail)){
-                requestedSailorPlacement.setSail(false);
-                currentSailorPlacement.setSail(true);
-                return true; // We are returning to be sure to keep the association priority.
-            }
-        }
+        if(checkForSail(requestedSailorPlacement))
+            return true;
 
         // If we need at least on right oar. And if an association has been made.
         if(requestedSailorPlacement.getOarWeight() > 0 && associateStarvingOar(DirectionsManager.RIGHT)) {
@@ -217,6 +235,69 @@ public class SailorMovementStrategy {
             return true; // We are returning to be sure to keep the association priority.
         }
 
+        return false;
+    }
+
+    /**
+     * Checks if a sailor can be associated to sails
+     * @param requestedSailorPlacement requests
+     * @return if the association succeed
+     */
+    private boolean checkForSail(SailorPlacement requestedSailorPlacement){
+        if (!requestedSailorPlacement.hasSail())
+            return false;
+
+        List<Sail> sails = ship.getSail();
+        int nbAssociations = 0;
+
+        for(Sail sail : sails){
+            // If an association has been made.
+            if(associations.isFree(sail)){
+                if(associateStarvingEntity(sail)) {
+                    currentSailorPlacement.setSail(true);
+                    if(++nbAssociations == sails.size())
+                        requestedSailorPlacement.setSail(false);
+                    return true; // We are returning to be sure to keep the association priority.
+                }
+            }
+            else nbAssociations++;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a sailor can be associated to the rudder
+     * @param requestedSailorPlacement requests
+     * @return if the association succeed
+     */
+    private boolean checkForRudder(SailorPlacement requestedSailorPlacement){
+        if (requestedSailorPlacement.hasRudder()){
+            Rudder rudder = ship.getRudder();
+            // If an association has been made
+            if(associateStarvingEntity(rudder)){
+                requestedSailorPlacement.setRudder(false);
+                currentSailorPlacement.setRudder(true);
+                return true; // We are returning to be sure to keep the association priority.
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a sailor can be associated to the watch
+     * @param requestedSailorPlacement requests
+     * @return if the association succeed
+     */
+    private boolean checkForWatch(SailorPlacement requestedSailorPlacement){
+        if (requestedSailorPlacement.hasWatch()){
+            Watch watch = ship.getWatch();
+            // If an association has been made
+            if(associateStarvingEntity(watch)){
+                requestedSailorPlacement.setWatch(false);
+                currentSailorPlacement.setWatch(true);
+                return true; // We are returning to be sure to keep the association priority.
+            }
+        }
         return false;
     }
 
@@ -353,6 +434,11 @@ public class SailorMovementStrategy {
         return false;
     }
 
+    /**
+     * Get sailors near to aars
+     * @param direction direction
+     * @return a set of sailors
+     */
     public Set<Sailor> getSailorNearToOar(int direction){
         Set<Sailor> nearbySailors = new HashSet<>();
 
@@ -383,6 +469,10 @@ public class SailorMovementStrategy {
                 .toList();
     }
 
+    /**
+     * Checks if sailors can continue to oar evenly
+     * @return true if so
+     */
     public boolean canContinueToOarEvenly(){
         return preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
                 currentSailorPlacement.getNbRightSailors()) * 2);

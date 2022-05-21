@@ -35,7 +35,6 @@ class JsonManagerTest {
             }""";
         Ship ship = JsonManager.readShipJson(json);
 
-        assertEquals("ship", ship.getType());
         assertEquals(100, ship.getLife());
 
         assertEquals(new Position(10, 20, 0).toString(), ship.getPosition().toString());

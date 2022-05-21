@@ -10,6 +10,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 
 import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
@@ -18,6 +19,7 @@ import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
+
 @JsonIgnoreProperties(value = {
 		"type",
 		"segmentList"
@@ -58,7 +60,7 @@ Rectangle extends Shape{
 
 	@Override
 	public List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos) {
-		return GeometryRectangle.computeIntersectionWith(segment, seaEntitiesPos, this);
+		return GeometryRectangle.computeIntersectionWith(segment, seaEntitiesPos, this.getSegmentList());
 	}
 
 	@Override
@@ -86,11 +88,7 @@ Rectangle extends Shape{
 
 	@Override
 	public int hashCode() {
-		int result = 17;
-		result = 31 * result + String.valueOf(width).hashCode();
-		result = 31 * result + Integer.parseInt(String.valueOf(height));
-		result = 31 * result + String.valueOf(orientation).hashCode();
-		return result;
+		return Objects.hash(width, height, orientation, segmentList);
 	}
 
 	@Override

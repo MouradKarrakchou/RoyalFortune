@@ -7,6 +7,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class SailAction extends Action{
 
     final Logger logger = Logger.getLogger(SailAction.class.getName());

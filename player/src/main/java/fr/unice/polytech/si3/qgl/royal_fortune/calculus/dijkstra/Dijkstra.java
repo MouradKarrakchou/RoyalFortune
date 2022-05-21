@@ -8,7 +8,13 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Route;
 
 import java.util.*;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Dijkstra {
+    private static Map<Integer, Double> routeMap = new HashMap<>();
+
     /**
      * For a given list of Beacons, will proceed the Dijkstra algorithm to find the shortest path possible.
      * @param departure - The position of the departure point.
@@ -17,7 +23,7 @@ public class Dijkstra {
      * @param beacons - The list of all the beacons on the map.
      * @return The shortest path as a stack of Beacons (departure & arrival positions are excluded).
      */
-    public static Stack<Beacon> proceedDijkstra(Position departure, Position arrival, Cartologue cartologue, List <Beacon> beacons){
+    public static List<Beacon> proceedDijkstra(Position departure, Position arrival, Cartologue cartologue, List <Beacon> beacons){
         List<DijkstraNode> availableNodes = generateDijkstraNodes(beacons);
         DijkstraNode arrivalNode = new DijkstraNode(arrival);
         availableNodes.add(arrivalNode);
@@ -51,11 +57,7 @@ public class Dijkstra {
 
         for (DijkstraNode node : availableNodes){
             // Creating a route between the currentNode and one of the possible node.
-            Segment segment = new Segment(currentNode.getNode().getPosition(), node.getNode().getPosition());
-            Route route = new Route(segment, cartologue);
-
-            // If the calculated path is shorter than the older one, we update the node.
-            double newNodeValue = route.getValue() + currentNode.getNodeValue();
+            double newNodeValue = getRouteValue(currentNode.getNode().getPosition(), node.getNode().getPosition(), cartologue) + currentNode.getNodeValue();
             if(newNodeValue < node.getNodeValue()){
                 node.setNodeValue(newNodeValue);
                 node.setPreviousNode(currentNode);
@@ -74,5 +76,24 @@ public class Dijkstra {
         List<DijkstraNode> dijkstraNodes = new ArrayList<>();
         beacons.forEach(beacon -> dijkstraNodes.add(new DijkstraNode(beacon)));
         return dijkstraNodes;
+    }
+
+    /**
+     * Give a value to a segment
+     * @param a position
+     * @param b position
+     * @param cartologue cartologue
+     * @return value of a Route
+     */
+    private static double getRouteValue(Position a, Position b, Cartologue cartologue){
+        Segment s = new Segment(a, b);
+        int hash = s.hashCode();
+        if(!routeMap.containsKey(hash))
+             routeMap.put(hash, new Route(s, cartologue).getValue());
+        return routeMap.get(hash);
+    }
+
+    public static void clearMap(){
+        routeMap = new HashMap<>();
     }
 }

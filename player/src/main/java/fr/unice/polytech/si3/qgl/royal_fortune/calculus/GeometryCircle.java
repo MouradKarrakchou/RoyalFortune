@@ -9,10 +9,14 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class GeometryCircle {
 
     public GeometryCircle() {
-        //No elements needed
+        //Nothing needed
     }
 
     /**
@@ -29,104 +33,28 @@ public class GeometryCircle {
     }
 
     /**
-     * Generates two beacons on the circle, one at the opposite of the other:
-     * the line between the two beacons is perpendicular to the line of the trajectory from the ship to the checkpoint
-     * @param shipPosition ship position
-     * @param checkpointPosition checkpoint position
+     * Generates beacons all around the circle.
      * @param reefPosition reef position
      * @param reefShape reef position
-     * @return the list containing the two beacons
+     * @return the list containing the beacons
      */
-    public static List<Beacon> generateBeacon(Position shipPosition, Position checkpointPosition, Position reefPosition, Circle reefShape){
+    public static List<Beacon> generateBeacon(Position reefPosition, Circle reefShape){
         List<Beacon> beaconList = new ArrayList<>();
-
-        double[] vectorShipCheckpoint = computeDirectorAndNormalVectorsShipCheckpoint(shipPosition, checkpointPosition);
-        double directorVectorX = vectorShipCheckpoint[0];
-        double directorVectorY = vectorShipCheckpoint[1];
-        double normalVectorX = vectorShipCheckpoint[2];
-        double normalVectorY = vectorShipCheckpoint[3];
         double circleRadius = reefShape.getRadius();
+        double reefPositionX = reefPosition.getX();
+        double reefPositionY = reefPosition.getY();
 
-        createRightBeaconUsingCircleReef(reefPosition, directorVectorX, directorVectorY, circleRadius, beaconList);
-        createLeftBeaconUsingCircleReef(reefPosition, directorVectorX, directorVectorY, circleRadius, beaconList);
+        int numberOfBeacons = (int) Math.max(10, Math.ceil(50 * circleRadius / 1000));
+        double beaconShift = (2 * Math.PI) / numberOfBeacons;
 
-        createUpBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, beaconList);
-        createDownBeaconUsingCircleReef(reefPosition, normalVectorX, normalVectorY, circleRadius, beaconList);
+        for(int i = 0; i < numberOfBeacons; i++) {
+            double rightBeaconX = reefPositionX + Math.cos(i * beaconShift) * (circleRadius * 1.1);
+            double rightBeaconY = reefPositionY + Math.sin(i * beaconShift) * (circleRadius * 1.1);
+            Beacon rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
+            beaconList.add(rightBeacon);
+        }
 
         return beaconList;
-    }
-
-    /**
-     * Compute the director and normal vectors on the trajectory ship - checkpoint
-     * @param shipPosition ship position
-     * @param checkpointPosition checkpoint position
-     * @return a tab of double of size 4, having directorVectorX, directorVectorY, normalVectorX and normalVectorY (in that order)
-     */
-    public static double[] computeDirectorAndNormalVectorsShipCheckpoint(Position shipPosition, Position checkpointPosition){
-        double directorVectorShipCheckpointX = checkpointPosition.getX() - shipPosition.getX();
-        double directorVectorShipCheckpointY = checkpointPosition.getY() - shipPosition.getY();
-        double normShipCheckpoint = Math.sqrt(directorVectorShipCheckpointX * directorVectorShipCheckpointX + directorVectorShipCheckpointY * directorVectorShipCheckpointY);
-
-        double directorVectorNormedShipCheckpointX = directorVectorShipCheckpointX / normShipCheckpoint;
-        double directorVectorNormedShipCheckpointY = directorVectorShipCheckpointY / normShipCheckpoint;
-
-        return new double[] {directorVectorNormedShipCheckpointX, directorVectorNormedShipCheckpointY, -directorVectorNormedShipCheckpointY, directorVectorNormedShipCheckpointX};
-    }
-
-    /**
-     * Create a beacon at the right of the reef with a circle shape
-     * @param reefPosition position of a reef
-     * @param directorVectorX x component of the director vector (director of the trajectory ship - checkpoint)
-     * @param directorVectorY y component of the director vector (director of the trajectory ship - checkpoint)
-     * @param circleRadius radius of the reef
-     */
-    public static void createRightBeaconUsingCircleReef(Position reefPosition, double directorVectorX, double directorVectorY, double circleRadius, List<Beacon> beaconList) {
-        double rightBeaconX = reefPosition.getX() + directorVectorX * (circleRadius + Beacon.RADIUSBEACON);
-        double rightBeaconY = reefPosition.getY() + directorVectorY * (circleRadius + Beacon.RADIUSBEACON);
-        Beacon rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
-        beaconList.add(rightBeacon);
-    }
-
-    /**
-     * Create a beacon at the left of the reef with a circle shape
-     * @param reefPosition position of a reef
-     * @param directorVectorX x component of the director vector (director of the trajectory ship - checkpoint)
-     * @param directorVectorY y component of the director vector (director of the trajectory ship - checkpoint)
-     * @param circleRadius radius of the reef
-     */
-    public static void createLeftBeaconUsingCircleReef(Position reefPosition, double directorVectorX, double directorVectorY, double circleRadius, List<Beacon> beaconList) {
-        double leftBeaconX = reefPosition.getX() - directorVectorX * (circleRadius + Beacon.RADIUSBEACON);
-        double leftBeaconY = reefPosition.getY() - directorVectorY * (circleRadius + Beacon.RADIUSBEACON);
-        Beacon leftBeacon = new Beacon(new Position(leftBeaconX, leftBeaconY));
-        beaconList.add(leftBeacon);
-    }
-
-    /**
-     * Create a beacon at the top of the reef with a circle shape
-     * @param reefPosition position of a reef
-     * @param normalVectorX x component of the normal vector (normal of the trajectory ship - checkpoint)
-     * @param normalVectorY y component of the normal vector (normal of the trajectory ship - checkpoint)
-     * @param circleRadius radius of the reef
-     */
-    public static void createUpBeaconUsingCircleReef(Position reefPosition, double normalVectorX, double normalVectorY, double circleRadius, List<Beacon> beaconList){
-        double upBeaconX = reefPosition.getX() + normalVectorX * (circleRadius + Beacon.RADIUSBEACON);
-        double upBeaconY = reefPosition.getY() + normalVectorY * (circleRadius + Beacon.RADIUSBEACON);
-        Beacon upBeacon = new Beacon(new Position(upBeaconX, upBeaconY));
-        beaconList.add(upBeacon);
-    }
-
-    /**
-     * Create a beacon at the bottom of the reef with a circle shape
-     * @param reefPosition position of a reef
-     * @param normalVectorX x component of the normal vector (normal of the trajectory ship - checkpoint)
-     * @param normalVectorY y component of the normal vector (normal of the trajectory ship - checkpoint)
-     * @param circleRadius radius of the reef
-     */
-    public static void createDownBeaconUsingCircleReef(Position reefPosition, double normalVectorX, double normalVectorY, double circleRadius, List<Beacon> beaconList){
-        double downBeaconX = reefPosition.getX() - normalVectorX * (circleRadius + Beacon.RADIUSBEACON);
-        double downBeaconY = reefPosition.getY() - normalVectorY * (circleRadius + Beacon.RADIUSBEACON);
-        Beacon downBeacon = new Beacon(new Position(downBeaconX, downBeaconY));
-        beaconList.add(downBeacon);
     }
 
     /**
@@ -137,20 +65,16 @@ public class GeometryCircle {
      */
     public static List<Position> computeIntersectionWith(Segment segment, Position circlePosition, Circle circle) {
         List<Position> intersectionList = new ArrayList<>();
-        Position pointASave = segment.getPointA();
-        Position pointBSave = segment.getPointB();
 
         Segment segmentToWorkOn = segmentToWorkOn(segment, circlePosition);
 
-        double circlePositionX = circlePosition.getX();
-        double circlePositionY = circlePosition.getY();
         double radius = circle.getRadius();
         double segmentToWorkOnA = segmentToWorkOn.getA();
         double segmentToWorkOnB = segmentToWorkOn.getB();
 
         double discriminant = discriminant(segmentToWorkOnA, segmentToWorkOnB, radius);
 
-        discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
+        discriminantValue(segmentToWorkOn,segment,discriminant,circlePosition, intersectionList);
 
         intersectionList.add(0,segment.getPointA());
         intersectionList.add( segment.getPointB());
@@ -196,38 +120,37 @@ public class GeometryCircle {
     /**
      * Call the right method to add the intersections points considering the discriminant value
      * @param segmentToWorkOn segment on which we can work
-     * @param segmentToWorkOnA value of the line equation ax+b
-     * @param segmentToWorkOnB value of the line equation ax+b
-     * @param pointASave a save of the 'A' position of the segment
-     * @param pointBSave a save of the 'B' position of the segment
      * @param discriminant discriminant value
-     * @param circlePositionX x circle position
-     * @param circlePositionY y circle position
      * @param intersectionList intersection List
      */
-    public static void discriminantValue(Segment segmentToWorkOn, double segmentToWorkOnA, double segmentToWorkOnB, Position pointASave, Position pointBSave, double discriminant, double circlePositionX, double circlePositionY, List<Position> intersectionList) {
+    public static void discriminantValue(Segment segmentToWorkOn, Segment segment,double discriminant, Position circlePosition, List<Position> intersectionList) {
         if(discriminant > 0) {
-            positiveDiscriminant(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
+            positiveDiscriminant(segmentToWorkOn, segment, discriminant, circlePosition, intersectionList);
         }
 
         else if (discriminant == 0) {
-            zeroDiscriminant(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, circlePositionX, circlePositionY, intersectionList);
+            zeroDiscriminant(segmentToWorkOn, segment, circlePosition, intersectionList);
         }
     }
 
     /**
      * Add the two intersections points to the intersectionList
      * @param segmentToWorkOn segment on which we can work
-     * @param segmentToWorkOnA value of the line equation ax+b
-     * @param segmentToWorkOnB value of the line equation ax+b
-     * @param pointASave a save of the 'A' position of the segment
-     * @param pointBSave a save of the 'B' position of the segment
+     * @param segment segment
      * @param discriminant discriminant value
-     * @param circlePositionX x circle position
-     * @param circlePositionY y circle position
+     * @param circlePosition position of the circle
      * @param intersectionList intersection List
      */
-    public static void positiveDiscriminant(Segment segmentToWorkOn, double segmentToWorkOnA, double segmentToWorkOnB, Position pointASave, Position pointBSave, double discriminant, double circlePositionX, double circlePositionY, List<Position> intersectionList) {
+    public static void positiveDiscriminant(Segment segmentToWorkOn, Segment segment, double discriminant, Position circlePosition, List<Position> intersectionList) {
+        Position pointASave = segment.getPointA();
+        Position pointBSave = segment.getPointB();
+
+        double circlePositionX = circlePosition.getX();
+        double circlePositionY = circlePosition.getY();
+
+        double segmentToWorkOnA = segmentToWorkOn.getA();
+        double segmentToWorkOnB = segmentToWorkOn.getB();
+
         double firstSolution = (-2 * segmentToWorkOnA * segmentToWorkOnB + Math.sqrt(discriminant)) / (2 * (Math.pow(segmentToWorkOnA, 2) + 1));
         double secondSolution = (-2 * segmentToWorkOnA * segmentToWorkOnB - Math.sqrt(discriminant)) / (2 * (Math.pow(segmentToWorkOnA, 2) + 1));
 
@@ -238,16 +161,16 @@ public class GeometryCircle {
 
         boolean conditionWithPosition1real = !pointASave.equals(position1real) && !pointBSave.equals(position1real);
         boolean conditionWithPosition2real = !pointASave.equals(position2real) && !pointBSave.equals(position2real);
-        boolean Position1Position2InSegment = segmentToWorkOn.pointInSegment(position1) && segmentToWorkOn.pointInSegment(position2);
+        boolean position1Position2InSegment = segmentToWorkOn.pointInSegment(position1) && segmentToWorkOn.pointInSegment(position2);
         boolean conditionOnDistances = Mathematician.distanceFormula(position1,pointASave) > Mathematician.distanceFormula(position2,pointASave);
 
-        if(Position1Position2InSegment && conditionOnDistances) {
+        if(position1Position2InSegment && conditionOnDistances) {
             if (conditionWithPosition1real) intersectionList.add(position1real);
 
             if (conditionWithPosition2real) intersectionList.add(position2real);
         }
 
-        else if(Position1Position2InSegment){
+        else if(position1Position2InSegment){
             if (conditionWithPosition2real) intersectionList.add(position2real);
 
             if (conditionWithPosition1real) intersectionList.add(position1real);
@@ -257,15 +180,19 @@ public class GeometryCircle {
     /**
      * Add the only intersection point to the intersectionList
      * @param segmentToWorkOn segment on which we can work
-     * @param segmentToWorkOnA value of the line equation ax+b
-     * @param segmentToWorkOnB value of the line equation ax+b
-     * @param pointASave a save of the 'A' position of the segment
-     * @param pointBSave a save of the 'B' position of the segment
-     * @param circlePositionX x circle position
-     * @param circlePositionY y circle position
+     * @param segment segment
+     * @param circlePosition position of the circle
      * @param intersectionList intersection List
      */
-    public static void zeroDiscriminant(Segment segmentToWorkOn, double segmentToWorkOnA, double segmentToWorkOnB, Position pointASave, Position pointBSave, double circlePositionX, double circlePositionY, List<Position> intersectionList) {
+    public static void zeroDiscriminant(Segment segmentToWorkOn, Segment segment, Position circlePosition, List<Position> intersectionList) {
+        Position pointASave = segment.getPointA();
+        Position pointBSave = segment.getPointB();
+
+        double circlePositionX = circlePosition.getX();
+        double circlePositionY = circlePosition.getY();
+
+        double segmentToWorkOnA = segmentToWorkOn.getA();
+        double segmentToWorkOnB = segmentToWorkOn.getB();
         double onlySolution = (-2 * segmentToWorkOnA * segmentToWorkOnB) / (2 * (Math.pow(segmentToWorkOnA, 2) + 1));
         Position position = new Position(onlySolution, segmentToWorkOnA * onlySolution + segmentToWorkOnB);
         Position realPosition = realPosition(onlySolution, segmentToWorkOnA, segmentToWorkOnB, circlePositionX, circlePositionY);
@@ -292,6 +219,13 @@ public class GeometryCircle {
         return new Position(onlySolution + circlePositionX, segmentToWorkOnA * onlySolution + segmentToWorkOnB + circlePositionY);
     }
 
+    /**
+     * Check if a given position is in the circle
+     * @param pointA positionA
+     * @param position position
+     * @param shape circle
+     * @return true if the position is in the circle
+     */
     public static boolean positionIsInTheCircle(Position pointA, Position position, Circle shape) {
         return Mathematician.distanceFormula(pointA,position)< shape.getRadius();
     }

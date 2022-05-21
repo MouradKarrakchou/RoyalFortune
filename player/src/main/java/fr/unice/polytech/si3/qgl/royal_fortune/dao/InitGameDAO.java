@@ -7,6 +7,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class InitGameDAO {
 	Goal goal;
 	Ship ship;
