@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.qgl.royal_fortune;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra.Dijkstra;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
@@ -29,6 +30,7 @@ class ObserverTest {
 
     @BeforeEach
     void init(){
+        Dijkstra.clearMap();
         currentSeaEntities=new ArrayList<>();
         shipPosition=new Position(0,0,0);
         nextCheckPointPosition=new Position(1000,0,0);
