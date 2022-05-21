@@ -9,7 +9,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Route;
 import java.util.*;
 
 public class Dijkstra {
-    private static final Map<Integer, Double> routeMap = new HashMap<>();
+    private static Map<Integer, Double> routeMap = new HashMap<>();
 
     /**
      * For a given list of Beacons, will proceed the Dijkstra algorithm to find the shortest path possible.
@@ -82,6 +82,6 @@ public class Dijkstra {
         return routeMap.get(hash);
     }
     public static void clearMap(){
-        routeMap.clear();
+        routeMap = new HashMap<>();
     }
 }
