@@ -225,7 +225,7 @@ public class SailorMovementStrategy {
     }
 
     private boolean checkForSail(SailorPlacement requestedSailorPlacement){
-        if (requestedSailorPlacement.hasSail())
+        if (!requestedSailorPlacement.hasSail())
             return false;
 
         List<Sail> sails = ship.getSail();
