@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GeometryPolygoneTest {
-    private final double ACCURACY = 0.001;
 
     @Test
     void computeIntersection() {
@@ -66,16 +65,17 @@ class GeometryPolygoneTest {
         assertEquals(4, beacons.size());
         double coef = Math.sqrt((160 * 160)/2.0);
 
-        assertTrue(Math.abs(10 - coef - beacons.get(0).getPosition().getX()) < ACCURACY);
-        assertTrue(Math.abs(5 - coef - beacons.get(0).getPosition().getY()) < ACCURACY);
+        double accuracy = 0.001;
+        assertTrue(Math.abs(10 - coef - beacons.get(0).getPosition().getX()) < accuracy);
+        assertTrue(Math.abs(5 - coef - beacons.get(0).getPosition().getY()) < accuracy);
 
-        assertTrue(Math.abs(10 - coef - beacons.get(1).getPosition().getX()) < ACCURACY);
-        assertTrue(Math.abs(10 + coef - beacons.get(1).getPosition().getY()) < ACCURACY);
+        assertTrue(Math.abs(10 - coef - beacons.get(1).getPosition().getX()) < accuracy);
+        assertTrue(Math.abs(10 + coef - beacons.get(1).getPosition().getY()) < accuracy);
 
-        assertTrue(Math.abs(15 + coef - beacons.get(2).getPosition().getX()) < ACCURACY);
-        assertTrue(Math.abs(5 - coef - beacons.get(2).getPosition().getY()) < ACCURACY);
+        assertTrue(Math.abs(15 + coef - beacons.get(2).getPosition().getX()) < accuracy);
+        assertTrue(Math.abs(5 - coef - beacons.get(2).getPosition().getY()) < accuracy);
 
-        assertTrue(Math.abs(15 + coef - beacons.get(3).getPosition().getX()) < ACCURACY);
-        assertTrue(Math.abs(10 + coef - beacons.get(3).getPosition().getY()) < ACCURACY);
+        assertTrue(Math.abs(15 + coef - beacons.get(3).getPosition().getX()) < accuracy);
+        assertTrue(Math.abs(10 + coef - beacons.get(3).getPosition().getY()) < accuracy);
     }
 }
