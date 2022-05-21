@@ -81,6 +81,7 @@ public class Position implements IPositionable {
 		this.y=position.getY();
 		this.orientation=position.getOrientation();
     }
+
 	@Override
 	public boolean equals(Object object){
 		if (object == null) return false;
@@ -92,7 +93,7 @@ public class Position implements IPositionable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(x, y);
+		return Objects.hash(x, y, orientation, logger);
 	}
 
 	@JsonIgnore
