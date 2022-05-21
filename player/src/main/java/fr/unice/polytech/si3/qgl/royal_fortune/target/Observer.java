@@ -54,8 +54,8 @@ public class Observer {
         boolean newSeaEntitybool=false;
         for (SeaEntities newSeaEntity : newSeaEntities){
             newSeaEntity.getShape();
-            if (!currentSeaEntities.contains(newSeaEntity))
-            {newSeaEntitybool=true;
+            if (!currentSeaEntities.contains(newSeaEntity)){
+                newSeaEntitybool=true;
                 currentSeaEntities.add(newSeaEntity);
             }
         }
@@ -68,7 +68,7 @@ public class Observer {
      * @return If return empty we target the checkpoint else we target the Beacon
      */
     public Stack<Beacon> watchSea(List<SeaEntities> newSeaEntities){
-        currentSeaEntities=newSeaEntities;
+        //this.currentSeaEntities=newSeaEntities;
         List<Beacon> beacons=new ArrayList<>();
         for (SeaEntities seaEntities:newSeaEntities){
             if (seaEntities.getShape() instanceof Circle)

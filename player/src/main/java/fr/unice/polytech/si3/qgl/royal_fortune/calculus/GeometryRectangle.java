@@ -156,10 +156,12 @@ public class GeometryRectangle {
         double widthUnit=width/ precision;
         double heightUnit=height/ precision;
         for (int k = 0 ; k< precision; k++){
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-width/2,-height/2+k*heightUnit)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2,height/2-k*heightUnit)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-width/2+k*widthUnit,height/2)));
-            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,width/2-k*widthUnit,-height/2)));}
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2+k*heightUnit,-width/2)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2-k*heightUnit,width/2)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,height/2,-width/2+k*widthUnit)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2,width/2-k*widthUnit)));
+            listOfPosition.add(new Beacon(Mathematician.changeBase(aPosition,-height/2+k*heightUnit,0)));
+        }
         return listOfPosition;
     }
 

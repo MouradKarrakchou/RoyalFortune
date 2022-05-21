@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeometryCircle {
-    static int NUMBER_OF_BEACONS = 150;
+    static int NUMBER_OF_BEACONS = 100;
     static double BEACON_SHIFT = (2 * Math.PI) / NUMBER_OF_BEACONS;
 
 
@@ -42,10 +42,11 @@ public class GeometryCircle {
         double circleRadius = reefShape.getRadius();
         double reefPositionX = reefPosition.getX();
         double reefPositionY = reefPosition.getY();
+        NUMBER_OF_BEACONS = (int) Math.max(10, Math.ceil(150*circleRadius/1000));
 
         for(int i = 0; i < NUMBER_OF_BEACONS; i++) {
-            double rightBeaconX = reefPositionX + Math.cos(i * BEACON_SHIFT) * (circleRadius + Beacon.RADIUSBEACON*2);
-            double rightBeaconY = reefPositionY + Math.sin(i * BEACON_SHIFT) * (circleRadius + Beacon.RADIUSBEACON*2);
+            double rightBeaconX = reefPositionX + Math.cos(i * BEACON_SHIFT) * (circleRadius + Beacon.RADIUSBEACON*1.3);
+            double rightBeaconY = reefPositionY + Math.sin(i * BEACON_SHIFT) * (circleRadius + Beacon.RADIUSBEACON*1.3);
             Beacon rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
             beaconList.add(rightBeacon);
         }

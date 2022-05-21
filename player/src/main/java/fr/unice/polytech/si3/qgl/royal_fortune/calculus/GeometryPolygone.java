@@ -103,8 +103,8 @@ public class GeometryPolygone {
             Vector centerPointUnitVector = tmp.unitVector();
 
             generatedBeacons.add(new Beacon(new Position(
-                    currentPoint.getX() + centerPointUnitVector.x * 150,
-                    currentPoint.getY() + centerPointUnitVector.y * 150)
+                    currentPoint.getX() + centerPointUnitVector.x * 160,
+                    currentPoint.getY() + centerPointUnitVector.y * 160)
             ));
         }
 
