@@ -119,17 +119,22 @@ class GeometryRectangleTest {
         List<Beacon> res = GeometryRectangle.generateBeaconforStream(stream.getPosition(), rectangle);
         for (int k=0;k<4;k++)
         {
-            assertTrue((Math.abs(res.get(0+k*4).getPosition().getX() + width))<0.2);
-        assertTrue((Math.abs(res.get(0+k*4).getPosition().getY() + height-k*height/2))<0.2);
+            assertTrue((Math.abs(res.get(0+k*5).getPosition().getX() + height-k*height/2)) < 0.2);
+            assertTrue((Math.abs(res.get(0+k*5).getPosition().getY() + width)) < 0.2);
 
-        assertTrue((Math.abs(res.get(1+k*4).getPosition().getX() - width)) <0.2);
-        assertTrue((Math.abs(res.get(1+k*4).getPosition().getY() - height+k*height/2))<0.2);
+            assertTrue((Math.abs(res.get(1+k*5).getPosition().getX() - height+k*height/2)) < 0.2);
+            assertTrue((Math.abs(res.get(1+k*5).getPosition().getY() - width)) < 0.2);
 
-        assertTrue((Math.abs(res.get(2+k*4).getPosition().getX() + width-k*width/2)) < 0.2);
-        assertTrue((Math.abs(res.get(2+k*4).getPosition().getY() - height)) < 0.2);
+            assertTrue((Math.abs(res.get(2+k*5).getPosition().getX() - height)) <0.2);
+            assertTrue((Math.abs(res.get(2+k*5).getPosition().getY() + width-k*width/2))<0.2);
 
-        assertTrue((Math.abs(res.get(3+k*4).getPosition().getX() - width+k*width/2)) < 0.2);
-        assertTrue((Math.abs(res.get(3+k*4).getPosition().getY() + height)) < 0.2);}
+            assertTrue((Math.abs(res.get(3+k*5).getPosition().getX() + height))<0.2);
+            assertTrue((Math.abs(res.get(3+k*5).getPosition().getY() - width+k*width/2))<0.2);
+
+
+
+            assertTrue((Math.abs(res.get(4+k*5).getPosition().getX() + height-k*height/2))<0.2);
+            assertTrue((Math.abs(res.get(4+k*5).getPosition().getY() +0))<0.2);}
     }
 
     @Test
