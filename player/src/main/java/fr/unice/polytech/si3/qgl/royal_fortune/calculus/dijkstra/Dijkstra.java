@@ -8,6 +8,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Route;
 
 import java.util.*;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Dijkstra {
     private static Map<Integer, Double> routeMap = new HashMap<>();
 
@@ -74,6 +78,13 @@ public class Dijkstra {
         return dijkstraNodes;
     }
 
+    /**
+     * Give a value to a segment
+     * @param a position
+     * @param b position
+     * @param cartologue cartologue
+     * @return value of a Route
+     */
     private static double getRouteValue(Position a, Position b, Cartologue cartologue){
         Segment s = new Segment(a, b);
         int hash = s.hashCode();
@@ -81,6 +92,7 @@ public class Dijkstra {
              routeMap.put(hash, new Route(s, cartologue).getValue());
         return routeMap.get(hash);
     }
+
     public static void clearMap(){
         routeMap = new HashMap<>();
     }

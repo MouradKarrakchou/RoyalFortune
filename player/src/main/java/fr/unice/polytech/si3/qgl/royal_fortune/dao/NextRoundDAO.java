@@ -10,6 +10,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.OtherShip;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class NextRoundDAO {
 	private static final Logger LOGGER = Logger.getLogger(NextRoundDAO.class.getName());
 	Ship ship;

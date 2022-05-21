@@ -8,6 +8,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.*;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Crew {
     private final List<Sailor> sailors;
     private final Associations associations;
@@ -86,6 +90,10 @@ public class Crew {
                 .toList());
     }
 
+    /**
+     * Ask the sailors associated to use the watch
+     * This method update list of Action (roundActions)
+     */
     public List<Action> useWatch() {
         return new ArrayList<>(sailors.stream()
                 .filter(sailor -> !associations.isFree(sailor))

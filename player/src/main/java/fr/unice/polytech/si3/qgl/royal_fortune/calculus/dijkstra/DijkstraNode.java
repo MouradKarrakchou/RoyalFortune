@@ -6,6 +6,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class DijkstraNode implements Comparable<DijkstraNode> {
     private final IPositionable nodeObject;
     private DijkstraNode previousNode;

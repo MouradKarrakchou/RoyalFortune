@@ -11,9 +11,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class JsonManagerTool {
     static final Logger LOGGER = Logger.getLogger(JsonManager.class.getName());
     static String exception = "Exception";
+
     /**
      *Create a InitGameToolDAO with a the InitGame JSON
      * @param jsonSeaEntities a String formated as JSON

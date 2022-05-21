@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Associations {
     private final Map<Sailor, Entities> sailorAssociations;
     private final Map<Entities, Sailor> entityAssociations;

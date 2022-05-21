@@ -19,6 +19,7 @@ import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
+
 @JsonIgnoreProperties(value = {
 		"type",
 		"segmentList"

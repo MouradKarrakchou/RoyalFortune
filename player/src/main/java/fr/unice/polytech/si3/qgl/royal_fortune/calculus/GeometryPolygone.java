@@ -9,6 +9,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class GeometryPolygone {
 
     private GeometryPolygone() {}
@@ -46,9 +50,9 @@ public class GeometryPolygone {
 
     /**
      * Generate a Beacon in each corner
-     * @param position
-     * @param polygone
-     * @return
+     * @param position position
+     * @param polygone polygon
+     * @return list of beacons around the polygon
      */
     public static List<Beacon> generateBeacon(Position position, Polygone polygone) {
         Point[] vertices = polygone.getVertices();

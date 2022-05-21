@@ -8,7 +8,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Rectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
-import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.awt.*;
 import java.io.BufferedWriter;
@@ -18,6 +17,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class OutputMaker {
     static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static StringBuilder parameterOfGame = new StringBuilder();

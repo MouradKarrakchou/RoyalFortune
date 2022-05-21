@@ -15,6 +15,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.util.*;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Observer {
     public static final int MAX_RANGE = 1000000000;
     private List<SeaEntities> currentSeaEntities;
@@ -47,7 +51,7 @@ public class Observer {
         return listOfReef;
     }
     /**
-     * Check in half-circle all the seaEntities in RANGE. If newSeaEntities is different from currentSeaEntities return true.
+     * Check in a circle range view all the seaEntities in RANGE. If newSeaEntities is different from currentSeaEntities return true.
      * @param newSeaEntities a potential new sea entity
      */
     public void updateSeaEntities(List<SeaEntities> newSeaEntities){

@@ -5,6 +5,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.awt.*;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Vector {
     public double x;
     public double y;
@@ -18,6 +22,7 @@ public class Vector {
         this.x = headX - tailX;
         this.y = headY - tailY;
     }
+
     public Vector(Segment segment) {
         Position tail=segment.getPointA();
         Position head=segment.getPointB();

@@ -94,12 +94,17 @@ public class Entities {
 				.toList();
 	}
 
+	/**
+	 * Get the nearest sailor
+	 * @param sailors The list of all the sailors.
+	 * @param range The range.
+	 * @return The list of sailors
+	 */
 	public Optional<Sailor> getNearestSailor(List<Sailor> sailors, int range, Associations associations){
 		return sailors.stream()
 				.filter(associations::isFree)
 				.filter(sailor -> sailor.getDistanceToEntity(this) <= range)
 				.min(Comparator.comparingInt(sailor -> sailor.getDistanceToEntity(this)));
 	}
-
 
 }

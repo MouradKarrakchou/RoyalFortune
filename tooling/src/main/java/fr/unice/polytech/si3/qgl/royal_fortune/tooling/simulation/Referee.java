@@ -12,7 +12,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Oar;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Rudder;
 
 import java.util.List;
-//
+
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Referee {
     private final Cockpit cockpit;
     private final List<Sailor> sailors;

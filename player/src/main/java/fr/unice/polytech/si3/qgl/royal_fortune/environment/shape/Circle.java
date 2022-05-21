@@ -16,6 +16,7 @@ import java.util.logging.Level;
  * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
  *
  */
+
 @JsonIgnoreProperties(value = {
         "type"
 })

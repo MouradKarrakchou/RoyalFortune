@@ -23,6 +23,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 import java.util.*;
 import java.util.logging.Logger;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Game {
     private Ship ship;
     private Cockpit cockpit;

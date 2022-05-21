@@ -1,5 +1,9 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class SailorPlacement {
     private int oarWeight;
     private boolean rudder;

@@ -9,6 +9,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class GeometryCircle {
 
     public GeometryCircle() {
@@ -147,8 +151,6 @@ public class GeometryCircle {
         double segmentToWorkOnA = segmentToWorkOn.getA();
         double segmentToWorkOnB = segmentToWorkOn.getB();
 
-
-
         double firstSolution = (-2 * segmentToWorkOnA * segmentToWorkOnB + Math.sqrt(discriminant)) / (2 * (Math.pow(segmentToWorkOnA, 2) + 1));
         double secondSolution = (-2 * segmentToWorkOnA * segmentToWorkOnB - Math.sqrt(discriminant)) / (2 * (Math.pow(segmentToWorkOnA, 2) + 1));
 
@@ -217,6 +219,13 @@ public class GeometryCircle {
         return new Position(onlySolution + circlePositionX, segmentToWorkOnA * onlySolution + segmentToWorkOnB + circlePositionY);
     }
 
+    /**
+     * Check if a given position is in the circle
+     * @param pointA positionA
+     * @param position position
+     * @param shape circle
+     * @return true if the position is in the circle
+     */
     public static boolean positionIsInTheCircle(Position pointA, Position position, Circle shape) {
         return Mathematician.distanceFormula(pointA,position)< shape.getRadius();
     }

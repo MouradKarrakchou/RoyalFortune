@@ -8,6 +8,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.*;
 
 import java.util.*;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class SailorMovementStrategy {
     private final List<Sailor> sailors;
     private final Ship ship;
@@ -55,6 +59,10 @@ public class SailorMovementStrategy {
         return currentSailorPlacement;
     }
 
+    /**
+     * Associates the nearest sailor to the watch
+     * @param requestedSailorPlacement requests
+     */
     private void associateNearestSailorWatch(SailorPlacement requestedSailorPlacement){
         if(requestedSailorPlacement.hasWatch() && associateNearestSailor(ship.getWatch())){
             requestedSailorPlacement.setWatch(false);
@@ -62,6 +70,10 @@ public class SailorMovementStrategy {
         }
     }
 
+    /**
+     * Associates the nearest sailor to the rudder
+     * @param requestedSailorPlacement requests
+     */
     private void associateNearestSailorRudder(SailorPlacement requestedSailorPlacement){
         if(requestedSailorPlacement.hasRudder() && associateNearestSailor(ship.getRudder())){
             requestedSailorPlacement.setRudder(false);
@@ -69,6 +81,10 @@ public class SailorMovementStrategy {
         }
     }
 
+    /**
+     * Associates the nearest sailor to the sails
+     * @param requestedSailorPlacement requests
+     */
     private void associateNearestSailorSail(SailorPlacement requestedSailorPlacement){
         if(requestedSailorPlacement.hasSail()){
             int nbAssociations = 0;
@@ -86,8 +102,6 @@ public class SailorMovementStrategy {
                 requestedSailorPlacement.setSail(false);
         }
     }
-
-
 
     /**
      * RECURSIVE
@@ -224,6 +238,11 @@ public class SailorMovementStrategy {
         return false;
     }
 
+    /**
+     * Checks if a sailor can be associated to sails
+     * @param requestedSailorPlacement requests
+     * @return if the association succeed
+     */
     private boolean checkForSail(SailorPlacement requestedSailorPlacement){
         if (!requestedSailorPlacement.hasSail())
             return false;
@@ -246,6 +265,11 @@ public class SailorMovementStrategy {
         return false;
     }
 
+    /**
+     * Checks if a sailor can be associated to the rudder
+     * @param requestedSailorPlacement requests
+     * @return if the association succeed
+     */
     private boolean checkForRudder(SailorPlacement requestedSailorPlacement){
         if (requestedSailorPlacement.hasRudder()){
             Rudder rudder = ship.getRudder();
@@ -259,6 +283,11 @@ public class SailorMovementStrategy {
         return false;
     }
 
+    /**
+     * Checks if a sailor can be associated to the watch
+     * @param requestedSailorPlacement requests
+     * @return if the association succeed
+     */
     private boolean checkForWatch(SailorPlacement requestedSailorPlacement){
         if (requestedSailorPlacement.hasWatch()){
             Watch watch = ship.getWatch();
@@ -271,7 +300,6 @@ public class SailorMovementStrategy {
         }
         return false;
     }
-
 
     /**
      * RECURSIVE
@@ -406,6 +434,11 @@ public class SailorMovementStrategy {
         return false;
     }
 
+    /**
+     * Get sailors near to aars
+     * @param direction direction
+     * @return a set of sailors
+     */
     public Set<Sailor> getSailorNearToOar(int direction){
         Set<Sailor> nearbySailors = new HashSet<>();
 
@@ -436,6 +469,10 @@ public class SailorMovementStrategy {
                 .toList();
     }
 
+    /**
+     * Checks if sailors can continue to oar evenly
+     * @return true if so
+     */
     public boolean canContinueToOarEvenly(){
         return preCalculator.needSailorToOarToCheckpoint(Math.min(currentSailorPlacement.getNbLeftSailors(),
                 currentSailorPlacement.getNbRightSailors()) * 2);

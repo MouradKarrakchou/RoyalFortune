@@ -9,6 +9,10 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class PreCalculator {
     private final Ship ship;
     private final List<Sailor> sailors;

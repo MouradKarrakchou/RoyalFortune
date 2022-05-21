@@ -10,6 +10,11 @@ import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.util.Objects;
 
+/**
+ * @author Bonnet Killian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
+
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         property = "type")

@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Cartologue {
     private List<SeaEntities> listSeaEntities;
     HashMap<Segment,SeaEntities> map;
@@ -21,6 +25,7 @@ public class Cartologue {
         this.listSeaEntities.addAll(listStream);
         this.listSeaEntities.addAll(listReef);
     }
+
     /**
      * Compute the distance of a route
      * @param segment a segment

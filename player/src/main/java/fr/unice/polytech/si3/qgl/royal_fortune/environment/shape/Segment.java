@@ -8,6 +8,10 @@ import java.awt.*;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Segment {
     private Position pointA;
     private Position pointB;
@@ -25,6 +29,7 @@ public class Segment {
             b = computeB(pointA);
         length= Mathematician.distanceFormula(pointA,pointB);
     }
+
     public Segment(Point pointA, Point pointB) {
         this.pointA = new Position(pointA.getX(),pointA.getY());
         this.pointB = new Position(pointB.getX(),pointB.getY());
@@ -33,6 +38,12 @@ public class Segment {
             b = computeB(this.pointA);
         length= Mathematician.distanceFormula(this.pointA,this.pointB);
     }
+
+    /**
+     * Computes intersections
+     * @param segment segment
+     * @return the eventual position of the intersection
+     */
     public Optional<Position> computeIntersectionWith(Segment segment){
         if (a==segment.getA()||(Math.abs(a)==Float.POSITIVE_INFINITY&& Math.abs(segment.getA())==Float.POSITIVE_INFINITY)){
             boolean pointAIsInTheSegment=pointInSegment(segment.pointA)||segment.pointInSegment(pointA);
@@ -57,6 +68,11 @@ public class Segment {
         return (Optional.of(new Position(aa.getX()+k*i.x,aa.getY()+k*i.y )));
     }
 
+    /**
+     * Checks if a position is in the segment
+     * @param point position
+     * @return true if so
+     */
     public boolean pointInSegment(Position point){
         if (Mathematician.distanceFormula(point,pointA)>length||Mathematician.distanceFormula(point,pointB)>length)
             return false;

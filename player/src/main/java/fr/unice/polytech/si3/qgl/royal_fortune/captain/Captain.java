@@ -18,7 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Captain {
     private Ship ship;
     private List<Sailor> sailors;
@@ -80,7 +83,9 @@ public class Captain {
         return (actionsToDo.substring(0, actionsToDo.length()-1));
     }
 
-
+    /**
+     * Do all the necessary actions to place the sailors and fill the actions needed to be done
+     */
     public void roundProceed() {
         double angleMove = directionsManager.getAngleMove();
         int oarWeight = oarWeightNeeded(angleMove);
@@ -145,8 +150,8 @@ public class Captain {
 
     /**
      * If there is a usable rudder, add a rudder action
-     * @param strategyAnswer
-     * @param angleMove
+     * @param strategyAnswer answer
+     * @param angleMove angle needed to be done by the ship
      */
     public void turnWithRudderRoundAction(SailorPlacement strategyAnswer, double angleMove) {
         if(strategyAnswer.hasRudder()){
@@ -194,10 +199,11 @@ public class Captain {
     public boolean getRudderDecision(double angleMove, double angleSailorsShouldMake) {
         return Math.abs(angleMove - angleSailorsShouldMake) > Math.pow(10, -3);
     }
-        /**
-         * If we need to use the sail return the action to do, in the other case return optional.empty
-         * @return eventually true if we need the sail
-         */
+
+    /**
+     * If we need to use the sail return the action to do, in the other case return optional.empty
+     * @return eventually true if we need the sail
+     */
     public Optional<Boolean> getSailDecision() {
         if(wind.getStrength() == 0.0) return Optional.empty();
 

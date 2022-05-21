@@ -1,12 +1,14 @@
 package fr.unice.polytech.si3.qgl.royal_fortune.tooling.simulation;
 
-import fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra.DijkstraNode;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 
 import java.io.IOException;
-import java.util.Set;
 import java.util.logging.Logger;
 
+/**
+ * @author Bonnet Kilian Imami Ayoub Karrakchou Mourad Le Bihan Leo
+ *
+ */
 public class Main {
 	//
 	static final Logger LOGGER = Logger.getLogger(Main.class.getName());

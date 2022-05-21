@@ -28,6 +28,7 @@ import java.util.logging.Logger;
         @JsonSubTypes.Type(value = Rectangle.class, name = "rectangle"),
 		@JsonSubTypes.Type(value = Polygone.class, name = "polygon")
 })
+
 public class Shape {
 	private String type;
 	final Logger logger = Logger.getLogger(Shape.class.getName());
@@ -63,7 +64,6 @@ public class Shape {
 		return "";
 	}
 
-
 	public Optional<Circle> isCircle() {
 		if (this instanceof Circle current) {
 			return Optional.of(current);
@@ -78,6 +78,10 @@ public class Shape {
 		return Optional.empty();
 	}
 
+	/**
+	 * Computes a shape into segments
+	 * @param position position
+	 */
 	public void computeSegmentsIfPossible(Position position) {
 		if (this instanceof Rectangle currentRectangle) {
 			List<Segment> listSeg = GeometryRectangle.computeSegments(position, currentRectangle);
