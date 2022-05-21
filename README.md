@@ -42,7 +42,7 @@ Toutes les entités marines représentées sont réalisées à partir de balises
 Le back-end a été réalisé en PHP, et nous permet de stocker localement la dernière courses réalisé sur le runner
 
 ### Instruction pour lancer le tool :
-  -Il faut lancer le main du package simulation du tooling qui va générer le output.txt à la racine
-  -Aller dans tooling -> webtool et lancer la page index.html
-  -Remplacer le "x;y" par le contenu du output.txt dans le cadre en haut à gauche de la page web
-  -Cliquer sur start une fois et laisser la page se charger quelque secondes. 
+  -Il faut lancer le main du package simulation du tooling qui va générer le output.txt à la racine<br>
+  -Aller dans tooling -> webtool et lancer la page index.html<br>
+  -Remplacer le "x;y" par le contenu du output.txt dans le cadre en haut à gauche de la page web<br>
+  -Cliquer sur start une fois et laisser la page se charger quelque secondes
