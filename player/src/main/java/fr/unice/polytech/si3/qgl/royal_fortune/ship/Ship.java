@@ -95,11 +95,12 @@ public class Ship {
 				return  rudder;
 		return null;
 	}
-	public Sail getSail(){
+	public ArrayList<Sail> getSail(){
+		ArrayList<Sail> sailArrayList=new ArrayList<>();
 		for(Entities entity : entities)
 			if (entity instanceof Sail sail)
-				return sail;
-		return null;
+				sailArrayList.add(sail);
+		return sailArrayList;
 	}
 
 	public void setPosition(Position position){

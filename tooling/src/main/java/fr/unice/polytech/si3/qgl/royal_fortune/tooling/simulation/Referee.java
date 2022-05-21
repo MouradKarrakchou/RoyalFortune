@@ -135,7 +135,7 @@ public class Referee {
                 .filter(sailor -> isOnSail(sailor))
                 .count()>0) {
             sailOpenned = true;
-            ship.getSail().setOpenned(true);
+            ship.getSail().get(0).setOpenned(true);
         }
     }
 
@@ -145,8 +145,8 @@ public class Referee {
                 .filter(sailor -> isOnSail(sailor))
                 .count()>0)
         {sailOpenned = false;
-            ship.getSail().setOpenned(false);
-            }
+            ship.getSail().get(0).setOpenned(false);
+        }
 
     }
 
