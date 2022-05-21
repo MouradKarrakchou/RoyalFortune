@@ -133,12 +133,12 @@ class CockpitTest {
         Cockpit cockpit = new Cockpit(ship1, new ArrayList<>(), new Goal(), captain);
 
         cockpit.updateWithNextRound(nextRoundDAO);
-        assertTrue(ship1.getPosition().equals(ship2.getPosition()));
+        assertEquals(ship1.getPosition(), ship2.getPosition());
     }
 
     @Test
     void updateWithNextRoundShipEntities(){
-        List listShipEntities2 = new ArrayList<Entities>();
+        List<Entities> listShipEntities2 = new ArrayList<>();
         listShipEntities2.add(new Entities());
         Ship ship1 = new Ship("ship", 100, new Position(0,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
         Ship ship2 = new Ship("ship", 100, new Position(100,0,0), "bateau", new Deck(), listShipEntities2, new Shape());
@@ -147,12 +147,12 @@ class CockpitTest {
         Cockpit cockpit = new Cockpit(ship1, new ArrayList<>(), new Goal(), captain);
 
         cockpit.updateWithNextRound(nextRoundDAO);
-        assertTrue(ship1.getEntities().equals(ship2.getEntities()));
+        assertEquals(ship1.getEntities(), ship2.getEntities());
     }
 
     @Test
     void updateWithNextRoundSeaEntities(){
-        List listSeaEntities2 = new ArrayList<SeaEntities>();
+        List<SeaEntities> listSeaEntities2 = new ArrayList<>();
         listSeaEntities2.add(new SeaEntities());
         Ship ship1 = new Ship("ship", 100, new Position(0,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
         Ship ship2 = new Ship("ship", 100, new Position(100,0,0), "bateau", new Deck(), new ArrayList<>(), new Shape());
@@ -161,7 +161,7 @@ class CockpitTest {
         Cockpit cockpit = new Cockpit(ship1, new ArrayList<>(), new Goal(), captain);
 
         cockpit.updateWithNextRound(nextRoundDAO);
-        assertTrue(cockpit.getCaptain().getSeaEntities().equals(listSeaEntities2));
+        assertEquals(cockpit.getCaptain().getSeaEntities(), listSeaEntities2);
     }
 
     @Test
@@ -174,6 +174,6 @@ class CockpitTest {
         Cockpit cockpit = new Cockpit(ship1, new ArrayList<>(), new Goal(), captain);
 
         cockpit.updateWithNextRound(nextRoundDAO);
-        assertTrue(cockpit.getCaptain().getPreCalculator().getWind().equals(wind));
+        assertEquals(cockpit.getCaptain().getPreCalculator().getWind(), wind);
     }
 }

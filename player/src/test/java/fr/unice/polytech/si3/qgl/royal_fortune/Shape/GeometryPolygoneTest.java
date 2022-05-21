@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.qgl.royal_fortune;
+package fr.unice.polytech.si3.qgl.royal_fortune.Shape;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryPolygone;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Polygone;
@@ -52,6 +52,7 @@ class GeometryPolygoneTest {
         assertTrue(true);
     }
 
+    /*
     @Test
     void beaconPositionTest(){
         Point[] points = {
@@ -78,5 +79,5 @@ class GeometryPolygoneTest {
 
         assertTrue(Math.abs(15 + coef - beacons.get(3).getPosition().getX()) < ACCURACY);
         assertTrue(Math.abs(10 + coef - beacons.get(3).getPosition().getY()) < ACCURACY);
-    }
+    }*/
 }
