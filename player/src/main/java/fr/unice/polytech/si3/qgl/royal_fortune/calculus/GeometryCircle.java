@@ -42,11 +42,11 @@ public class GeometryCircle {
         double circleRadius = reefShape.getRadius();
         double reefPositionX = reefPosition.getX();
         double reefPositionY = reefPosition.getY();
-        NUMBER_OF_BEACONS = (int) Math.max(10, Math.ceil(150*circleRadius/1000));
+        NUMBER_OF_BEACONS = (int) Math.max(10, Math.ceil(120*circleRadius/1000));
 
         for(int i = 0; i < NUMBER_OF_BEACONS; i++) {
-            double rightBeaconX = reefPositionX + Math.cos(i * BEACON_SHIFT) * (circleRadius + Beacon.RADIUSBEACON*1.3);
-            double rightBeaconY = reefPositionY + Math.sin(i * BEACON_SHIFT) * (circleRadius + Beacon.RADIUSBEACON*1.3);
+            double rightBeaconX = reefPositionX + Math.cos(i * BEACON_SHIFT) * (circleRadius * (i%2 == 0 ? 1.2 : 1.4));
+            double rightBeaconY = reefPositionY + Math.sin(i * BEACON_SHIFT) * (circleRadius * (i%2 == 0 ? 1.2 : 1.4));
             Beacon rightBeacon = new Beacon(new Position(rightBeaconX, rightBeaconY));
             beaconList.add(rightBeacon);
         }

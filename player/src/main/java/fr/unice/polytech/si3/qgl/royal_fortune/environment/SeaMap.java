@@ -44,7 +44,7 @@ public class SeaMap {
         }
         observer.setNextCheckPointPosition(goal.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);
-        if (observer.checkIfNewSeaEntities(newSeaEntities) || roundSinceLastCheckpoint < 4 || recheck){
+        if (observer.checkIfNewSeaEntities(newSeaEntities) || roundSinceLastCheckpoint < 3 || recheck){
             this.seaEntities = observer.getCurrentSeaEntities();
             //observer.getCartologue().getListSeaEntities().clear();
             Stack<Beacon> beaconStack=observer.watchSea(observer.getCurrentSeaEntities());
