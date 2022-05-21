@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Vector;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.awt.*;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Segment {
@@ -115,5 +116,10 @@ public class Segment {
     @Override
     public String toString() {
         return "PointA: {"+pointA.getX()+";"+pointA.getY()+"}   PointB: {"+pointB.getX()+";"+pointB.getY()+"}";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pointA, pointB, length, a, b);
     }
 }
