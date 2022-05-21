@@ -37,12 +37,12 @@ class ObserverTest {
 
     @Test
     void watchSeaTest(){
-        Stream stream=new Stream(new Position(500,0,0), new Rectangle(100,100,Math.PI),1000000);
+        Stream stream=new Stream(new Position(500,0,0), new Rectangle(100,100,0),1000000);
         currentSeaEntities.add(stream);
         observer.setShipPosition(shipPosition);
         observer.setNextCheckPointPosition(nextCheckPointPosition);
         Stack<Beacon> beacons = observer.watchSea(currentSeaEntities);
-        assertEquals(0, beacons.size());
+        assertEquals("AYOUB REPART CE TEST STP", beacons.size());
     }
 
     @Test
