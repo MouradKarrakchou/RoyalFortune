@@ -9,6 +9,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 
 /**
@@ -46,6 +47,7 @@ public class Circle extends Shape{
             radius+= Cockpit.SECURITY_UPSCALE;
         super.updated=true;
     }
+
     @Override
     public boolean equals(Object object){
         if (!(object instanceof Circle circle))
@@ -55,9 +57,7 @@ public class Circle extends Shape{
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 31 * result + String.valueOf(radius).hashCode();
-        return result;
+        return Objects.hash(radius);
     }
 
     @Override

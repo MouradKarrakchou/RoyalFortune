@@ -2,6 +2,9 @@ package fr.unice.polytech.si3.qgl.royal_fortune.environment;
 
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Shape;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
+
+import java.util.Objects;
+
 public class Stream extends SeaEntities{
     int strength;
     public Stream(){}
@@ -13,6 +16,7 @@ public class Stream extends SeaEntities{
     public int getStrength() {
         return strength;
     }
+
     @Override
     public boolean equals(Object object){
         if (!(object instanceof Stream stream))
@@ -24,10 +28,6 @@ public class Stream extends SeaEntities{
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 31 * result + String.valueOf(position.getX()).hashCode();
-        result = 31 * result + Integer.parseInt(String.valueOf(strength));
-        result = 31 * result + String.valueOf(shape.getType()).hashCode();
-        return result;
+        return Objects.hash(super.hashCode(), strength);
     }
 }
