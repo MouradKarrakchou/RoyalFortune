@@ -101,7 +101,6 @@ public class Captain {
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail, needWatch);
         SailorMovementStrategy sailorMovementStrategy = new SailorMovementStrategy(sailors, ship, associations,preCalculator);
         SailorPlacement strategyAnswer = sailorMovementStrategy.askPlacement(sailorPlacement);
-        boolean a = strategyAnswer.hasSail();
         if(strategyAnswer.hasSail() && optionalSailDecision.isPresent())
             roundActions.addAll(crew.sailorsUseSail(optionalSailDecision.get()));
 
@@ -201,10 +200,14 @@ public class Captain {
     public Optional<Boolean> getSailDecision() {
         if(wind.getStrength() == 0.0) return Optional.empty();
 
-        boolean windGoodForUs =  (ship.getPosition().getOrientation()) < (wind.getOrientation() + Math.PI/2) && (ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2));
+        boolean windGoodForUs = (Math.abs(wind.getOrientation() - ship.getPosition().getOrientation()) < Math.PI/2);
 
-        boolean firstSailOpenned = ship.getSail().get(0).isOpenned();
-        boolean secondSailOpenned = ship.getSail().get(1).isOpenned();
+        List<Sail> sailList = ship.getSail();
+        boolean firstSailOpenned = sailList.get(0).isOpenned();
+        boolean secondSailOpenned = firstSailOpenned;
+        if(sailList.size() > 1) {
+            secondSailOpenned = sailList.get(1).isOpenned();
+        }
 
         Optional<Boolean> openSail = Optional.empty();
 

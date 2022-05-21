@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.Sailor;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Ship;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 
 import java.util.List;
 
@@ -49,13 +50,17 @@ public class PreCalculator {
         double newY = ship.getPosition().getY();
         double angle = ship.getPosition().getOrientation();
 
+        List<Sail> sailList = ship.getSail();
         double numberOfSailOpened = 0;
-        boolean firstSailOpened = ship.getSail().get(0).isOpenned();
-        boolean secondSailOpened = ship.getSail().get(1).isOpenned();
-        if(firstSailOpened) numberOfSailOpened++;
-        if(secondSailOpened) numberOfSailOpened++;
+        boolean firstSailOpenned = sailList.get(0).isOpenned();
+        if(firstSailOpenned) numberOfSailOpened++;
+        boolean secondSailOpenned = firstSailOpenned;
+        if(sailList.size() > 1) {
+            secondSailOpenned = sailList.get(1).isOpenned();
+            if(secondSailOpenned) numberOfSailOpened++;
+        }
 
-        if(ship.getSail() != null && (firstSailOpened || secondSailOpened)) {
+        if(ship.getSail() != null && (firstSailOpenned || secondSailOpenned)) {
             double windNorm = (numberOfSailOpened / ship.getSail().size()) * wind.getStrength() * Math.cos(wind.getOrientation() - angle);
 
             newX += windNorm * Math.cos(angle);
