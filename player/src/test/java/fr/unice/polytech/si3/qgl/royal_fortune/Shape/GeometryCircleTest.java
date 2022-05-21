@@ -91,8 +91,6 @@ class GeometryCircleTest {
     @Test
     void discriminantValuePositiveTest() {
         Segment segmentToWorkOn = new Segment(new Position(0,0), new Position(10, 0));
-        double segmentToWorkOnA = 0;
-        double segmentToWorkOnB = 1;
         Position pointASave = new Position(1, 2);
         Position pointBSave = new Position(2, 3);
         double discriminant = 0.000001;
@@ -112,8 +110,6 @@ class GeometryCircleTest {
     @Test
     void discriminantValuePositiveButIntersectionsNotOnSegmentTest() {
         Segment segmentToWorkOn = new Segment(new Position(0,0), new Position(10, 0));
-        double segmentToWorkOnA = 0;
-        double segmentToWorkOnB = 1;
         Position pointASave = new Position(1, 2);
         Position pointBSave = new Position(2, 3);
         double discriminant = 0.000001;
@@ -131,8 +127,6 @@ class GeometryCircleTest {
     @Test
     void discriminantValueZeroTest() {
         Segment segmentToWorkOn = new Segment(new Position(0,0), new Position(17, 0));
-        double segmentToWorkOnA = 1;
-        double segmentToWorkOnB = 0;
         Position pointASave = new Position(0, 0);
         Position pointBSave = new Position(17, 0);
         double discriminant = 0;
@@ -150,8 +144,6 @@ class GeometryCircleTest {
     @Test
     void discriminantValueZero2Test() {
         Segment segmentToWorkOn = new Segment(new Position(-4,-8), new Position(0, 4));
-        double segmentToWorkOnA = 3;
-        double segmentToWorkOnB = 4;
         Position pointASave = new Position(-4, -8);
         Position pointBSave = new Position(0, 4);
         double discriminant = 0;
@@ -169,8 +161,6 @@ class GeometryCircleTest {
     @Test
     void discriminantValueZeroButIntersectionNotOnSegmentTest() {
         Segment segmentToWorkOn = new Segment(new Position(0,0), new Position(10, 0));
-        double segmentToWorkOnA = 0;
-        double segmentToWorkOnB = 1;
         Position pointASave = new Position(1, 2);
         Position pointBSave = new Position(2, 3);
         double discriminant = 0;
@@ -179,7 +169,6 @@ class GeometryCircleTest {
         List<Position> intersectionList =  new ArrayList<>();
         Segment segment=new Segment(pointASave,pointBSave);
         Position circlePosition=new Position(circlePositionX,circlePositionY);
-
 
         GeometryCircle.discriminantValue(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
         assertEquals(0, intersectionList.size());
@@ -213,8 +202,6 @@ class GeometryCircleTest {
     @Test
     void zeroDiscriminantTest() {
         Segment segmentToWorkOn = new Segment(new Position(1958.6115846399198, -555.325402717619), new Position(1958.6115846399216, 567.540386430971));
-        double segmentToWorkOnA = 6.173019958003745E14;
-        double segmentToWorkOnB = -1.20905484019595699E18;
         Position pointASave = new Position(6106.437671596443, 4721.547561451762);
         Position pointBSave = new Position(6106.4376715964445, 5844.413350600352);
         double circlePositionX = 4147.826086956523;
@@ -242,8 +229,6 @@ class GeometryCircleTest {
     @Test
     void positiveDiscriminantTest() {
         Segment segmentToWorkOn = new Segment(new Position(-546.1814567862507, -721.6029491783202), new Position(-721.6029491783202, 546.1814567862502));
-        double segmentToWorkOnA = -7.227075705929207;
-        double segmentToWorkOnB = -4668.897686547256;
         Position pointASave = new Position(2427.731586692009, 2185.5631746001827);
         Position pointBSave = new Position(2252.3100942999395, 3453.347580564753);
         Segment segment=new Segment(pointASave,pointBSave);
@@ -269,8 +254,6 @@ class GeometryCircleTest {
     @Test
     void positiveDiscriminant2Test() {
         Segment segmentToWorkOn = new Segment(new Position(-1108.6956521739094, -1758.9576547231277), new Position(-471.48492234688365, -524.1440336391834));
-        double segmentToWorkOnA = 1.9378418524420347;
-        double segmentToWorkOnB = 389.51918167999065;
         Position pointASave = new Position(1865.2173913043503, 1148.2084690553752);
         Position pointBSave = new Position(2502.428121131376, 2383.0220901393195);
         double discriminant = 8846974.069128951;
@@ -288,8 +271,6 @@ class GeometryCircleTest {
     @Test
     void positiveDiscriminant3Test() {
         Segment segmentToWorkOn = new Segment(new Position(-1108.6956521739094, -1758.9576547231277), new Position(2517.725529782771, 5268.473086254841));
-        double segmentToWorkOnA = 1.9378418524420353;
-        double segmentToWorkOnB = 389.5191816799911;
         Position pointASave = new Position(1865.2173913043503, 1148.2084690553752);
         Position pointBSave = new Position(5491.638573261031, 8175.639210033344);
         double discriminant = 8846974.069128953;

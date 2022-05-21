@@ -59,13 +59,9 @@ public class GeometryCircle {
      */
     public static List<Position> computeIntersectionWith(Segment segment, Position circlePosition, Circle circle) {
         List<Position> intersectionList = new ArrayList<>();
-        Position pointASave = segment.getPointA();
-        Position pointBSave = segment.getPointB();
 
         Segment segmentToWorkOn = segmentToWorkOn(segment, circlePosition);
 
-        double circlePositionX = circlePosition.getX();
-        double circlePositionY = circlePosition.getY();
         double radius = circle.getRadius();
         double segmentToWorkOnA = segmentToWorkOn.getA();
         double segmentToWorkOnB = segmentToWorkOn.getB();
@@ -118,13 +114,7 @@ public class GeometryCircle {
     /**
      * Call the right method to add the intersections points considering the discriminant value
      * @param segmentToWorkOn segment on which we can work
-     * @param segmentToWorkOnA value of the line equation ax+b
-     * @param segmentToWorkOnB value of the line equation ax+b
-     * @param pointASave a save of the 'A' position of the segment
-     * @param pointBSave a save of the 'B' position of the segment
      * @param discriminant discriminant value
-     * @param circlePositionX x circle position
-     * @param circlePositionY y circle position
      * @param intersectionList intersection List
      */
     public static void discriminantValue(Segment segmentToWorkOn, Segment segment,double discriminant, Position circlePosition, List<Position> intersectionList) {
@@ -140,16 +130,12 @@ public class GeometryCircle {
     /**
      * Add the two intersections points to the intersectionList
      * @param segmentToWorkOn segment on which we can work
-     * @param segmentToWorkOnA value of the line equation ax+b
-     * @param segmentToWorkOnB value of the line equation ax+b
-     * @param pointASave a save of the 'A' position of the segment
-     * @param pointBSave a save of the 'B' position of the segment
+     * @param segment segment
      * @param discriminant discriminant value
-     * @param circlePositionX x circle position
-     * @param circlePositionY y circle position
+     * @param circlePosition position of the circle
      * @param intersectionList intersection List
      */
-    public static void positiveDiscriminant(Segment segmentToWorkOn, Segment segment,double discriminant, Position circlePosition, List<Position> intersectionList) {
+    public static void positiveDiscriminant(Segment segmentToWorkOn, Segment segment, double discriminant, Position circlePosition, List<Position> intersectionList) {
         Position pointASave = segment.getPointA();
         Position pointBSave = segment.getPointB();
 
@@ -190,12 +176,8 @@ public class GeometryCircle {
     /**
      * Add the only intersection point to the intersectionList
      * @param segmentToWorkOn segment on which we can work
-     * @param segmentToWorkOnA value of the line equation ax+b
-     * @param segmentToWorkOnB value of the line equation ax+b
-     * @param pointASave a save of the 'A' position of the segment
-     * @param pointBSave a save of the 'B' position of the segment
-     * @param circlePositionX x circle position
-     * @param circlePositionY y circle position
+     * @param segment segment
+     * @param circlePosition position of the circle
      * @param intersectionList intersection List
      */
     public static void zeroDiscriminant(Segment segmentToWorkOn, Segment segment, Position circlePosition, List<Position> intersectionList) {
