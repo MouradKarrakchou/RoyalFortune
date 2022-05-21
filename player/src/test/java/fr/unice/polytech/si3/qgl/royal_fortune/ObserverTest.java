@@ -39,12 +39,13 @@ class ObserverTest {
 
     @Test
     void watchSeaTest(){
+        Dijkstra.clearMap();
         Stream stream=new Stream(new Position(500,0,0), new Rectangle(100,100,0),1000000);
         currentSeaEntities.add(stream);
         observer.setShipPosition(shipPosition);
-        observer.setNextCheckPointPosition(nextCheckPointPosition);
+        observer.setNextCheckPointPosition(new Position(1000,100,0));
         Stack<Beacon> beacons = observer.watchSea(currentSeaEntities);
-        assertEquals("AYOUB REPART CE TEST STP", beacons.size());
+        assertTrue(beacons.size()>0);
     }
 
     @Test
