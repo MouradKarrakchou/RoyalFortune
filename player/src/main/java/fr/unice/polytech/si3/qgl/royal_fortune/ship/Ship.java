@@ -90,7 +90,7 @@ public class Ship {
 				return  rudder;
 		return null;
 	}
-	public ArrayList<Sail> getSail(){
+	public List<Sail> getSail(){
 		ArrayList<Sail> sailArrayList=new ArrayList<>();
 		for(Entities entity : entities)
 			if (entity instanceof Sail sail)

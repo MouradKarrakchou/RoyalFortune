@@ -49,8 +49,14 @@ public class PreCalculator {
         double newY = ship.getPosition().getY();
         double angle = ship.getPosition().getOrientation();
 
-        if(ship.getSail()!=null &&ship.getSail().isOpenned()) {
-            double windNorm = wind.getStrength() * Math.cos(wind.getOrientation() - angle);
+        double numberOfSailOpened = 0;
+        boolean firstSailOpened = ship.getSail().get(0).isOpenned();
+        boolean secondSailOpened = ship.getSail().get(1).isOpenned();
+        if(firstSailOpened) numberOfSailOpened++;
+        if(secondSailOpened) numberOfSailOpened++;
+
+        if(ship.getSail() != null && (firstSailOpened || secondSailOpened)) {
+            double windNorm = (numberOfSailOpened / ship.getSail().size()) * wind.getStrength() * Math.cos(wind.getOrientation() - angle);
 
             newX += windNorm * Math.cos(angle);
             newY += windNorm * Math.sin(angle);

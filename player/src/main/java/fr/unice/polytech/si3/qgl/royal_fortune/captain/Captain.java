@@ -83,16 +83,19 @@ public class Captain {
 
     public void roundProceed() {
         double angleMove = directionsManager.getAngleMove();
-
         int oarWeight = oarWeightNeeded(angleMove);
         double angleSailorsShouldMake = angleSailorsShouldMakeNeeded(oarWeight);
         Optional<Boolean> optionalSailDecision = Optional.empty();
-        if (ship.getSail()!=null)
+
+        if (ship.getSail() != null)
             optionalSailDecision = getSailDecision();
+
         boolean useSail = optionalSailDecision.isPresent();
         boolean needRudder = false;
+
         if (ship.getRudder()!=null)
             needRudder = getRudderDecision(angleMove, angleSailorsShouldMake);
+
         boolean needWatch = ship.getWatch() != null;
 
         SailorPlacement sailorPlacement = new SailorPlacement(oarWeight, needRudder, useSail, needWatch);
