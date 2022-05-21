@@ -46,15 +46,15 @@ public class Segment {
 
         Vector i=new Vector(segment);
         Vector j=new Vector(this);
-        Position a=segment.getPointA();
+        Position aa=segment.getPointA();
         Position c=this.pointA;
         if(i.x*j.y-i.y*j.x == 0)
             return Optional.empty();
-        double m = -(-i.x*a.getY()+i.x*c.getY()+i.y*a.getX()-i.y*c.getX())/(i.x*j.y-i.y*j.x);
-        double k = -(a.getX()*j.y-c.getX()*j.y-j.x*a.getY()+j.x*c.getY())/(i.x*j.y-i.y*j.x);
+        double m = -(-i.x*aa.getY()+i.x*c.getY()+i.y*aa.getX()-i.y*c.getX())/(i.x*j.y-i.y*j.x);
+        double k = -(aa.getX()*j.y-c.getX()*j.y-j.x*aa.getY()+j.x*c.getY())/(i.x*j.y-i.y*j.x);
         if (m>=1||m<=0||k>=1||k<=0)
             return Optional.empty();
-        return (Optional.of(new Position(a.getX()+k*i.x,a.getY()+k*i.y )));
+        return (Optional.of(new Position(aa.getX()+k*i.x,aa.getY()+k*i.y )));
     }
 
     public boolean pointInSegment(Position point){

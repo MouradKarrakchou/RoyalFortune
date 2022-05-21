@@ -11,7 +11,9 @@ import java.util.List;
 
 public class GeometryCircle {
 
-    public GeometryCircle() {}
+    public GeometryCircle() {
+        //Nothing needed
+    }
 
     /**
      * check if the rectangle is in the circle
