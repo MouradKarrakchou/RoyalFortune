@@ -7,7 +7,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.environment.shape.Circle;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Observer;
 
 import java.util.List;
-import java.util.Stack;
 
 public class SeaMap {
     private final Goal goal;

@@ -5,7 +5,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class DijkstraNode implements Comparable<DijkstraNode> {
     private final IPositionable nodeObject;

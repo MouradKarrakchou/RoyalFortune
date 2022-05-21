@@ -44,17 +44,17 @@ public class Segment {
                     return Optional.of(segment.pointB);
             }}
 
-        Vector I=new Vector(segment);
-        Vector J=new Vector(this);
-        Position A=segment.getPointA();
-        Position C=this.pointA;
-        if(I.x*J.y-I.y*J.x == 0)
+        Vector i=new Vector(segment);
+        Vector j=new Vector(this);
+        Position a=segment.getPointA();
+        Position c=this.pointA;
+        if(i.x*j.y-i.y*j.x == 0)
             return Optional.empty();
-        double m = -(-I.x*A.getY()+I.x*C.getY()+I.y*A.getX()-I.y*C.getX())/(I.x*J.y-I.y*J.x);
-        double k = -(A.getX()*J.y-C.getX()*J.y-J.x*A.getY()+J.x*C.getY())/(I.x*J.y-I.y*J.x);
+        double m = -(-i.x*a.getY()+i.x*c.getY()+i.y*a.getX()-i.y*c.getX())/(i.x*j.y-i.y*j.x);
+        double k = -(a.getX()*j.y-c.getX()*j.y-j.x*a.getY()+j.x*c.getY())/(i.x*j.y-i.y*j.x);
         if (m>=1||m<=0||k>=1||k<=0)
             return Optional.empty();
-        return (Optional.of(new Position(A.getX()+k*I.x,A.getY()+k*I.y )));
+        return (Optional.of(new Position(a.getX()+k*i.x,a.getY()+k*i.y )));
     }
 
     public boolean pointInSegment(Position point){
