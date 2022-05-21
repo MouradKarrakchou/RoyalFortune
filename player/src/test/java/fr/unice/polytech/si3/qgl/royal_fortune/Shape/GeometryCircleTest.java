@@ -9,7 +9,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Beacon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +68,7 @@ class GeometryCircleTest {
 
         assertNotEquals("", c.toString());
     }
-/*
+
     @Test
     void generateBeaconTest() {
         Position reefPosition = new Position(100, -10);
@@ -88,7 +87,7 @@ class GeometryCircleTest {
         assertEquals(100 + Math.cos(37*(2 * Math.PI) / 45) * (30 + Beacon.RADIUSBEACON), beaconList.get(37).getPosition().getX());
         assertEquals(-10 + Math.sin(37*(2 * Math.PI) / 45) * (30 + Beacon.RADIUSBEACON), beaconList.get(37).getPosition().getY());
 
-    }*/
+    }
 
     @Test
     void discriminantValuePositiveTest() {

@@ -110,7 +110,6 @@ class GeometryRectangleTest {
         assertTrue(res.size() > 0);
     }
 
-/*
     @Test
     void generateBeaconStreamTest(){
         Rectangle rectangle = new Rectangle(50, 70, 0);
@@ -131,7 +130,7 @@ class GeometryRectangleTest {
 
         assertTrue((Math.abs(res.get(3+k*4).getPosition().getX() - width+k*width/2)) < 0.2);
         assertTrue((Math.abs(res.get(3+k*4).getPosition().getY() + height)) < 0.2);}
-    }*/
+    }
 
     @Test
     void generateBeaconReefTest(){
