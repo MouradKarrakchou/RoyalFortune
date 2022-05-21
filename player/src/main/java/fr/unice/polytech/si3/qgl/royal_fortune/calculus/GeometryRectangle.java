@@ -51,8 +51,7 @@ public class GeometryRectangle {
      * @param segment a segment
      * @return the 2 positions of the intersection
      */
-    public static List<Position> computeIntersectionWith(Segment segment,Position seaEntitiesPos, Rectangle rectangle){
-        List<Segment> segmentList = rectangle.getSegmentList();
+    public static List<Position> computeIntersectionWith(Segment segment,Position seaEntitiesPos, List<Segment> segmentList){
         List<Position> intersectionsPosition = new ArrayList<>();
         Optional<Position> intersection;
         for(Segment seg : segmentList) {

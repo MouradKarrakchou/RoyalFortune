@@ -184,7 +184,7 @@ class GeometryRectangleTest {
         Position pointB = new Position(10,0,0);
 
         Segment s = new Segment(pointA, pointB);
-        List<Position> res = GeometryRectangle.computeIntersectionWith(s, rectanglePos,rectangle);
+        List<Position> res = GeometryRectangle.computeIntersectionWith(s, rectanglePos,rectangle.getSegmentList());
         assertEquals(2, res.size());
     }
 
