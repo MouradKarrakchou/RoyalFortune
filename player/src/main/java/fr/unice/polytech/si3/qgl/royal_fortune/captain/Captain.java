@@ -8,6 +8,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.captain.crewmates.SailorPlacement
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaMap;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.FictitiousCheckpoint;
+import fr.unice.polytech.si3.qgl.royal_fortune.ship.entities.Sail;
 import fr.unice.polytech.si3.qgl.royal_fortune.target.Goal;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Wind;
 import fr.unice.polytech.si3.qgl.royal_fortune.action.Action;
@@ -198,13 +199,16 @@ public class Captain {
         if(wind.getStrength() == 0.0) return Optional.empty();
 
         boolean windGoodForUs =  (ship.getPosition().getOrientation()) < (wind.getOrientation() + Math.PI/2) && (ship.getPosition().getOrientation() > (wind.getOrientation() - Math.PI/2));
-        boolean sailOpenned = ship.getSail().isOpenned();
+
+        boolean firstSailOpenned = ship.getSail().get(0).isOpenned();
+        boolean secondSailOpenned = ship.getSail().get(1).isOpenned();
+
         Optional<Boolean> openSail = Optional.empty();
 
-        if(windGoodForUs && !sailOpenned){
+        if(windGoodForUs && (!firstSailOpenned || !secondSailOpenned)){
             openSail = Optional.of(true);
         }
-        else if(!windGoodForUs && sailOpenned){
+        else if(!windGoodForUs && (firstSailOpenned || secondSailOpenned)) {
             openSail = Optional.of(false);
         }
 
