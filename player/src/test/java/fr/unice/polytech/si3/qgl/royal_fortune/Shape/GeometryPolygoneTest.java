@@ -64,7 +64,7 @@ class GeometryPolygoneTest {
         List<Beacon> beacons = GeometryPolygone.generateBeacon(new Position(12.5, 7.5), p);
 
         assertEquals(4, beacons.size());
-        double coef = Math.sqrt((150 * 150)/2.0);
+        double coef = Math.sqrt((160 * 160)/2.0);
 
         assertTrue(Math.abs(10 - coef - beacons.get(0).getPosition().getX()) < ACCURACY);
         assertTrue(Math.abs(5 - coef - beacons.get(0).getPosition().getY()) < ACCURACY);
