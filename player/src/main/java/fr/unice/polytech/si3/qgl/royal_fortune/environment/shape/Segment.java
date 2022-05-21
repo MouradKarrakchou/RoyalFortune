@@ -5,7 +5,6 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Vector;
 import fr.unice.polytech.si3.qgl.royal_fortune.ship.Position;
 
 import java.awt.*;
-import java.util.Objects;
 import java.util.Optional;
 
 public class Segment {

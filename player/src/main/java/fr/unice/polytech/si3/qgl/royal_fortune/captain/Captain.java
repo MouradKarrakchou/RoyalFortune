@@ -29,7 +29,6 @@ public class Captain {
     private Wind wind;
     private Associations associations;
     private List<SeaEntities> seaEntities;
-    private double angleRotationPreviousRound=0;
 
     public Captain(Ship ship, List<Sailor> sailors, Goal goal, FictitiousCheckpoint fictitiousCheckpoints, Wind wind) {
         this.ship = ship;
@@ -39,7 +38,7 @@ public class Captain {
         associations = new Associations();
         roundActions = new ArrayList<>();
         directionsManager = new DirectionsManager(ship, fictitiousCheckpoints);
-        seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(),wind,seaEntities);
+        seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
         preCalculator = new PreCalculator(ship, sailors, seaMap,wind);
         crew = new Crew(sailors, associations);
 
@@ -83,7 +82,6 @@ public class Captain {
 
     public void roundProceed() {
         double angleMove = directionsManager.getAngleMove();
-        angleRotationPreviousRound = angleMove;
 
         int oarWeight = oarWeightNeeded(angleMove);
         double angleSailorsShouldMake = angleSailorsShouldMakeNeeded(oarWeight);

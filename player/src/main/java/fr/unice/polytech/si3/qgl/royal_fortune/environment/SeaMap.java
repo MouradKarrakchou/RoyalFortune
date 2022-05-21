@@ -13,17 +13,13 @@ public class SeaMap {
     private final Goal goal;
     private FictitiousCheckpoint fictitiousCheckpoints;
     private final Position shipPosition;
-    private Wind wind;
-    private List<SeaEntities> seaEntities;
     int roundSinceLastCheckpoint;
     Observer observer;
 
-    public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition,Wind wind,List<SeaEntities> seaEntities){
+    public SeaMap(Goal goal,FictitiousCheckpoint fictitiousCheckpoints,Position shipPosition){
         this.goal=goal;
         this.fictitiousCheckpoints=fictitiousCheckpoints;
         this.shipPosition=shipPosition;
-        this.wind=wind;
-        this.seaEntities=seaEntities;
         observer=new Observer();
     }
     public void updateCheckPoint(List<SeaEntities> newSeaEntities) {
@@ -46,8 +42,6 @@ public class SeaMap {
         observer.setShipPosition(shipPosition);
 
         observer.updateSeaEntities(newSeaEntities);
-        this.seaEntities = observer.getCurrentSeaEntities();
-        //observer.getCartologue().getListSeaEntities().clear();
         Stack<Beacon> beaconStack=observer.watchSea(observer.getCurrentSeaEntities());
         fictitiousCheckpoints.addBeacons(beaconStack);
         roundSinceLastCheckpoint++;

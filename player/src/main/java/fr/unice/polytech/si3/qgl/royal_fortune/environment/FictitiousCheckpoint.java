@@ -87,7 +87,7 @@ public class FictitiousCheckpoint {
     public void addBeacons(Stack<Beacon> beaconStack) {
         removeAllBeacons();
         int i=0;
-        while (beaconStack.size()>0){
+        while (!beaconStack.isEmpty()){
             fictitiousCheckpoints.add(i,beaconStack.pop());
             i++;
         }

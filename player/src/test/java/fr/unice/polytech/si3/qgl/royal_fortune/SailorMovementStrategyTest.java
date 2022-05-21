@@ -710,7 +710,7 @@ class SailorMovementStrategyTest {
 
         Goal goal = new Goal("goal", checkpoints);
         FictitiousCheckpoint fictitiousCheckpoints = new FictitiousCheckpoint(checkpoints);
-        SeaMap seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition(), wind, null);
+        SeaMap seaMap = new SeaMap(goal, fictitiousCheckpoints, ship.getPosition());
 
         Associations associations = new Associations();
 
