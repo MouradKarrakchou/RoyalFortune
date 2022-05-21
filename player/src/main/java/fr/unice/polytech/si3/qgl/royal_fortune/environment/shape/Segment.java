@@ -116,4 +116,9 @@ public class Segment {
     public String toString() {
         return "PointA: {"+pointA.getX()+";"+pointA.getY()+"}   PointB: {"+pointB.getX()+";"+pointB.getY()+"}";
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pointA, pointB);
+    }
 }

@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Cartologue;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryCircle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.GeometryRectangle;
 import fr.unice.polytech.si3.qgl.royal_fortune.calculus.Mathematician;
+import fr.unice.polytech.si3.qgl.royal_fortune.calculus.dijkstra.Dijkstra;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Reef;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.SeaEntities;
 import fr.unice.polytech.si3.qgl.royal_fortune.environment.Stream;
@@ -48,18 +49,15 @@ public class Observer {
     /**
      * Check in half-circle all the seaEntities in RANGE. If newSeaEntities is different from currentSeaEntities return true.
      * @param newSeaEntities a potential new sea entity
-     * @return boolean
      */
-    public Boolean checkIfNewSeaEntities(List<SeaEntities> newSeaEntities){
-        boolean newSeaEntitybool=false;
+    public void updateSeaEntities(List<SeaEntities> newSeaEntities){
         for (SeaEntities newSeaEntity : newSeaEntities){
             newSeaEntity.getShape();
             if (!currentSeaEntities.contains(newSeaEntity)){
-                newSeaEntitybool=true;
+                Dijkstra.clearMap();
                 currentSeaEntities.add(newSeaEntity);
             }
         }
-        return newSeaEntitybool;
     }
 
     /**

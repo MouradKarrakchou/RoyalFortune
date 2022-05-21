@@ -31,17 +31,20 @@ public class SeaMap {
             recheck=true;
             roundSinceLastCheckpoint=0;
         }
-        if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint())) {
+        if (isInCheckpoint(fictitiousCheckpoints.getCurrentCheckPoint()))
+        {
+            //observer.getCartologue().getListSeaEntities().clear();
             recheck=true;
             fictitiousCheckpoints.nextCheckPoint();
+            //roundSinceLastCheckpoint=0;
         }
         observer.setNextCheckPointPosition(goal.getCurrentCheckPoint().getPosition());
         observer.setShipPosition(shipPosition);
-        if (observer.checkIfNewSeaEntities(newSeaEntities) || roundSinceLastCheckpoint < 3 || recheck){
-            Stack<Beacon> beaconStack=observer.watchSea(observer.getCurrentSeaEntities());
-            fictitiousCheckpoints.addBeacons(beaconStack);
-            roundSinceLastCheckpoint++;
-        }
+
+        observer.updateSeaEntities(newSeaEntities);
+        Stack<Beacon> beaconStack=observer.watchSea(observer.getCurrentSeaEntities());
+        fictitiousCheckpoints.addBeacons(beaconStack);
+        roundSinceLastCheckpoint++;
     }
     public boolean isInCheckpoint(Checkpoint checkpoint) {
         return(isInCheckpointShipPos(checkpoint,shipPosition.getX(),shipPosition.getY()));
