@@ -119,6 +119,14 @@ public class Segment {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Segment segment = (Segment) o;
+        return Double.compare(segment.length, length) == 0 && Double.compare(segment.a, a) == 0 && Double.compare(segment.b, b) == 0 && Objects.equals(pointA, segment.pointA) && Objects.equals(pointB, segment.pointB);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(pointA, pointB);
     }
