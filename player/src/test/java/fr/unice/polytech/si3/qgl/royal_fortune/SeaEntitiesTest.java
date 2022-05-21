@@ -37,8 +37,8 @@ class SeaEntitiesTest {
     void getShapeTest(){
         SeaEntities stream1= new Stream(new Position(200,0),new Rectangle(100,100,0),50);
         assertEquals(100,((Rectangle)stream1.getShapeForTool()).getWidth());
-        assertEquals(110,((Rectangle)stream1.getShape()).getWidth());
-        assertEquals(110,((Rectangle)stream1.getShape()).getHeight());
+        assertEquals(130,((Rectangle)stream1.getShape()).getWidth());
+        assertEquals(130,((Rectangle)stream1.getShape()).getHeight());
     }
 
     @Test

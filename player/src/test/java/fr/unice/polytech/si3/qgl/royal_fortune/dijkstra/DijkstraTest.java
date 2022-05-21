@@ -33,7 +33,7 @@ class DijkstraTest {
         Cartologue cartologue = new Cartologue(new ArrayList<>(), new ArrayList<>());
         Position departurePosition = new Position(0, 0);
         Position arrivalPosition = new Position(500, 500);
-        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        List<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
         assertEquals(0, beaconPath.size());
     }
 
@@ -49,9 +49,9 @@ class DijkstraTest {
 
         Position departurePosition = new Position(0, 0);
         Position arrivalPosition = new Position(0, 1000);
-        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        List<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
         assertEquals(1, beaconPath.size());
-        assertEquals(beacon00, beaconPath.pop());
+        assertEquals(beacon00, beaconPath.remove(0));
     }
 
     @Test
@@ -75,10 +75,10 @@ class DijkstraTest {
 
         Position departurePosition = new Position(0, 0);
         Position arrivalPosition = new Position(1000, 500);
-        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        List<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
         assertEquals(2, beaconPath.size());
-        assertEquals(beacon02, beaconPath.pop());
-        assertEquals(beacon03, beaconPath.pop());
+        assertEquals(beacon02, beaconPath.remove(0));
+        assertEquals(beacon03, beaconPath.remove(0));
     }
 
     @Test
@@ -103,7 +103,7 @@ class DijkstraTest {
 
         Position departurePosition = new Position(0, 0);
         Position arrivalPosition = new Position(1000, 1000);
-        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        List<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
         assertEquals(1, beaconPath.size());
     }
 
@@ -125,11 +125,11 @@ class DijkstraTest {
 
         Position departurePosition = new Position(0, 0);
         Position arrivalPosition = new Position(1000, -100);
-        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        List<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
 
         assertEquals(2, beaconPath.size());
-        assertEquals(beacon01, beaconPath.pop());
-        assertEquals(beacon02, beaconPath.pop());
+        assertEquals(beacon01, beaconPath.remove(0));
+        assertEquals(beacon02, beaconPath.remove(0));
     }
 
     @Test
@@ -144,8 +144,8 @@ class DijkstraTest {
 
         Position departurePosition = new Position(200, 200);
         Position arrivalPosition = new Position(1000, 1000);
-        Stack<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
+        List<Beacon> beaconPath = Dijkstra.proceedDijkstra(departurePosition, arrivalPosition, cartologue, beaconList);
         assertEquals(1, beaconPath.size());
-        assertEquals(beacon00, beaconPath.pop());
+        assertEquals(beacon00, beaconPath.remove(0));
     }
 }

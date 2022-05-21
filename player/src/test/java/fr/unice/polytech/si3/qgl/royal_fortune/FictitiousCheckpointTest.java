@@ -154,9 +154,9 @@ class FictitiousCheckpointTest {
 
         fictitiousCheckpoints.addBeacons(beaconStack);
         List<Checkpoint> checkpoints = fictitiousCheckpoints.getFictitiousCheckpoints();
-        assertEquals(2, checkpoints.get(0).getPosition().getX());
+        assertEquals(0, checkpoints.get(0).getPosition().getX());
         assertEquals(1, checkpoints.get(1).getPosition().getX());
-        assertEquals(0, checkpoints.get(2).getPosition().getX());
+        assertEquals(2, checkpoints.get(2).getPosition().getX());
 
         beaconStack = new Stack<>();
         beaconStack.add(new Beacon(new Position(4, 0, 0)));

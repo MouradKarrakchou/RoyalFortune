@@ -65,7 +65,7 @@ public class Observer {
      * @param newSeaEntities a potential new sea entity
      * @return If return empty we target the checkpoint else we target the Beacon
      */
-    public Stack<Beacon> watchSea(List<SeaEntities> newSeaEntities){
+    public List<Beacon> watchSea(List<SeaEntities> newSeaEntities){
         //this.currentSeaEntities=newSeaEntities;
         List<Beacon> beacons=new ArrayList<>();
         for (SeaEntities seaEntities:newSeaEntities){

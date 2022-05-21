@@ -22,7 +22,7 @@ public class Mathematician {
      * @param listBeacon list of beacons
      * @return the best beacon to go through or empty
      */
-    public Stack<Beacon> computeTrajectory(List<Beacon> listBeacon,Position departure,Position arrival){
+    public List<Beacon> computeTrajectory(List<Beacon> listBeacon,Position departure,Position arrival){
         return Dijkstra.proceedDijkstra(departure,arrival,cartologue,listBeacon);
     }
 

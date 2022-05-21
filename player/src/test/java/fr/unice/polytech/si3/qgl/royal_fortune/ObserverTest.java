@@ -44,7 +44,7 @@ class ObserverTest {
         currentSeaEntities.add(stream);
         observer.setShipPosition(shipPosition);
         observer.setNextCheckPointPosition(new Position(1000,100,0));
-        Stack<Beacon> beacons = observer.watchSea(currentSeaEntities);
+        List<Beacon> beacons = observer.watchSea(currentSeaEntities);
         assertTrue(beacons.size()>0);
     }
 
@@ -54,7 +54,7 @@ class ObserverTest {
         currentSeaEntities.add(reef);
         observer.setShipPosition(shipPosition);
         observer.setNextCheckPointPosition(new Position(1000,100,0));
-        Stack<Beacon> beacons =observer.watchSea(currentSeaEntities);
+        List<Beacon> beacons =observer.watchSea(currentSeaEntities);
         assertEquals(1, beacons.size());
     }
 
