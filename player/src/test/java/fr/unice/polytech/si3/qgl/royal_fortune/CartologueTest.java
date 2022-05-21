@@ -99,10 +99,10 @@ class CartologueTest {
         List<Segment> cartoCut = cartologue.cutSegment(segment, false);
         assertEquals(3,cartoCut.size());
         assertEquals(0,cartoCut.get(0).getPointA().getX());
-        assertEquals(135,cartoCut.get(0).getPointB().getX());
-        assertEquals(135,cartoCut.get(1).getPointA().getX());
-        assertEquals(265,cartoCut.get(1).getPointB().getX());
-        assertEquals(265,cartoCut.get(2).getPointA().getX());
+        assertEquals(145,cartoCut.get(0).getPointB().getX());
+        assertEquals(145,cartoCut.get(1).getPointA().getX());
+        assertEquals(255,cartoCut.get(1).getPointB().getX());
+        assertEquals(255,cartoCut.get(2).getPointA().getX());
         assertEquals(1000,cartoCut.get(2).getPointB().getX());
         assertEquals(stream, map.get(cartoCut.get(1)));
         assertFalse(map.containsKey(cartoCut.get(0)));
@@ -119,10 +119,10 @@ class CartologueTest {
         List<Segment> cartoCut = cartologue.cutSegment(segment, false);
         assertEquals(3,cartoCut.size());
         assertEquals(0,cartoCut.get(0).getPointA().getY());
-        assertEquals(135,cartoCut.get(0).getPointB().getY());
-        assertEquals(135,cartoCut.get(1).getPointA().getY());
-        assertEquals(265,cartoCut.get(1).getPointB().getY());
-        assertEquals(265,cartoCut.get(2).getPointA().getY());
+        assertEquals(145,cartoCut.get(0).getPointB().getY());
+        assertEquals(145,cartoCut.get(1).getPointA().getY());
+        assertEquals(255,cartoCut.get(1).getPointB().getY());
+        assertEquals(255,cartoCut.get(2).getPointA().getY());
         assertEquals(1000,cartoCut.get(2).getPointB().getY());
         assertEquals(stream, map.get(cartoCut.get(1)));
         assertFalse(map.containsKey(cartoCut.get(0)));
@@ -157,10 +157,10 @@ class CartologueTest {
 
         assertEquals(0, cartoCut.get(0).getPointA().getX());
         assertEquals(0, cartoCut.get(0).getPointA().getY());
-        assertEquals(250, cartoCut.get(0).getPointB().getX());
+        assertEquals(260, cartoCut.get(0).getPointB().getX());
         assertEquals(0, cartoCut.get(0).getPointB().getY());
 
-        assertEquals(250, cartoCut.get(1).getPointA().getX());
+        assertEquals(260, cartoCut.get(1).getPointA().getX());
         assertEquals(0, cartoCut.get(1).getPointA().getY());
         assertEquals(300, cartoCut.get(1).getPointB().getX());
         assertEquals(0, cartoCut.get(1).getPointB().getY());
@@ -184,10 +184,10 @@ class CartologueTest {
 
         assertEquals(0, cartoCut.get(0).getPointA().getX());
         assertEquals(0, cartoCut.get(0).getPointA().getY());
-        assertEquals(250, cartoCut.get(0).getPointB().getX());
+        assertEquals(260, cartoCut.get(0).getPointB().getX());
         assertEquals(0, cartoCut.get(0).getPointB().getY());
 
-        assertEquals(250, cartoCut.get(1).getPointA().getX());
+        assertEquals(260, cartoCut.get(1).getPointA().getX());
         assertEquals(0, cartoCut.get(1).getPointA().getY());
         assertEquals(300, cartoCut.get(1).getPointB().getX());
         assertEquals(0, cartoCut.get(1).getPointB().getY());
