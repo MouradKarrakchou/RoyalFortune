@@ -87,7 +87,7 @@ public class Captain {
         double angleSailorsShouldMake = angleSailorsShouldMakeNeeded(oarWeight);
         Optional<Boolean> optionalSailDecision = Optional.empty();
 
-        if (ship.getSail() != null)
+        if (!ship.getSail().isEmpty())
             optionalSailDecision = getSailDecision();
 
         boolean useSail = optionalSailDecision.isPresent();
@@ -202,19 +202,18 @@ public class Captain {
 
         boolean windGoodForUs = (Math.abs(wind.getOrientation() - ship.getPosition().getOrientation()) < Math.PI/2);
 
+        List<Boolean> sailsOpenedList = new ArrayList<>();
         List<Sail> sailList = ship.getSail();
-        boolean firstSailOpenned = sailList.get(0).isOpenned();
-        boolean secondSailOpenned = firstSailOpenned;
-        if(sailList.size() > 1) {
-            secondSailOpenned = sailList.get(1).isOpenned();
+        for(Sail sail : sailList) {
+            sailsOpenedList.add(sail.isOpenned());
         }
 
         Optional<Boolean> openSail = Optional.empty();
 
-        if(windGoodForUs && (!firstSailOpenned || !secondSailOpenned)){
+        if(windGoodForUs && sailsOpenedList.contains(false)){
             openSail = Optional.of(true);
         }
-        else if(!windGoodForUs && (firstSailOpenned || secondSailOpenned)) {
+        else if(!windGoodForUs && sailsOpenedList.contains(true)) {
             openSail = Optional.of(false);
         }
 
