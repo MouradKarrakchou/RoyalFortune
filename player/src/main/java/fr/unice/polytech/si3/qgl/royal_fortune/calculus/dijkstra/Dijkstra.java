@@ -9,6 +9,8 @@ import fr.unice.polytech.si3.qgl.royal_fortune.target.Route;
 import java.util.*;
 
 public class Dijkstra {
+    private static final Map<Integer, Double> routeMap = new HashMap<>();
+
     /**
      * For a given list of Beacons, will proceed the Dijkstra algorithm to find the shortest path possible.
      * @param departure - The position of the departure point.
@@ -51,11 +53,7 @@ public class Dijkstra {
 
         for (DijkstraNode node : availableNodes){
             // Creating a route between the currentNode and one of the possible node.
-            Segment segment = new Segment(currentNode.getNode().getPosition(), node.getNode().getPosition());
-            Route route = new Route(segment, cartologue);
-
-            // If the calculated path is shorter than the older one, we update the node.
-            double newNodeValue = route.getValue() + currentNode.getNodeValue();
+            double newNodeValue = getRouteValue(currentNode.getNode().getPosition(), node.getNode().getPosition(), cartologue) + currentNode.getNodeValue();
             if(newNodeValue < node.getNodeValue()){
                 node.setNodeValue(newNodeValue);
                 node.setPreviousNode(currentNode);
@@ -74,5 +72,16 @@ public class Dijkstra {
         List<DijkstraNode> dijkstraNodes = new ArrayList<>();
         beacons.forEach(beacon -> dijkstraNodes.add(new DijkstraNode(beacon)));
         return dijkstraNodes;
+    }
+
+    private static double getRouteValue(Position a, Position b, Cartologue cartologue){
+        Segment s = new Segment(a, b);
+        int hash = s.hashCode();
+        if(!routeMap.containsKey(hash))
+             routeMap.put(hash, new Route(s, cartologue).getValue());
+        return routeMap.get(hash);
+    }
+    public static void clearMap(){
+        routeMap.clear();
     }
 }

@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AssociationsTest {
+class AssociationsTest {
 
     @Test
     void toStringTest(){
         Associations asso = new Associations();
-        assertEquals(asso.toString(), "{}");
+        assertEquals("{}", asso.toString());
     }
 
     @Test
     void sizeTest(){
         Associations asso = new Associations();
         asso.addAssociation(new Sailor(), new Entities());
-        assertEquals(asso.size(), 1);
+        assertEquals(1, asso.size());
     }
 
     @Test
@@ -45,6 +45,6 @@ public class AssociationsTest {
     void addAssociationTest(){
         Associations asso = new Associations();
         asso.addAssociation(new Sailor(), new Entities());
-        assertEquals(asso.size(), 1);
+        assertEquals(1, asso.size());
     }
 }

@@ -13,6 +13,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
@@ -108,12 +109,8 @@ public class Polygone extends Shape{
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(orientation);
-        result = (int) (temp ^ (temp >>> 32));
+        int result = Objects.hash(orientation, segmentList);
         result = 31 * result + Arrays.hashCode(vertices);
-        result = 31 * result + (segmentList != null ? segmentList.hashCode() : 0);
         return result;
     }
 }

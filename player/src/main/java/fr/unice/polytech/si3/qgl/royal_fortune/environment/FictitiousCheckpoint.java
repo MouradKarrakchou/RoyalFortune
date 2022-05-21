@@ -47,6 +47,9 @@ public class FictitiousCheckpoint {
      * @return The fictional checkpoint.
      */
     public Checkpoint createFictitiousCheckpoint(Checkpoint currentCheckpoint, Checkpoint nextCheckPoint) {
+        if(((Circle) currentCheckpoint.getShape()).getRadius() < 200)
+            return currentCheckpoint;
+
         double currentCheckpointX = currentCheckpoint.getPosition().getX();
         double currentCheckpointY = currentCheckpoint.getPosition().getY();
         double nextCheckPointX = nextCheckPoint.getPosition().getX();
@@ -84,7 +87,7 @@ public class FictitiousCheckpoint {
     public void addBeacons(Stack<Beacon> beaconStack) {
         removeAllBeacons();
         int i=0;
-        while (beaconStack.size()>0){
+        while (!beaconStack.isEmpty()){
             fictitiousCheckpoints.add(i,beaconStack.pop());
             i++;
         }

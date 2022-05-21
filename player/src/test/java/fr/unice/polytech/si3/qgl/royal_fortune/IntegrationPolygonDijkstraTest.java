@@ -20,7 +20,7 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class IntegrationPolygonDijkstraTest {
+class IntegrationPolygonDijkstraTest {
 
     @Test
     void integrationTest(){
