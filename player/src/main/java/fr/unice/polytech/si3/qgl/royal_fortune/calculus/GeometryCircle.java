@@ -72,7 +72,7 @@ public class GeometryCircle {
 
         double discriminant = discriminant(segmentToWorkOnA, segmentToWorkOnB, radius);
 
-        discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
+        discriminantValue(segmentToWorkOn,segment,discriminant,circlePosition, intersectionList);
 
         intersectionList.add(0,segment.getPointA());
         intersectionList.add( segment.getPointB());
@@ -127,13 +127,13 @@ public class GeometryCircle {
      * @param circlePositionY y circle position
      * @param intersectionList intersection List
      */
-    public static void discriminantValue(Segment segmentToWorkOn, double segmentToWorkOnA, double segmentToWorkOnB, Position pointASave, Position pointBSave, double discriminant, double circlePositionX, double circlePositionY, List<Position> intersectionList) {
+    public static void discriminantValue(Segment segmentToWorkOn, Segment segment,double discriminant, Position circlePosition, List<Position> intersectionList) {
         if(discriminant > 0) {
-            positiveDiscriminant(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
+            positiveDiscriminant(segmentToWorkOn, segment, discriminant, circlePosition, intersectionList);
         }
 
         else if (discriminant == 0) {
-            zeroDiscriminant(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, circlePositionX, circlePositionY, intersectionList);
+            zeroDiscriminant(segmentToWorkOn, segment, circlePosition, intersectionList);
         }
     }
 
@@ -149,7 +149,18 @@ public class GeometryCircle {
      * @param circlePositionY y circle position
      * @param intersectionList intersection List
      */
-    public static void positiveDiscriminant(Segment segmentToWorkOn, double segmentToWorkOnA, double segmentToWorkOnB, Position pointASave, Position pointBSave, double discriminant, double circlePositionX, double circlePositionY, List<Position> intersectionList) {
+    public static void positiveDiscriminant(Segment segmentToWorkOn, Segment segment,double discriminant, Position circlePosition, List<Position> intersectionList) {
+        Position pointASave = segment.getPointA();
+        Position pointBSave = segment.getPointB();
+
+        double circlePositionX = circlePosition.getX();
+        double circlePositionY = circlePosition.getY();
+
+        double segmentToWorkOnA = segmentToWorkOn.getA();
+        double segmentToWorkOnB = segmentToWorkOn.getB();
+
+
+
         double firstSolution = (-2 * segmentToWorkOnA * segmentToWorkOnB + Math.sqrt(discriminant)) / (2 * (Math.pow(segmentToWorkOnA, 2) + 1));
         double secondSolution = (-2 * segmentToWorkOnA * segmentToWorkOnB - Math.sqrt(discriminant)) / (2 * (Math.pow(segmentToWorkOnA, 2) + 1));
 
@@ -187,7 +198,15 @@ public class GeometryCircle {
      * @param circlePositionY y circle position
      * @param intersectionList intersection List
      */
-    public static void zeroDiscriminant(Segment segmentToWorkOn, double segmentToWorkOnA, double segmentToWorkOnB, Position pointASave, Position pointBSave, double circlePositionX, double circlePositionY, List<Position> intersectionList) {
+    public static void zeroDiscriminant(Segment segmentToWorkOn, Segment segment, Position circlePosition, List<Position> intersectionList) {
+        Position pointASave = segment.getPointA();
+        Position pointBSave = segment.getPointB();
+
+        double circlePositionX = circlePosition.getX();
+        double circlePositionY = circlePosition.getY();
+
+        double segmentToWorkOnA = segmentToWorkOn.getA();
+        double segmentToWorkOnB = segmentToWorkOn.getB();
         double onlySolution = (-2 * segmentToWorkOnA * segmentToWorkOnB) / (2 * (Math.pow(segmentToWorkOnA, 2) + 1));
         Position position = new Position(onlySolution, segmentToWorkOnA * onlySolution + segmentToWorkOnB);
         Position realPosition = realPosition(onlySolution, segmentToWorkOnA, segmentToWorkOnB, circlePositionX, circlePositionY);

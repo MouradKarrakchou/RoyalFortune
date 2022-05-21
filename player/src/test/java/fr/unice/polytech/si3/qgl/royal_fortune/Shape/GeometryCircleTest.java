@@ -99,8 +99,11 @@ class GeometryCircleTest {
         double circlePositionX = 4;
         double circlePositionY = 5;
         List<Position> intersectionList =  new ArrayList<>();
+        Segment segment=new Segment(pointASave,pointBSave);
+        Position circlePosition=new Position(circlePositionX,circlePositionY);
 
-        GeometryCircle.discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
+
+        GeometryCircle.discriminantValue(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
 
         intersectionList.add(0, new Position(0,0)); //triche
         assertEquals(1, intersectionList.size());
@@ -117,9 +120,11 @@ class GeometryCircleTest {
         double circlePositionX = 4;
         double circlePositionY = 5;
         List<Position> intersectionList =  new ArrayList<>();
+        Segment segment=new Segment(pointASave,pointBSave);
+        Position circlePosition=new Position(circlePositionX,circlePositionY);
 
-        GeometryCircle.discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
 
+        GeometryCircle.discriminantValue(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
         assertEquals(0, intersectionList.size());
     }
 
@@ -134,9 +139,11 @@ class GeometryCircleTest {
         double circlePositionX = 8;
         double circlePositionY = 3;
         List<Position> intersectionList =  new ArrayList<>();
+        Segment segment=new Segment(pointASave,pointBSave);
+        Position circlePosition=new Position(circlePositionX,circlePositionY);
 
-        GeometryCircle.discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
 
+        GeometryCircle.discriminantValue(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
         assertEquals(1, intersectionList.size());
     }
 
@@ -151,9 +158,11 @@ class GeometryCircleTest {
         double circlePositionX = 3;
         double circlePositionY = -3;
         List<Position> intersectionList =  new ArrayList<>();
+        Segment segment=new Segment(pointASave,pointBSave);
+        Position circlePosition=new Position(circlePositionX,circlePositionY);
 
-        GeometryCircle.discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
 
+        GeometryCircle.discriminantValue(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
         assertEquals(1, intersectionList.size());
     }
 
@@ -168,9 +177,11 @@ class GeometryCircleTest {
         double circlePositionX = 4;
         double circlePositionY = 5;
         List<Position> intersectionList =  new ArrayList<>();
+        Segment segment=new Segment(pointASave,pointBSave);
+        Position circlePosition=new Position(circlePositionX,circlePositionY);
 
-        GeometryCircle.discriminantValue(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant, circlePositionX, circlePositionY, intersectionList);
 
+        GeometryCircle.discriminantValue(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
         assertEquals(0, intersectionList.size());
     }
 
@@ -209,8 +220,10 @@ class GeometryCircleTest {
         double circlePositionX = 4147.826086956523;
         double circlePositionY = 5276.872964169381;
         List<Position> intersectionList = new ArrayList<>();
+        Segment segment=new Segment(pointASave,pointBSave);
+        Position circlePosition=new Position(circlePositionX,circlePositionY);
 
-        GeometryCircle.zeroDiscriminant(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, circlePositionX, circlePositionY, intersectionList);
+        GeometryCircle.zeroDiscriminant(segmentToWorkOn, segment,circlePosition, intersectionList);
 
         assertEquals(1, intersectionList.size());
         assertEquals(6106.437671596444, intersectionList.get(0).getX());
@@ -233,12 +246,14 @@ class GeometryCircleTest {
         double segmentToWorkOnB = -4668.897686547256;
         Position pointASave = new Position(2427.731586692009, 2185.5631746001827);
         Position pointBSave = new Position(2252.3100942999395, 3453.347580564753);
+        Segment segment=new Segment(pointASave,pointBSave);
         double discriminant = 1.8633379671894073E7;
         double circlePositionX = 2973.9130434782596;
         double circlePositionY = 2907.166123778503;
+        Position circlePosition=new Position(circlePositionX,circlePositionY);
         List<Position> intersectionList = new ArrayList<>();
 
-        GeometryCircle.positiveDiscriminant(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant,circlePositionX, circlePositionY, intersectionList);
+        GeometryCircle.positiveDiscriminant(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
 
         assertEquals(2, intersectionList.size());
 
@@ -261,9 +276,11 @@ class GeometryCircleTest {
         double discriminant = 8846974.069128951;
         double circlePositionX = 2973.9130434782596;
         double circlePositionY = 2907.166123778503;
+        Segment segment=new Segment(pointASave,pointBSave);
+        Position circlePosition=new Position(circlePositionX,circlePositionY);
         List<Position> intersectionList = new ArrayList<>();
 
-        GeometryCircle.positiveDiscriminant(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant,circlePositionX, circlePositionY, intersectionList);
+        GeometryCircle.positiveDiscriminant(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
 
         assertEquals(0, intersectionList.size());
     }
@@ -278,9 +295,11 @@ class GeometryCircleTest {
         double discriminant = 8846974.069128953;
         double circlePositionX = 2973.9130434782596;
         double circlePositionY = 2907.166123778503;
+        Segment segment=new Segment(pointASave,pointBSave);
+        Position circlePosition=new Position(circlePositionX,circlePositionY);
         List<Position> intersectionList = new ArrayList<>();
 
-        GeometryCircle.positiveDiscriminant(segmentToWorkOn, segmentToWorkOnA, segmentToWorkOnB, pointASave, pointBSave, discriminant,circlePositionX, circlePositionY, intersectionList);
+        GeometryCircle.positiveDiscriminant(segmentToWorkOn, segment, discriminant,circlePosition, intersectionList);
 
         assertEquals(2, intersectionList.size());
 
