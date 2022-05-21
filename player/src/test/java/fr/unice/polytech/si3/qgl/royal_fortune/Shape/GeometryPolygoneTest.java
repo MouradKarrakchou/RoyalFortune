@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.util.List;
 
-import static fr.unice.polytech.si3.qgl.royal_fortune.Cockpit.SECURITY_UPSCALE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -52,7 +51,6 @@ class GeometryPolygoneTest {
         assertTrue(true);
     }
 
-    /*
     @Test
     void beaconPositionTest(){
         Point[] points = {
@@ -79,5 +77,5 @@ class GeometryPolygoneTest {
 
         assertTrue(Math.abs(15 + coef - beacons.get(3).getPosition().getX()) < ACCURACY);
         assertTrue(Math.abs(10 + coef - beacons.get(3).getPosition().getY()) < ACCURACY);
-    }*/
+    }
 }
