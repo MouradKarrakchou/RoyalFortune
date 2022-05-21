@@ -72,7 +72,7 @@ public class Polygone extends Shape{
 
     @Override
     public List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos) {
-        return GeometryPolygone.computeIntersectionWith(segment, seaEntitiesPos, this);
+        return GeometryPolygone.computeIntersectionWith(segment, seaEntitiesPos, this.getSegmentList());
     }
 
     @Override

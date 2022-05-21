@@ -12,7 +12,7 @@ import java.util.List;
 public class GeometryCircle {
 
     public GeometryCircle() {
-        //No elements needed
+        throw new IllegalStateException("Utility class");
     }
 
     /**
@@ -162,16 +162,16 @@ public class GeometryCircle {
 
         boolean conditionWithPosition1real = !pointASave.equals(position1real) && !pointBSave.equals(position1real);
         boolean conditionWithPosition2real = !pointASave.equals(position2real) && !pointBSave.equals(position2real);
-        boolean Position1Position2InSegment = segmentToWorkOn.pointInSegment(position1) && segmentToWorkOn.pointInSegment(position2);
+        boolean position1Position2InSegment = segmentToWorkOn.pointInSegment(position1) && segmentToWorkOn.pointInSegment(position2);
         boolean conditionOnDistances = Mathematician.distanceFormula(position1,pointASave) > Mathematician.distanceFormula(position2,pointASave);
 
-        if(Position1Position2InSegment && conditionOnDistances) {
+        if(position1Position2InSegment && conditionOnDistances) {
             if (conditionWithPosition1real) intersectionList.add(position1real);
 
             if (conditionWithPosition2real) intersectionList.add(position2real);
         }
 
-        else if(Position1Position2InSegment){
+        else if(position1Position2InSegment){
             if (conditionWithPosition2real) intersectionList.add(position2real);
 
             if (conditionWithPosition1real) intersectionList.add(position1real);

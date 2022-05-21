@@ -59,7 +59,7 @@ Rectangle extends Shape{
 
 	@Override
 	public List<Position> computeIntersectionWith(Segment segment, Position seaEntitiesPos) {
-		return GeometryRectangle.computeIntersectionWith(segment, seaEntitiesPos, this);
+		return GeometryRectangle.computeIntersectionWith(segment, seaEntitiesPos, this.getSegmentList());
 	}
 
 	@Override

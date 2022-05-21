@@ -29,7 +29,7 @@ class GeometryPolygoneTest {
         Polygone polygone = new Polygone(vertices, Math.PI/2);
         polygone.updatePolygone(reefPosition);
         polygone.computeSegmentsIfPossible(reefPosition);
-        List<Position> positionList = GeometryPolygone.computeIntersectionWith(segment, reefPosition, polygone);
+        List<Position> positionList = GeometryPolygone.computeIntersectionWith(segment, reefPosition, polygone.getSegmentList());
 
         List<Beacon> beaconList = GeometryPolygone.generateBeacon(reefPosition, polygone);
 
