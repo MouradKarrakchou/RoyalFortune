@@ -12,6 +12,15 @@ Royal Fortune's crew
 # Ship Name
 Royal Fortune
 
+# English recap
+
+For the Software Quality course , we created a Java program that can manage to compete in various Boat races with checkpoints,obstacles of various Shape and stream with different strength and directions. Each week there is a new race and weekly delivery code. It has a simulator that can create and simulate the run. 
+The optimisation of the road taken by creating numerous roads that could be the optimal one by using vectors and geometrics and finaly using a dijsktra algorithm on those roads to combine some of them and create the optimal road.
+Sonarqube metrics, and mutation testing has been used to keep the code well tested. 
+A Branching Strategy has been used to always have a stable version of the code on master.
+
+
+#French version:
 
 # Contexte
 Dans le cadre de la course de bateau du module QGL, nous avons réalisé un bot en Java communiquant en JSON capable de naviguer dans différentes courses comportant chacune leurs singularités.
