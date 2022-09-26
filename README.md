@@ -2,9 +2,9 @@
 
 # Crew members
 * [BONNET Kilian](https://github.com/KilianBonnet)
-* [IMAMI Ayoub](https://github.com/AyoubIMAMI)
-* [LE BIHAN Léo](https://github.com/LeBihanLeo)
 * [KARRAKCHOU Mourad](https://github.com/MouradKarrakchou)
+* [LE BIHAN Léo](https://github.com/LeBihanLeo)
+* [IMAMI Ayoub](https://github.com/AyoubIMAMI)
 
 # Crew name
 Royal Fortune's crew
