@@ -1,5 +1,3 @@
-![](/flag.png)
-
 # Crew members
 * [BONNET Kilian](https://github.com/KilianBonnet)
 * [KARRAKCHOU Mourad](https://github.com/MouradKarrakchou)
